@@ -1,0 +1,53 @@
+=================================================
+Envoi de mail suite à un évènement sur le portail
+=================================================
+
+Définition
+==========
+Mettre en place une notification par mail lorsqu'un document change d'état.
+
+Savoir
+======
+- Standard de codage `PEP 8`_ et `Docstring conventions`_
+- mécanisme d'évènements de zope 3
+- création d'un template de mail
+- deboguage d'un script Python avec pdb
+
+
+Codage du fichier source
+========================
+Sous Python 2.x, les fichiers sources sont lu en ASCII. Sous Python 3, en UTF-8 par défaut.
+Si vous voulez inclure des accents dans votre code source, vous devez spécifiez le codage utf-8 en ajoutant en première ou deuxième ligne : ::
+
+    # -*- coding: utf-8 -*-
+
+Consultez la `PEP 263`_ pour plus de détails.
+
+Ressources
+==========
+- module python email
+- créer un mail html
+- créer un mail text
+- créer un mail via une template
+- envoyer avec MailHost.secureSend, option debug=True pratique
+- voir comment il traite le mail dans Products/SecureMailHost/SecureMailHost.py
+- la methode send utilise l'ancien système d'envoie de mail avec les anciennes librairies python...
+
+voir exemple de code ExtranetPRIVR/scripts/sendPasswords.py
+
+Possible exercice : 
+créer un formulaire avec plone.app.z3cform pour envoyer les mails
+
+API Plone
+=========
+- listage des documents expirés
+- listage des utilisateurs
+- modifier l'état d'un document
+
+Exercice
+========
+Mise en pratique sur le composant « base de connaissances »
+
+.. _`PEP 263`: http://www.python.org/dev/peps/pep-0263/
+.. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
+.. _`Docstring conventions`: http://www.python.org/dev/peps/pep-0257/

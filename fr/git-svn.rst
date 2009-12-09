@@ -1,0 +1,1 @@
+- `http://blog.garbas.si/2009/3/7/how-to-use-git-with-collective-svn` <how to use git with collective (svn)>`__

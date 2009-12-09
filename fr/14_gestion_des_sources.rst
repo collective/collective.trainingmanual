@@ -1,0 +1,89 @@
+======================================
+La gestion des sources avec subversion
+======================================
+
+Définition
+==========
+Le but est d'acquérir les connaissances de gestionnaire de code source subversion utilisé par la communauté Plone.
+
+Savoir
+======
+- Création d'un dépôt
+- Dump d'un dépôt
+- Utilisation de subversion en ligne de commande
+- Commandes :
+   add
+   cat 
+   changelist (cl) 
+   checkout (co) 
+   cleanup 
+   commit (ci) 
+   copy (cp) 
+   delete (del, remove, rm) 
+   diff (di) 
+   export 
+   help (?, h) 
+   import 
+   info 
+   list (ls) 
+   lock 
+   log 
+   merge 
+   mergeinfo 
+   mkdir 
+   move (mv, rename, ren) 
+   propdel (pdel, pd) 
+   propedit (pedit, pe) 
+   propget (pget, pg) 
+   proplist (plist, pl) 
+   propset (pset, ps) 
+   resolve 
+   resolved 
+   revert 
+   status (stat, st) 
+   switch (sw) 
+   unlock 
+   update (up)
+
+- `Introduction à subversion`_
+- `Un livre de référence : svnbook Red Bean`_
+
+.. _`Introduction à subversion`: http://dev.nozav.org/intro_svn.html
+.. _`Un livre de référence : svnbook Red Bean`: http://svnbook.red-bean.com
+
+
+Création d'un dépôt
+===================
+http://doc.ubuntu-fr.org/subversion
+
+Création et configuraton d'un dépôt à travers Apache : ::
+
+    $ sudo apt-get install apache2 libapache2-svn subversion
+    $ sudo vim /etc/apache2/mods-enabled/dav_svn.conf
+    <Location /Formation>
+        DAV svn
+        SVNPath /home/svn/Formation
+        AuthType Basic
+        AuthName "Subversion Repository"
+        AuthUserFile /etc/apache2/dav_svn.passwd
+        Require valid-user
+    </Location>
+    $ /etc/init.d/apache2 restart
+    $ htpasswd -cs /etc/apache2/dav_svn.passwd anthony
+    $ htpasswd -s /etc/apache2/dav_svn.passwd vincent
+    $ htpasswd -s /etc/apache2/dav_svn.passwd stephane
+    $ mkdir /home/svn
+    $ svnadmin create /home/svn/Formation
+    $ chown -R www-data:www-data /home/svn/Formation
+
+Installation du client subversion
+=================================
+Sous Linux : ::
+
+    $ apt-get install subversion
+
+Sous Windows, installez SlickSVN à partir du site http://subversion.tigris.org
+
+Exercice
+========
+L'outil sera utilisé tout au long de la formation.

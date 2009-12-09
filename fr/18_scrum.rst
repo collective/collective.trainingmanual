@@ -1,0 +1,33 @@
+===================================
+Sensibilisation aux méthodes agiles
+===================================
+
+Les méthodes agiles telles que SCRUM sont parfaitement adaptées à la gestion des projets open source comme le développement de portails basés sur Plone.
+
+Savoir
+======
+- itérations/sprints, releases
+- radiateur d'informations
+- stand up meeting
+- calcul de la vélocité
+- planning poker
+- eXtreme Programming
+- code review
+- refactoring
+- pair programming
+
+Ressources
+==========
+- `L'organisation d'une équipe de développement logiciel, Emmanuel CHENU`_
+- `Article de Martin Aspeli sur scrum pour gérer un projet GSOC`_
+- `Scrum sur Wikipedia`_
+- `Blog de Claude Aubry sur scrum et l'agilité`_
+
+.. _`L'organisation d'une équipe de développement logiciel, Emmanuel CHENU`: http://www.agilex.fr/2008/09/bravo-manu/
+.. _`Article de Martin Aspeli sur scrum pour gérer un projet GSOC`: http://www.martinaspeli.net/articles/distributed-agile
+.. _`Scrum sur Wikipedia`: http://fr.wikipedia.org/wiki/Scrum
+.. _`Blog de Claude Aubry sur scrum et l'agilité`: http://www.aubryconseil.com/
+
+Exercice
+========
+Mise en pratique de certains concepts tout au long de la formation.
