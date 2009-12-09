@@ -50,4 +50,5 @@ Formation à Plone 3
 .. include:: munin.rst
 .. include:: git-svn.rst
 .. include:: agx.rst
+.. include:: external_editor.rst
 
