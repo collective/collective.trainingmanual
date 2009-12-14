@@ -175,7 +175,7 @@ Zope 3 et ZCA
 -------------
 - Article Zope Component Architecture (ZCA) dans Linux Magazine hors-série n°40
 - `Web Component Development with Zope 3 <http://worldcookery.com/>`__, Third Edition, Philipp von Weitershausen
-- `A Comprehensive Guide to Zope Component Architecture <http://plone.org/documentation/books/guide-to-zca>`__
+- `A Comprehensive Guide to Zope Component Architecture <http://plone.org/documentation/books/guide-to-zca>`__ et sa `traduction française <http://ccomb.gorfou.fr/2009/12/9/le-guide-complet-de-l-architecture-de-composants-de-zope>`__
 - `Zope 3 Components <http://wiki.zope.org/zope3/ZopeGuideComponents>`__
 - `Zope 3 Interface <http://wiki.zope.org/zope3/ZopeGuideInterfaces>`__
 - `Grok Configuration Phase and its Extension <http://exploring-grok.blogspot.com/2009/01/grok-configuration-phase-and-its.html>`__
