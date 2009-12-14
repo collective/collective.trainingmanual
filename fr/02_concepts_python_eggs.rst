@@ -18,9 +18,9 @@ Savoir
 Dans ce qui suit, je considère que vous êtes sous Ubuntu avec les packages suivants d'installés : ::
 
     apt-get install python2.4 python2.4-dev
-    
+
 Sous Ubuntu <= 8.10 : ::
-   
+
     apt-get install python-setuptools
 
 Sous Ubuntu >= 9.04 : ::
@@ -30,9 +30,9 @@ Sous Ubuntu >= 9.04 : ::
 
 Sous Windows, installez Python 2.6 via le *msi installer* et installez setuptools de la manière suivante :
 
-- Depuis http://peak.telecommunity.com/DevCenter/setuptools, 
+- Depuis http://peak.telecommunity.com/DevCenter/setuptools,
   téléchargez http://peak.telecommunity.com/dist/ez_setup.py
-- exécutez ``python ez_setup.py`` 
+- exécutez ``python ez_setup.py``
 
 Sous Ubuntu <= 8.10, vous pouvez installer la bibliothèque PIL en installant le package Ubuntu *python-imaging*, pour les versions plus récentes d'Ubuntu, il est nécessaire de compiler nous même la librairie comme nous le verrons par la suite.
 
@@ -40,7 +40,7 @@ Sous Ubuntu <= 8.10, vous pouvez installer la bibliothèque PIL en installant le
 Packaging Python
 ================
 Un package Python peut être distribué sous la forme d'une simple archive (zip ou tar.gz).
-Python inclu la librairie `disutils`_ afin de réaliser ces distributions, 
+Python inclu la librairie `disutils`_ afin de réaliser ces distributions,
 mais celle-ci ne gère pas les dépendances entre packages.
 setuptools est une extension à disutils qui ajoute de nombreuses fonctionnalités :
 
@@ -84,7 +84,7 @@ Lorsque vous exécutez ``easy_install zope.interface``, voici ce qui est exactem
   Cette page contient une liste d'url où l'on peut télécharger directement l'egg, mais
   également tous les urls contenus dans la description longue du egg.
 - la liste fournie sur cette page est ensuite filtré de la manière suivante :
- 
+
   - on donne priorité au egg binaire (bdist egg) qu'à la distribution source (sdist)
   - on garde les packages lié à l'OS, donc si on est sous Windows, les eggs ayant win32 sont gardés
   - seul les eggs utilisant la version de Python qu'on est en train d'utiliser sont gardés
@@ -99,7 +99,7 @@ cette fois parmi tous les find-links (éventuellement filtré par l'option -H/--
     easy_install --find-links http://pkg.example.com/packages/ monpackage
 
 Vous pouvez par exemple autoriser seulement les connections vers votre intranet et pypi : ::
- 
+
     easy_install -H *.myintranet.example.com,*.python.org zope.interface
 
 L'option *-H/--allow-hosts* permet aussi par exemple d'installer un package sans le réseau, en interdissant toutes les urls
@@ -120,7 +120,7 @@ Voir aussi le projet pour créer et/ou utiliser des `miroirs de pypi`_.
 
 Si l'on veut utiliser un miroir ou un index privé par exemple. Nous traiterons le cas d'un index privé avec le produit `PloneSoftwareCenter`_ par la suite.
 
-.. _`miroirs de pypi`: http://www.openplans.org/projects/pypi-mirroring/project-home    
+.. _`miroirs de pypi`: http://www.openplans.org/projects/pypi-mirroring/project-home
 
 Télécharger un package sans l'installer
 ---------------------------------------
@@ -153,7 +153,7 @@ Dans Python, vous avez dans sys.path la liste des chemins dans lesquels on peut 
     >>> import sys
     >>> sys.path
     ['', '/usr/lib/python2.4', '/usr/lib/python2.4/plat-linux2', '/usr/lib/python2.4/lib-tk', '/usr/lib/python2.4/lib-dynload', '/usr/local/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages/Numeric', '/usr/lib/python2.4/site-packages/PIL', '/usr/lib/python2.4/site-packages/gst-0.10', '/var/lib/python-support/python2.4', '/usr/lib/python2.4/site-packages/gtk-2.0', '/var/lib/python-support/python2.4/gtk-2.0']
-    
+
 Créons un environnement nommé *myenv* : ::
 
     $ virtualenv myenv
@@ -167,7 +167,7 @@ Ce que fait cette commande peut se résumer plus ou moins à ces commandes : ::
     installation de setuptools dans cet environnement, ce qui génère les commandes
     bin/easy_install et bin/easy_install-2.4 (c'est le même exécutable)
     et la création d'un script bin/activate
- 
+
 Notez que python (sans suffixe) est ici la version 2.5 sous Ubuntu 8.04 et 8.10 : ::
 
     $ which python
@@ -196,15 +196,15 @@ Maintenant c'est le python de l'environnement, qui est un Python 2.4 : ::
     Python 2.4.5
 
 Maintenant regardons le sys.path : ::
-    
+
     (myenv)$ python
     >>> import sys
     >>> sys.path
     ['', '/home/vincentfretin/myenv/lib/python2.4/site-packages/setuptools-0.6c9-py2.4.egg', '/home/vincentfretin/myenv/lib/python2.4', '/home/vincentfretin/myenv/lib/python2.4/plat-linux2', '/home/vincentfretin/myenv/lib/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/lib-dynload', '/usr/lib/python2.4', '/usr/lib64/python2.4', '/usr/lib/python2.4/plat-linux2', '/usr/lib/python2.4/lib-tk', '/usr/lib64/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/site-packages', '/usr/local/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages/Numeric', '/usr/lib/python2.4/site-packages/PIL', '/usr/lib/python2.4/site-packages/gst-0.10', '/var/lib/python-support/python2.4', '/usr/lib/python2.4/site-packages/gtk-2.0', '/var/lib/python-support/python2.4/gtk-2.0']
-      
+
 Vous voyez que les chemins vers les dossiers globaux sont toujours inclus mais que les premiers sont ceux de notre environnement.
 En effet vous pouvez utiliser la librairie PIL qui est installé globalement : ::
-   
+
     >>> import PIL
     >>>
 
@@ -252,7 +252,7 @@ virtualenv possède une option *-p* pour préciser un exécutable python alterna
 
 Nous allons utiliser ce nouvel environnement pour installer `Fabric`_ qui nécessite Python >= 2.5.
 Vérifiez que vous avez la package Ubuntu python2.5-dev ou python2.6-dev d'installé, il est nécessaire pour compiler pycrypto, une dépendance de Fabric.
-Fabric est un outil pour scripter les deploiements. La version 0.9a3 n'est pas encore sur Pypi, donc nous n'allons pas
+Fabric est un outil pour scripter les deploiements. Nous n'allons pas
 utiliser ``easy_install Fabric`` ici, mais récupérer l'archive pour l'installer.
 
 .. _`Fabric`: http://www.fabfile.org
@@ -279,7 +279,7 @@ Tous les eggs ne sont pas installés zippés. C'est le mainteneur du package qui
 Un package n'est par exemple pas zipe-safe s'il utilise la variable spéciale __file__ dans son code.
 
 Vous vous demandez à quoi sert ces fichiers *setuptools.pth* et *easy-install.pth* n'est-ce pas ?
-Un petit rappel Python va vous faire du bien alors. 
+Un petit rappel Python va vous faire du bien alors.
 
 Que contient ces fichiers .pth (pour path) ? Comme son extension le suggère, ces fichiers contiennent une liste
 de chemins où l'on peut trouver des packages : ::
@@ -316,7 +316,7 @@ Nous allons profiter de cette désintallation pour revenir sur le fichier .pth.
 Notez bien que nous avons dans le sys.path setuptools, Fabric et paramiko, dans le même ordre que listé dans easy-install.pth : ::
 
     (myenv25)vincentfretin@lelouch:~/myenv25$ python
-    Python 2.5.2 (r252:60911, Oct  5 2008, 19:29:17) 
+    Python 2.5.2 (r252:60911, Oct  5 2008, 19:29:17)
     [GCC 4.3.2] on linux2
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import sys
@@ -325,14 +325,14 @@ Notez bien que nous avons dans le sys.path setuptools, Fabric et paramiko, dans 
 
 Maintenant supprimons le egg de Fabric : ::
 
-    (myenv25)vincentfretin@lelouch:~/myenv25$ rm lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg 
+    (myenv25)vincentfretin@lelouch:~/myenv25$ rm lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg
 
 Mais nous n'avons pas supprimé l'entrée dans *easy-install.pth*.
 Allons nous encore avoir */home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg* dans le sys.path ?
 Voyons voir : ::
 
     (myenv25)vincentfretin@lelouch:~/myenv25$ python
-    Python 2.5.2 (r252:60911, Oct  5 2008, 19:29:17) 
+    Python 2.5.2 (r252:60911, Oct  5 2008, 19:29:17)
     [GCC 4.3.2] on linux2
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import sys
@@ -430,7 +430,7 @@ Il n'y a pas beaucoup de templates par défaut.
 
 Installez le egg *ZopeSkel* qui fournit divers templates
 et reéxécutez la commande : ::
-    
+
     $ paster create --list-templates
     Available templates:
       archetype:          A Plone project that uses Archetypes
@@ -476,15 +476,15 @@ Créez votre premier egg : ::
       project:  foo.bar
     Enter namespace_package (Namespace package (like plone)) ['plone']: foo
     Enter package (The package contained namespace package (like example)) ['example']: bar
-    Enter version (Version) ['1.0']: 
+    Enter version (Version) ['1.0']:
     Enter description (One-line description of the package) ['']: My first package
-    Enter long_description (Multi-line description (in reST)) ['']: 
+    Enter long_description (Multi-line description (in reST)) ['']:
     Enter author (Author name) ['']: Vincent Fretin
     Enter author_email (Author email) ['']: vincent.fretin@ecreall.com
-    Enter keywords (Space-separated keywords/tags) ['']: 
-    Enter url (URL of homepage) ['']: 
-    Enter license_name (License name) ['GPL']: 
-    Enter zip_safe (True/False: if the package can be distributed as a .zip file) [False]: 
+    Enter keywords (Space-separated keywords/tags) ['']:
+    Enter url (URL of homepage) ['']:
+    Enter license_name (License name) ['GPL']:
+    Enter zip_safe (True/False: if the package can be distributed as a .zip file) [False]:
     Creating template basic_namespace
     Creating directory ./foo.bar
       Recursing into +namespace_package+
@@ -578,7 +578,7 @@ Et le "hello world" me dirait vous ? Bien je vois que vous avez l'habitude.
     print "Hello"
 
 Réimportez votre module : ::
-    
+
     $ python
     >>> import foo.bar
     Hello
@@ -586,7 +586,7 @@ Réimportez votre module : ::
 Éditez le fichier foo/bar/__init__.py et ajoutez-y : ::
 
     print "world!"
-    
+
 Réimportez le module : ::
 
     $ python
