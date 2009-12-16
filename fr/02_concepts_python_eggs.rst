@@ -8,7 +8,7 @@ Les Python eggs sont des packages distribuables. La notion de egg doit être bie
 
 Savoir
 ======
-- setuptools
+- distribute/setuptools
 - environnement isolé avec virtualenv
 - création d'un egg avec paster
 - metadata (description au format ReST, dépendances, extras)
@@ -19,36 +19,29 @@ Dans ce qui suit, je considère que vous êtes sous Ubuntu avec les packages sui
 
     apt-get install python2.4 python2.4-dev
 
-Sous Ubuntu <= 8.10 : ::
+Sous Ubuntu : ::
 
-    apt-get install python-setuptools
+    wget http://python-distribute.org/distribute_setup.py
+    python distribute_setup.py
 
-Sous Ubuntu >= 9.04 : ::
+Sous Windows, installez Python 2.6 via le *msi installer* et installez setuptools de la manière suivante : ::
 
-    wget http://pypi.python.org/packages/2.4/s/setuptools/setuptools-0.6c9-py2.4.egg
-    sh setuptools-0.6c9-py2.4.egg
-
-Sous Windows, installez Python 2.6 via le *msi installer* et installez setuptools de la manière suivante :
-
-- Depuis http://peak.telecommunity.com/DevCenter/setuptools,
-  téléchargez http://peak.telecommunity.com/dist/ez_setup.py
-- exécutez ``python ez_setup.py``
-
-Sous Ubuntu <= 8.10, vous pouvez installer la bibliothèque PIL en installant le package Ubuntu *python-imaging*, pour les versions plus récentes d'Ubuntu, il est nécessaire de compiler nous même la librairie comme nous le verrons par la suite.
-
+	Depuis http://peak.telecommunity.com/DevCenter/setuptools,
+	téléchargez http://python-distribute.org/distribute_setup.py
+	exécutez ``python ez_setup.py``
 
 Packaging Python
 ================
 Un package Python peut être distribué sous la forme d'une simple archive (zip ou tar.gz).
 Python inclu la librairie `disutils`_ afin de réaliser ces distributions,
 mais celle-ci ne gère pas les dépendances entre packages.
-setuptools est une extension à disutils qui ajoute de nombreuses fonctionnalités :
+distribute est un fork de setuptools, une extension à disutils qui ajoute de nombreuses fonctionnalités :
 
 - dépendances (metadata install_requires)
 - distribution binaire, egg
 - entry points
 
-Le package `setuptools`_ fournit la commande ``easy_intall`` qui permet d'installer un package donné : ::
+Le package `distribute`_ fournit la commande ``easy_intall`` qui permet d'installer un package donné : ::
 
     easy_install zope.interface
 
@@ -65,7 +58,7 @@ Il y a également `pip`_ qui lui propose un moyen alternatif à easy_install pou
 
 .. _`disutils`: http://docs.python.org/library/distutils.html
 .. _`pip`: http://pypi.python.org/pypi/pip
-.. _`setuptools`: http://pypi.python.org/pypi/setuptools
+.. _`distribute`: http://pypi.python.org/pypi/distribute
 
 Installation d'un egg
 ---------------------
@@ -76,11 +69,11 @@ Son adresse : http://pypi.python.org/pypi
 Lorsque vous installez un package Python via easy_install, c'est sur cet index que le package est recherché.
 En effet l'index par défaut est l'url suivante : *http://pypi.python.org/simple*
 
-Lorsque vous exécutez ``easy_install zope.interface``, voici ce qui est exactement fait :
+Exécutez ``easy_install PIL``, voici ce qui est exactement fait :
 
 - connexion à l'index http://pypi.python.org/simple
 - recherche de zope.interface dans la liste des liens, si lien trouvé, on suit le lien
-- nous arrivons donc sur http://pypi.python.org/simple/zope.interface/
+- nous arrivons donc sur http://pypi.python.org/simple/PIL/
   Cette page contient une liste d'url où l'on peut télécharger directement l'egg, mais
   également tous les urls contenus dans la description longue du egg.
 - la liste fournie sur cette page est ensuite filtré de la manière suivante :
@@ -156,7 +149,7 @@ Dans Python, vous avez dans sys.path la liste des chemins dans lesquels on peut 
 
 Créons un environnement nommé *myenv* : ::
 
-    $ virtualenv myenv
+    $ virtualenv myenv --distribute
 
 Ce que fait cette commande peut se résumer plus ou moins à ces commandes : ::
 
@@ -164,11 +157,11 @@ Ce que fait cette commande peut se résumer plus ou moins à ces commandes : ::
     $ cp /usr/bin/python2.4 myenv/bin/python
     $ cp /usr/bin/python2.4 myenv/bin/python2.4
     création de liens symboliques vers les modules de la librairies standard
-    installation de setuptools dans cet environnement, ce qui génère les commandes
+    installation de distribute (ou setuptools à défaut du paramètre --distribute) dans cet environnement, ce qui génère les commandes
     bin/easy_install et bin/easy_install-2.4 (c'est le même exécutable)
     et la création d'un script bin/activate
 
-Notez que python (sans suffixe) est ici la version 2.5 sous Ubuntu 8.04 et 8.10 : ::
+Notez que python (sans suffixe) est la version 2.5 sous Ubuntu 8.04 et 8.10 : ::
 
     $ which python
     /usr/bin/python
@@ -200,7 +193,7 @@ Maintenant regardons le sys.path : ::
     (myenv)$ python
     >>> import sys
     >>> sys.path
-    ['', '/home/vincentfretin/myenv/lib/python2.4/site-packages/setuptools-0.6c9-py2.4.egg', '/home/vincentfretin/myenv/lib/python2.4', '/home/vincentfretin/myenv/lib/python2.4/plat-linux2', '/home/vincentfretin/myenv/lib/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/lib-dynload', '/usr/lib/python2.4', '/usr/lib64/python2.4', '/usr/lib/python2.4/plat-linux2', '/usr/lib/python2.4/lib-tk', '/usr/lib64/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/site-packages', '/usr/local/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages/Numeric', '/usr/lib/python2.4/site-packages/PIL', '/usr/lib/python2.4/site-packages/gst-0.10', '/var/lib/python-support/python2.4', '/usr/lib/python2.4/site-packages/gtk-2.0', '/var/lib/python-support/python2.4/gtk-2.0']
+    ['', '/home/vincentfretin/myenv/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg', '/home/vincentfretin/myenv/lib/python2.4', '/home/vincentfretin/myenv/lib/python2.4/plat-linux2', '/home/vincentfretin/myenv/lib/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/lib-dynload', '/usr/lib/python2.4', '/usr/lib64/python2.4', '/usr/lib/python2.4/plat-linux2', '/usr/lib/python2.4/lib-tk', '/usr/lib64/python2.4/lib-tk', '/home/vincentfretin/myenv/lib/python2.4/site-packages', '/usr/local/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages', '/usr/lib/python2.4/site-packages/Numeric', '/usr/lib/python2.4/site-packages/PIL', '/usr/lib/python2.4/site-packages/gst-0.10', '/var/lib/python-support/python2.4', '/usr/lib/python2.4/site-packages/gtk-2.0', '/var/lib/python-support/python2.4/gtk-2.0']
 
 Vous voyez que les chemins vers les dossiers globaux sont toujours inclus mais que les premiers sont ceux de notre environnement.
 En effet vous pouvez utiliser la librairie PIL qui est installé globalement : ::
@@ -242,7 +235,7 @@ Le dossier PIL n'est plus là, comme l'atteste l'exception ImportError : ::
 Ici, nous avons installé virtualenv avec ``easy_install-2.4``, comment créer un environnement avec une autre version de Python?
 virtualenv possède une option *-p* pour préciser un exécutable python alternatif : ::
 
-    $ virtualenv -p /usr/bin/python --no-site-packages myenv25
+    $ virtualenv -p /usr/bin/python --no-site-packages --distribute myenv25
     $ cd myenv25
     $ . bin/activate
 
@@ -272,7 +265,7 @@ Vous pouvez remarquer que Fabric et ses dépendances ont été installées en eg
     -rw-r--r-- 1 vincentfretin vincentfretin  71581 2009-05-25 11:35 Fabric-0.9a3-py2.5.egg
     -rw-r--r-- 1 vincentfretin vincentfretin 296831 2009-05-25 11:35 paramiko-1.7.4-py2.5.egg
     -rw-r--r-- 1 vincentfretin vincentfretin 358122 2009-05-25 11:35 pycrypto-2.0.1-py2.5-linux-x86_64.egg
-    -rw-r--r-- 1 vincentfretin vincentfretin 328025 2009-05-25 11:34 setuptools-0.6c9-py2.5.egg
+    -rw-r--r-- 1 vincentfretin vincentfretin 328025 2009-05-25 11:34 distribute-0.6.8-py2.5.egg
     -rw-r--r-- 1 vincentfretin vincentfretin     29 2009-05-25 11:34 setuptools.pth
 
 Tous les eggs ne sont pas installés zippés. C'est le mainteneur du package qui décide si son egg est zipe-safe ou non.
@@ -285,10 +278,10 @@ Que contient ces fichiers .pth (pour path) ? Comme son extension le suggère, ce
 de chemins où l'on peut trouver des packages : ::
 
     (myenv25)$ cat lib/python2.5/site-packages/setuptools.pth
-    ./setuptools-0.6c9-py2.5.egg
+    ./distribute-0.6.8-py2.5.egg
     (myenv25)$ cat lib/python2.5/site-packages/easy-install.pth
     import sys; sys.__plen = len(sys.path)
-    ./setuptools-0.6c9-py2.5.egg
+    ./distribute-0.6.8-py2.5.egg
     ./Fabric-0.9a3-py2.5.egg
     ./paramiko-1.7.4-py2.5.egg
     ./pycrypto-2.0.1-py2.5-linux-x86_64.egg
@@ -321,7 +314,7 @@ Notez bien que nous avons dans le sys.path setuptools, Fabric et paramiko, dans 
     Type "help", "copyright", "credits" or "license" for more information.
     >>> import sys
     >>> sys.path
-    ['', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/setuptools-0.6c9-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/paramiko-1.7.4-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/pycrypto-2.0.1-py2.5-linux-x86_64.egg', '/home/vincentfretin/myenv25/lib/python2.5', ...]
+    ['', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/setuptools-0.6c11-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/paramiko-1.7.4-py2.5.egg', '/home/vincentfretin/myenv25/lib/python2.5/site-packages/pycrypto-2.0.1-py2.5-linux-x86_64.egg', '/home/vincentfretin/myenv25/lib/python2.5', ...]
 
 Maintenant supprimons le egg de Fabric : ::
 
@@ -348,10 +341,10 @@ Pour faire une désintallation propre d'un egg, il faut :
 - supprimer les éventuels scripts qui ont été généré à l'installation, ici *bin/fab*.
 
 
-Methode "originel" pour installer un package
---------------------------------------------
-easy_install fait partie du package setuptools.
-Si setuptools n'est pas disponible dans votre environnement,
+Methode "originelle" pour installer un package
+----------------------------------------------
+easy_install fait partie du package distribute/setuptools.
+Si distribute ou setuptools n'est pas disponible dans votre environnement,
 on peut très bien installer un package en l'extrayant et exécutant la commande install : ::
 
     (myenv25)$ tar xvf fabric-0.9a3.tar.gz
