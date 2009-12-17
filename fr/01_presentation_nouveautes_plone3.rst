@@ -95,18 +95,18 @@ D'autres formats peuvent être indexés avec le produit `ARFilePreview`_, qui n�
 .. _`plone.transforms`: http://pypi.python.org/pypi/plone.transforms
 .. _`ARFilePreview-v2 branch (2.3.0)`: http://svn.plone.org/svn/collective/ARFilePreview/branches/ARFilePreview-v2
 .. _`ARFilePreview trunk v3`: http://svn.plone.org/svn/collective/ARFilePreview/trunk
-
+  
 Mais aussi
 ==========
-- Upgraded visual HTML editor
-- Powerful workflow capabilities
-- Flexible authentication back-end
+- Éditeur HTML visuel (WYSIWYG) amélioré
+- Puissantes fonctionnalités de workflow
+- Gestion flexible de l'authentification
 - Collections
-- Support for the search engine Sitemap protocol
-- Support for multiple mark-up formats
-- Wiki support
-- Rules engine for content
-- Portlets engine
+- Support du protocole de moteur de recherche Sitemap
+- Support de différents formats de balises
+- Support du wiki
+- Moteur de règles de contenu pour la gestion d'évènements
+- Moteur de portlets
 
 En savoir plus : `Features in Plone 3`_
 
@@ -115,8 +115,7 @@ En savoir plus : `Features in Plone 3`_
 
 Et pour le développeur
 ======================
-Technologies qui ont fait leur entrée dans Plone 2.5 et qui sont maintenant incontournable dans Plone 3 :
+Technologies qui ont fait leur entrée dans Plone 2.5 et qui sont maintenant incontournables dans Plone 3 ::
 
-- profils GenericSetup pour importer/exporter une configuration de site
-- technologies Zope 3 (évènements, vues...)
-
+  - profils GenericSetup pour importer/exporter une configuration de site, pour une meilleure industrialisation
+  - technologies Zope 3 (évènements, vues...), pour une meilleure maintenabilité du code
