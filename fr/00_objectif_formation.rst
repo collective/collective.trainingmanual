@@ -1,12 +1,14 @@
 ========================
 Objectif de la formation
 ========================
-Fournir la formation nécessaire à l'équipe du client pour lui permettre de migrer leur « base de connaissances » sous Plone 3, et de développer de nouveaux composants pour le portail Plone correspondant à son besoin.
+Fournir la formation nécessaire à l'équipe du client pour lui permettre de migrer 
+leur « base de connaissances » sous Plone 3, 
+et de développer de nouveaux composants pour le portail Plone correspondant à son besoin.
 
 ============
 Organisation
 ============
-La formation est découpée en thème.
+La formation est découpée en thèmes.
 
 Presque chaque thème comprend :
 
@@ -31,10 +33,10 @@ Liste des thèmes abordés
 - Migration des composants développés pour Plone 2.5
 - Migration d'un portail Plone 2.5 à Plone 3
 - Déploiement et backup
-- Formation de TAL/Metal permettant l'écriture de page dynamique
+- Formation de TAL/Metal permettant l'écriture de pages dynamiques
 - Envoi de mail suite à un évènement sur le portail
 - Internationalisation d'un composant
-- Notions avancés de formulaire d'édition
+- Notions avancées de formulaire d'édition
 - Nouvelles fonctionnalités de ArchGenXML
 - Création d'un thème Plone 3 (avec paster)
 
