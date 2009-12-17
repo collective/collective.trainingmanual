@@ -119,3 +119,7 @@ Technologies qui ont fait leur entrée dans Plone 2.5 et qui sont maintenant inc
 
   - profils GenericSetup pour importer/exporter une configuration de site, pour une meilleure industrialisation
   - technologies Zope 3 (évènements, vues...), pour une meilleure maintenabilité du code
+
+Technologies qui font leur apparition dans Plone 3 ::
+
+  - gestion des éléments de page avec les nouvelles *viewlets* et *portlets*, pour une meilleure réutilisabilité des développements et une meilleure maintenabilité
