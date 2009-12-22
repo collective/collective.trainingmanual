@@ -564,7 +564,7 @@ Allez-y maintenant, ouvrez un python et importez votre package : ::
     >>> import foo.bar
     >>>
 
-Et le "hello world" me dirait vous ? Bien je vois que vous avez l'habitude.
+Et le "hello world" me direz vous ? Bien je vois que vous avez l'habitude.
 
 Éditez le fichier foo/__init__.py pour y ajouter : ::
 
@@ -689,14 +689,14 @@ En savoir plus : `Documentation PkgResources`_
 
 Les entry points
 ================
-Revenons sur l'option option entry_points dans setup.py.
+Revenons sur l'option entry_points dans setup.py.
 Cette option sert à définir des points d'entrées pour le egg. On peut utiliser cette notion pour réaliser des plugins.
 
-Reprenons les eggs PasteScript et ZopeSkel. Comment PasteScript a fait pour découvrir les nouveaux templates installé par ZopeSkel ?
+Reprenons les eggs PasteScript et ZopeSkel. Comment PasteScript a fait pour découvrir les nouveaux templates installés par ZopeSkel ?
 
-ZopeSkel a définit des entry points pour le groupe *paste.paster_create_template* : ::
+ZopeSkel a défini des entry points pour le groupe *paste.paster_create_template* : ::
 
-    $ cdsitepackages
+    $ cd sitepackages
     $ cat ZopeSkel-2.11.1-py2.4.egg/EGG-INFO/entry_points.txt
     [paste.paster_create_template]
     basic_namespace = zopeskel:BasicNamespace
@@ -729,7 +729,7 @@ En savoir plus : `Dynamic Discovery of Services and Plugins`_
 
 groupe console_scripts
 -------------------------
-Le groupe *console_scripts* est spéciale. Elle est utilisé lors de l'installation du egg pour générer les scripts dans le dossier bin.
+Le groupe *console_scripts* est spécial. Il est utilisé lors de l'installation du egg pour générer les scripts dans le dossier bin.
 
 Pour générer un script *bin/fab*, le egg Fabric définit dans son setup.py : ::
 
@@ -860,14 +860,14 @@ Il y a une erreur à l'installation disant qu'il ne trouve pas le fichier *docs/
 La release est cassée car elle ne contient pas le dossier docs. Et nous avons besoin du fichier docs/HISTORY.txt pour la long_description.
 
 Le dossier docs est manquant car dans setup.py nous avons *package=find_packages*, ça recherche seulement les dossiers contenant un fichier __init__.py.
-docs n'étant pas un package, il n'a pas été inclu dans l'archive.
+*docs* n'étant pas un package, il n'a pas été inclu dans l'archive.
 
-Pour régler le problème, il faut mettre le code source dans un dépôt subversion et grâce à l'option include_package_data=True dans setup.py,
+Pour régler le problème, il faut mettre le code source dans un dépôt subversion et grâce à l'option *include_package_data=True* dans setup.py,
 tous les fichiers subversionnés seront ajoutés à l'archive.
 
 Donc on va importer notre code dans le dépôt Formation : ::
 
-    $ svn import foo.bar/ http://devagile/Formation/foo.bar -m"First import of foo.bar"
+    $ svn import foo.bar/ http://devagile/Formation/foo.bar -m "First import of foo.bar"
 
 Attention, le dossier .egg-info a été commité ! Nous allons le supprimer de subversion : ::
 
