@@ -6,19 +6,19 @@ Installation de Plone
 =====================
 Note à propos des combinaisons de versions de Plone, Python et Zope :
 
-- Plone 3.3 utilise Python 2.4, Zope 2.10 (Zope 3.3). Python 2.5 et 2.6 ne sont pas supportés.
-- Plone 4 devrait utiliser Python 2.6 et Zope 2.11 (Zope 3.4).
+- Plone 3.3 utilise Python 2.4, Zope 2.10. Python 2.5 et 2.6 ne sont pas supportés.
+- Plone 4 utilise Python 2.6 et Zope 2.12.
 - Plone trunk utilise Python 2.6 et Zope 2.12.
 
 Installez tout d'abord quelques packages de développement qui seront nécessaires pour compiler PIL (Imaging) et python-libxml2 : ::
-    
+
     apt-get install libxml2-dev libjpeg62-dev libfreetype6-dev zlib1g-dev
 
 - libxml2-dev pour compiler python-libxml2
 - libjpeg62-dev libfreetype6-dev zlib1g-dev pour compiler PIL
 
 Dans Ubuntu Jaunty Jackalope 9.04, les versions de Python installés par défaut sont 2.5 et 2.6. Et les packages python-imaging et python-libxml2 de la distribution ne sont compilés que pour ces versions. Il n'y a donc plus de support de ces packages pour Python 2.4.
-C'est pourquoi ces deux bibliothéques seront compilées à partir du buildout.
+C'est pourquoi ces deux bibliothèques seront compilées à partir du buildout.
 
 `Voir le billet de Maurits van Rees à ce sujet`_
 
@@ -44,13 +44,13 @@ Commandes::
       package:  plone3
       project:  plone3
     Enter plone_version (Which Plone version to install) ['3.2.1']: 3.3rc3
-    Enter zope2_install (Path to Zope 2 installation; leave blank to fetch one) ['']: 
-    Enter plone_products_install (Path to directory containing Plone products; leave blank to fetch one) ['']: 
-    Enter zope_user (Zope root admin user) ['admin']: 
+    Enter zope2_install (Path to Zope 2 installation; leave blank to fetch one) ['']:
+    Enter plone_products_install (Path to directory containing Plone products; leave blank to fetch one) ['']:
+    Enter zope_user (Zope root admin user) ['admin']:
     Enter zope_password (Zope root admin password) ['']: admin
-    Enter http_port (HTTP port) [8080]: 
-    Enter debug_mode (Should debug mode be "on" or "off"?) ['off']: 
-    Enter verbose_security (Should verbose security be "on" or "off"?) ['off']: 
+    Enter http_port (HTTP port) [8080]:
+    Enter debug_mode (Should debug mode be "on" or "off"?) ['off']:
+    Enter verbose_security (Should verbose security be "on" or "off"?) ['off']:
     Creating template plone3_buildout
     Creating directory ./plone3
       Copying README.txt to ./plone3/README.txt
@@ -156,7 +156,7 @@ Continuez : ::
 
 Vérifiez que nos versions de libxml2 et PIL sont bien utilisées : ::
 
-    $ bin/zopepy 
+    $ bin/zopepy
     >>> import libxml2
     >>> libxml2.__file__
     '/home/vincentfretin/.buildout/eggs/libxml2_python-2.6.21-py2.4-linux-x86_64.egg/libxml2.pyc'
@@ -164,7 +164,7 @@ Vérifiez que nos versions de libxml2 et PIL sont bien utilisées : ::
     >>> PIL.__file__
     '/home/vincentfretin/.buildout/eggs/PILwoTk-1.1.6.4-py2.4-linux-x86_64.egg/PIL/__init__.pyc'
 
-Démarrez l'instance avec ``bin/instance fg`` et connectez vous à http://localhost:8080/manage_main 
+Démarrez l'instance avec ``bin/instance fg`` et connectez vous à http://localhost:8080/manage_main
 
 Créez un Plone Site.
 
@@ -251,7 +251,7 @@ Editez buildout.cfg pour ajouter formation.policy : ::
 
     [instance]
     ...
-    eggs = 
+    eggs =
         ...
         formation.policy
         Products.PloneArticle
@@ -263,7 +263,7 @@ Bien que les produits Products.PloneArticle et Products.FCKEditor soient des dé
 
 Exécutez *bin/buildout*.
 
-L'ajout de formation.policy dans l'option *zcml* génère un *ZCML slug*, 
+L'ajout de formation.policy dans l'option *zcml* génère un *ZCML slug*,
 fichier XML contenant une seule ligne : ::
 
     $ cat parts/instance/etc/package-includes/001-formation.policy-configure.zcml
@@ -385,7 +385,7 @@ L'inconvénient de cette ligne est que vous avez l'information genericsetup.quic
 
 Plone 3.3 inclu le package z3c.autoinclude qui permet de ne pas se répéter.
 En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci : ::
-    
+
     <includeDependencies package="." />
 
 Cette directive recupère la liste des dépendances du egg. Petit rappel, il le récupère à partir du fichier *src/formation.policy/formation.policy.egg-info/requires.txt* qui lui a été généré à partir des informations de setup.py.
@@ -620,7 +620,7 @@ Mettre à jour la branche de production
 ======================================
 Vous avez commité un changement dans le trunk, il faut le backporté dans la branche production.
 Le commit sur le trunk est la révision 1023, pour merger ce commit sur la branche de production : ::
-    
+
     trunk$ svn info
     URL : <url_to_repository>/trunk
     trunk$ cd ../branches/production
