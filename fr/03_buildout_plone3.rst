@@ -18,10 +18,10 @@ Buildout est un système d'installation permettant d'obtenir le même résultat 
 
 zc.buildout permet d'avoir un environnement (pas forcément isolé), mais d'une autre manière que virtualenv.
 
-Une configuration buildout spécifie un ensemble des parts qui peuvent soit être :
+Une configuration buildout spécifie un ensemble de parts qui se composent :
 
-- une recipe (recette)
-- données de configuration
+- d'une recette (recipe)
+- et/ou de données de configuration
 
 
 Organisation d'un buildout
@@ -30,8 +30,9 @@ Un buildout est organisé de la manière suivante :
 
 - *buildout.cfg* : contient la configuration du buildout
 - *bootstrap.py* : script d'amorçage de buildout utilisé la première fois
+- *bin* : dossier contenant les exécutables éventuellement générés par les parts
 - *src* : par convention, dossier où sont placés les eggs en développement
-- *parts* : dossier où sont stockés les données générées des parts si besoin
+- *parts* : dossier où sont stockées les données générées des parts si besoin
 - *.installed.cfg* : fichier caché mémorisant l'état du buildout
 - *eggs* : dossier contenant les eggs activés ou non. Peut ne pas exister si on utilise un dossier partagé pour plusieurs buildout.
 - *develop-eggs* : dossier contenant les liens vers les eggs en développement
@@ -59,11 +60,11 @@ Section principale [buildout]
 =============================
 La variable *parts* contient la liste des parts que buildout doit installer. La convention est de mettre une part par ligne, indenté de 4 espaces. Il peut y avoir des commentaires et des lignes vides.
 
-Chaque part fourni une variable *recipe* pour indiquer comment cette part doit être installé, mis à jour et supprimé.
+Chaque part fournit une variable *recipe* pour indiquer comment ce part doit être installé, mis à jour et supprimé.
 
 Il se peut qu'une section ne fournisse pas de recipe. Elle sert généralement pour des données de configuration que d'autres parts utiliseront.
 
-Amorçez le buildout (choisissez bien la version de l'exécutable python) : ::
+Amorcez le buildout (choisissez bien la version de l'exécutable python) : ::
 
     $ python bootstrap.py
     Creating directory '/home/vincentfretin/src/archgenxml_buildout/bin'.
@@ -102,7 +103,7 @@ Exécutez maintenant : ::
     Generated script '/home/vincentfretin/src/archgenxml_buildout/bin/agx_taggedvalues'.
 
 Le egg archgenxml et ses dépendances sont téléchargés et installés et divers scripts sont générés à la fin.
-C'est la recipe qui dit de tout ça.
+C'est la recipe qui dit tout ça.
 
 À première vue, l'exécution de buildout pourrait se résumer à cet algorithme :
 pour chaque part de l'option parts de la section [buildout], appeler la recipe associée au part.
@@ -132,23 +133,23 @@ Dans ce cas, nous serions arrivé au même résultat si nous avions mis l'une de
 
 L'entry point *scripts* pointe vers la classe *Scripts* du package zc.recipe.egg.
 
-Cette classe, comme toute recipe contient une méthode install et update. Voir l'`API des recettes`_
+Cette classe, comme toute recipe, contient une méthode install et update. Voir l'`API des recettes`_
 
 .. _`API des recettes`: http://ccomb.gorfou.fr/2007/12/13/tutoriel-sur-buildout#criture-de-recettes
 
 
 Le fichier caché *.installed.cfg* garde la configuration de la dernière exécution de buildout.
-Lorsqu'une section a été supprimé de la configuration, cette partie sera désinstallée lors de la relance de ``bin/buildout``.
+Lorsqu'une section a été supprimée de la configuration, cette partie sera désinstallée lors de la relance de ``bin/buildout``.
 Si une section a été mis à jour, cette partie sera réinstallée.
-Pour les nouvelles sections avec recipe, les parties seront installés.
+Pour les nouvelles sections avec recipe, les parties seront installées.
 
-Notre algorithme de tout à l'heure est maintenant : 
+Notre algorithme de tout à l'heure est maintenant :
 
 - pour chaque part de l'option parts de la section [buildout] :
-  
+
   - installer la recipe du part
   - récupérer l'entry point spécifié ("default" si non spécifié) depuis la recipe.
-  - si le part est actuellement installé mais sa configuration a changée, appeler la méthode update de l'entry point
+  - si le part est actuellement installé mais sa configuration a changé, appeler la méthode update de l'entry point
   - si le part n'a pas encore été installé, appeler la méthode install de l'entry point
   - si un part existe dans .installed.cfg et n'est plus dans la liste des parts de [buildout], alors le part est désintallé.
 
@@ -183,9 +184,9 @@ archgenxml et toutes ses dépendances sont ajoutés au début du sys.path.
 
 Partage du dossier eggs et downloads
 ====================================
-Lors de l'exécution de buildout, le fichier *~/.buildout/default.cfg* est lu, c'est donc dans ce fichier que nous pouvons mettre des options qui seront partagées par tous nos buildouts.
+Lors de l'exécution de buildout, le fichier *~/.buildout/default.cfg* est lu, c'est dans ce fichier que nous pouvons mettre des options qui seront partagées par tous nos buildouts.
 
-Le dossier *~/.buildout/* n'existe pas, créez le ainsi que les sous-dossiers : ::
+Si le dossier *~/.buildout/* n'existe pas, créez le ainsi que les sous-dossiers : ::
 
     $ mkdir ~/.buildout ~/.buildout/eggs ~/.buildout/downloads ~/.buildout/configs ~/.buildout/zope
 
@@ -200,7 +201,7 @@ Créez le fichier *~/.buildout/default.cfg* avec ce contenu : ::
 Remplacez ici bien sûr vincentfretin par votre compte. Vous ne pouvez pas utiliser le caractère *~* ici.
 
 À savoir que les valeurs par défaut de ces variables sont : ::
-    
+
     eggs-directory = ${buildout:directory}/eggs
     download-cache = pas précisé, on ne garde pas les archives par défaut
     extends-cache = pas de cache par défaut
@@ -222,14 +223,15 @@ Pinning des versions
 À chaque fois que vous exécutez ``bin/buildout``, une requête est faite au serveur central pour savoir si nous avons la dernière version du egg.
 C'est le comportement par défaut. En effet nous avons l'option "newest = true" dans la section [buildout] par défaut.
 
-Vous pouvez `bin/buildout -N` pour ne pas vérifier les mises à jour.
+Vous pouvez faire `bin/buildout -N` pour ne pas vérifier les mises à jour.
 
 Si vous aviez "newest = false" dans votre buildout, la commande `bin/buildout -n` la remettrait à true pour l'exécution.
 
 Le problème est que votre buildout n'est pas reproductible.
-Pour qu'il soit reproductible il faudrait que votre buildout quelles versions des eggs doivent être installées.
+Pour qu'il soit reproductible il faudrait que votre buildout précise quelles versions des eggs doivent être installées.
 
-C'est la qu'intervient l'option *versions* de la section [buildout], vous spécifiez dans quel section vous avez les informations sur les versions.La convention est de l'appeler également versions. Pour pinner (franglais du verbe "to pin" en anglais, participe passé "pinned" en anglais, en français cela pourrait être punaiser, pointer, geler) archgenxml, modifiez votre buildout de cette manière : ::
+C'est la qu'intervient l'option *versions* de la section [buildout], vous spécifiez dans quelle section vous avez les informations sur les versions.
+La convention est de l'appeler également versions. Pour pinner (franglais du verbe "to pin" en anglais, participe passé "pinned" en anglais, en français cela pourrait être punaiser, pointer) ou freezer (geler) archgenxml, modifiez votre buildout de cette manière : ::
 
     [buildout]
     versions = versions
@@ -244,28 +246,27 @@ C'est la qu'intervient l'option *versions* de la section [buildout], vous spéci
     recipe = zc.recipe.egg:scripts
     eggs = archgenxml
 
-Mais cela ne suffit pas pour que le buildout soit reproducible car nous n'avons pas pinné les dépendances d'archgenxml.
+Mais cela ne suffit pas pour que le buildout soit reproductible car nous n'avons pas pinné les dépendances d'archgenxml.
 
 Extension buildout.dumppickedversions
 =====================================
-zc.buildout peut être étendu avec des extensions. Il y en a eu particulièrement intéressante qui va vous sortir la liste des eggs avec leur version qui ne sont pas pinné.
+zc.buildout peut être étendu avec des extensions. Il y en a une particulièrement intéressante qui va vous sortir la liste des eggs qui ne sont pas pinnés avec leur version.
 
 Une extension s'ajoute avec l'option *extensions* de la section [buildout]
-Ajoutez donc l'extension buildout.dumppickedversions à votre fichier *~/.buildout/default.cfg*, comme cela l'extension sera actif pour tous vos buildout : ::
+Ajoutez donc l'extension buildout.dumppickedversions à votre fichier *~/.buildout/default.cfg*, comme cela l'extension sera active pour tous vos buildout : ::
 
     [buildout]
     extensions = buildout.dumppickedversions
     ...
 
 Relancez ``bin/buildout`` et à la fin de l'exécution vous verrez apparaitre la liste des versions à pinner.
-Ajoutez les tous à votre section versions, et reexécuter ``bin/buildout``, il ne devrait plus avoir de versions.
+Ajoutez-les tous à votre section versions, et reexécutez ``bin/buildout``, il ne devrait plus avoir de versions.
 
 
 .. _`buildout.dumppickedversions`: http://pypi.python.org/pypi/buildout.dumppickedversions
 
-Il existe aussi une option *allow-picked-versions = false* disponible dans la cœur de zc.buildout qui permet de stopper le buildout si un egg n'est pas pinné.
-Cette option et l'extension *buildout.dumppickedversions* sont mutuellement exclusive.
-
+Il existe aussi une option *allow-picked-versions = false* disponible dans le cœur de zc.buildout qui permet de stopper le buildout si un egg n'est pas pinné.
+Cette option et l'extension *buildout.dumppickedversions* sont mutuellement exclusives.
 
 Option extends
 ==============
@@ -288,14 +289,14 @@ Par défaut buildout cherche un fichier buildout.cfg, l'option -c permet d'indiq
 
 Relancez la machinerie buildout avec ce fichier : ::
 
-    $ bin/buildout -c development.cfg 
+    $ bin/buildout -c development.cfg
     Uninstalling archgenxml.
     Installing omelette.
 
-Oh que c'est-il passé ? Vous avez écrasé l'option parts, il n'y a donc plus que le part omelette à installer.
+Oh que s'est-il passé ? Vous avez écrasé l'option parts, il n'y a donc plus que le part omelette à installer.
 
 Vous vouliez garder aussi le part archgenxml, rectifiez ça en transformant le *=* par *+=*, ce qui donne ``parts += omelette``.
-Toutes les options supportant une liste fonctionne ainsi (parts, eggs, develop).
+Toutes les options supportant une liste fonctionnent ainsi (parts, eggs, develop).
 
 Relancez buildout. Là les deux parts sont bien installées.
 
@@ -342,11 +343,11 @@ Cela permet d'avoir les packages à plat, ce qui facilite la recherche, exemple 
 Utilisation de variable
 =======================
 Vous avez écrit "archgenxml" à deux endroits, une fois dans la recipe zc.recipe.egg et une autre fois dans la recipe collective.recipe.omelette.
-Il est plus intéressant de l'indiquer qu'une seule fois dans une variable et d'utiliser cette variable ensuite dans les recipes.
+Il est plus intéressant de l'indiquer une seule fois dans une variable et d'utiliser cette variable ensuite dans les recipes.
 
 Une convention est de définir une variable *eggs* dans la section [buildout] et de récupérer cette variable avec ${buildout:eggs}.
 
-Voici ce que donne les deux fichiers une fois reécrit.
+Voici ce que donnent les deux fichiers une fois reécrits.
 
 buildout.cfg : ::
 
@@ -403,7 +404,7 @@ Renommez "vers" en "versions" et relancez le buildout.
 
 Tous les eggs sont gélés. En effet la section versions de buildout.cfg et la section versions de development.cfg ont fusionné.
 
-En conclusion, nommez toujours *versions* la section contenant les versions. 
+En conclusion, nommez toujours *versions* la section contenant les versions.
 
 Mais maintenir deux listes est source d'erreur.
 Créez un fichier versions.cfg qui contient une section [versions] (pas de section [buildout]), et dites à buildout.cfg d'étendre versions.cfg.
