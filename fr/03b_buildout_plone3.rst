@@ -17,7 +17,9 @@ Installez tout d'abord quelques packages de développement qui seront nécessair
 - libxml2-dev pour compiler python-libxml2
 - libjpeg62-dev libfreetype6-dev zlib1g-dev pour compiler PIL
 
-Dans Ubuntu Jaunty Jackalope 9.04, les versions de Python installés par défaut sont 2.5 et 2.6. Et les packages python-imaging et python-libxml2 de la distribution ne sont compilés que pour ces versions. Il n'y a donc plus de support de ces packages pour Python 2.4.
+Dans Ubuntu Jaunty Jackalope 9.04 et suivants, les versions de Python installés par défaut sont 2.5 et 2.6.
+Et les packages python-imaging et python-libxml2 de la distribution ne sont compilés que pour ces versions.
+Il n'y a donc plus de support de ces packages pour Python 2.4.
 C'est pourquoi ces deux bibliothèques seront compilées à partir du buildout.
 
 `Voir le billet de Maurits van Rees à ce sujet`_
@@ -43,7 +45,7 @@ Commandes::
       egg:      plone3
       package:  plone3
       project:  plone3
-    Enter plone_version (Which Plone version to install) ['3.2.1']: 3.3rc3
+    Enter plone_version (Which Plone version to install) ['3.2.1']: 3.3.X
     Enter zope2_install (Path to Zope 2 installation; leave blank to fetch one) ['']:
     Enter plone_products_install (Path to directory containing Plone products; leave blank to fetch one) ['']:
     Enter zope_user (Zope root admin user) ['admin']:
@@ -75,34 +77,25 @@ Commandes::
     -----------------------------------------------------------
 
 Vous allez éditer un peu le fichier buildout.cfg avant de l'exécuter.
-En effet le fichier généré avec ZopeSkel 2.12 n'est pas suffisant pour Ubuntu Jaunty Jackalope 9.04.
+En effet le fichier généré avec ZopeSkel 2.12 n'est pas suffisant pour Ubuntu 9.04 et 9.10.
 
 Créez un fichier *versions.cfg* et gelez ces versions : ::
 
     [versions]
     PILwoTk = 1.1.6.4
     libxml2-python = 2.6.21
-    elementtree = 1.2.7-20070827-preview
 
 Dans *buildout.cfg*, modifiez la ligne extends en : ::
 
     extends =
-        http://dist.plone.org/release/3.3rc3/versions.cfg
+        versions-plone.cfg
         versions.cfg
 
-Vous allez enregistrer localement le fichier versions.cfg de plone, sinon il est téléchargé à chaque fois que vous faites ``bin/buildout`` : ::
-
-    $ wget http://dist.plone.org/release/3.3rc3/versions.cfg -O versions-plone.cfg
+Vous allez enregistrer localement le fichier versions.cfg de plone, sinon il est téléchargé à chaque fois que vous faites ``bin/buildout``.
 
 Vous pouvez récupérer le fichier versions.cfg de plonenext 3.3 qui contient les dernières versions de la série 3.3(.x) : ::
 
     $ wget http://svn.plone.org/svn/plone/plonenext/3.3/versions.cfg -O versions-plone.cfg
-
-Ajoutez un commentaire avec le lien d'où provient le fichier dans *versions-plone.cfg* : ::
-
-    # http://dist.plone.org/release/3.3rc3/versions.cfg
-    [versions]
-    ...
 
 Du coup rééditez votre *buildout.cfg*, maintenant l'option extends devient : ::
 
@@ -113,7 +106,7 @@ Du coup rééditez votre *buildout.cfg*, maintenant l'option extends devient : :
 Remplacez le find-links existant par : ::
 
     find-links =
-        http://dist.plone.org/release/3.3rc3
+        http://dist.plone.org/release/3.3.X
         http://dist.plone.org/thirdparty
         ftp://xmlsoft.org/libxml2/python/libxml2-python-2.6.21.tar.gz
 
@@ -137,7 +130,9 @@ Amorcez et lancez buildout : ::
     $ cd plone3
     $ python2.4 -S bootstrap.py
 
-L'aide de l'option *-S* nous dit *don't imply 'import site' on initialization*, c'est-à-dire que tous les packages installés globalement dans site-packages ne seront pas dans le sys.path. Comme cela le package setuptools du système ne sera pas visible et une version récente sera téléchargée et installée dans le buildout.
+L'aide de l'option *-S* nous dit *don't imply 'import site' on initialization*,
+c'est-à-dire que tous les packages installés globalement dans site-packages ne seront pas dans le sys.path.
+Comme cela le package setuptools du système ne sera pas visible et une version récente sera téléchargée et installée dans le buildout.
 
 Continuez : ::
 
@@ -172,19 +167,18 @@ Installation via l'Unified Installer
 ====================================
 Commandes::
 
-    $ wget http://launchpad.net/plone/3.3/3.3rc3/+download/Plone-3.3rc3-UnifiedInstaller.tgz
+    $ wget http://launchpad.net/plone/3.3/3.3.X/+download/Plone-3.3.X-UnifiedInstaller.tgz
     $ tar xvzf Plone-3.3rc3-UnifiedInstaller.tgz
     $ cd Plone-3.3rc3-UnifiedInstaller
     $ ./install.sh --with-python=/usr/bin/python2.4 standalone
     $ cd ~/Plone/zinstance
     $ bin/plonectl start
 
-Commentez *extensions = buildout.dumppickedversions* de *.buildout/default.cfg* avant d'exécuter le script install.sh. Il semble y avoir un problème avec cette version de l'UnifiedInstaller.
-
 Le mode standalone crée une seule instance.
 Vous pouvez remplacer *standalone* par *zeo* pour créer deux clients avec un zeoserver.
 
-Si vous lancez le script en root, il créera un utilisateur plone et installera Python, Zope et Plone dans /usr/local/Plone. Python ne sera pas compilé si vous utilisez l'option *--with-python*.
+Si vous lancez le script en root, il créera un utilisateur plone et installera Python, Zope et Plone dans /usr/local/Plone.
+Python ne sera pas compilé si vous utilisez l'option *--with-python*.
 
 Pour plus d'informations, lisez le fichier README.txt dans l'archive
 et la documentation `Installing Plone 3 with the Unified Installer`_ sur plone.org
@@ -210,7 +204,8 @@ Création d'un policy product contenant la configuration du site Plone
 =====================================================================
 Vous allez créer un *policy product* contenant la configuration du site Plone.
 
-Dans ce policy product, nous allons aussi dire d'installer automatiquement les produits Products.PloneArticle et Products.FCKeditor lors de l'installation du produit. Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les utilisateurs nouvellement créés.
+Dans ce policy product, nous allons aussi dire d'installer automatiquement les produits Products.PloneArticle et Products.FCKeditor lors de l'installation du produit.
+Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les utilisateurs nouvellement créés.
 
 Création du policy product
 --------------------------
@@ -234,12 +229,13 @@ utilisation de svn:externals pour faire une sorte de checkout dans le dossier sr
     $ svn add EXTERNALS.txt
     $ svn ci -m"Set svn:externals on src directory to install formation.policy"
 
-Ajoutez Products.PloneArticle et Products.FCKeditor en dépendances de formation.policy dans le fichier *src/formation.policy/setup.py*.
+Ajoutez Products.PloneArticle et Products.FCKeditor en dépendances de formation.policy dans le fichier *src/formation.policy/setup.py* (option install_requires).
 
 Lorsque vous êtes dans le dossier src, la commande ``svn stat`` vous renvoie les changements fait dans les externals,
 ici les changements de formation.policy s'il y en a.
 La commande ``svn up`` sera également fait dans les différents externals.
-La seule exception est la commade ``svn ci`` exécutée à partir du dossier *src* ou plus en amont, les fichiers modifiés ou ajoutés dans les externals ne seront pas commités. Il faut vraiment être à l'intérieur de l'external, ici le dossier *formation.policy* pour que le commit des changements soit réalisé.
+La seule exception est la commade ``svn ci`` exécutée à partir du dossier *src* ou plus en amont, les fichiers modifiés ou ajoutés dans les externals ne seront pas commités.
+Il faut vraiment être à l'intérieur de l'external, ici le dossier *formation.policy* pour que le commit des changements soit réalisé.
 
 Ceci dit, commitez le changement fait au fichier setup.py.
 
@@ -259,7 +255,8 @@ Editez buildout.cfg pour ajouter formation.policy : ::
     zcml =
         formation.policy
 
-Bien que les produits Products.PloneArticle et Products.FCKEditor soient des dépendances de formation.policy et qu'ils vont donc être installés, il est nécessaire de les remettre dans l'option eggs pour qu'ils apparaissent dans le sys.path du script *bin/instance*. Bogue de la recipe zc.recipe.egg ?
+Bien que les produits Products.PloneArticle et Products.FCKEditor soient des dépendances de formation.policy et qu'ils vont donc être installés,
+il est nécessaire de les remettre dans l'option eggs pour qu'ils apparaissent dans le sys.path du script *bin/instance*. Bogue de la recipe zc.recipe.egg ?
 
 Exécutez *bin/buildout*.
 
@@ -269,7 +266,9 @@ fichier XML contenant une seule ligne : ::
     $ cat parts/instance/etc/package-includes/001-formation.policy-configure.zcml
     <include package="formation.policy" file="configure.zcml" />
 
-En fait au démarrage de l'instance Zope, le fichier *parts/instance/etc/site.zcml* est lu, ce qui entraine la lecture de tous les fichiers situés dans le dossier *package-includes*, ainsi que les fichiers meta.zcml, configure.zcml et overrides.zcml des produits dans le namespace Products.
+En fait au démarrage de l'instance Zope, le fichier *parts/instance/etc/site.zcml* est lu,
+ce qui entraine la lecture de tous les fichiers situés dans le dossier *package-includes*,
+ainsi que les fichiers meta.zcml, configure.zcml et overrides.zcml des produits dans le namespace Products.
 
 La chaine de lecture est donc celle-ci :
 
@@ -333,11 +332,13 @@ Ici *default* est le *name* donné lors du *genericsetup:registerProfile* dans l
 
 Déclaration de formation.policy comme plugin Plone
 --------------------------------------------------
-Plone 3.3 inclu un nouveau `système de plugin`_. Un produit peut être déclaré plugin Plone. Dans ce cas les fichiers meta.zcml, configure.zcml et overrides.zcml du produit seront lus au démarrage, comme pour les produits dans le namespace Products. Il n'est plus nécessaire d'ajouter le produit dans l'option *zcml* de la section [instance] dans buildout.cfg.
+Plone 3.3 inclu un nouveau `système de plugin`_. Un produit peut être déclaré plugin Plone.
+Dans ce cas les fichiers meta.zcml, configure.zcml et overrides.zcml du produit seront lus au démarrage, comme pour les produits dans le namespace Products.
+Il n'est plus nécessaire d'ajouter le produit dans l'option *zcml* de la section [instance] dans buildout.cfg.
 
 .. _`système de plugin`: http://plone.org/products/plone/roadmap/247
 
-Pour cela déclarez le egg comme plugin plone, ajoutez dans *src/formation.policy/setup.py* : ::
+Pour cela vérifiez que le egg est déclaré comme plugin plone, avec dans *src/formation.policy/setup.py* : ::
 
     entry_points="""
     [z3c.autoinclude.plugin]
@@ -347,7 +348,8 @@ Pour cela déclarez le egg comme plugin plone, ajoutez dans *src/formation.polic
 Supprimez formation.policy de l'option *zcml* de la section [instance] dans buildout.cfg.
 
 Et relancez ``bin/buildout`` qui va supprimer le fichier *parts/instance/etc/package-includes/001-formation.policy-configure.zcml*.
-La commande regénère également les metadonnées associées aux eggs en développement, concrêtement il regénére le fichier *src/formation.policy/formation.policy.egg-info/entry_points.txt* qui déclare le egg comme plugin Plone.
+La commande regénère également les metadonnées associées aux eggs en développement,
+concrètement il regénére le fichier *src/formation.policy/formation.policy.egg-info/entry_points.txt* qui déclare le egg comme plugin Plone.
 
 
 À quel moment est lu le fichier configure.zcml de formation.policy ? Il n'y a rien de magique, la chaine de lecture est maintenant :
@@ -360,8 +362,10 @@ La commande regénère également les metadonnées associées aux eggs en dével
       <!-- include plone plugins with z3c.autoinclude -->
       <includePlugins package="plone" file="configure.zcml" />
 
-  includePlugins est une nouvelle directive fourni par z3c.autoinclude. Ici tous les eggs ayant un entry point dans le groupe *z3c.autoinclude.plugin* sont recherchés.
-  Nous avons dans cette directive *package="plone"* donc seul les entry points avec *target = plone* sont gardés. Pour chaque eggs, le fichier configure.zcml (option *file* de la directive) est lu.
+  includePlugins est une nouvelle directive fourni par z3c.autoinclude.
+  Ici tous les eggs ayant un entry point dans le groupe *z3c.autoinclude.plugin* sont recherchés.
+  Nous avons dans cette directive *package="plone"* donc seul les entry points avec *target = plone* sont gardés.
+  Pour chaque eggs, le fichier configure.zcml (option *file* de la directive) est lu.
 - src/formation.policy/formation/policy/configure.zcml
 
 Vous avez le même principe pour les fichiers meta.zcml et overrides.zcml, jetez un œil dans Products/CMFPlone/meta.zcml et Products/CMFPlone/overrides.zcml.
@@ -371,9 +375,10 @@ Installation de Products.FCKeditor à l'installation de formation.policy
 Pour dépendre de FCKeditor, nous ne pouvons pas utiliser cette méthode car FCKeditor n'utilise pas de profile, mais l'ancien dossier Extensions pour être installé via portal_quickinstaller.
 
 Il existe un produit pour installer des vieux produits à partir d'un profile : `genericsetup.quickinstaller`_.
-Ce produit enregistre un nouvel *importStep* dans *portal_setup* qui regarde lors de l'installation d'un produit s'il existe un fichier  *products.xml* dans le dossier du profile. Pour que cela marche, il faut que le fichier configure.zcml de genericsetup.quickinstaller soit lu d'une manière ou d'une autre au démarrage.
+Ce produit enregistre un nouvel *importStep* dans *portal_setup* qui regarde lors de l'installation d'un produit s'il existe un fichier  *products.xml* dans le dossier du profile.
+Pour que cela marche, il faut que le fichier configure.zcml de genericsetup.quickinstaller soit lu d'une manière ou d'une autre au démarrage.
 
-Ajoutez *genericsetup.quickinstaller* dans setup.py du policy product.
+Ajoutez *genericsetup.quickinstaller* dans setup.py install_requires du policy product.
 
 Il faut donc lire le fichier configure.zcml du produit genericsetup.quickinstaller, vous pouvez ajouter dans *src/formation.policy/formation/policy/configure.zcml*, cette directive : ::
 
@@ -388,7 +393,8 @@ En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci : ::
 
     <includeDependencies package="." />
 
-Cette directive recupère la liste des dépendances du egg. Petit rappel, il le récupère à partir du fichier *src/formation.policy/formation.policy.egg-info/requires.txt* qui lui a été généré à partir des informations de setup.py.
+Cette directive recupère la liste des dépendances du egg.
+Petit rappel, il le récupère à partir du fichier *src/formation.policy/formation.policy.egg-info/requires.txt* qui lui a été généré à partir des informations de setup.py.
 Pour chaque dépendance dans l'ordre déclaré, elle va inclure dans l'ordre les fichiers meta.zcml, configure.zcml et overrides.zcml s'ils existent.
 
 Pour finir, créez un fichier *profiles/default/products.xml* qui sera lu par l'importStep enregistré par genericsetup.quickinstaller : ::
@@ -412,9 +418,11 @@ Allez dans la ZMI, dans *portal_memberdata*, cliquez sur l'onglet *Properties*.
 Maintenant vous allez exporter cette configuration dans votre policy product.
 Allez dans la ZMI, *portal_setup*, onglet *Export*, sélectionnez le step *MemberData properties*, et cliquez sur *Export selected steps*.
 
-Téléchargez l'archive tar.gz proposée, extrayez son contenu dans un dossier temporaire et copiez le fichier *memberdata_properties.xml* dans le dossier profiles/default de votre policy product.
+Téléchargez l'archive tar.gz proposée, extrayez son contenu dans un dossier temporaire
+et copiez le fichier *memberdata_properties.xml* dans le dossier profiles/default de votre policy product.
 
-Éditez le fichier pour ne laisser que la propriété qui vous intéresse. Vous devez donc avoir au final un fichier *profiles/default/memberdata_properties.xml* avec ce contenu : ::
+Éditez le fichier pour ne laisser que la propriété qui vous intéresse.
+Vous devez donc avoir au final un fichier *profiles/default/memberdata_properties.xml* avec ce contenu : ::
 
     <?xml version="1.0"?>
     <object name="portal_memberdata" meta_type="PlonePAS MemberData Tool">
@@ -441,7 +449,7 @@ Elle permet d'installer les produits n'ayant pas de profile avec portal_quickins
 Les versions affichées sont ceux des eggs.
 La version est récupérée via le module pkg_resources fourni par setuptools comme vu précédemment.
 
-La version du egg et du profile peuvent être différente. Il est même conseillé dès le départ d'utiliser des versions différentes pour la version du produit/egg, et la version du profile.
+La version du egg et du profile peuvent être différentes. Il est même conseillé dès le départ d'utiliser des versions différentes pour la version du produit/egg, et la version du profile.
 
 La version du egg est une version de la forme 1.0.0, 1.0.1, 1.1.0 etc. Si vous modifiez du code Python, incrémentez cette version.
 
@@ -449,7 +457,8 @@ La version du profile est un simple entier qui est incrémenté à chaque fois q
 
 Releaser le policy product
 ==========================
-Maintenant que vous avez un policy product qui fait quelque chose, il est peut-être temps de réaliser une release pour pouvoir l'utiliser en production. En effet il n'est pas conseillé d'utiliser des produits en mode développement en production.
+Maintenant que vous avez un policy product qui fait quelque chose, il est peut-être temps de réaliser une release pour pouvoir l'utiliser en production.
+En effet il n'est pas conseillé d'utiliser des produits en mode développement en production.
 
 La première chose à faire et d'éditer le changelog dans le fichier *docs/HISTORY.txt*.
 Ce fichier texte est au format reST (`reStructuredText`_). Il faut respecter certaines convention d'écriture pour que ce fichier puisse être généré ensuite en HTML sur Pypi.
