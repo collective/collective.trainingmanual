@@ -5,29 +5,27 @@ Installez le serveur et le client Munin : ::
 
     apt-get install munin munin-node
 
-À l'installation il active les plugins suivants : ::
+À l'installation il active les plugins en fonction de ce qui installé : ::
 
     apache_processes cpu df df_inode entropy forks if_err_eth0 if_err_eth1 if_eth0 if_eth1 interrupts iostat irqstats load memory mysql_bytes mysql_queries mysql_slowqueries mysql_threads netstat open_files open_inodes postfix_mailqueue postfix_mailvolume processes smart_sda smart_sdb swap vmstat
 
-Éditez /etc/munin/munin.conf : ::
+Vous aurez les plugins mysql si vous avez mysql-server d'installé.
+Les plugins actifs sont des liens symboliques dans */etc/munin/plugins/*.
+
+Éditez */etc/munin/munin.conf* pour changer *host.domain.com* : ::
 
     # a simple host tree
     [host.domain.com]
         address 127.0.0.1
         use_node_name yes
 
-Rechargez le fichier de configuration : ::
+Tous les fichiers dans */var/lib/munin* et */var/log/munin* doivent appartenir à l'utilisateur munin : ::
 
-    /usr/share/munin/munin-update --force-root
+    chown -R munin:munin /var/lib/munin /var/log/munin
 
-vi /etc/munin/munin-node.conf
+Reexécutez cette commande si vous n'avez toujours pas de stats après 15 minutes.
 
-Changer en :
-::
-
-    host 127.0.0.1
-
-Redémarrer::
+Redémarrez munin-node pour reprendre en compte la configuration : ::
 
     /etc/init.d/munin-node restart
 
@@ -105,6 +103,9 @@ Installez les liens symboliques : ::
     installed symlink /etc/munin/plugins/instance2_zodbactivity_plonesite
     installed symlink /etc/munin/plugins/instance2_zopethreads_plonesite
 
+Redémarrez munin-node pour reprendre en compte la configuration : ::
+
+    /etc/init.d/munin-node restart
 
 Ressources
 ==========
