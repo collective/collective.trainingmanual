@@ -24,11 +24,10 @@ Sous Ubuntu : ::
     wget http://python-distribute.org/distribute_setup.py
     python distribute_setup.py
 
-Sous Windows, installez Python 2.6 via le *msi installer* et installez setuptools de la manière suivante : ::
+Sous Windows, installez Python 2.6 via le *msi installer* et installez setuptools de la manière suivante :
 
-	Depuis http://peak.telecommunity.com/DevCenter/setuptools,
-	téléchargez http://python-distribute.org/distribute_setup.py
-	exécutez ``python ez_setup.py``
+- téléchargez http://python-distribute.org/distribute_setup.py
+- exécutez ``python distribute_setup.py``
 
 Packaging Python
 ================
@@ -696,7 +695,7 @@ Reprenons les eggs PasteScript et ZopeSkel. Comment PasteScript a fait pour déc
 
 ZopeSkel a défini des entry points pour le groupe *paste.paster_create_template* : ::
 
-    $ cd sitepackages
+    $ cdsitepackages
     $ cat ZopeSkel-2.11.1-py2.4.egg/EGG-INFO/entry_points.txt
     [paste.paster_create_template]
     basic_namespace = zopeskel:BasicNamespace

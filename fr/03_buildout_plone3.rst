@@ -253,7 +253,7 @@ Extension buildout.dumppickedversions
 zc.buildout peut être étendu avec des extensions. Il y en a une particulièrement intéressante qui va vous sortir la liste des eggs qui ne sont pas pinnés avec leur version.
 
 Une extension s'ajoute avec l'option *extensions* de la section [buildout]
-Ajoutez donc l'extension buildout.dumppickedversions à votre fichier *~/.buildout/default.cfg*, comme cela l'extension sera active pour tous vos buildout : ::
+Ajoutez donc l'extension buildout.dumppickedversions à votre fichier *~/.buildout/default.cfg*, comme cela l'extension sera active pour tous vos buildouts : ::
 
     [buildout]
     extensions = buildout.dumppickedversions

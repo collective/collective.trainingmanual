@@ -8,7 +8,6 @@ Note à propos des combinaisons de versions de Plone, Python et Zope :
 
 - Plone 3.3 utilise Python 2.4, Zope 2.10. Python 2.5 et 2.6 ne sont pas supportés.
 - Plone 4 utilise Python 2.6 et Zope 2.12.
-- Plone trunk utilise Python 2.6 et Zope 2.12.
 
 Installez tout d'abord quelques packages de développement qui seront nécessaires pour compiler PIL (Imaging) et python-libxml2 : ::
 
@@ -93,9 +92,11 @@ Dans *buildout.cfg*, modifiez la ligne extends en : ::
 
 Vous allez enregistrer localement le fichier versions.cfg de plone, sinon il est téléchargé à chaque fois que vous faites ``bin/buildout``.
 
-Vous pouvez récupérer le fichier versions.cfg de plonenext 3.3 qui contient les dernières versions de la série 3.3(.x) : ::
+Vous pouvez récupérer le fichier versions.cfg de plonenext 3.3 qui contient les dernières versions de la série 3.3(.X) : ::
 
     $ wget http://svn.plone.org/svn/plone/plonenext/3.3/versions.cfg -O versions-plone.cfg
+
+Si vous voulez une ensemble de versions officiel, récupérez le dernier http://dist.plone.org/release/3.3.X/versions.cfg
 
 Du coup rééditez votre *buildout.cfg*, maintenant l'option extends devient : ::
 
@@ -362,7 +363,7 @@ concrètement il regénére le fichier *src/formation.policy/formation.policy.eg
       <!-- include plone plugins with z3c.autoinclude -->
       <includePlugins package="plone" file="configure.zcml" />
 
-  includePlugins est une nouvelle directive fourni par z3c.autoinclude.
+  includePlugins est une nouvelle directive fournie par z3c.autoinclude.
   Ici tous les eggs ayant un entry point dans le groupe *z3c.autoinclude.plugin* sont recherchés.
   Nous avons dans cette directive *package="plone"* donc seul les entry points avec *target = plone* sont gardés.
   Pour chaque eggs, le fichier configure.zcml (option *file* de la directive) est lu.
@@ -419,7 +420,7 @@ Maintenant vous allez exporter cette configuration dans votre policy product.
 Allez dans la ZMI, *portal_setup*, onglet *Export*, sélectionnez le step *MemberData properties*, et cliquez sur *Export selected steps*.
 
 Téléchargez l'archive tar.gz proposée, extrayez son contenu dans un dossier temporaire
-et copiez le fichier *memberdata_properties.xml* dans le dossier profiles/default de votre policy product.
+et copiez le fichier *memberdata_properties.xml* dans le dossier *profiles/default* de votre policy product.
 
 Éditez le fichier pour ne laisser que la propriété qui vous intéresse.
 Vous devez donc avoir au final un fichier *profiles/default/memberdata_properties.xml* avec ce contenu : ::
