@@ -134,6 +134,62 @@ Comprehensive list et generator
       File "<stdin>", line 1, in <module>
     StopIteration
 
+Decorateur
+==========
+Copiez cet exemple dans un fichier *test.py* : ::
+
+    import functools
+
+    def log_calls_decorator(f):
+        """My decorator.
+        """
+        @functools.wraps(f)
+        def wrapped(*args, **kwargs):
+            """My wrapped function.
+            """
+            call_string = "%s called with *args: %r, **kwargs: %r " % (f.__name__, args, kwargs)
+            try:
+                retval = f(*args, **kwargs)
+                call_string += " --> " + repr(retval)
+                return retval
+            finally:
+                print call_string
+
+        return wrapped
+
+
+    @log_calls_decorator
+    def add(operand1, operand2):
+        """Return the sum of operand1 and operand2.
+        """
+        return operand1 + operand2
+
+La construction est équivalente à : ::
+
+    add = log_calls_decorator(add)
+
+Lancez le : ::
+
+    python -i test.py
+    >>> print add.__name__
+    add
+    >>> print add.__doc__
+    Return the sum of operand1 and operand2.
+
+Le *@functools.wraps(f)* permet de garder le __name__ et __doc__ de la fonction add d'origine.
+Enlevez le et recommencez le test.
+
+Pour plus d'informations : ::
+
+    >>> help(functools.wraps)
+    >>> help(functools.update_wrapper)
+    >>> functools.WRAPPER_ASSIGNMENTS
+    ('__module__', '__name__', '__doc__')
+    >>> functools.WRAPPER_UPDATES
+    ('__dict__',)
+
+`Source <http://caines.ca/blog/programming/the-debuggerator-a-practical-intro-to-decorators-in-python/>`__
+
 Methode de classe
 =================
 ::
