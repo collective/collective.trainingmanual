@@ -1,0 +1,20 @@
+{% extends '!layout.html' %}
+
+{% block extrahead %}
+<link rel="stylesheet"
+  href="{{ pathto('_static/plone.css', 1) }}"
+    type="text/css" />
+<script language="javascript">
+$(document).ready(function () {
+
+    var pars = $('p:has(span.versionmodified)');
+    for (var i = 0; i < pars.length; i++)
+    {
+       pars[i].className = 'p-versionmodified';
+    }
+    return true;
+});
+
+</script>
+{% endblock %}
+

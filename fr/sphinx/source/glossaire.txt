@@ -1,0 +1,44 @@
+.. -*- coding: utf-8 -*-
+
+.. _glossaire:
+
+=========
+Glossaire
+=========
+
+Définition des termes utilisés dans ce document.
+
+.. glossary::
+
+   cheeseshop
+      voir :term:`pypi`.
+
+   egg
+      Packaging d'un module Python incluant ses méta-données telles que sa
+      version, sa documentation et les éventuelles dépendances d'autres eggs. La
+      grande majorité des eggs publics sont distribués sur le site
+      :term:`pypi`. Reportez-vous au chapitre :ref:`python_eggs` pour plus de
+      détails.
+
+   pypi
+      PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
+      lequel la grande majorité des packages open source Python sont mis à la
+      disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
+
+   namespace
+
+     A définir...
+
+   virtualenv
+      :mod:`virtualenv` est un outil permettant de créer des installations
+      virtuelles de Python (presque) indépendantes du Python installé de façon
+      globale dans votre système, de sorte que tout :term:`egg` ajouté dans une
+      installation virtuelle ne vient pas "polluer" votre installation
+      globale. Par extension, on appelle un "virtualenv" tout environnement
+      virtuel créé avec cet outil. Reportez-vous au chapitre
+      :ref:`environnement_virtuel` pour plus de détails. Ou bien sur la `page
+      d'accueil de virtualenv <http://pypi.python.org/pypi/virtualenv>`_
+
+.. todo::
+
+   définir "namespace"

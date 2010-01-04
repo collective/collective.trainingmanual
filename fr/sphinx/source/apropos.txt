@@ -1,0 +1,44 @@
+.. -*- coding: utf-8 -*-
+
+=======================
+A propos de ce document
+=======================
+
+Organisation
+============
+La formation est découpée en thèmes.
+
+Presque chaque thème comprend :
+
+- un objectif,
+- un savoir à acquérir,
+- un exercice pratique permettant de fixer le savoir acquis,
+- un bilan oral, résumant ce qui a été acquis.
+
+Liste des thèmes abordés
+========================
+
+- L'environnement de développement
+- La gestion des sources avec subversion
+- Rappel Python
+- Programmation dirigée par les tests
+- Programmation dirigée par la documentation
+- Sensibilisation aux méthodes agiles
+- Présentation des nouveautés de Plone 3
+- Concept de Python eggs
+- Création d'un buildout Plone 3 avec paster
+- Concepts de base Zope 3
+- Migration des composants développés pour Plone 2.5
+- Migration d'un portail Plone 2.5 à Plone 3
+- Déploiement et backup
+- Formation de TAL/Metal permettant l'écriture de pages dynamiques
+- Envoi de mail suite à un évènement sur le portail
+- Internationalisation d'un composant
+- Notions avancées de formulaire d'édition
+- Nouvelles fonctionnalités de ArchGenXML
+- Création d'un thème Plone 3 (avec paster)
+
+Ressources
+==========
+- `Professional Plone Development <http://plone.org/documentation/books/professional-plone-development>`__
+- `Practical Plone 3: A Beginner's Guide <http://plone.org/documentation/books/practical-plone-3-a-beginners-guide>`__

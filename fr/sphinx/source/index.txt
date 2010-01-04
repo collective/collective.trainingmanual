@@ -1,0 +1,30 @@
+.. -*- coding: utf-8 -*-
+
+===========================
+Plone pour les intégrateurs
+===========================
+
+Ce document constitué à partir de contributions de la commuanuté Plone
+francophone, notamment :
+
+* Le manuel de formation intégrateur Plone par Vincent Fretin
+
+Table des matières
+==================
+
+.. toctree::
+   :maxdepth: 1
+
+   apropos
+   presentation_nouveautes_plone3
+   concepts_python_eggs
+   glossaire
+
+Indexes et tables
+=================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
+
+.. todolist::
