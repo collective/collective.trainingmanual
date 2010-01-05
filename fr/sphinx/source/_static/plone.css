@@ -178,6 +178,11 @@ a.headerlink:hover {
     color: white;
 }
 
+a.exit {
+    padding-right: 13px;
+    background: transparent url(external.png) no-repeat scroll right center;
+}
+
 div.body p, div.body dd, div.body li {
     text-align: justify;
     line-height: 130%;

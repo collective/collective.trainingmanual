@@ -4,14 +4,23 @@
 <link rel="stylesheet"
   href="{{ pathto('_static/plone.css', 1) }}"
     type="text/css" />
+
 <script language="javascript">
+
 $(document).ready(function () {
 
+    /* Stylage des .. verisonmodified:: , .. versionadded:: ... */
     var pars = $('p:has(span.versionmodified)');
     for (var i = 0; i < pars.length; i++)
     {
        pars[i].className = 'p-versionmodified';
     }
+
+    /* Decoration des liens externes */
+    $('a[@href^="http://"]').addClass('exit').attr('target', '_blank');
+
+    /* Termes definis dans le glossaire */
+    $('em.xref').attr('title', 'Voir la définition');
     return true;
 });
 
