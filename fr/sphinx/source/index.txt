@@ -18,6 +18,7 @@ Table des matières
    apropos
    presentation_nouveautes_plone3
    concepts_python_eggs
+   buildout_plone3
    glossaire
 
 Indexes et tables

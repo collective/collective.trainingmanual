@@ -20,14 +20,28 @@ Définition des termes utilisés dans ce document.
       :term:`pypi`. Reportez-vous au chapitre :ref:`python_eggs` pour plus de
       détails.
 
+   namespace
+      A définir...
+
+   policy product
+     Un policy product est un composant pour Plone défininissant la politique
+     éditoriale du site, et - éventuellement - sa logique métier spécifique. un
+     policy product a également pour rôle d'installer et paramétrer de façon
+     spécifique Plone et les différents composants de tierce partie ajoutés.
+
    pypi
       PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
       lequel la grande majorité des packages open source Python sont mis à la
       disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
 
-   namespace
-
-     A définir...
+   tool
+      Dans un contexte CMF, donc Plone, un "tool" est un objet unique dans un
+      site fournissant un ensemble de services et incorporant ses propres
+      données persistantes de configuration. Les tools se trouvent à la racine
+      de Plone et leurs noms sont généralement préfixés par ``portal_``.
+      ``portal_properties`` abrite les feuilles de propriétés de Plone et de la
+      plupart des composants d'extension de tierce partie. ``portal_catalog``
+      indexe les contenus du site...
 
    virtualenv
       :mod:`virtualenv` est un outil permettant de créer des installations
