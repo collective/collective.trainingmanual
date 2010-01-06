@@ -6,52 +6,267 @@
 Glossaire
 =========
 
-Définition des termes utilisés dans ce document.
+Définition des termes et abbréviations utilisés dans ce document.
 
 .. glossary::
 
-   cheeseshop
-      voir :term:`pypi`.
+  adapter
+    Classe Python fournissant aux objets exposant une certaine interface des
+    services supplémentaires, sans utiliser directement la technologie
+    d'héritage Python. Les adapteurs font partie des concepts amenés par la
+    :term:`ZCA` (Zope Component Architecture).
 
-   egg
-      Packaging d'un module Python incluant ses méta-données telles que sa
-      version, sa documentation et les éventuelles dépendances d'autres eggs. La
-      grande majorité des eggs publics sont distribués sur le site
-      :term:`pypi`. Reportez-vous au chapitre :ref:`python_eggs` pour plus de
-      détails.
+  adaptateur
+    Traduction libre de :term:`adapter`.
 
-   namespace
-      A définir...
+  AT
+    Abréviation courante d'Archetypes utilisée dans les documentations, blogs,
+    mailing-lists, forums ayant trait à Plone.
 
-   policy product
-     Un policy product est un composant pour Plone défininissant la politique
-     éditoriale du site, et - éventuellement - sa logique métier spécifique. un
-     policy product a également pour rôle d'installer et paramétrer de façon
-     spécifique Plone et les différents composants de tierce partie ajoutés.
+  brain
+    Toute requête au catalogue fournit une itération de brains. Chaque brain
+    étant une référence à un élément de contenu, et incorpore la copie de
+    certains attributs de celui-ci (titre, description, ...).  cheeseshop voir
+    :term:`pypi`.
 
-   pypi
-      PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
-      lequel la grande majorité des packages open source Python sont mis à la
-      disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
+  buildout
+    Buildout – ou zc.buildout – est un outil multi-plateformes conçu pour
+    installer et paramétrer les différents composants logiciels d'un système
+    d'informations. Plone est installable par ce mode depuis sa version 2.5.
+    zc.buildout permet en outre de personnaliser l'installation des composants
+    qui concourent à l'installation de "votre" site Plone en modifiant son
+    fichier de configuration. Le packaging sous forme d':term:`egg` s est
+    favorisé.
 
-   tool
-      Dans un contexte CMF, donc Plone, un "tool" est un objet unique dans un
-      site fournissant un ensemble de services et incorporant ses propres
-      données persistantes de configuration. Les tools se trouvent à la racine
-      de Plone et leurs noms sont généralement préfixés par ``portal_``.
-      ``portal_properties`` abrite les feuilles de propriétés de Plone et de la
-      plupart des composants d'extension de tierce partie. ``portal_catalog``
-      indexe les contenus du site...
+  component
+    Package Python fournissant des fonctionnalités supplémentaires à Zope ou
+    Plone. Les composants sont installés le plus souvent dans
+    :file:`$INSTANCE_HOME/lib/python`, et plus généralement dans les répertoires
+    du système de fichiers désignés par la directive path du fichier de
+    configuration de votre instance Zope.  L'extension de Zope ou Plone par
+    composants est la méthode recommandée pour faciliter la future migration
+    vers le pur Zope 3.  Attention, si un composant comporte des directives
+    ZCML, celui-ci doit être déclaré dans la configuration de de votre instance
+    Zope.
 
-   virtualenv
-      :mod:`virtualenv` est un outil permettant de créer des installations
-      virtuelles de Python (presque) indépendantes du Python installé de façon
-      globale dans votre système, de sorte que tout :term:`egg` ajouté dans une
-      installation virtuelle ne vient pas "polluer" votre installation
-      globale. Par extension, on appelle un "virtualenv" tout environnement
-      virtuel créé avec cet outil. Reportez-vous au chapitre
-      :ref:`environnement_virtuel` pour plus de détails. Ou bien sur la `page
-      d'accueil de virtualenv <http://pypi.python.org/pypi/virtualenv>`_
+  composant
+    Traduction libre de :term:`component`.
+
+  configlet
+    Panneau de configuration de Plone permettant de paramétrer de façon globale
+    certains aspects de Plone. Par exemple, le panneau de configuration des
+    utilisateurs et des groupes ou le thème graphique. Certains composants
+    d'extension de tierce partie ajoutent leur panneau de configuration.
+
+  content type
+    Un type de contenu est le moule avec lequel tous les élément d'un certain
+    type sont gérés. Un type de contenu incorpore les dispositifs suivant:
+
+    - factory de création de l'élément
+    - vues HTML de l'élément schéma d'informations portées par l'élément,
+      incluant ses méta-données
+    - formulaires de création/modification de ce schéma d'informations
+    - services "métier" proposés par l'élément.
+
+  dotted name
+    Il n'y a pas de traduction en français facile et concise pour ce terme. Un
+    ``dotted name`` permet - généralement dans un fichier :term:`ZCML` - de
+    désigner un symbole Python quelconque (objet, classe, fonction, ...) sous la
+    forme d'une chaîne de caractères proche de celle utilisée par le mot clé
+    Python :keyword:`import`. Par exemple, le dotted name ``foo.bar.stuff``
+    représente l'équivalent en python ``from foo.bar import stuff``.
+
+    En outre, la notation ``dotted name`` admet la notation de package relatif
+    par l'utilisation du préfixe ``.``. Par exemple ``.foo.bar`` dans un fichier
+    ZCML permet de référencer l'objet (classe, fonction, ...) ``bar`` du module
+    :file:`foo.py` lorsque ce module figure dans le même répertoire que le
+    fichier ZCML. Un préfixe de deux points (``..``) permet d'accéder au
+    répertoire parent de celui incluant le fichier ZCML et ainsi de suite.
+
+  egg
+    Packaging d'un module Python incluant ses méta-données telles que sa
+    version, sa documentation et les éventuelles dépendances d'autres eggs. La
+    grande majorité des eggs publics sont distribués sur le site
+    :term:`pypi`. Reportez-vous au chapitre :ref:`python_eggs` pour plus de
+    détails.
+
+  élément
+    (de contenu) ou "content item". Unité atomique de contenu fournie par un
+    auteur, tel qu'un document, une image, un fichier. Certains types
+    d'éléments, tel que le dossier ou la collection sont dits également
+    conteneurs ou "folderish" de par leur aptitude à contenir d'autres éléments
+    de la même façon qu'un répertoire peut inclure d'autres fichiers et
+    répertoires dans un disque dur.
+
+  interface
+    (en Python) : Une interface est un classe spéciale décrivant l'API publique
+    de toute autre classe l'implémentant. L'utilisation des interfaces est à la
+    base de la :term:`ZCA`.  namespace A définir...
+
+  permission
+    Protection d'accès à un objet dont la sécurité est gérée par Zope.
+    FIXME: décrire plus précisément
+
+  permissions
+    voir :term:`permission`.
+
+  PMI
+    Plone Management Interface : Ensemble des formulaires fournis par Plone et
+    ses éventuelles extensions permettant de gérer et paramétrer le contenu et
+    les services.
+
+  portlet
+    Petite boite d'interface utilisateur située dans la colonne gauche d'un
+    portail Plone. Les conditions d'apparition et les interfaces des portlets
+    est automatiquement calculé en fonction du contexte (droits de
+    l'utilisateur, et emplacement de navigation). L'outil de navigation et le
+    calendrier sont des exemples de portlets. Dans la grande majorité des cas,
+    les portlets ne font pas strictement partie du contenu.
+
+  policy product
+    Un policy product est un composant pour Plone défininissant la politique
+    éditoriale du site, et - éventuellement - sa logique métier spécifique. un
+    policy product a également pour rôle d'installer et paramétrer de façon
+    spécifique Plone et les différents composants de tierce partie ajoutés.
+
+  principal
+    Agent du système Zope exécutant une action. Un agent dispose de permissions
+    sur les objets Zope pour exécuter ces actions. Dans les applications Zope ou
+    Plone, vous ne verrez que deux types de ``principals`` : les utilisateurs
+    (ou membres) et les groupes.  
+
+  product
+    Package Python fournissant des fonctionnalités supplémentaires à Zope ou
+    Plone. Les produits sont installés le plus souvent dans
+    :file:`$INSTANCE_HOME/Products`, et plus généralement dans les répertoires
+    du système de fichiers désignés par la directive "products" du fichier de
+    configuration de votre instance Zope. L'extension de Zope et Plone par
+    produits est un héritage des anciennes versions de Zope, facilitant ainsi
+    l'adaptation d'extensions Zope ou Plone conçues pour des versions
+    antérieures. Il est en conséquence recommandé de réaliser dorénavant des
+    composants (voir plus haut) pour ajouter des fonctionnalités à Zope ou
+    Plone.
+
+  produit
+    Traduction libre de :term:`product`.
+
+  profil
+    Traduction libre de :term:`profile`.
+
+  profile
+    (GenericSetup) : un profil désigne un lot de fichiers XML définissant le
+    paramétrage appliqué à un site Plone permettant l'utilisation dans le dit
+    site des ressources d'un composant ou d'un produit. Les fichiers d'un
+    profil GenericSetup sont – généralement – placés dans le sous-répertoire
+    :file:`profiles/default` d'un composant ou produit.
+
+  pypi
+    PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
+    lequel la grande majorité des packages open source Python sont mis à la
+    disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
+
+  rôle
+    Un rôle regroupe un ensemble de :term:`permissions`. Tout visiteur dispose
+    d'un ou plusieurs rôles, soit de façon globale, soit de façon contextuelle.
+
+  SSO
+    Single Sign On ou Authentification unique. Agent permettant de
+    n'effectuer qu'une seule authentification pour accéder à plusieurs
+    sites. Comme par exemple pour Google apps (mail, agendas, documents). Voir
+    http://fr.wikipedia.org/wiki/SSO
+
+  structural folder
+    Type de contenu permettant à un contributeur d'y inclure les contenus de
+    son choix. A contrario, le "non structural folder" permet pas à un
+    contributeur de structurer librement son contenu. Les composants de tierce
+    partie :mod:`Products.PloneArticle` et :mod:`Products.Collage` fournissent
+    des exemples de "non structural folder".
+
+  tool
+    Dans un contexte CMF, donc Plone, un "tool" est un objet unique dans un site
+    fournissant un ensemble de services et incorporant ses propres données
+    persistantes de configuration. Les tools se trouvent à la racine de Plone et
+    leurs noms sont généralement préfixés par ``portal_``.
+    ``portal_properties`` abrite les feuilles de propriétés de Plone et de la
+    plupart des composants d'extension de tierce partie. ``portal_catalog``
+    indexe les contenus du site...
+
+  TTW
+    Ou "Through The Web". Qualifie généralement le paramétrage ou la
+    programmation d'une application Zope depuis des formulaires accessibles
+    uniquemant à un administrateur ou un auteur authentifié. La ZMI est le
+    principal outil Zope de programmation ou de paramétrage TTW.
+
+  type de contenu
+    Traduction libre de :term:`content type`.
+
+  viewlet
+    Une viewlet est responsable du rendu d'un composant de page, donc de la
+    réalisation d'un bloc - generalement - HTML. Les viewlets sont généralement
+    assemblées par un :term:`viewlet manager`.
+
+  viewlet manager
+    Un viewlet manager permet d'assembler les viewlets.
+    L'utilisation de viewlets et de viewlet managers permet une disposition
+    plus souple des composants d'une page que les classiques macros ZPT ainsi
+    que des performances de publication améliorées.
+
+  virtualenv
+    :mod:`virtualenv` est un outil permettant de créer des installations
+     virtuelles de Python (presque) indépendantes du Python installé de façon
+     globale dans votre système, de sorte que tout :term:`egg` ajouté dans une
+     installation virtuelle ne vient pas "polluer" votre installation
+     globale. Par extension, on appelle un "virtualenv" tout environnement
+     virtuel créé avec cet outil. Reportez-vous au chapitre
+     :ref:`environnement_virtuel` pour plus de détails. Ou bien sur la `page
+     d'accueil de virtualenv <http://pypi.python.org/pypi/virtualenv>`_
+
+  widget
+    Élément unitaire d'une page permettant au serveur de solliciter une
+    information à l'utilisateur. Les widgets sont généralement assemblés dans un
+    formulaire.  Plone fournit bien évidemment tous les widgets standard du
+    langage HTML (cases à cocher, boutons, listes déroulantes, champ de saisie
+    de texte, ...). Ses divers composants, notamment la bibliothèque
+    :file:`zope.formlib`, KSS et Archetypes proposent des widgets plus évolués
+    tel que des calendriers, éditeur WYSIWYG, arbres d'exploration, ...
+
+  workflow
+    Outil permettant de définir les différents états d'un élément, et les
+    transitions permettant de passer d'un état à un autre.  Pour chaque état,
+    un sous-ensemble de permissions de cet élément fixe la limite les
+    différents types d'accès à celui-ci. Par exemple pour interdire la vue à un
+    utilisateur anonyme.  L'exécution de chaque transitions est protégée de
+    façon spécifique. Par exemple, seul un modérateur peut exécuter la
+    transition "publier" Dans Pone, les workflows sont définis en ZMI à l'aide
+    de l'outil DCWorkflow.  Certains types d'éléments, comme l'image, ne sont
+    pas associés à un workflow.
+
+  ZCA
+    Zope Component Architecture : Ensemble de services intégrés dans Zope 3, et
+    adaptés à Zope 2 depuis sa version 2.9 par l'entremise de Five. La ZCA
+    fournit les outils facilitant la collaboration entre objets et services de
+    natures différentes concourant à la réalisation de fonctions applicatives,
+    tout en évitant les pièges d'un héritage complexe de classes. Par exemple,
+    vous disposez d'un composant (A) d'exploration AJAX d'arbre virtuel, d'un
+    autre composant (B) gérant un contenu pouvant être représenté de façon
+    arborescente, il vous suffira de fournir les adapteurs permettant d'explorer
+    le contenu des objets fournis par B à l'aide des widgets fournis par A. Ceci
+    ne peut bien entendu être possible que si ces deux composants exposent les
+    ressources ZCA (généralement des interfaces) permettant ceci. L'utilisation
+    de la ZCA, entamée par Plone depuis sa version 2.5, se généralise depuis sa
+    version 3. Plus de détails dans :ref:`concepts_zope3`.
+
+  ZCML
+    Zope Configuration Markup Language : Langage basé sur XML permettant de
+    configurer des composants ou produits pour Zope ou Plone dans des fichiers
+    :file:`configure.zcml` ou :file:`overrides.zcml`.
+
+  ZODB
+    Zope Object Data Base : base de données objets native de Zope.
+
+  ZMI
+    Zope Management Interface : Interface Web de paramétrage et contrôle d'une
+    instance Zope, permettant l'exploration de la ZODB.
 
 .. todo::
 

@@ -20,6 +20,7 @@ Table des matières
    concepts_python_eggs
    presentation_buildout
    buildout_plone3
+   concepts_zope3
    glossaire
 
 Indexes et tables
