@@ -33,7 +33,7 @@ Créez un fichier deployment.cfg : ::
     recipe = zc.recipe.cmmi
     url = ${varnish:download-url}
 
-    [varnish-instance]
+    [varnish]
     recipe = plone.recipe.varnish
     daemon = ${buildout:parts-directory}/varnish-build/sbin/varnishd
     bind = 127.0.0.1:8000
