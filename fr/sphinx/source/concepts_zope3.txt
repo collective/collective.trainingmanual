@@ -11,9 +11,9 @@ Concepts de base Zope 3
 Définition
 ==========
 
-ZCA (Zope Component Architecture), le modèle de composants de Zope 3 est utilisé
-partout dans les dernières versions de Plone. L'apprentissage des concepts de
-Zope 3 est nécessaire pour comprendre le fonctionnement de Plone 3.
+:term:`ZCA` (Zope Component Architecture), le modèle de composants de Zope 3 est
+utilisé partout dans les dernières versions de Plone. L'apprentissage des
+concepts de Zope 3 est nécessaire pour comprendre le fonctionnement de Plone 3.
 
 Savoir
 ======
@@ -29,7 +29,9 @@ Savoir
 Installation de five.grok
 =========================
 
-Modifiez votre buildout.cfg comme ceci : ::
+Modifiez votre :file:`buildout.cfg` comme ceci :
+
+.. code-block:: cfg
 
     [zope2]
     skip-fake-eggs =
@@ -49,7 +51,9 @@ Modifiez votre buildout.cfg comme ceci : ::
         five.grok-meta
         five.grok
 
-Et ajoutez ces versions dans votre fichier versions.cfg : ::
+Et ajoutez ces versions dans votre fichier :file:`versions.cfg` :
+
+.. code-block:: cfg
 
     five.grok = 1.0
     grokcore.annotation = 1.1
@@ -70,25 +74,38 @@ Et ajoutez ces versions dans votre fichier versions.cfg : ::
     zope.securitypolicy = 3.4.1
     zope.testing = 3.7.6
 
-Vous pouvez retrouver les dernières versions des packages qui fonctionnent bien ensemble dans le buildout de `five.grok <http://svn.zope.org/repos/main/five.grok/trunk/>`_.
+Vous pouvez retrouver les dernières versions des packages qui fonctionnent bien
+ensemble dans le buildout de `five.grok
+<http://svn.zope.org/repos/main/five.grok/trunk/>`_.
 
-Créez un product formation.transforms avec le template paster plone : ::
+Créez un product formation.transforms avec le template paster plone :
+
+.. code-block:: sh
 
     $ cd /tmp
-    $ paster create -t plone formation.transforms --svn-repository=http://devagile/Formation/packages
+    $ paster create -t plone formation.transforms \
+      --svn-repository=http://devagile/Formation/packages
     $ cd formation.transforms
     $ svn rm --force formation.transforms/formation.transforms.egg-info
     $ svn ci -m"Added skel of formation.transforms"
 
-Dans votre buildout, éditez le fichier *sources.cfg*, ajoutez *formation.transforms* dans l'option auto-checkout et indiquez l'url suivante dans [sources] : ::
+Dans votre buildout, éditez le fichier :file:`sources.cfg`, ajoutez
+``formation.transforms`` dans l'option ``auto-checkout`` et indiquez l'url
+suivante dans ``[sources]`` :
+
+.. code-block:: cfg
 
     formation.transforms = svn http://devagile/Formation/packages/formation.transforms/trunk
 
-Dans *buildout.cfg*, ajoutez formation.transforms dans l'option *eggs*.
+Dans :file:`buildout.cfg`, ajoutez formation.transforms dans l'option ``eggs``.
 
-Relancez ``bin/buildout`` pour récupérer le product dans le dossier src.
+Relancez :command:`bin/buildout` pour récupérer le product dans le dossier
+:file:`src`.
 
-éditez  *src/formation.transforms/setup.py* pour déclarer le produit comme plugin plone : ::
+éditez :file:`src/formation.transforms/setup.py` pour déclarer le produit comme
+plugin plone :
+
+.. code-block:: python
 
     entry_points="""
     [z3c.autoinclude.plugin]

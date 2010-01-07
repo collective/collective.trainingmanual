@@ -103,9 +103,18 @@ Définition des termes et abbréviations utilisés dans ce document.
     de toute autre classe l'implémentant. L'utilisation des interfaces est à la
     base de la :term:`ZCA`.  namespace A définir...
 
+  part
+    Une part est une section d'un fichier :term:`buildout` contenant une
+    variable :term:`recipe` définissant le rôle de la part dans le processus
+    d'installation global défini par la configuration :term:`buildout`. Une part
+    n'est exécutée que si elle est référencée dans la liste ``parts = ...`` de
+    la section ``[buildout]``.
+
+  parts
+    voir :term:`part`.
+
   permission
     Protection d'accès à un objet dont la sécurité est gérée par Zope.
-    FIXME: décrire plus précisément
 
   permissions
     voir :term:`permission`.
@@ -164,6 +173,14 @@ Définition des termes et abbréviations utilisés dans ce document.
     PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
     lequel la grande majorité des packages open source Python sont mis à la
     disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
+
+  recipe
+    Peut être traduit en français par "recette". Une recipe définit le rôle
+    d'une :term:`part` d'une configuration :term:`buildout` (exemples:
+    installation/paramétrage d'Apache, instalation d'un client ZEO, fichier de
+    comfiguration défini par une template, ...). La plupart des recipes
+    disponibles sont disponible dans le site :term:`Pypi` `à cette adresse
+    <http://pypi.python.org/pypi?:action=browse&c=512>`_.
 
   rôle
     Un rôle regroupe un ensemble de :term:`permissions`. Tout visiteur dispose
@@ -256,6 +273,9 @@ Définition des termes et abbréviations utilisés dans ce document.
     de la ZCA, entamée par Plone depuis sa version 2.5, se généralise depuis sa
     version 3. Plus de détails dans :ref:`concepts_zope3`.
 
+  zc.buildout
+    voir :term:`buildout`.
+
   ZCML
     Zope Configuration Markup Language : Langage basé sur XML permettant de
     configurer des composants ou produits pour Zope ou Plone dans des fichiers
@@ -271,3 +291,4 @@ Définition des termes et abbréviations utilisés dans ce document.
 .. todo::
 
    définir "namespace"
+   définir "permission" plus précisément
