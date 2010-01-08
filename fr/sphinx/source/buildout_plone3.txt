@@ -194,16 +194,19 @@ Amorcez et lancez buildout :
 .. code-block:: sh
 
     $ cd plone3
-    $ python2.4 -S bootstrap.py
+    $ python2.4 bootstrap.py
+
+Si vous avez un message d'erreur à propos de :mod:`setuptools`, essayez command:`python2.4 -S bootstrap.py`.
 
 L'aide de l'option :option:`-S` nous dit *don't imply 'import site' on
 initialization*, c'est-à-dire que tous les packages installés globalement dans
 site-packages ne seront pas dans le sys.path.
 
 Comme cela le package setuptools du système ne sera pas visible et une version
-récente sera téléchargée et installée dans le buildout. Vous devez vous passer
-de cette option si vous avez du installer l'un des packages (PIL, libxml2, ...)
-avec le gestionnaire de paquets de votre OS.
+récente sera téléchargée et installée dans le buildout. Notez que l'option 
+s'applique juste au script file:`bootstrap.py`, file:`bin/buildout` aura accès
+à tous les packages installés (PIL, libxml2, ...) avec le gestionnaire de paquets
+de votre OS.
 
 Continuez :
 
@@ -377,7 +380,7 @@ Exécutez :command:`bin/buildout`.
 L'ajout de :mod:`formation.policy` dans l'option ``zcml = ...`` génère un *ZCML
 slug*, fichier XML contenant une seule ligne :
 
-.. centered:: parts/instance/etc/package-includes/001-formation.policy-configure.zcml
+.. centered:: :file:`parts/instance/etc/package-includes/001-formation.policy-configure.zcml`
 
 .. code-block:: xml
 
