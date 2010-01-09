@@ -23,6 +23,7 @@ Table des matières
    presentation_buildout
    buildout_plone3
    concepts_zope3
+   migration_composants_plone25
    glossaire
 
 Indexes et tables

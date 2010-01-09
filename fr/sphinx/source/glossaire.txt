@@ -281,6 +281,12 @@ Définition des termes et abbréviations utilisés dans ce document.
     configurer des composants ou produits pour Zope ou Plone dans des fichiers
     :file:`configure.zcml` ou :file:`overrides.zcml`.
 
+  zexp
+    Format binaire d'exportation et d'importation d'un objet (et éventuel
+    sous-objets) de la :term:`ZODB`. Pour exporter ou importer un fichier au
+    format ``zexp``, cliquez le bouton :guilabel:`Import/Export` et suivez les
+    instructions.
+
   ZODB
     Zope Object Data Base : base de données objets native de Zope.
 
