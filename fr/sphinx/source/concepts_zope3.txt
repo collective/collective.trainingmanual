@@ -1,7 +1,5 @@
 .. -*- coding: utf-8 -*-
 
-.. todo:: Sphinxifier le chapitre des concepts Zope 3
-
 .. _concepts_zope3:
 
 =======================
@@ -25,7 +23,6 @@ Savoir
 - ZCML
 - Approche Grok
 
-
 Installation de five.grok
 =========================
 
@@ -43,11 +40,11 @@ Modifiez votre :file:`buildout.cfg` comme ceci :
 
     [instance]
     eggs =
-        ...
+        # ...
         five.grok
 
     zcml =
-        ...
+        # ...
         five.grok-meta
         five.grok
 
@@ -75,7 +72,7 @@ Et ajoutez ces versions dans votre fichier :file:`versions.cfg` :
     zope.testing = 3.7.6
 
 Vous pouvez retrouver les dernières versions des packages qui fonctionnent bien
-ensemble dans le buildout de five.grok 
+ensemble dans le buildout de :mod:`five.grok`
 `pour Zope 2.10/Plone 3 <http://svn.zope.org/repos/main/five.grok/branches/1.0/README.txt>`_,
 `pour Zope 2.12/Plone 4 <http://svn.zope.org/repos/main/five.grok/trunk/README.txt>`_.
 
@@ -115,7 +112,9 @@ plugin plone :
 
 Relancez ``bin/buildout`` pour regénérer les métadonnées de formation.transforms.
 
-Créez un fichier *formation/transforms/interfaces.py* : ::
+Créez un fichier :file:`formation/transforms/interfaces.py` :
+
+.. code-block:: python
 
     from zope.interface import Interface
     
@@ -124,7 +123,9 @@ Créez un fichier *formation/transforms/interfaces.py* : ::
             """Return a modified text, replace letter1 by letter2.
             """
 
-Créez un fichier *adapters.py* : ::
+Créez un fichier :file:`adapters.py` :
+
+.. code-block:: python
 
     from five import grok
     from formation.transforms.interfaces import IReplaceLetter
@@ -136,7 +137,9 @@ Créez un fichier *adapters.py* : ::
         def getText(self, letter1, letter2):
             return self.context.getText().replace(letter1, letter2)
     
-Créez un module *views.py* : ::
+Créez un module :file:`views.py` :
+
+.. code-block:: python
 
     from five import grok
     from formation.transforms.interfaces import IReplaceLetter
@@ -162,7 +165,10 @@ Créez un module *views.py* : ::
             return IReplaceLetter(self.context).getText(self.letter1, self.letter2)
 
 
-Créez le répertoire *templates* et créez dedans un fichier *transformeddocument.pt* : ::
+Créez le répertoire :file:`templates/` et créez dedans un fichier
+:file:`transformeddocument.pt` :
+
+.. code-block:: xml
 
     <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
           xmlns:tal="http://xml.zope.org/namespaces/tal"
@@ -177,24 +183,30 @@ Créez le répertoire *templates* et créez dedans un fichier *transformeddocume
     </html>
     
 
-Dans *formation/transforms/configure.zcml*, ajoutez le namespace grok et la ligne : ::
+Dans :file:`formation/transforms/configure.zcml`, ajoutez le namespace ``grok``
+et la ligne :
+
+.. code-block:: xml
 
     <grok:grok package=".adapters" />
     <grok:grok package=".views" />
 
-Vous pouvez également faire : ::
+Vous pouvez également faire :
+
+.. code-block:: xml
 
     <grok:grok package="." />
 
-qui va rechercher l'ensemble des packages et modules qui comportent des classe héritant de grok.
+qui va rechercher l'ensemble des packages et modules qui comportent des classe
+héritant de ``grok``.
 
-Dans Plone, créez un Document et accédez à la vue @@transformeddocument.
+Dans Plone, créez un Document et accédez à la vue ``@@transformeddocument``.
 
 Ressources
 ==========
 
-Création d'une viewlet qui affiche un Avertissement lorsque le document est expiré :
-http://vincentfretin.ecreall.com/articles/creating-a-viewlet-with-grok
+Création d'une viewlet qui affiche un Avertissement lorsque le document est
+expiré : http://vincentfretin.ecreall.com/articles/creating-a-viewlet-with-grok
 
 Viewlets avec grok
 ------------------
@@ -202,8 +214,11 @@ Viewlets avec grok
 - http://grok.zope.org/documentation/how-to/understanding-viewlets
 - http://grok.zope.org/documentation/how-to/fred-wilma-revisited
 
+.. todo:: Lien 404 (documentation/how-to/fred-wilma-revisited)
+
 Zope 3 et ZCA
 -------------
+
 - Article Zope Component Architecture (ZCA) dans Linux Magazine hors-série n°40
 - `Web Component Development with Zope 3 <http://worldcookery.com/>`__, Third Edition, Philipp von Weitershausen
 - `A Comprehensive Guide to Zope Component Architecture <http://plone.org/documentation/books/guide-to-zca>`__ et sa `traduction française <http://ccomb.gorfou.fr/2009/12/9/le-guide-complet-de-l-architecture-de-composants-de-zope>`__
