@@ -236,6 +236,22 @@ Exemple : ::
     >>> b.myattr
     6
 
+
+Template
+========
+En Python 2.4-2.6 :
+::
+
+    >>> "Bonjour %(name)s" % {'name': 'Vincent'}
+    'Bonjour Vincent'
+
+En Python 2.6/3.x :
+::
+
+    >>> "Bonjour {name}".format(name='Vincent') 
+    'Bonjour Vincent'
+
+
 Debogueur pdb
 =============
 À insérer dans le code source à l'endroit où vous voulez vous arrêter : ::
