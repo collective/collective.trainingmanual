@@ -1,3 +1,11 @@
+.. ===========================
+.. NE MODIFIEZ PLUS CE FICHIER
+.. ===========================
+
+.. Les informations figurant dans ce fichier ont été transférées dans
+.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
+.. l'ancienne version du document en HTML/PDF.
+
 ==========================================
 Création d'un buildout Plone 3 avec paster
 ==========================================
