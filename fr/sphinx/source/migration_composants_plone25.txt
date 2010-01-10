@@ -325,7 +325,7 @@ Installez le package voulu :
 Exercice
 ========
 
-Migration du composant « base de connaissances » comme cas pratique.
+Migration du composant "base de connaissances" comme cas pratique.
 
 .. _AROfficeTransforms: http://plone.org/products/arofficetransforms
 

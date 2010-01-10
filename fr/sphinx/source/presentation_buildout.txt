@@ -149,7 +149,7 @@ entry point du groupe :mod:`zc.buildout`.
 Si vous ne spécifiez pas de point d'entrée, un point d'entrée nommé ``default``
 sera alors recherché dans l'egg.
 
-Jetez un œil au :file:setup.py`` de zc.recipe.egg :
+Jetez un œil au :file:`setup.py` de zc.recipe.egg :
 
 .. code-block:: python
 

@@ -24,6 +24,8 @@ Table des matières
    buildout_plone3
    concepts_zope3
    migration_composants_plone25
+   deploiement_backup
+   formation_tal_metal
    glossaire
 
 Indexes et tables
