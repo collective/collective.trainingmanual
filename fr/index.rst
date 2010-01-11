@@ -24,16 +24,16 @@ Formation à Plone 3
     PageBreak oneColumn
 
 
-.. include:: 00_objectif_formation.rst
+.. include:: sphinx/source/apropos.txt
 .. include:: 18_scrum.rst
-.. include:: 01_presentation_nouveautes_plone3.rst
+.. include:: sphinx/source/presentation_nouveautes_plone3.txt
 .. include:: 13_environnement_de_dev.rst
 .. include:: 14_gestion_des_sources.rst
-.. include:: 02_concepts_python_eggs.rst
-.. include:: 03_buildout_plone3.rst
-.. include:: 03b_buildout_plone3.rst
+.. include:: sphinx/source/concepts_python_eggs.txt
+.. include:: sphinx/source/presentation_buildout.txt
+.. include:: sphinx/source/buildout_plone3.txt
 .. include:: 05_migration_composants_plone25.rst
-.. include:: 04_concepts_zope3.rst
+.. include:: sphinx/source/concepts_zope3.txt
 .. include:: 07_formation_tal_metal.rst
 .. include:: 09_internationalisation.rst
 .. include:: 12_creation_theme.rst
