@@ -1,6 +1,12 @@
+.. -*- coding: utf-8 -*-
+
+.. _envoi_email:
+
 =================================================
 Envoi de mail suite à un évènement sur le portail
 =================================================
+
+.. todo: howto à rédiger
 
 Définition
 ==========
