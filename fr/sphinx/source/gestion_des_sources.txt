@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _gestion_des_sources:
 
 ======================================
 La gestion des sources avec subversion
@@ -66,8 +62,13 @@ http://doc.ubuntu-fr.org/subversion
 
 Création et configuraton d'un dépôt à travers Apache :
 
+.. code-block:: sh
+
     $ sudo apt-get install apache2 libapache2-svn subversion
     $ sudo vim /etc/apache2/mods-enabled/dav_svn.conf
+
+.. code-block:: apache
+
     <Location /Formation>
         DAV svn
         SVNPath /home/svn/Formation
@@ -76,6 +77,9 @@ Création et configuraton d'un dépôt à travers Apache :
         AuthUserFile /etc/apache2/dav_svn.passwd
         Require valid-user
     </Location>
+
+.. code-block:: sh
+
     $ /etc/init.d/apache2 restart
     $ htpasswd -cs /etc/apache2/dav_svn.passwd anthony
     $ htpasswd -s /etc/apache2/dav_svn.passwd vincent
@@ -86,7 +90,9 @@ Création et configuraton d'un dépôt à travers Apache :
 
 Installation du client subversion
 =================================
-Sous Linux : ::
+Sous Linux :
+
+.. code-block:: sh
 
     $ apt-get install subversion
 

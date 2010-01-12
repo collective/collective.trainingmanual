@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _environnement_de_dev:
 
 ================================
 L'environnement de développement
@@ -14,7 +10,9 @@ Le but est de présenter et permettre l'acquisition des outils utilisés pour le
 
 Installation de Python 2.4
 ==========================
-Sur Ubuntu : ::
+Sur Ubuntu :
+
+.. code-block:: sh
 
     apt-get install python2.4 python2.4-dev build-essential libxml2-dev libxslt1-dev libjpeg62-dev zlib1g-dev libfreetype6-dev
 
@@ -22,11 +20,15 @@ build-essential permet d'installer le compilateur gcc et make entre autres.
 
 Configuration de l'éditeur vim
 ==============================
-Installez gvim : ::
+Installez gvim :
+
+.. code-block:: sh
 
     apt-get install vim-gnome
 
-Créez un fichier *~/.vimrc* avec la configuration suivante : ::
+Créez un fichier *~/.vimrc* avec la configuration suivante :
+
+.. code-block:: sh
 
     " http://www.vex.net/~x/python_and_vim.html
     " for Python
@@ -38,11 +40,14 @@ Créez un fichier *~/.vimrc* avec la configuration suivante : ::
     autocmd BufRead *.xml,*pt set smartindent tabstop=2 shiftwidth=2 smarttab expandtab softtabstop=2
     autocmd BufRead *.rst set smartindent tabstop=4 shiftwidth=4 smarttab expandtab softtabstop=4
 
-Cette configuration permet de configurer l'indentation à 4 espaces pour les fichiers Python et reST, 2 espaces pour les fichiers XML et PT. Elle permet aussi d'activer la coloration syntaxique et passer en mode "collage" à l'aide de la touche F8.
+Cette configuration permet de configurer l'indentation à 4 espaces pour les fichiers Python et reST, 2 espaces pour les fichiers XML et PT.
+Elle permet aussi d'activer la coloration syntaxique et passer en mode "collage" à l'aide de la touche F8.
 
 Configuration de l'autocomplétion dans Python
 =============================================
-Créer un fichier *~/.pythonstartup* avec le contenu suivant : ::
+Créer un fichier *~/.pythonstartup* avec le contenu suivant :
+
+.. code-block:: python
 
     # python startup file
     import readline
@@ -62,7 +67,9 @@ Créer un fichier *~/.pythonstartup* avec le contenu suivant : ::
 
 Éditez *~/.bashrc* et décommentez les 3 lignes qui incluent *~/.bash_aliases*.
 
-Créez le fichier *~/.bash_aliases* avec le contenu : ::
+Créez le fichier *~/.bash_aliases* avec le contenu :
+
+.. code-block:: sh
 
     export PYTHONSTARTUP=~/.pythonstartup
 
@@ -95,7 +102,9 @@ Installation de ArgoUML et ArchGenXML
 =====================================
 Suivre la `documentation de ArchGenXML`_.
 
-Pour vite installer ArgoUML::
+Pour vite installer ArgoUML :
+
+.. code-block:: sh
 
     sudo apt-get install sun-java6-jdk
     mkdir ~/opt
@@ -110,14 +119,16 @@ Pour vite installer ArgoUML::
 
 Checkout svn.zope.org
 =====================
-Si vous avez un accès subversion au dépôt de Zope, créez votre fichier *~/.ssh/config* comme ceci::
+Si vous avez un accès subversion au dépôt de Zope, créez votre fichier *~/.ssh/config* comme ceci : ::
 
     Host svn.zope.org
     User votre_login
 
 Comme cela, si votre compte unix est différent de votre compte svn, vous n'aurez pas besoin de spécifier votre login lors d'un checkout.
 
-Pour réaliser un checkout::
+Pour réaliser un checkout :
+
+.. code-block:: sh
 
     svn co svn+ssh://svn.zope.org/repos/main/grok
 

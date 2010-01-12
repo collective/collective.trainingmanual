@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _rappel_python:
 
 =================
 Rappel sur Python
@@ -29,7 +25,9 @@ Savoir
 
 Attributs par défaut d'une classe
 =================================
-Dans un shell Python : ::
+Dans un shell Python :
+
+.. code-block:: python
 
     >>> class MyClass(object):
     ...     myattr = 2
@@ -55,7 +53,9 @@ Dans un shell Python : ::
 
 set
 ===
-C'est une liste à élément unique : ::
+C'est une liste à éléments uniques :
+
+.. code-block:: python
 
     >>> s set([1,2,3,1,5])
     >>> s = set([1,2,3,1,5])
@@ -73,7 +73,9 @@ C'est une liste à élément unique : ::
 
 Le __call__ d'une classe
 ========================
-Une classe peut être appelé : ::
+Une classe peut être appelé :
+
+.. code-block:: python
 
     >>> class A(object):
     ...   def __call__(self):
@@ -85,7 +87,9 @@ Une classe peut être appelé : ::
 
 Manipulation de chaines
 =======================
-::
+
+
+.. code-block:: python
 
     >>> "bonJour".capitalize()
     'Bonjour'
@@ -112,7 +116,8 @@ Différence entre unicode et string
 
 Comprehensive list et generator
 ===============================
-::
+
+.. code-block:: python
 
     >>> [i*2 for i in range(10)]
     [0, 2, 4, 6, 8, 10, 12, 14, 16, 18]
@@ -144,7 +149,9 @@ Comprehensive list et generator
 
 Decorateur
 ==========
-Copiez cet exemple dans un fichier *test.py* : ::
+Copiez cet exemple dans un fichier *test.py* :
+
+.. code-block:: python
 
     import functools
 
@@ -172,13 +179,20 @@ Copiez cet exemple dans un fichier *test.py* : ::
         """
         return operand1 + operand2
 
-La construction est équivalente à : ::
+La construction est équivalente à :
+
+.. code-block:: python
 
     add = log_calls_decorator(add)
 
-Lancez le : ::
+Lancez le :
+
+.. code-block:: sh
 
     python -i test.py
+
+.. code-block:: python
+
     >>> print add.__name__
     add
     >>> print add.__doc__
@@ -187,7 +201,9 @@ Lancez le : ::
 Le *@functools.wraps(f)* permet de garder le __name__ et __doc__ de la fonction add d'origine.
 Enlevez le et recommencez le test.
 
-Pour plus d'informations : ::
+Pour plus d'informations :
+
+.. code-block:: python
 
     >>> help(functools.wraps)
     >>> help(functools.update_wrapper)
@@ -200,7 +216,8 @@ Pour plus d'informations : ::
 
 Methode de classe
 =================
-::
+
+.. code-block:: python
 
     >>> class A(object):
     ...   @classmethod
@@ -223,7 +240,9 @@ Methode de classe
 
 Property
 ========
-Exemple : ::
+Exemple :
+
+.. code-block:: python
 
     >>> class A(object):
     ...   myattr = 3
@@ -248,13 +267,15 @@ Exemple : ::
 Template
 ========
 En Python 2.4-2.6 :
-::
+
+.. code-block:: python
 
     >>> "Bonjour %(name)s" % {'name': 'Vincent'}
     'Bonjour Vincent'
 
 En Python 2.6/3.x :
-::
+
+.. code-block:: python
 
     >>> "Bonjour {name}".format(name='Vincent') 
     'Bonjour Vincent'
@@ -262,7 +283,9 @@ En Python 2.6/3.x :
 
 Debogueur pdb
 =============
-À insérer dans le code source à l'endroit où vous voulez vous arrêter : ::
+À insérer dans le code source à l'endroit où vous voulez vous arrêter :
+
+.. code-block:: python
 
     import pdb; pdb.set_trace ()
 
@@ -281,15 +304,21 @@ Debogueur pdb
 
 Profiler
 ========
-Installez le package Ubuntu pour avoir les modules profile et pstats : ::
+Installez le package Ubuntu pour avoir les modules profile et pstats :
+
+.. code-block:: sh
 
     $ sudo apt-get install python-profiler
 
-Dans votre code, pour obtenir des statistiques sur l'appel de la methode : ::
+Dans votre code, pour obtenir des statistiques sur l'appel de la methode :
+
+.. code-block:: python
 
     self.method(arg1, arg2)
 
-remplacez la ligne par : ::
+remplacez la ligne par :
+
+.. code-block:: python
 
     import profile
     p = profile.Profile()
@@ -298,13 +327,17 @@ remplacez la ligne par : ::
 
 Les résultats seront sauvegardés dans le fichier */tmp/stats*.
 
-Pour ensuite afficher les résultats, ouvrez un Python shell et exécutez : ::
+Pour ensuite afficher les résultats, ouvrez un Python shell et exécutez :
+
+.. code-block:: python
 
     import pstats
     p = pstats.Stats('/tmp/stats')
     p.strip_dirs().sort_stats(-1).print_stats()
 
 `Plus d'informations sur le module profile. <http://docs.python.org/library/profile.html>`__
+
+.. todo: transformer un fichier pstats en graphe 
 
 Ressources
 ==========

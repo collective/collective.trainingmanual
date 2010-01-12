@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _tdd:
 
 ===================================
 Programmation dirigée par les tests
@@ -27,16 +23,22 @@ Les tests unitaires sont écrit à l'aide du module unittest.
 
 Dans un packages Python, la convention est de créer soit un module tests.py, soit un package tests avec plusieurs fichiers commencant par *test_* dans ce packages. Il est en général conseillé de commencer tout de suite avec un package tests, plutôt qu'un module si l'on sait que le projet contiendra de nombreux modules. En effet la convention est de créer un fichier test_${module}.py pour chacun des modules de votre application.
 
-Donc dans votre package, créez un packages tests : ::
+Donc dans votre package, créez un packages tests :
+
+.. code-block:: sh
 
   mkdir tests
   touch tests/__init__.py
 
-Lancer les tests ::
+Lancer les tests :
+
+.. code-block:: sh
 
     bin/instance test -s collective.groupdelegation
 
-Vous pouvez utiliser la recipe zc.recipe.testrunner pour créer un script ``bin/test`` qui teste plusieurs eggs : ::
+Vous pouvez utiliser la recipe zc.recipe.testrunner pour créer un script ``bin/test`` qui teste plusieurs eggs :
+
+.. code-block:: cfg
 
     [test]
     recipe = zc.recipe.testrunner
@@ -44,6 +46,9 @@ Vous pouvez utiliser la recipe zc.recipe.testrunner pour créer un script ``bin/
         collective.groupdelegation
         formation.portlet.docinfo
 
+.. todo: exemple test unitaire
+.. todo: doc tests fonctionnels
+.. todo: doc test selenium
 
 Exercice
 ========

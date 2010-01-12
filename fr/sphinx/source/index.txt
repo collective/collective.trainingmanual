@@ -31,6 +31,12 @@ Table des matières
    notions_avancees_formulaire
    nouvelles_fonctionnalites_archgenxml
    creation_theme
+   environnement_de_dev
+   gestion_des_sources
+   rappel_python
+   tdd
+   ddd
+   scrum
    glossaire
   
 Indexes et tables

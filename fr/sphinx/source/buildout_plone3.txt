@@ -1,5 +1,7 @@
 .. -*- coding: utf-8 -*-
 
+.. _buildout_plone3:
+
 ==========================================
 Création d'un buildout Plone 3 avec paster
 ==========================================
