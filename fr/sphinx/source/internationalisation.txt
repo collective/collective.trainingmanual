@@ -1,3 +1,7 @@
+.. -*- coding: utf-8 -*-
+
+.. _internationalisation:
+
 ===================================
 Internationalisation d'un composant
 ===================================
