@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _creation_theme:
 
 ===========================
 Création d'un thème Plone 3
@@ -26,7 +22,9 @@ Installation de Gloworm
 =======================
 Gloworm est un outil pour introspecter une page Plone, très utile pour savoir comment customizer telle partie de la page.
 
-Créez un fichier *development.cfg* : ::
+Créez un fichier *development.cfg* :
+
+.. code-block:: cfg
 
     [buildout]
     extends = buildout.cfg
@@ -43,7 +41,9 @@ http://localhost:8080/site/@@manage-viewlets
 
 Création d'un theme
 ===================
-Dans le dossier src, créez un theme avec la commande : ::
+Dans le dossier src, créez un theme avec la commande :
+
+.. code-block:: sh
 
     $ cd /tmp
     $ paster create -t plone3_theme formation.theme --svn-repository=http://devagile/Formation/packages
@@ -58,12 +58,16 @@ Dans le dossier src, créez un theme avec la commande : ::
     $ svn rm formation/theme/version.txt
     $ svn ci -m"Removed version.txt"
 
-Ajoutez ensuite l'entry point z3c.autoinclude.plugin dans setup.py : ::
+Ajoutez ensuite l'entry point z3c.autoinclude.plugin dans setup.py :
+
+.. code-block:: cfg
 
     [z3c.autoinclude.plugin]
     target = plone
 
-et commitez : ::
+et commitez :
+
+.. code-block:: sh
 
     $ svn ci -m"Added z3c.autoinclude entry point"
 
@@ -74,7 +78,9 @@ Retournez dans votre buildout, ajoutez formation.theme dans auto-checkout du fic
 Exercice 1
 ==========
 Changer la couleur des documents dans l'état "En attente de modération" (pending).
-Utilisez l'extension Firebug de firefox pour récupérer la règle css utilisé par défaut pour colorisé le lien en orange. Copiez ensuite cette règle dans browser/stylesheets/main.css et changez la couleur : ::
+Utilisez l'extension Firebug de firefox pour récupérer la règle css utilisé par défaut pour colorisé le lien en orange. Copiez ensuite cette règle dans browser/stylesheets/main.css et changez la couleur :
+
+.. code-block:: css
 
     .state-pending {
         color:#FFA5FF !important;
@@ -94,13 +100,17 @@ Exemple : ++resource++formation.theme.images/monimage.png
 
 Éditez le fichier *browser/viewlets.py*, décommentez la classe, nommez la LogoViewlet.
 Copiez le fichier *viewlet.pt* en *logoviewlet.pt*
-Contenu du fichier logoviewlet.pt : ::
+Contenu du fichier logoviewlet.pt :
+
+.. code-block:: html
 
     <img tal:define="portal_state context/@@plone_portal_state;
                      root_url portal_state/portal_url"
          tal:attributes="src string:$root_url/++resource++formation.theme.images/image.png" />
 
-Éditez le fichier *configure.zcml* pour déclarer votre viewlet. Vous avez un exemple en commentaire. Il suffit de le décommenter et d'ajuster le nom de la viewlet et la classe. Cela donne : ::
+Éditez le fichier *configure.zcml* pour déclarer votre viewlet. Vous avez un exemple en commentaire. Il suffit de le décommenter et d'ajuster le nom de la viewlet et la classe. Cela donne :
+
+.. code-block:: xml
 
      <browser:viewlet
          name="formation.logoviewlet"
@@ -111,7 +121,9 @@ Contenu du fichier logoviewlet.pt : ::
          />
 
 Maintenant au lieu d'afficher votre LogoViewlet dans le PortalFooter, vous allez l'afficher dans portalheader en précisant que vous le voulez après le logo de plone. 
-Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader : ::
+Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader :
+
+.. code-block:: xml
 
      <browser:viewlet
          name="formation.logoviewlet"
@@ -121,7 +133,9 @@ Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader : ::
          permission="zope2.View"
          />
     
-Éditez ensuite *profiles/default/viewlets.xml* : ::
+Éditez ensuite *profiles/default/viewlets.xml* :
+
+.. code-block:: xml
 
     <?xml version="1.0"?>
     <object>
@@ -139,7 +153,9 @@ Portlets
 ========
 - http://plone.org/documentation/manual/portlets-developer-manual
     
-Créez le portlet : ::
+Créez le portlet :
+
+.. code-block:: sh
 
     $ cd /tmp
     $ paster create -t plone3_portlet formation.portlet.docinfo --svn-repository=http://devagile/Formation/packages
@@ -153,7 +169,9 @@ Créez le portlet : ::
 
 Démarrez l'instance, installez le produit et ajoutez le portlet.
 
-Éditez le fichier *docinfoportlet.py* et ajoutez un champ informations au schema IDocInfoPortlet : ::
+Éditez le fichier *docinfoportlet.py* et ajoutez un champ informations au schema IDocInfoPortlet :
+
+.. code-block:: python
 
         informations = schema.List(title=_(u"Information list"),
                                description=_(u"A list of information about the document"),
@@ -161,7 +179,9 @@ Démarrez l'instance, installez le produit et ajoutez le portlet.
                                value_type=schema.Choice(values=('Creator','effective'))
                                )
 
-Modifiez également l'implémentation : ::
+Modifiez également l'implémentation :
+
+.. code-block:: python
 
     class Assignment(base.Assignment):
         """Portlet assignment.
@@ -178,7 +198,9 @@ Modifiez également l'implémentation : ::
             self.informations = informations
 
 
-Dans la template, afficher les informations qui ont été choisies via le formulaire du portlet : ::
+Dans la template, afficher les informations qui ont été choisies via le formulaire du portlet :
+
+.. code-block:: html
 
     <dl class="portlet portletDocInfoPortlet"
         i18n:domain="formation.portlet.docinfo">
@@ -219,7 +241,9 @@ Dans la template, afficher les informations qui ont été choisies via le formul
 
     </dl>
 
-Ajoutez une property *available* dans la classe Renderer pour afficher le portlet seulement pour les documents : ::
+Ajoutez une property *available* dans la classe Renderer pour afficher le portlet seulement pour les documents :
+
+.. code-block:: python
 
     class Renderer(base.Renderer):
         """Portlet renderer.
@@ -243,7 +267,9 @@ http://groups.google.com/group/plone-deco/files
 
 Deliverance
 ===========
-Demo de Deliverance et Banjo : ::
+Demo de Deliverance et Banjo :
+
+.. code-block:: sh
 
     svn co http://svn.plone.org/svn/collective/deliverancedemo
 

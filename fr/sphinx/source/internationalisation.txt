@@ -18,7 +18,6 @@ Savoir
 - extraction des chaines avec i18ndude 
 
 Créez un environnement avec i18ndude d'installé :
-
 .. code-block:: sh
 
     $ mkvirtualenv i18n

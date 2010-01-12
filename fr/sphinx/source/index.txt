@@ -30,6 +30,7 @@ Table des matières
    internationalisation
    notions_avancees_formulaire
    nouvelles_fonctionnalites_archgenxml
+   creation_theme
    glossaire
   
 Indexes et tables
