@@ -649,8 +649,6 @@ d'un document Plone.
 
 .. _`Products.SmartPrintNG`: http://pypi.python.org/pypi/Products.SmartPrintNG
 
-zzz
-
 À propos des versions
 =====================
 
