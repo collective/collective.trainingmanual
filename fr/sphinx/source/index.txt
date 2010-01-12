@@ -26,6 +26,7 @@ Table des matières
    migration_composants_plone25
    deploiement_backup
    formation_tal_metal
+   internationalisation
    glossaire
   
 Indexes et tables
