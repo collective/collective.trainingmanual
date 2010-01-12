@@ -13,47 +13,63 @@ Savoir
 - i18n dans les page templates
 - extraction des chaines avec i18ndude 
 
-Créez un environnement avec i18ndude d'installé : ::
+Créez un environnement avec i18ndude d'installé :
+
+.. code-block:: sh
 
     $ mkvirtualenv i18n
     $ easy_install i18ndude
 
-Dans *Products/AgileKnowledgeBase* créez un script *update-l10n.sh* : ::
+Dans *Products/AgileKnowledgeBase* créez un script *update-l10n.sh* :
 
-    i18ndude rebuild-pot --pot i18n/kb-plone.pot --create plone profiles
-    i18ndude filter i18n/kb-plone.pot ~/.buildout/eggs/plone.app.locales-3.3.1-py2.4.egg/plone/app/locales/i18n/plone.pot > i18n/kb-plone.pot_
-    mv i18n/kb-plone.pot_ i18n/kb-plone.pot
-    i18ndude sync --pot i18n/kb-plone.pot i18n/kb-plone-*.po
+.. code-block:: sh
 
-    i18ndude rebuild-pot --pot locales/AgileKnowledgeBase.pot --create AgileKnowledgeBase .
-    i18ndude sync --pot locales/AgileKnowledgeBase.pot locales/*/LC_MESSAGES/AgileKnowledgeBase.po
+    $ i18ndude rebuild-pot --pot i18n/kb-plone.pot --create plone profiles
+    $ i18ndude filter i18n/kb-plone.pot \
+        ~/.buildout/eggs/plone.app.locales-3.3.1-py2.4.egg/plone/app/locales/i18n/plone.pot \
+         > i18n/kb-plone.pot_
+    $ mv i18n/kb-plone.pot_ i18n/kb-plone.pot
+    $ i18ndude sync --pot i18n/kb-plone.pot i18n/kb-plone-*.po
+
+    $ i18ndude rebuild-pot --pot locales/AgileKnowledgeBase.pot --create AgileKnowledgeBase .
+    $ i18ndude sync --pot locales/AgileKnowledgeBase.pot locales/*/LC_MESSAGES/AgileKnowledgeBase.po
 
 Exécutez ``i18ndude -h`` pour savoir à quoi servent les différentes commandes.
 
-Installez le package Ubuntu *gettext* qui contient notamment la commande *msginit*. Installez également poedit (ou kbabel) pour traduire facilement : ::
+Installez le package Ubuntu *gettext* qui contient notamment la commande *msginit*. Installez également poedit (ou kbabel) pour traduire facilement :
+
+.. code-block:: sh
 
     $ sudo apt-get install gettext poedit
 
-Exécutez le script *update-l10n.sh*, pour cela ajoutez le mode exécution : ::
+Exécutez le script *update-l10n.sh*, pour cela ajoutez le mode exécution :
+
+.. code-block:: sh
 
     $ chmod u+x update-l10n.sh
     $ ./update-l10n.sh
 
 La première exécution du script échouera pour les commandes ``i18ndude sync`` car il n'y a encore aucune traduction.
 
-Vous allez donc maintenant initialiser la traduction française : ::
+Vous allez donc maintenant initialiser la traduction française :
+
+.. code-block:: sh
 
     $ msginit -i i18n/kb-plone.pot -o i18n/kb-plone-fr.po
 
 La commande *msginit* fait une copie du fichier pot en fichier po et remplie certains headers comme la date et le traducteur.
 
 Ouvrez ensuite kb-plone-fr.po pour finir de remplir les headers.
-Remplacez notamment PACKAGE par AgileKnowledgeBase, supprimez VERSION et surtout modifiez ces headers : ::
+Remplacez notamment PACKAGE par AgileKnowledgeBase, supprimez VERSION et surtout modifiez ces headers :
+
+.. code-block:: po
 
     "Language-Code: fr\n"
     "Language-Name: French\n"
 
-Vous pouvez maintenant passer à la traduction : ::
+Vous pouvez maintenant passer à la traduction :
+
+.. code-block:: sh
 
     $ poedit i18n/kb-plone-fr.po
 
@@ -62,19 +78,27 @@ Vous utiliserez le dossier i18n uniquement pour le domaine *plone*.
 
 Pour le domaine de votre produit, vous utiliserez le nouveau dossier *locales* qui est le standard gettext.
 
-Pour le domaine *AgileKnowledgeBase*, il vous faut tout d'abord créer le dossier : ::
+Pour le domaine *AgileKnowledgeBase*, il vous faut tout d'abord créer le dossier :
+
+.. code-block:: sh
 
     $ mkdir -p locales/fr/LC_MESSAGES
 
-Générez le fichier AgileKnowledgeBase.pot avec le script : ::
+Générez le fichier AgileKnowledgeBase.pot avec le script :
+
+.. code-block:: sh
 
     $ ./update-l10n.sh
 
-Ensuite créez le fichier de traduction : ::
+Ensuite créez le fichier de traduction :
+
+.. code-block:: sh
 
     $ msginit -i locales/AgileKnowledgeBase.pot -o locales/fr/LC_MESSAGES/AgileKnowledgeBase.po
 
-éditez les headers du fichier po comme ceci : ::
+éditez les headers du fichier po comme ceci :
+
+.. code-block:: po
 
     "Language-Code: fr\n"
     "Language-Name: French\n"
@@ -82,7 +106,9 @@ Ensuite créez le fichier de traduction : ::
 
 Traduisez ensuite avec poedit.
 
-Pour que vos traductions soient prises au démarrage de l'instance, vous devez également avoir la directive *i18n:registerTranslations* dans votre *configure.zcml*, par exemple : ::
+Pour que vos traductions soient prises au démarrage de l'instance, vous devez également avoir la directive *i18n:registerTranslations* dans votre *configure.zcml*, par exemple :
+
+.. code-block:: xml
 
     <configure
         xmlns="http://namespaces.zope.org/zope"
