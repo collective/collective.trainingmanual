@@ -29,6 +29,7 @@ Table des matières
    envoi_mail
    internationalisation
    notions_avancees_formulaire
+   nouvelles_fonctionnalites_archgenxml
    glossaire
   
 Indexes et tables

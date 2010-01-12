@@ -1,10 +1,6 @@
-.. ===========================
-.. NE MODIFIEZ PLUS CE FICHIER
-.. ===========================
+.. -*- coding: utf-8 -*-
 
-.. Les informations figurant dans ce fichier ont été transférées dans
-.. sphinx/source/. Ce fichier demeurant en place pour permettre de produire
-.. l'ancienne version du document en HTML/PDF.
+.. _nouvelles_fonctionnalites_archgenxml:
 
 =======================================
 Nouvelles fonctionnalités de ArchGenXML
@@ -26,7 +22,9 @@ Créez un package portlets et créez une classe avec le stéréotype portlet_cla
 
 Modélisation de vue zope 3
 ==========================
-Regardez le modèle de Products.rendezvous sur pypi : ::
+Regardez le modèle de Products.rendezvous sur pypi :
+
+.. code-block:: sh
 
     $ cd /tmp/
     $ easy_install -b. -e Products.rendezvous
