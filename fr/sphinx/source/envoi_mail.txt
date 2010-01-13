@@ -48,7 +48,7 @@ API Plone
 
 Exercice
 ========
-Mise en pratique sur le composant « base de connaissances »
+Mise en pratique sur le composant « base de connaissances »
 
 .. _`PEP 263`: http://www.python.org/dev/peps/pep-0263/
 .. _`PEP 8`: http://www.python.org/dev/peps/pep-0008/
