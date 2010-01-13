@@ -211,7 +211,7 @@ Viewlets avec grok
 - http://grok.zope.org/documentation/how-to/understanding-viewlets
 
 - Création d'une viewlet qui affiche un Avertissement lorsque le document est
-expiré : http://vincentfretin.ecreall.com/articles/creating-a-viewlet-with-grok
+  expiré : http://vincentfretin.ecreall.com/articles/creating-a-viewlet-with-grok
 
 
 Zope 3 et ZCA
