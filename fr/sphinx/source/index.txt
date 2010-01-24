@@ -11,8 +11,7 @@ francophone, notamment :
 
 Cette création est mise à disposition selon le Contrat Paternité 2.0 France disponible en ligne http://creativecommons.org/licenses/by/2.0/fr/ ou par courrier postal à Creative Commons, 171 Second Street, Suite 300, San Francisco, California 94105, USA.
 
-Table des matières
-==================
+.. rubric:: Table des matières
 
 .. toctree::
    :maxdepth: 1
@@ -39,12 +38,20 @@ Table des matières
    scrum
    glossaire
   
+
 Indexes et tables
 =================
 
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Contributeurs
+=============
+
+* `Vincent Fretin <http://vincentfretin.ecreall.com>`_
+* `Gilles Lenfant <http://glenfant.wordpress.com>`_
+* `Thomas Desvenain <http://www.thomasdesvenain.fr/>`_
 
 Evolutions planifiées de ce document
 ====================================

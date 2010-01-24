@@ -20,4 +20,4 @@ Savoir
 
 Exercice
 ========
-Création d'une documentation avec tests sur le composant « base de connaissances ».
+Création d'une documentation avec tests sur le composant "base de connaissance".

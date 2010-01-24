@@ -247,6 +247,10 @@ tt {
     font-size: 0.95em;
 }
 
+div.sidebar {
+	background-color: #ffc;
+}
+
 /* @group Table of contents */
 
 li.toctree-l1,

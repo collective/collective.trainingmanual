@@ -6,24 +6,162 @@
 Internationalisation d'un composant
 ===================================
 
-Plone est multilingue. Cette partie explique comment rendre votre composant disponible en plusieurs langues. 
+Plone est multilingue. Cette partie explique comment rendre votre composant
+disponible en plusieurs langues.
+
+.. admonition::
+   Internationalisation et localisation
+
+   Nous distinguerons l'**internationalisation** (:term:`i18n`), qui consiste à
+   utiliser l'API de production de textes dans le code Python et les templates,
+   de la **localisation** (:term:`l10n`), qui consiste à fournir la traduction
+   des labels produits lors de durant l'internationalisation.
+
+Internationaliser un composant
+==============================
+
+Connaissances requises
+----------------------
+
+Nous recommandons aux lecteurs de prendre préalablement connaissance des
+mécanismes standard d'internationalisation des applications, basé sur le
+standard "GNU-gettext" http://fr.wikipedia.org/wiki/Gettext
+
+Les amateurs de détails pourront se reporter à la documentation complète en
+anglais ici : http://www.gnu.org/software/gettext/manual/gettext.html
+
+Notion de domaine
+-----------------
+
+Plone et plus généralement Zope (puisque nous parlons d'internationalisation
+Zope) sont des écosystèmes générant des centaines de composants d'extension sur
+l'utilité desquels nous ne reviendrons pas ici. Un intégrateur est susceptible
+de mixer nombre parmis ces composants.
+
+Ceci risque donc d'amener nombre de conflits de labels, le même label pouvant
+être traduit différemment selon l'emploi qui en est fait.
+
+Pour éviter ceci, Zope ajoute au standard "gettext" la notion de "domaine" qui
+est un espace de nommage pour les traductions de labels. Ainsi le label "foo"
+peut être traduit différemment dans autant de domaines distincts.
+
+Dès lors qu'un composant propose une interface utilisateurs comportant du texte,
+il doit déclarer son domaine et le répertoire racine des traductions
+(traditionnellement, le répertoire :file:`locales/` de votre egg). Vous allez
+donc ajouter au fichier :file:`configure.zcml` principal de votre composant les
+ligne suivantes :
+
+.. code-block:: xml
+
+    <configure
+        xmlns="http://namespaces.zope.org/zope"
+        xmlns:i18n="http://namespaces.zope.org/i18n"
+        i18n_domain="AgileKnowledgeBase">
+        ...
+        <i18n:registerTranslations directory="locales" />
+        ...
+    </configure>
+
+Code Python
+-----------
+
+Vous placez ensuite dans le :file:`__init__.py` principal de votre composant les
+lignes suivantes :
+
+.. code-block:: python
+
+   from zope.i18n import MessageFactory
+   MyMessageFactory = MessageFactory('AgileKnowledgeBase')
 
 
-.. todo:: expliquer le marquage des templates et des sources python
+.. admonition::
+   Écrit en C
 
-Savoir
-======
-- i18n dans du code Python
-- i18n dans les page templates
-- extraction des chaines avec i18ndude 
+   Afin d'optimiser les performance, les primitives des :class:`MessageFactory`
+   sont écrites en C.
 
-Créez un environnement avec i18ndude d'installé :
+Lorsque vous voulez placer un texte susceptible d'être traduite dans votre code,
+vous devez procéder ainsi.
+
+.. code-block:: python
+
+   from Products.AgileKnowledgeBase import MyMessageFactory as _
+   # ...
+   def foo(bar):
+       message = _(u'my_message', default=u"Some words")
+       # ...
+
+.. sidebar::
+   Utiliser les labels du domaine "plone"
+
+   Pour raison de cohérence globale de votre site, il est recommandé, dans la
+   mesure du possible de reprendre les traductions déjà fournies par Plone. Pour
+   effectuer ceci dans du code Python :
+
+   .. code-block:: python
+   
+     from Procucts.CMFPlone import PloneMessageFactory as p_
+     # ...
+     def foo(value):
+         # ...
+         message = p_(u'Save') # Traduit en français par "Enregistrer"
+
+   Dans ce cas particulier, il n'est pas utile de fournir le paramètre nommé
+   ``default`` à la messagefactory.
+
+
+Quelques explications :
+
+- Le symbole ``_`` est un identificateur Python légal. Comme nous le verrons par
+  la suite, :command:`i18ndude` cherche dans tous le code Python de votre
+  composant l'utilisation de cette fonction pour élaborer les modèles de
+  dictionnaires (fichier :file:`*.pot`).
+
+- ``my_message`` est le label de traduction qui figurera, après traitement par :command:`i18ndude` dans le modèle de dictionnaire :file:`*.pot` de votre composant.
+
+- ``Some words`` est le texte par défaut, en anglais, du label ``my_message``
+  qui sera fourni aux visiteurs du site en l'absence de traduction spécifique
+  pour son langage. Bien que, comme la syntaxe l'indique, le paramètre nommé
+  ``default`` n'est pas obligatoire (votre code ne plantera pas) son utilisation
+  est fortement recommandée.
+
+.. rubric:: Messages avec variables
+
+Il est parfois nécessaire d'introduire des parties variables dans les messages à
+traduire. Par exemple : "Ce dossier contient 5 image(s)". Utilisez pour ceci le
+paramètre nommé ``mapping`` ayant pour valeur un dictionnaire (ou objet
+quelconque ayant le même protocole) fournissant **toutes** les clés prévues par
+les emplacements réservés aux variables dans le message. Ces emplacement
+variables sont marqués dans le message sous la forme ``${clé}``.
+
+.. code-block:: python
+   
+   def bar(value):
+       # ...
+       msg_map = {'count': value}
+       message = _(u'images_in_folder',
+                   default=u"This folder has ${count} images",
+                   mapping = msg_map)
+
+Templates ZPT
+-------------
+
+.. todo:: expliquer le marquage des templates
+
+Localiser un composant
+======================
+
+.. index:: i18ndude
+
+Créez un environnement avec i18ndude installé :
+
 .. code-block:: sh
 
     $ mkvirtualenv i18n
     $ easy_install i18ndude
 
-Dans *Products/AgileKnowledgeBase* créez un script *update-l10n.sh* :
+Dans :file:`Products/AgileKnowledgeBase` créez un script
+:command:`update-l10n.sh` :
 
 .. code-block:: sh
 
@@ -109,7 +247,9 @@ Ensuite créez le fichier de traduction :
 
 Traduisez ensuite avec poedit.
 
-Pour que vos traductions soient prises au démarrage de l'instance, vous devez également avoir la directive *i18n:registerTranslations* dans votre *configure.zcml*, par exemple :
+Pour que vos traductions soient prises au démarrage de l'instance, vous devez
+également avoir la directive *i18n:registerTranslations* dans votre
+*configure.zcml*, par exemple :
 
 .. code-block:: xml
 

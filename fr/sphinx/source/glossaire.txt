@@ -98,10 +98,22 @@ Définition des termes et abbréviations utilisés dans ce document.
     de la même façon qu'un répertoire peut inclure d'autres fichiers et
     répertoires dans un disque dur.
 
+  i18n
+    Abbréviation commune du terme "internationalisation" (il y a 18 lettres
+    entre le "i" et le "n" de "internatonalisation"). Opération consistant à
+    marquer le code (Python, templates, ...) pour lui permettre de fournir les
+    textes de l'interface utilisateur en différents langages. Voir :term:`l10n`.
+
   interface
     (en Python) : Une interface est un classe spéciale décrivant l'API publique
     de toute autre classe l'implémentant. L'utilisation des interfaces est à la
     base de la :term:`ZCA`.  namespace A définir...
+
+  l10n
+    Abbréviation commune de "localisation" (il y a 10 lettres entre le "l" et le
+    "n" de "localisation"). Opération consistant à fournir les textes de
+    l'interface utilisateur d'un logiciel (d'un composant Plone) dans un langage
+    particulier. Voir :term:`i18n`.
 
   part
     Une part est une section d'un fichier :term:`buildout` contenant une
