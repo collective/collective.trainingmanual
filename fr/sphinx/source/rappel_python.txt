@@ -299,8 +299,16 @@ Debogueur pdb
 - l/list : affiche le contexte
 - u/up : monter dans la pile d'appel
 - d/down : descendre dans la pile d'appel
-- break num_line : ajouter un point d'arrêt à la ligne num_line
+- b/break num_line : ajouter un point d'arrêt à la ligne num_line
 - a : affiche la liste des paramètres passés à la fonction
+- r : continue jusqu'au return de la fonction
+- q : quitter la session de debogage
+- Taper juste sur la touche *entrée* exécute la dernière commande réalisée.
+- Préfixer par "!" si vous voulez afficher la variable "a" ou "b" plutôt
+  que d'exécuter la commande pdb associé.
+
+`Lire un exemple concret d'une session de debogage <http://pythonconquerstheuniverse.wordpress.com/category/the-python-debugger/>`__ (en anglais)
+
 
 Profiler
 ========
