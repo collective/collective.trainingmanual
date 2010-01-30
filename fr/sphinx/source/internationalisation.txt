@@ -36,12 +36,12 @@ Notion de domaine
 Plone et plus généralement Zope (puisque nous parlons d'internationalisation
 Zope) sont des écosystèmes générant des centaines de composants d'extension sur
 l'utilité desquels nous ne reviendrons pas ici. Un intégrateur est susceptible
-de mixer nombre parmis ces composants.
+de mixer nombre parmi ces composants.
 
 Ceci risque donc d'amener nombre de conflits de labels, le même label pouvant
 être traduit différemment selon l'emploi qui en est fait.
 
-Pour éviter ceci, Zope ajoute au standard "gettext" la notion de "domaine" qui
+Pour éviter ceci, le standard "gettext" définit la notion de "domaine" qui
 est un espace de nommage pour les traductions de labels. Ainsi le label "foo"
 peut être traduit différemment dans autant de domaines distincts.
 
@@ -70,17 +70,17 @@ lignes suivantes :
 
 .. code-block:: python
 
-   from zope.i18n import MessageFactory
+   from zope.i18nmessageid import MessageFactory
    MyMessageFactory = MessageFactory('AgileKnowledgeBase')
 
 
 .. admonition::
    Écrit en C
 
-   Afin d'optimiser les performance, les primitives des :class:`MessageFactory`
+   Afin d'optimiser les performances, les primitives des :class:`MessageFactory`
    sont écrites en C.
 
-Lorsque vous voulez placer un texte susceptible d'être traduite dans votre code,
+Lorsque vous voulez placer un texte susceptible d'être traduit dans votre code,
 vous devez procéder ainsi.
 
 .. code-block:: python
@@ -113,7 +113,7 @@ vous devez procéder ainsi.
 Quelques explications :
 
 - Le symbole ``_`` est un identificateur Python légal. Comme nous le verrons par
-  la suite, :command:`i18ndude` cherche dans tous le code Python de votre
+  la suite, :command:`i18ndude` cherche dans tout le code Python de votre
   composant l'utilisation de cette fonction pour élaborer les modèles de
   dictionnaires (fichier :file:`*.pot`).
 
@@ -131,7 +131,7 @@ Il est parfois nécessaire d'introduire des parties variables dans les messages 
 traduire. Par exemple : "Ce dossier contient 5 image(s)". Utilisez pour ceci le
 paramètre nommé ``mapping`` ayant pour valeur un dictionnaire (ou objet
 quelconque ayant le même protocole) fournissant **toutes** les clés prévues par
-les emplacements réservés aux variables dans le message. Ces emplacement
+les emplacements réservés aux variables dans le message. Ces emplacements
 variables sont marqués dans le message sous la forme ``${clé}``.
 
 .. code-block:: python
@@ -141,12 +141,19 @@ variables sont marqués dans le message sous la forme ``${clé}``.
        msg_map = {'count': value}
        message = _(u'images_in_folder',
                    default=u"This folder has ${count} images",
-                   mapping = msg_map)
+                   mapping=msg_map)
 
 Templates ZPT
 -------------
 
 .. todo:: expliquer le marquage des templates
+
+Note : utilisez tout le temps **i18n:translate=""** dans vos templates,
+même si vous appelez une fonction qui retourne un objet Message (une chaine
+commencant par "_(" dans votre code Python). Bien que la traduction marcherait
+sans le préciser avec le moteur de template d'origine, cela ne marcherait pas
+avec le moteur de template alternatif Chameleon qui peut être utilisé dans
+Plone 4.
 
 Localiser un composant
 ======================
@@ -257,7 +264,7 @@ Pour que vos traductions soient prises au démarrage de l'instance, vous devez
         xmlns="http://namespaces.zope.org/zope"
         xmlns:grok="http://namespaces.zope.org/grok"
         xmlns:i18n="http://namespaces.zope.org/i18n"
-        i18n_domain="formation.transforms">
+        i18n_domain="AgileKnowledgeBase">
 
         <i18n:registerTranslations directory="locales" />
 
@@ -271,7 +278,6 @@ Ressources
 - http://plone.org/documentation/how-to/product-skin-localization
 - http://plone.org/documentation/how-to/i18n-for-developers
 - http://www.mattdorn.com/content/plone-i18n-a-brief-tutorial/
-- http://grok.zope.org/documentation/how-to/how-to-internationalize-your-application
 - http://maurits.vanrees.org/weblog/archive/2007/09/i18n-locales-and-plone-3.0
 - http://dev.plone.org/plone/wiki/TranslationGuidelines
 - http://n2.nabble.com/Recipe-for-overriding-translations-td3045492ef221724.html
