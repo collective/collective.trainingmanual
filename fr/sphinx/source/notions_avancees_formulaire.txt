@@ -24,4 +24,4 @@ Ressources
 
 Exercice
 ========
-Mise en pratique sur le composant « base de connaissances »
+Mise en pratique sur le composant "base de connaissances"

@@ -41,4 +41,4 @@ Vous aurez accès à la vue @@myview seulement si le context est un document MyC
 
 Exercice
 ========
-Mise en pratique sur le composant « base de connaissances »
+Mise en pratique sur le composant "base de connaissances"

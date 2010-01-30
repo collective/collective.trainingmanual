@@ -52,4 +52,4 @@ Vous pouvez utiliser la recipe zc.recipe.testrunner pour créer un script ``bin/
 
 Exercice
 ========
-Écriture des différents types de tests sur le composant « base de connaissances »
+Écriture des différents types de tests sur le composant "base de connaissances"
