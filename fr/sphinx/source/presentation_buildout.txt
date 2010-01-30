@@ -143,7 +143,7 @@ pour chaque part de l'option parts de la section ``[buildout]``, appeler la
 :term:`recipe` associée au part.
 
 Revenons à la ligne ``recipe = zc.recipe.egg:scripts``. :mod:zc.recipe.egg` est
-un :term:egg`` à deux namespaces et le ``scripts`` après les deux points est un
+un :term:egg`` à deux espaces de nom et le ``scripts`` après les deux points est un
 entry point du groupe :mod:`zc.buildout`.
 
 Si vous ne spécifiez pas de point d'entrée, un point d'entrée nommé ``default``
@@ -313,13 +313,10 @@ Le problème est que votre :term:`buildout` n'est pas reproductible.  Pour qu'il
 soit reproductible il faudrait que votre buildout précise quelles versions des
 eggs doivent être installées.
 
-.. todo:: traduire "pinner" (les versions) par "geler" ou "assigner" ?
-
 C'est la qu'intervient l'option ``versions`` de la section ``[buildout]``, vous
 spécifiez dans quelle section vous avez les informations sur les versions.  La
-convention est de l'appeler également ``versions``. Pour pinner (franglais du
-verbe "to pin" en anglais, participe passé "pinned" en anglais, en français cela
-pourrait être punaiser, pointer) ou freezer (geler) archgenxml, modifiez votre
+convention est de l'appeler également ``versions``. Pour geler (verbe "to pin"
+en anglais, "pinned" au participe passé) archgenxml, modifiez votre
 buildout de cette manière :
 
 .. code-block:: cfg
@@ -337,14 +334,14 @@ buildout de cette manière :
     eggs = archgenxml
 
 Mais cela ne suffit pas pour que le buildout soit reproductible car nous n'avons
-pas pinné les dépendances d'archgenxml.
+pas gelé les dépendances d'archgenxml.
 
 Extension buildout.dumppickedversions
 =====================================
 
 :mod:`zc.buildout` peut être étendu avec des extensions. Il y en a une
 particulièrement intéressante qui va vous sortir la liste des eggs qui ne sont
-pas pinnés avec leur version.
+pas gelés avec leur version.
 
 Une extension s'ajoute avec l'option ``extensions`` de la section ``[buildout]``
 Ajoutez donc l'extension :mod:`buildout.dumppickedversions` à votre fichier
@@ -358,7 +355,7 @@ vos buildouts :
     # ...
 
 Relancez :command:`bin/buildout` et à la fin de l'exécution vous verrez
-apparaitre la liste des versions à pinner.  Ajoutez-les tous à votre section
+apparaitre la liste des versions à geler.  Ajoutez-les tous à votre section
 versions, et reexécutez :command:`bin/buildout`, il ne devrait plus avoir de
 versions.
 
@@ -366,7 +363,7 @@ versions.
 
 Il existe aussi une option ``allow-picked-versions = false`` disponible dans le
 cœur de :mod:`zc.buildout` qui permet de stopper le buildout si un egg n'est pas
-pinné.  Cette option et l'extension :mod:`buildout.dumppickedversions`` sont
+gelé.  Cette option et l'extension :mod:`buildout.dumppickedversions`` sont
 mutuellement exclusives.
 
 Option extends

@@ -183,7 +183,7 @@ Créez le répertoire :file:`templates/` et créez dedans un fichier
     </html>
     
 
-Dans :file:`formation/transforms/configure.zcml`, ajoutez le namespace ``grok``
+Dans :file:`formation/transforms/configure.zcml`, ajoutez l'espace de nom ``grok``
 et la ligne :
 
 .. code-block:: xml

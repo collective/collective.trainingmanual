@@ -105,9 +105,9 @@ Définition des termes et abbréviations utilisés dans ce document.
     textes de l'interface utilisateur en différents langages. Voir :term:`l10n`.
 
   interface
-    (en Python) : Une interface est un classe spéciale décrivant l'API publique
+    (en Python) : Une interface est une classe spéciale décrivant l'API publique
     de toute autre classe l'implémentant. L'utilisation des interfaces est à la
-    base de la :term:`ZCA`.  namespace A définir...
+    base de la :term:`ZCA`.
 
   l10n
     Abbréviation commune de "localisation" (il y a 10 lettres entre le "l" et le

@@ -950,12 +950,13 @@ Ensuite :
     >>> import foo.bar
     world!
 
-Le code de :file:`foo.bar/foo/__init__.py` indique que : mod:`foo` est un namespace. Et cela change le comportement de l'import.
+Le code de :file:`foo.bar/foo/__init__.py` indique que : mod:`foo` est un espace de nom.
+Et cela change le comportement de l'import.
 
 Au lieu de s'arrêter au premier package :mod:`foo` trouvé, la recherche continue
 et tous les packages :mod:`foo` trouvés sont exécutés.
 
-Si :mod:`foo` n'était pas déclaré comme namespace dans l'egg :mod:`foo.bar`,
+Si :mod:`foo` n'était pas déclaré comme espace de nom dans l'egg :mod:`foo.bar`,
 alors vous auriez eu ceci :
 
 .. code-block:: pycon
@@ -975,7 +976,7 @@ pour mettre à jour les metadonnées du egg situées dans le dossier
 :file:`foo.bar/foo/__init__.py`.
 
 En temps normal, ne mettez pas de code dans les fichiers :file:`__init__.py` des
-packages servant de namespace comme le dit la documentation de
+packages servant d'espace de nom comme le dit la documentation de
 :mod:`setuptools`.
 
 En savoir plus : `Namespace Packages`_

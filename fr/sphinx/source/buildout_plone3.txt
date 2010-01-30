@@ -283,7 +283,8 @@ et reexécutez buildout.
 
 Démarrez l'instance.
 
-Pour les produits n'étant pas dans le namespace Products, il faut également l'ajouter dans l'option zcml.
+Pour les produits n'étant pas dans l'espace de nom (namespace en anglais) Products,
+il faut également l'ajouter dans l'option zcml.
 
 À moins que le produit se proclame plugin plone. Dans ce cas-là les fichiers
 zcml seront inclus grâce à :mod:`z3c.autoinclude`.
@@ -392,7 +393,7 @@ En fait au démarrage de l'instance Zope, le fichier
 :file:`parts/instance/etc/site.zcml` est lu, ce qui entraine la lecture de tous
 les fichiers situés dans le dossier :file:`package-includes`, ainsi que les
 fichiers :file:`meta.zcml`, :file:`configure.zcml` et :file:`overrides.zcml` des
-produits dans le namespace ``Products``.
+produits dans l'espace de nom ``Products``.
 
 La chaine de lecture est donc celle-ci :
 
@@ -431,8 +432,8 @@ comme ceci :
     </configure>
 
 La directive ``<five:registerPackage ..../>`` signale à Zope que c'est un
-produit. Cette ligne est importante vu que nous ne sommes pas dans le namespace
-Products.
+produit. Cette ligne est importante vu que nous ne sommes pas dans l'espace
+de nom Products.
 
 La directive ``<genericsetup:registerProfile .../>`` permet d'enregistrer un
 nouveau profile d'extension (option ``provides``) avec le nom ``default``
@@ -479,7 +480,7 @@ plugin Plone.
 
 Dans ce cas les fichiers :file:`meta.zcml`, :file:`configure.zcml` et
 :file:`overrides.zcml` du produit seront lus au démarrage, comme pour les
-produits dans le namespace ``Products``.
+produits dans l'espace de nom ``Products``.
 
 Il n'est plus nécessaire d'ajouter le produit dans l'option ``zcml`` de la
 section ``[instance]`` dans :file:`buildout.cfg`.
@@ -510,7 +511,7 @@ déclare le egg comme plugin Plone.
 À quel moment est lu le fichier :file:`configure.zcml` de :mod:`formation.policy` ? Il n'y a rien de magique, la chaine de lecture est maintenant :
 
 - :file:`parts/instance/etc/site.zcml`
-- lecture des fichiers :file:`configure.zcml` de tous les produits dans le namespace ``Products``
+- lecture des fichiers :file:`configure.zcml` de tous les produits dans l'espace de nom ``Products``
 
 - :file:`~/.buildout/eggs/Plone-3.3rc3-py2.4.egg/Products/CMFPlone/configure.zcml`
   qui contient les lignes :
