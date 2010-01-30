@@ -1,0 +1,34 @@
+.. -*- coding: utf-8 -*-
+
+======================================
+Présentation des nouveautés de Plone 4
+======================================
+
+Présentation des nouveautés de Plone 4 par rapport à la version Plone 3.3.
+
+PLIP acceptés
+=============
+
+.. todo:: lister les PLIPS acceptés dans Plone 4.
+
+
+Rôles sur groupes imbriqués
+===========================
+
+La notion de groupes imbriqués existait déjà dans Plone 3.3.
+Pour cela il vous faut créer un plugin "Recursive Groups Plugin" depuis acl_users
+et activer le plugin via l'onglet *Activate*.
+
+Dans Plone 3.3, vous ne voyiez pas que vous aviez un rôle récupéré grâce un
+super groupe. Plone 4 a été modifié pour le voir, un peu comme la présentation
+faite dans l'onglet partage pour les rôles locaux.
+
+.. todo:: faire des captures d'écran montrant la différences entre Plone 3.3 et Plone 4.
+
+
+Migration de Plone 3.3 vers Plone 4
+===================================
+
+Plone 4 apporte quelques changements radicals. Il vous faut sans doute adapter
+le code de vos produits.
+Il existe une `documentation pour vous y aider <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0>`__.

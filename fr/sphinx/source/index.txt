@@ -18,6 +18,7 @@ Cette création est mise à disposition selon le Contrat Paternité 2.0 France d
 
    apropos
    presentation_nouveautes_plone3
+   presentation_nouveautes_plone4
    concepts_python_eggs
    presentation_buildout
    buildout_plone3
