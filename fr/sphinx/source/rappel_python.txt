@@ -23,6 +23,32 @@ Savoir
 - Traitement de données XML
 - Des scripts et des flots de données (streams)
 
+Aide intégrée à Python
+======================
+
+Dans un Python interactif, vous pouvez lire la documentation d'un
+module avec la commande *help*, par exemple si vous voulez la documentation
+sur le module *os*.
+
+.. code-block:: python
+
+    >>> help("os")
+
+ou bien
+
+.. code-block:: python
+
+    >>> import os
+    >>> help(os)
+
+Il existe aussi une commande spéciale pour avoir de la documentation
+sur un sujet donné.
+
+.. code-block:: python
+
+    >>> help('topics')
+
+
 Attributs par défaut d'une classe
 =================================
 Dans un shell Python :
