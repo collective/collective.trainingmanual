@@ -11,6 +11,8 @@ PLIP acceptés
 
 .. todo:: lister les PLIPS acceptés dans Plone 4.
 
+http://plone.org/roadmap
+
 
 Rôles sur groupes imbriqués
 ===========================
