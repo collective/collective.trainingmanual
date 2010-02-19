@@ -1,0 +1,5 @@
+- nouveautés Plone 4 (rôles globaux sur groupes imbriqués)
+- utilisation de zest.releaser, tagger le buildout, svn switch en prod
+
+zc.buildout macros
+http://keeshink.blogspot.com/2010/02/turning-my-standalone-zope-buildout.html
