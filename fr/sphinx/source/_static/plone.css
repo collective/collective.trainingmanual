@@ -1,6 +1,6 @@
 /**
- * Sphinx stylesheet -- default theme
- * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * Sphinx stylesheet -- Plone theme
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 
 @import url("basic.css");
@@ -248,7 +248,8 @@ tt {
 }
 
 div.sidebar {
-	background-color: #ffc;
+	background-color: #edfc00;
+	border: none;
 }
 
 /* @group Table of contents */

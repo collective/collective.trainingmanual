@@ -17,6 +17,8 @@ disponible en plusieurs langues.
    de la **localisation** (:term:`l10n`), qui consiste à fournir la traduction
    des labels produits lors de durant l'internationalisation.
 
+.. todo:: Placer des liens sur les grandes lignes de gettext (fichiers .pot, .po, .mo)
+
 Internationaliser un composant
 ==============================
 
@@ -148,12 +150,109 @@ Templates ZPT
 
 .. todo:: expliquer le marquage des templates
 
-Note : utilisez tout le temps **i18n:translate=""** dans vos templates,
-même si vous appelez une fonction qui retourne un objet Message (une chaine
-commencant par "_(" dans votre code Python). Bien que la traduction marcherait
-sans le préciser avec le moteur de template d'origine, cela ne marcherait pas
-avec le moteur de template alternatif Chameleon qui peut être utilisé dans
-Plone 4.
+De la même façon que le code Python, les templates ZPT peuvent être
+internationalisée.
+
+Le marquage d'internationalisation est effectué en utilisant le namespace XML
+``i18n``.
+
+.. code-block:: xml
+
+   <html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      >
+      ...
+   </html>
+
+.. rubric:: i18n:domain : Déclaration du domaine
+
+Pour marquer le domaine de traduction d'une template (ou d'un élément quelconque
+figurant dans une template) la déclaration préalable de ce dernier est
+nécessaire dans un élément englobant.
+
+.. code-block:: xml
+
+   ...
+   <div i18n:domain="machin">
+     <!-- Les textes marqués pour traductions utiliseront les
+          messages des dictionnaires du domaine "machin"
+     -->
+     ...
+      <table i18n:domain="truc">
+         <!-- Les textes marqués de ce tableau utiliseront par
+              contre les dictionnaires du domaine "truc"
+         -->
+         ...
+      </table>
+   </div>
+
+.. rubric:: i18n:translate : Traduction du contenu d'un élément HTML
+
+Le contenu de cette ``<div>`` sera traduit selon la clé ``label_truc`` du
+domaine de traduction courant.
+
+.. code-block:: xml
+
+   ...
+   <div i18n:translate="label_truc">Some stuff</div>
+   ...
+
+Le contenu de cette ``<div>`` sera traduit selon la clé ``Some stuff`` du
+domaine de traduction courant. En effet, lorsque l'attribut ``i18n:translate``
+est vide, le contenu de la balise est utilisé comme clé de traduction.
+
+.. code-block:: xml
+
+   ...
+   <div i18n:translate="">Some stuff</div>
+   ...
+
+Ceci permet de traduire des textes dont le contenu ne peut être connu qu'au
+moment de la publication de la template.
+
+.. code-block:: xml
+
+   ...
+   <!-- On traduit le titre lorsque c'est possible -->
+   <span i18n:translate="" tal:content="context/title_or_id">Ze title</span>
+
+.. rubric:: i18n:attributes : Traduction des attributs d'un élément
+
+Les attributs ``title`` et ``alt`` sont traduits selon la clé fournie par leurs
+valeurs (statique ou calculée)
+
+.. code-block:: xml
+
+   ...
+   <img title="img_title" alt=""
+        tal:attributes="alt image/title"
+        i18n:attributes="alt title" />
+   ...
+
+.. rubric:: i18n:name placer des données variables dans une traduction.
+
+Le problème consiste à traduire des constructions du type :
+
+zzz
+
+.. code-block:: xml
+
+   ...
+   <p>Hi</p>
+
+
+
+.. admonition::
+   Note
+
+   Utilisez tout le temps **i18n:translate=""** dans vos templates, même si vous
+   appelez une fonction qui retourne un objet Message (une chaine commencant par
+   ``_(`` dans votre code Python). Bien que la traduction marcherait sans le
+   préciser avec le moteur de template d'origine, cela ne marcherait pas avec le
+   moteur de template alternatif Chameleon qui peut être utilisé dans Plone 4.
+
 
 Localiser un composant
 ======================
@@ -166,6 +265,13 @@ Créez un environnement avec i18ndude installé :
 
     $ mkvirtualenv i18n
     $ easy_install i18ndude
+
+.. admonition::
+   Attention
+
+   N'installez **jamais** ``i18ndude`` dans l'environnement Python standard ou
+   l'environnement virtuel spécifique à un projet mais bien dans unenvironnement
+   virtuel dédié.
 
 Dans :file:`Products/AgileKnowledgeBase` créez un script
 :command:`update-l10n.sh` :
