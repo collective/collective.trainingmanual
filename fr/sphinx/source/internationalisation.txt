@@ -153,8 +153,8 @@ Templates ZPT
 De la même façon que le code Python, les templates ZPT peuvent être
 internationalisée.
 
-Le marquage d'internationalisation est effectué en utilisant le namespace XML
-``i18n``.
+Le marquage d'internationalisation est effectué en utilisant l'espace de
+nommage XML ``i18n``.
 
 .. code-block:: xml
 
@@ -235,7 +235,7 @@ valeurs (statique ou calculée)
 
 Le problème consiste à traduire des constructions du type :
 
-zzz
+.. todo:: exemple avec i18n:name
 
 .. code-block:: xml
 
@@ -270,7 +270,7 @@ Créez un environnement avec i18ndude installé :
    Attention
 
    N'installez **jamais** ``i18ndude`` dans l'environnement Python standard ou
-   l'environnement virtuel spécifique à un projet mais bien dans unenvironnement
+   l'environnement virtuel spécifique à un projet mais bien dans un environnement
    virtuel dédié.
 
 Dans :file:`Products/AgileKnowledgeBase` créez un script
