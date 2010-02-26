@@ -24,6 +24,8 @@ Savoir
 - Varnish
 - CacheFu
 
+.. todo:: configuration supervisord
+
 
 Profil de déploiement
 =====================
@@ -67,6 +69,7 @@ Pour l'arrêter : ::
 
     $ pkill varnish
 
+
 Support des backups
 ===================
 
@@ -91,9 +94,12 @@ Vous avez par défaut les options suivantes : ::
 
 `Plus d'informations sur les options de la recipe <http://pypi.python.org/pypi/collective.recipe.backup>`__
 
-Ajoutez ensuite un cronjob (`crontab -e`) pour créer une sauvegarde toute les nuits, ici à 3h du matin : ::
+Pour exécuter la sauvegarde toutes les nuits, vous pouvez ajoutez un cron job
+(`crontab -e`), ici à 3h du matin : ::
 
     00 3 * * *      /home/zope/MyProject/bin/backup -q
+
+Vous allez voir dans la suite une configuration de buildout qui s'occupe de créer le cron job à votre place.
 
 Pour faire une restauration : ::
 
@@ -105,6 +111,59 @@ Si vous voulez faire un backup de la production pour travailler ensuite en local
 
 qui créera une sauvegarde dans le dossier *var/snapshotbackups*, utile pour ne pas perturber les sauvegardes normales qui se font la nuit.
 Vous récupérez ensuite la sauvegarde (le fichier fsz et dat) via ``scp`` et vous placez la sauvegarde dans votre dossier *var/backups* en local et exécutez ``bin/restore`` en local.
+
+
+Cron job pour zeopack et backup
+===============================
+
+Voici un exemple de configuration qui étend :file:`deployment.cfg` pour
+réaliser un pack de la database avec la commande :command:`bin/zeopack` et 
+faire un backup avec la commande :command:`bin/backup` vue précédemment.
+
+Il synchronise également les dossiers :file:`backup/` et :file:`log/` sur un autre serveur.
+Tout cela est réalisé par un job cron à 3h du matin.
+
+.. centered:: :file:`serveur0.example.com`
+
+.. code-block:: cfg
+
+  [buildout]
+  extends = deployment.cfg
+  versions = versions
+  parts +=
+      backup-template
+      backup-schedule
+
+  [versions]
+  collective.recipe.template = 1.6
+  z3c.recipe.usercrontab = 1.0
+
+  [backup-template]
+  recipe = collective.recipe.template
+  inline =
+      #!/bin/bash
+      ${buildout:bin-directory}/zeopack
+      ${buildout:bin-directory}/backup -q
+      rsync -a --delete ${backup:location}/ \
+      save@serveur1.example.com:/home/save/MyProject/backups/
+      rsync -a --delete ${buildout:directory}/var/log/ \
+      save@serveur1.example.com:/home/save/MyProject/log/
+  output = ${buildout:bin-directory}/backup.sh
+  mode = 755
+
+  [backup-schedule]
+  recipe = z3c.recipe.usercrontab
+  times = 0 3 * * *
+  command = ${backup-template:output}
+
+Dans cet exemple, la synchronisation se fait sur le serveur de secours/backup
+*serveur1.example.com* avec le login *save*. Il vous faut préalablement
+partager une clé publique entre ces deux serveurs pour que la commande
+:command:`rsync` ne demande aucun mot de passe.
+
+Pour utiliser cette configuration, exécutez
+``bin/buildout -c serveur0.example.com``.
+Le cron job sera automatiquement ajouté dans le crontab de l'utilisateur.
 
 
 Configuration d'Apache
@@ -226,6 +285,7 @@ Apache et Zope, VirtualHostMonster :
 - http://wiki.zope.org/zope2/ZopeAndApache
 
 - http://doc.ubuntu-fr.org/tutoriel/securiser_apache2_avec_ssl
+
 
 Exercice
 ========
