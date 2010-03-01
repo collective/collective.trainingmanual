@@ -28,6 +28,7 @@ Puis (optionnel mais recommandé) : ::
   $ cp virtualenvwrapper/virtualenvwrapper_bashrc ~/.virtualenvwrapper_bashrc
   $ source ~/.virtualenvwrapper_bashrc # mettez cette ligne dans votre ~/.bashrc
   $ rm -rf virtualenvwrapper
+  $ mkdir ~/.virtualenvs
   $ mkvirtualenv sphinx
 
 Installez Sphinx : ::
