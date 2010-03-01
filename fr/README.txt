@@ -21,12 +21,23 @@ récente. Attention, Python 3.x n'est pas (encore) supporté.
 Installez `distribute
 <http://pypi.python.org/pypi/distribute#installation-instructions>`_.
 
-Puis (optionnel mais recommandé) ::
+Puis (optionnel mais recommandé) : ::
 
   $ easy_install virtualenv
-  $ easy_install virtualenvwrapper
+  $ easy_install -b. -e virtualenvwrapper
+  $ cp virtualenvwrapper/virtualenvwrapper_bashrc ~/.virtualenvwrapper_bashrc
+  $ source ~/.virtualenvwrapper_bashrc # mettez cette ligne dans votre ~/.bashrc
+  $ rm -rf virtualenvwrapper
   $ mkvirtualenv sphinx
-  $ easy_install sphinx
+
+Installez Sphinx : ::
+
+  $ easy_install Sphinx
+
+Si vous avez par la suite des soucis de génération, installez la version 0.6.4.
+La génération du html et pdf fonctionne avec cette version : ::
+  
+  $ easy_install Sphinx==0.6.4
 
 .. admonition::
    ``sudo`` ?
@@ -44,16 +55,18 @@ pour produire la documentation PDF.
 Linux Debian / Ubuntu
 .....................
 
-Tout est disponible sous forme de packages pré-compilés ::
+Tout est disponible sous forme de packages pré-compilés : ::
 
-  $ sudo apt-get install tetex-base tetex-bin tetex-extra
+  $ sudo apt-get install texlive
+
+texlive remplace les packages tetex-base tetex-bin tetex-extra, normalement.
 
 MacOSX
 ......
 
 Si vous avez déjà installé `MacPorts <http://www.macports.org/>`_ (un "must
 have" pour tout développeur sous MacOSX), vous n'avez qu'à taper la commande
-suivante ::
+suivante : ::
 
   $ sudo port install texlive
 
@@ -76,18 +89,18 @@ Obtenir et compiler la documentation
 
 Le référentiel de cette documentation est disponible dans le serveur Subversion
 "collective" des contributeurs de Plone. Si vous disposez d'une accréditation
-sur ce serveur et désirez devenir contributeur ::
+sur ce serveur et désirez devenir contributeur : ::
 
   $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr \
     collective.trainingmanual
 
 Si vous ne disposez pas d'accréditation ou voulez juste obtenir et compiler
-cette documentation ::
+cette documentation : ::
 
   $ svn export http://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr \
     collective.trainingmanual
 
-Vous pouvez maintenant générer cette documentation en HTML ::
+Vous pouvez maintenant générer cette documentation en HTML : ::
 
   $ workon sphinx
   (sphinx)$ cd collective.trainingmanual/sphinx
@@ -97,7 +110,7 @@ Vous pouvez ouvrir maintenant
 ``collective.trainingmanual/sphinx/build/html/index.html`` dans votre navigateur
 favori.
 
-Pour obtenir la documentation en PDF ::
+Pour obtenir la documentation en PDF : ::
 
   $ workon sphinx
   (sphinx)$ cd collective.trainingmanual/sphinx
@@ -145,7 +158,7 @@ Styles de soulignement
 
 Sphinx et ReStructuredText n'imposent pas de style de soulignement pour les
 différents niveaux de sections d'un document. Tout est laissé à la discrétion
-des rédacteurs. Par souci d'homogénéité nous adoptons la convention suivante ::
+des rédacteurs. Par souci d'homogénéité nous adoptons la convention suivante : ::
 
   =======================================
   Titre de chapitre (un seul par fichier)
