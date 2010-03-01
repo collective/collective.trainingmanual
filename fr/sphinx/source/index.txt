@@ -17,6 +17,8 @@ Cette création est mise à disposition selon le Contrat Paternité 2.0 France d
    :maxdepth: 1
 
    apropos
+   Le_protocole_http_et_ses_tests
+   Rappel_HTML_et_XML 
    presentation_nouveautes_plone3
    presentation_nouveautes_plone4
    concepts_python_eggs

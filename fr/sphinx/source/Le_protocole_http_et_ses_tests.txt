@@ -1,0 +1,277 @@
+.. -*- coding: utf-8 -*-
+
+==============================
+Le protocole http et ses tests
+==============================
+
+Définition
+==========
+
+Connaitre le protocole HTTP permet d'anticiper certaine limitation de déploiement.
+
+Le protocole HyperText Transfert Protocol est un ensemble de règles qui régit la demande et l'envoi de pages web entre un client et un serveur.
+
+Le protocole HTTP délègue au protocole TCP (Transmission Control Protocole) l'envoi physique des données.
+
+Les clients sont généralement des navigateurs web qui se connectent via internet à des serveurs Web qui leurs retournent les pages demandées.
+
+Toutefois il existe des applications qui utilisent ce protocole pour communiquer entre elles.
+
+Nous rappelons ce qui se passe généralement lorsqu'un utilisateur demande à son navigateur une page web :
+
+1) L'utilisateur saisit le nom d'un site ou d'une page (adresse URL) dans la barre d'adresse de son navigateur par exemple http://www.ecreall.com/societe ;
+2) Le navigateur découpe le nom saisi pour extraire le protocole à utiliser, ici http car le préfixe est "http://", et le nom du serveur, ici www.ecreall.com ;
+3) Le navigateur réalise alors un résolution de nom en se connectant à un serveur de nom qui lui permettra de transformer le nom en adresse IP, www.ecreall.com donnera 88.191.84.22 ;
+4) Il se connectera alors au serveur via le protocole TCP/IP en se connectant au port 80 qui est celui du protocole http par défaut (il est possible de donner un autre numéro de port par exemple http://www.ecreall.com:8080/) ;
+5) Si la connexion réussie, le navigateur suivra les règles du protocole http pour demander la page "societe" en envoyant les requêtes appropriées au serveur ;
+6) Le serveur retournera alors cette page au format HTML ou XHTML en utilisant à son tour le protocole HTTP et ferme la connexion ;
+7) Une fois la page reçue, le navigateur analysera son contenu et appliquera les règles html ou xhtml pour réaliser la mise en forme et afficher le résultat.
+
+
+Savoir
+======
+
+Les versions de HTTP et leur RFC
+--------------------------------
+
+Le protocole HTTP inventé par Tim Berners-Lee en 1989 devient un standard en 1996 et se répend sur internet en version HTTP/1.0.
+Le protocole est décrit par la `Request For Comment RFC 1945 <http://tools.ietf.org/html/rfc1945>`__.
+Cette version permet de gérer plusieurs serveur web sur une même machine et donc de servir un contenu différent en fonction de la racine de l'URL.
+
+En 1997 sort la version HTTP/1.1 modifiée en 1999 et décrite par la `RFC 2616 <http://tools.ietf.org/html/rfc2616>`__, qui ajoute le support du pipeline et la négociation de type de contenu.
+
+L'envoi de requêtes
+-------------------
+
+Le client se connecte au serveur et lui transmet ses attentes (que l'on appelle méthodes), le serveur lui répond et se déconnecte. Cet échange s'appelle une requête.
+
+Avant d'arriver au serveur, la requête peut passer par plusieurs intermédiaires qui peuvent la modifier ou y répondre s'ils connaissent déjà la réponse (mécanisme de la mise en cache).
+
+L'un des grands avantages du protocole http est qu'il s'agit d'un protocole texte.
+Ainsi un humain peut à l'aide du programme "telnet" dialoguer avec un serveur en entrant directement le nom des commandes et leurs paramètres.
+
+
+Les méthodes (HEAD, GET, POST, DELETE, PUT, CONNECT, OPTIONS, TRACE)
+--------------------------------------------------------------------
+
+GET
++++
+
+Cette méthode permet de demander une ressource telle qu'une page, une image, etc.
+Cette méthode ne modifie pas la ressource, en conséquence si la ressource n'a pas été modifiée, le résultat de la requête est toujours le même.
+
+HEAD
+++++
+
+Cette méthode permet d'obtenir des informations sur une ressource.
+
+POST
+++++
+
+Cette méthode permet d'envoyer le résultat d'un formulaire ou de transmettre un fichier vers le serveur.
+Les informations à envoyer se trouve dans les données de la requête et non pas dans l'URL.
+
+OPTIONS
++++++++
+
+Cette méthode permet d'obtenir les options de communication d'une ressource ou du serveur en général.
+
+CONNECT
++++++++
+
+Cette méthode permet de demander aux intermédiaires de ne pas changer le contenu des requêtes et de les passer au serveur.
+
+TRACE
++++++
+
+Cette méthode demande au serveur de retourner ce qu'il a reçu, ceci pour permettre de diagnostiquer la connexion.
+
+PUT
++++
+
+Cette méthode remplace ou ajoute une ressource sur le serveur si l'on en a les droits.
+
+DELETE
+++++++
+
+Cette méthode supprime une ressource du serveur si l'on est autorisé à le faire.
+
+
+L'entête et ses champs (Host,  Referer, User-Agent, etc.)
+---------------------------------------------------------
+
+Une requête HTTP 1.0 présente le format suivant :
+::
+
+ Ligne de commande (Commande, URL, Version de protocole)
+ En-tête de requête
+ [Ligne vide]
+ Corps de requête
+
+Les réponses HTTP 1.0 présentent le format suivant :
+::
+
+ Ligne de statut (Version, Code-réponse, Texte-réponse)
+ En-tête de réponse
+ [Ligne vide]
+ Corps de réponse
+
+Exemple de requête :
+::
+
+ GET / HTTP/1.0
+ Host: www.ecreall.com
+ User-Agent: Telnet
+
+Nous allons voir ici tous les champs possibles.
+
+Host
+++++
+
+Il permet d'indiquer au serveur le site que l'on souhaite interroger et permet donc le virtualhosting.
+Il est obligatoire pour le protocole 1.1.
+
+Referer
++++++++
+
+Donne l'URI sur laquelle on a trouvé et cliqué le lien menant à la page demandée.
+Ce champ est utilisé pour les statistiques.
+
+User-Agent
+++++++++++
+
+Donne le nom du programme utilisé pour ce connecter au serveur.
+
+Le protocole HTTP/1.1 ajoute les champs suivants :
+
+Connection
+++++++++++
+
+Ce champ permet au navigateur ou au serveur de préciser des options de connexion souhaitées ou appliquées.
+Le champ *Connection* ne contient que la liste des options.
+La valeur d'une option est alors précisée dans l'entête comme s'il s'agissait d'un champ, toutefois le nom du champ est le même que celui mis dans *Connection*.
+
+Accept
+++++++
+
+Indique les types MIME gérés par le client. L'astérisque est un joker.
+
+Accept-Charset
+++++++++++++++
+
+Donne les encodages de caractères supportés.
+
+Accept-Language
++++++++++++++++
+
+Spécifie les langages acceptés.
+
+D'autre champ existent.
+
+La réponse et ses champs
+------------------------
+
+Réponse :
+::
+
+ HTTP/1.1 200 OK
+ Date: Fri, 19 Feb 2010 13:22:42 GMT
+ Server: Zope/(Zope 2.10.6-final, python 2.4.5, linux2) ZServer/1.1 Plone/3.1.7
+ Content-Length: 16051
+ Expires: Sat, 01 Jan 2000 00:00:00 GMT
+ Content-Type: text/html;charset=utf-8
+ Content-Language: fr
+ Via: 1.0 www.ecreall.com
+ Connection: close
+  
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+ ...
+
+La première ligne est le statut de la réponse :
+
+- 2xx (ici 200), pas de problème.
+- 3xx la ressource a été déplacé.
+- 4xx la ressource n'existe pas.
+- 5xx il y a un problème.
+
+Date
+++++
+
+Date de création de la réponse.
+
+Server
+++++++
+
+Annonce le logiciel et la version ayant créer la réponse.
+
+Content-Length
+++++++++++++++
+
+La taille de la ressource en octets.
+
+Content-Type
+++++++++++++
+
+Type MIME de la ressource.
+
+Expires
++++++++
+
+Date de "péremption" de la réponse. Au-delà de cette date la page devra être rechargée ce qui permet au navigateur ou au cache de savoir quand transmettre les requêtes.
+
+Last-Modified
++++++++++++++
+
+Date de dernière modification de la ressource.
+
+Les cookies
+-----------
+
+Le cookie est un ensemble de données transmises dans l'entête des requêtes http par un serveur (Set-Cookie: name=value) à un client qui les stockes sur son disque s'il est persistant et le retransmet à chaque requête au serveur (Cookie: name=value).
+
+Il sert soit à l'authentification, soit à la gestion de la session, soit à l'enregistrement des préférences du client etc.
+
+HTTPS
+-----
+
+HTTPS est l'encapsulation du protocole http dans une couche de chiffrement telle SSL ou TLS.
+
+Le serveur doit posséder un certificat X509 qui permettra d'une part de vérifier l'authenticité du serveur, et d'autre part d'échanger confidentiellement avec le client une clé permettant de chiffrer symétriquement la suite de la communication. En effet, l'une des particularités de ssl est que le serveur possède une clé publique qui sera envoyée en clair au client, et une clé privée qui permettra de déchiffrer les informations chiffrées avec la clé publique. Ce chiffrement est dit asymétrique et est complexe et lent à mettre en œuvre mais il présente l'immense avantage que le client n'a pas à partager de secret avec le serveur avant de se connecter et peut ainsi se connecter avec des serveurs qu'il ne connait pas.
+
+Le certificat X509 du serveur doit être signé par une autorité connue du client pour que le navigateur fasse confiance au serveur. Le mécanisme mis en œuvre pour cette signature repose également sur le mécanisme de chiffrement asymétrique, le client possède une liste d'autorités connues avec leur clé publique ce qui permettra de vérifier qu'un certificat X509 est intègre et a bien été signé par l'autorité indiquée dedans.
+
+De plus le chiffrement symétrique de la communication est associé à une fonction de hachage qui permet d'assurer l'intégrité des données transmises.
+
+Le port utilisé par HTTPS est le 443.
+
+Mesures de charges
+------------------
+
+Pour mesurer la vitesse de réponse de notre serveur, ainsi que sa capacité à supporter plusieurs requêtes simultanées nous allons utiliser deux outils : *Firebug* et :command:`ab`.
+
+"firebug" est un plugin de Firefox qui permet d'analyser les pages web et d'en connaître les détails. Son onglet :guilabel:`Réseau` permet de voir les ressources chargées, leur temps de chargement, leur taille. L'onglet :guilabel:`Réseau/HTML` permet de voir les entêtes des requêtes.
+
+:command:`ab` est un outil fournit avec Apache qui permet de lancer des requêtes en parallèles afin de contrôler la capacité du serveur à gérer celle-ci.
+
+Exemple :
+
+.. code-block:: sh
+
+ ab http://www.ecreall.com
+ ab -n 20 -c 4 http://www.ecreall.com/ # qui envoie 20 requêtes répartie en 4 threads
+
+Exercice
+========
+
+Utilisation de telnet pour accéder au serveur.
+Test de performance du serveur (la commande "ab" d'Apache).
+
+
+Ressources
+==========
+
+- `Le protocole HTTP <http://fr.wikipedia.org/wiki/Protocole_HTTP>`__
+- `Les cookies <http://fr.wikipedia.org/wiki/Cookies>`__
+- `Les certificats électroniques <http://fr.wikipedia.org/wiki/Certificat_%C3%A9lectronique>`__
+- `Autorité de certification <http://fr.wikipedia.org/wiki/Autorit%C3%A9_de_certification>`__
+- `Le modèle OSI <http://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI>`__
