@@ -55,6 +55,7 @@ Contributeurs
 * `Vincent Fretin <http://vincentfretin.ecreall.com>`_
 * `Gilles Lenfant <http://glenfant.wordpress.com>`_
 * `Thomas Desvenain <http://www.thomasdesvenain.fr/>`_
+* `Michaël Launay <http://www.ecreall.com>`_
 
 Evolutions planifiées de ce document
 ====================================
