@@ -26,6 +26,10 @@ Ressources
 - `Article de Martin Aspeli sur scrum pour gérer un projet GSOC`_
 - `Scrum sur Wikipedia`_
 - `Blog de Claude Aubry sur scrum et l'agilité`_
+- `Blog Agilex : Agilité et Expertise <http://www.agilex.fr>`__
+- `Livre Scrum de Claude Aubry <http://www.aubryconseil.com/pages/Livre-Scrum>`__
+- `Livre Kanban et Scrum <http://www.infoq.com/minibooks/kanban-scrum-minibook>`__
+
 
 .. _`L'organisation d'une équipe de développement logiciel, Emmanuel CHENU`: http://www.agilex.fr/2008/09/bravo-manu/
 .. _`Article de Martin Aspeli sur scrum pour gérer un projet GSOC`: http://www.martinaspeli.net/articles/distributed-agile
