@@ -35,9 +35,9 @@ Installez Sphinx : ::
 
   $ easy_install Sphinx
 
-Si vous avez par la suite des soucis de génération, installez la version 0.6.4.
-La génération du html et pdf fonctionne avec cette version : ::
-  
+Si vous avez par la suite des soucis de génération, installez la version 0.6.4
+ou ultérieure. La génération du html et pdf fonctionne avec cette version : ::
+
   $ easy_install Sphinx==0.6.4
 
 .. admonition::
