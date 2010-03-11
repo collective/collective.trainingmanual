@@ -1,7 +1,7 @@
 .. -*- coding: utf-8 -*-
 
 ==============================
-Le protocole http et ses tests
+Le protocole HTTP et ses tests
 ==============================
 
 Définition
@@ -134,8 +134,8 @@ Il est obligatoire pour le protocole 1.1.
 Referer
 +++++++
 
-Donne l'URI sur laquelle on a trouvé et cliqué le lien menant à la page demandée.
-Ce champ est utilisé pour les statistiques.
+Donne l'URI sur laquelle on a trouvé et cliqué le lien menant à la page
+demandée. Ce champ est utilisé pour les statistiques.
 
 User-Agent
 ++++++++++
@@ -224,6 +224,14 @@ Last-Modified
 
 Date de dernière modification de la ressource.
 
+.. admonition::
+   Autres entêtes HTTP
+
+   Ce qui précède est un aperçu des entêtes HTTP les plus courantes. D'autres
+   entêtes peuvent également être échangées entre un navigateur et un serveur,
+   notamment pour la gestion du cache. Pour plus de détails sur la négociation
+   de cache, lire (en anglais) http://www.mnot.net/cache_docs/
+
 Les cookies
 -----------
 
@@ -238,11 +246,11 @@ HTTPS est l'encapsulation du protocole http dans une couche de chiffrement telle
 
 Le serveur doit posséder un certificat X509 qui permettra d'une part de vérifier l'authenticité du serveur, et d'autre part d'échanger confidentiellement avec le client une clé permettant de chiffrer symétriquement la suite de la communication. En effet, l'une des particularités de ssl est que le serveur possède une clé publique qui sera envoyée en clair au client, et une clé privée qui permettra de déchiffrer les informations chiffrées avec la clé publique. Ce chiffrement est dit asymétrique et est complexe et lent à mettre en œuvre mais il présente l'immense avantage que le client n'a pas à partager de secret avec le serveur avant de se connecter et peut ainsi se connecter avec des serveurs qu'il ne connait pas.
 
-Le certificat X509 du serveur doit être signé par une autorité connue du client pour que le navigateur fasse confiance au serveur. Le mécanisme mis en œuvre pour cette signature repose également sur le mécanisme de chiffrement asymétrique, le client possède une liste d'autorités connues avec leur clé publique ce qui permettra de vérifier qu'un certificat X509 est intègre et a bien été signé par l'autorité indiquée dedans.
+Le certificat X509 du serveur doit être signé par une autorité connue du client pour que le navigateur fasse confiance au serveur. Le mécanisme mis en œuvre pour cette signature repose également sur le mécanisme de chiffrement asymétrique, le client possède une liste d'autorités connues avec leurs clés publiques respectives ce qui permettra de vérifier qu'un certificat X509 est intègre et a bien été signé par l'autorité indiquée dedans.
 
 De plus le chiffrement symétrique de la communication est associé à une fonction de hachage qui permet d'assurer l'intégrité des données transmises.
 
-Le port utilisé par HTTPS est le 443.
+Le port utilisé par HTTPS est par défaut le 443.
 
 Mesures de charges
 ------------------
@@ -257,8 +265,9 @@ Exemple :
 
 .. code-block:: sh
 
- ab http://www.ecreall.com
- ab -n 20 -c 4 http://www.ecreall.com/ # qui envoie 20 requêtes répartie en 4 threads
+  $ ab http://www.ecreall.com
+  $ ab -n 20 -c 4 http://www.ecreall.com/ \
+   # qui envoie 20 requêtes répartie en 4 threads
 
 Exercice
 ========
