@@ -248,7 +248,7 @@ Création d'un certificat autosigné :
 
     </VirtualHost>
 
-Activez le sites :
+Activez les sites :
 
 .. code-block:: sh
 
