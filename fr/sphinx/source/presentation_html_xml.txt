@@ -14,7 +14,6 @@ Les pages internet sont de simples documents texte dont certains mots sont inter
 
 Lorsque on utilise un logiciel produisant du HTML, il ne fait qu'écrire un fichier texte mélangeant notre contenu avec les éléments du HTML.
 
-
 Rappel sur les bases HTML et XML
 --------------------------------
 
@@ -48,7 +47,7 @@ Savoir
 Nous traiterons en priorité XHTML car c'est le format utilisé par Plone.
 
 Les nœuds
-----------
+---------
 
 On peut représenter un texte XML ou HTML par une arborescence de nœuds contenant du texte et/ou d'autres nœuds, cela reviendrait à dire qu'un nœud est l'équivalent d'un répertoire ou d'un fichier en faisant le parallèle avec une arborescence de fichiers.
 

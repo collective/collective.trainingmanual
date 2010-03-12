@@ -275,7 +275,6 @@ Exercice
 Utilisation de telnet pour accéder au serveur.
 Test de performance du serveur (la commande "ab" d'Apache).
 
-
 Ressources
 ==========
 
@@ -284,3 +283,4 @@ Ressources
 - `Les certificats électroniques <http://fr.wikipedia.org/wiki/Certificat_%C3%A9lectronique>`__
 - `Autorité de certification <http://fr.wikipedia.org/wiki/Autorit%C3%A9_de_certification>`__
 - `Le modèle OSI <http://fr.wikipedia.org/wiki/Mod%C3%A8le_OSI>`__
+
