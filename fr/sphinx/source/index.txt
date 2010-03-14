@@ -32,6 +32,7 @@ California 94105, USA.
    concepts_zope3
    migration_composants_plone25
    deploiement_backup
+   plonepas/index
    formation_tal_metal
    envoi_mail
    internationalisation

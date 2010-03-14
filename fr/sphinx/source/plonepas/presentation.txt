@@ -1,0 +1,69 @@
+.. -*- coding: utf-8 -*-
+
+.. _plonepas_presentation:
+
+.. index:: acl_users, PlonePAS
+   single: plugin; PlonePAS
+
+============
+Présentation
+============
+
+Comme vu dans le petit précis sur Zope, les utilisateurs, mots de passes et
+leurs rôles associés sont gérés dans des "User folders". Ces objets ont
+l'identificateur réservé :guilabel:`acl_users`.
+
+Si l'outil fourni en standard avec Zope est amplement suffisant pour une
+authentification simple et l'octroi de droits à quelques utilisateurs, il est
+insuffisant au regard des besoins d'un CMS professionnel tel que Plone.
+
+Depuis sa version 2.5, la gestion des utilisateurs est motorisée par un service
+plus complet et flexible que le simple ``BasicuserFolder``. Il s'agit de
+:mod:`PlonePAS`, basé sur le composant :mod:`PluggableAuthService` (:term:`PAS`)
+de Zope corp. [#pas]_
+
+A la gestion des login / mot de passe et des rôles des utilisateurs,
+:mod:`PlonePAS` ajoute :
+
+- La distinction entre le login et le user id
+- La gestion des propriétés des utilisateurs (adresse mail, nom complet, ...)
+- La gestion des groupes d'utilisateurs
+- L'attribution de rôles globaux et contextuels
+
+De plus, et comme son nom l'indique, les mécanismes de base de :mod:`PlonePAS`
+sont fournis par des composants dits :term:`plugin` qui permettent une grande
+souplesse pour personnaliser ses propres règles :
+
+- D'extraction des données d'authentification
+- D'authentification
+- D'attribution de rôles
+- De classesment des utilisateurs dans des groupes
+
+:mod:`PlonePAS` est muni d'origine d'un ensemble de plugins standard
+pré-paramétrés lors de la construction du site qui fournissent les services par
+défaut. De nombreux plugins de tierce partie permettent de personnaliser tout
+ceci pour intégrer au mieux votre site Plone dans **votre** système
+d'informations et selon **votre** politique de sécurité.
+
+Par exemple et avec une simple intégration de composants tiers et paramétrage ad
+hoc vous pouvez tout à la fois :
+
+- Intégrer Plone dans l'infrastructure :term:`SSO` (NTLM, CAS) de votre
+  entreprise
+
+- Assigner automatiquement l'adresse mail <login>@mondomaine.com à chaque
+  utilisateur
+
+- Obtenir le nom complet et le département d'un utilisateur dans un serveur LDAP
+  ou ActiveDirectory
+
+- Grouper les utilisateurs par fonction (direction, ingénierie, commercial,
+  production, marketing par exemple) et par entités (fromages, apértifs par
+  exemple) à l'aide d'une requête dans un SGBDR externe classique (MySQL,
+  Oracle...)
+
+Ceci n'est qu'un exemple parmi tant d'autres envisageables et plus ou moins
+complexes.
+
+.. [#pas] Notons que :term:`PAS` n'est pas un composant strictement Plone et
+   peut être utilisé dans n'importe quelle application Zope.

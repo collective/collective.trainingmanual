@@ -1,0 +1,101 @@
+.. -*- coding: utf-8 -*-
+
+.. _plonepas_zmi:
+.. index:: acl_users, PlonePAS
+
+=================
+ PlonePAS en ZMI
+=================
+
+Un petit tour en ZMI vous permettra de mieux comprendre tout ceci...
+
+--------
+
+.. image:: plonepas-zmi-1.png
+
+--------
+
+La vue principale d'un :mod:`PlonePAS` expose l'ensemble des plugins - ici ne
+sont exposés que les plugins installés par défaut sur un site Plone 4 - ainsi
+que l'objet :guilabel:`plugins`, chef d'orchestre des règles de fonctionnement
+de PlonePAS. Intéressons-nous à ce dernier en premier. [#joke]_
+
+.. index::
+   single: plugin; PlonePAS
+
+Catégories de plugins
+=====================
+
+.. vide pour permettre la ligne horizontale ci-dessous
+
+--------
+
+.. image:: plugin-registry.png
+
+--------
+
+Cette vue vous propose les différentes catégories de plugins de
+:mod:`PlonePAS`. Comme vous pouvez le constater, chaque catégorie de
+:term:`plugin` est expliquée.
+
+Une petite traduction commentée :
+
+Anonymoususerfactory Plugins
+  Les plugins de ce type sont des factories d'utilisateurs anonymes. Plone en
+  standard n'en utilise pas, sachant qu'il ne propose pas de fonctionnalité
+  nécessitant un objet évolué, contrairement aux utilisateurs authentifiés.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.IAnonymousUserFactoryPlugin``
+
+Authentication Plugins
+  Les plugins de ce type sont responsable de vérifier la validité d'une
+  accréditation, généralement un couple identité, mot de passe.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.IAuthenticationPlugin``
+
+Challenge Plugins
+  Ces plugins sont chargés de retourner directement ou indirectement une
+  ressource à partir de laquelle l'utilisateur pourra fournir ses
+  accréditations - par exemple la page d'authentification. Ce genre de plugin
+  est sollicité lorsqu'un utilisateur anonyme tente d'accéder directement ou
+  indirectement à une ressource protégée.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.IChallengePlugin``
+
+Challenge Protocol Chooser Plugins
+  Ces plugins sont chargés de fournir une liste de protocoles (HTTP, FTP, ...)
+  pour lesquels un challenge d'authentification peut être lancé. Vous n'aurez
+  généralement pas besoin de changer le paramétrage du chooser standard fourni
+  avec Plone, encore moins de réaliser votre propre plugin de ce type.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.IChallengeProtocolChooser``
+
+Reset Credentials Plugins
+  Les plugins de ce type sont chargés de supprimer le jeton d'authentification
+  de l'utilisateur. Ils sont sollicités lorsque l'utilisateur de déconnecte du
+  site. Comme le jeton d'authentification est récupéré par un plugin de type
+  :guilabel:`Extration Plugin`, et est placé par un plugin de type
+  :guilabel:`Update Credentials Plugins`, ces trois rôles sont généralement
+  assurés par le même plugin qui est donc un :term:`multiplugin`.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.ICredentialsResetPlugin``
+
+Update Credentials Plugins
+  Les plugins de ce type sont chargés de fournir au client le jeton
+  d'authentification, après une authentification réussie à travers un
+  :guilabel:`Authentication Plugin` ou un changement de mot de passe.
+
+  Interface :
+  ``Products.PluggableAuthService.interfaces.plugins.ICredentialsUpdatePlugin``
+
+.. todo:: Reprendre ici avec la suite de la description des plugins PlonePAs
+
+
+.. [#joke] Ceci est un oxymore, je le sais.
+
+

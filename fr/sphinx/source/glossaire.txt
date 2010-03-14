@@ -98,6 +98,16 @@ Définition des termes et abbréviations utilisés dans ce document.
     de la même façon qu'un répertoire peut inclure d'autres fichiers et
     répertoires dans un disque dur.
 
+  groupe
+    (d'utilisateurs). Un groupe d'utilisateurs permet d'associer un ensemble
+    d'utilisateurs à une fonction dans un site Plone. Ceci permet -
+    principalement - d'octroyer des droits particuliers, :term:`élément` par
+    élément, à tout un ensemble d'individus par le biais de l'onglet
+    :guilabel:`partage`. Les groupes d'utilisateurs sont gérés par PlonePAS à
+    travers le :term:`configlet` :guilabel:`Utilisateurs et groupes`. Un
+    utiisateur peut appartenir à autant de groupes que nécessaire, voire aucun
+    groupe. Un groupe peut appartenir à un autre groupe (imbrication)
+
   i18n
     Abbréviation commune du terme "internationalisation" (il y a 18 lettres
     entre le "i" et le "n" de "internatonalisation"). Opération consistant à
@@ -115,6 +125,11 @@ Définition des termes et abbréviations utilisés dans ce document.
     l'interface utilisateur d'un logiciel (d'un composant Plone) dans un langage
     particulier. Voir :term:`i18n`.
 
+  multiplugin
+    Un :term:`plugin` ayant l'aptitude de remplir plusieurs rôles, donc,
+    généralement implémentant plus d'une :term:`interface`. Un :term:`plugin`
+    pour :term:`PAS` est d'ailleurs généralement un multiplugin.
+
   part
     Une part est une section d'un fichier :term:`buildout` contenant une
     variable :term:`recipe` définissant le rôle de la part dans le processus
@@ -130,6 +145,19 @@ Définition des termes et abbréviations utilisés dans ce document.
 
   permissions
     voir :term:`permission`.
+
+  PAS
+    Abbréviation de PluggableAuthService, la base du service de gestion des
+    utilisateurs, rôles et groupes de Plone. Voir le chapitre :ref:`plonepas`.
+
+  plugin
+    Se dit d'un composant logiciel (fonction, classe, ou objet) s'intégrant dans
+    une infrastructure existante et ayant une interface et un rôle pré-défini
+    vis-à vis de cette infrastructure (le rôle est généralement défini par une
+    :term:`interface`), mais implémentant le rôle d'une façon qui lui est
+    propre. Les logiciels de type "plugin" sont légion dans le monde de Plone,
+    et plus notamment dans le service de gestion des utilisateurs
+    :term:`PAS`. Voir le chapitre :ref:`plonepas`.
 
   PMI
     Plone Management Interface : Ensemble des formulaires fournis par Plone et
@@ -154,7 +182,7 @@ Définition des termes et abbréviations utilisés dans ce document.
     Agent du système Zope exécutant une action. Un agent dispose de permissions
     sur les objets Zope pour exécuter ces actions. Dans les applications Zope ou
     Plone, vous ne verrez que deux types de ``principals`` : les utilisateurs
-    (ou membres) et les groupes.  
+    (ou membres) et les groupes.
 
   product
     Package Python fournissant des fonctionnalités supplémentaires à Zope ou
@@ -180,6 +208,17 @@ Définition des termes et abbréviations utilisés dans ce document.
     site des ressources d'un composant ou d'un produit. Les fichiers d'un
     profil GenericSetup sont – généralement – placés dans le sous-répertoire
     :file:`profiles/default` d'un composant ou produit.
+
+  propertysheet
+    En français : feuille de propriétés. Dans Plone, il y a deux types de
+    feuilles de propriétés :
+
+    - Les feuilles de propriétés servant à conserver des propriétés globales du
+      site, celles-ci se trouvant dans le :term:`tool`
+      :guilabel:`portal_properties`
+
+    - Les feuilles de propriétés dynamiques associées aux utilisateurs et aux
+      groupes.
 
   pypi
     PYthon Packages Index, anciennement appellé cheeseshop, est le site dans

@@ -1,0 +1,31 @@
+/* Diagramme d'enchainement de requete PAS */
+
+digraph sequence_pas {
+  graph [center=true, fontname=Helvetica];
+  /* Label et nodes */
+  appli [label="Application (Plone)", shape=box];
+  service [label="Service (API) PlonePAS", shape=box];
+  cache_dispo [label="Info dans\nle cache ?", shape=invhouse];
+  selection [label="Sélection et requête\nde plugins", shape=box];
+  plugin_1 [label="Plugin 1", shape=box, color=blue];
+  plugin_2 [label="Plugin 2", shape=box, color=blue];
+  plugin_n [label="Plugin n", shape=box, color=blue];
+  cache [label="Cache\nRésultats", shape=circle];
+  cache_store [label="Stockage en cache", shape=box];
+  {rank=same; cache_dispo; cache}
+  {rank=same; selection; cache_store}
+  {rank=same; plugin_1; plugin_2; plugin_n}
+
+  /* flèches */
+  appli -> service;
+  service -> cache_dispo;
+  cache_dispo -> appli [label="Oui"];
+  cache_dispo -> cache [dir=both];
+  cache_dispo -> selection [label="Non"];
+  selection -> cache_store;
+  selection -> plugin_1 [dir=both];
+  selection -> plugin_2 [dir=both];
+  selection -> plugin_n [dir=both];
+  selection -> appli [label="Résultat"];
+  cache_store -> cache;
+}
