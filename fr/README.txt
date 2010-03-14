@@ -204,20 +204,20 @@ insérées dans votre document Sphinx doivent être accompagnées de leur versio
 source doit être disponible. Les images doivent être de préférence au format
 PNG.
 
-**Exemple :** ::
-
-   .. gs-map.mm: image MindMap des services de GenericSetup. Créé avec FreeMind 
-
-   .. image:: gs-map.png
-
-.. admonition::
-   TODO
-
-   Indiquer les applications recommandées pour les divers types d'images.
-
 En outre, lors de chaque insertion ou changement d'image, vous **devez**
 vérifier et ajuster le cas échéant le rendu PDF, sachant les limitations en
 taille des images du au support papier final.
+
+**Exemple :** ::
+
+   .. gs-map.mm: image MindMap des services de GenericSetup. Créé avec FreeMind
+
+   .. image:: gs-map.png
+
+**Applications graphiques recommandées**
+
+Diagrammes : `Graphviz <http://www.graphviz.org/>`_
+
 
 Quelques outils recommandés
 ---------------------------
