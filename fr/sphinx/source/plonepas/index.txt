@@ -11,3 +11,6 @@ Gestion des utilisateurs avec PlonePAS
    presentation
    archi_fonctionnelle
    plonepas_zmi
+   plugins_standard
+   plugins_3rdparty
+   votre_plugin
