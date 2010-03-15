@@ -21,6 +21,7 @@ Savoir
 - Apache
 - Varnish
 - CacheFu
+- plone.app.cache
 
 .. todo:: configuration supervisord
 
@@ -311,8 +312,8 @@ Configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
 Vous accéderez à votre site à partir de maintenant avec l'adresse
 **http://devagile**.
 
-Configuration de CacheFu
-========================
+Configuration de CacheFu (< Plone 4)
+====================================
 
 .. todo:: Parler du successeur de CacheFu pour Plone 4 : plone.app.caching
 
@@ -326,6 +327,42 @@ Configuration Tool et configurez de la manière suivante :
 - Proxy Cache Domains: http://127.0.0..1:8000
 - Compression: Never
 
+Installation et configuration de plone.app.caching (>= Plone4)
+==============================================================
+
+plone.app.caching propose comme cachefu une interface graphique pour gérer les rêgle de cache http pour plone4. Il est construit sur z3c.caching , plone.caching et plone.cachepurging.
+
+Installation
+------------
+
+Pour installer plone.app.caching il suffit de le rajouter soit dans la liste des egg de votre buildout soit en tant que dépendance à l'un de vos projets dans le setup.py.
+Vous devez ensuite l'installer par la suite comme un module supplémentaire dans le panneau de configuration de plone via le l'utilitaire d'ajout de modules.
+Comme ce module dépend d'un certain nombre de modules qui ne sont pas fourni par plone. Il est plus sûr de fixer les versions dans votre buildout comme suit
+
+.. code-block:: cfg
+
+   extends =
+   	 ...
+	 http://good-py.appspot.com/release/plone.app.caching/1.0a1
+
+Vous pouvez avoir une vue des versions disponibles ici : http://good-py.appspot.com/release/plone.app.caching
+
+Le panneau de configuration de la gestion de cache
+--------------------------------------------------
+
+Une fois installé vous allez trouver au niveau de la configuration de votre site un lien pour configurer les rêgles de cache de votre site.
+
+Cette interface graphique est constitué de quatre onglets:
+
+1 - *Changer la configuration* (Change settings) : pour gérer le comportement du cache http
+
+2 - *Importer une configuration* (Import settings) : vous permet d'importer des politiques de cache prédéfinies
+
+3 - *Purger le proxy cache* (Purge caching proxy) : vous permet de lancer des purges manuelles sur les caches proxy
+
+4 - *RAM cache* : fournit des informations statistiques sur le cache en RAM et son éventuel purge.
+
+Pour aller plus loin : http://dev.plone.org/plone/browser/plone.app.caching/trunk/README.txt
 
 Ressources
 ==========
