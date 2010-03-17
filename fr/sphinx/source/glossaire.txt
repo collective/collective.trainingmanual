@@ -6,7 +6,7 @@
 Glossaire
 =========
 
-Définition des termes et abbréviations utilisés dans ce document.
+Définition des termes et abréviations utilisés dans ce document.
 
 .. glossary::
 
@@ -105,11 +105,11 @@ Définition des termes et abbréviations utilisés dans ce document.
     élément, à tout un ensemble d'individus par le biais de l'onglet
     :guilabel:`partage`. Les groupes d'utilisateurs sont gérés par PlonePAS à
     travers le :term:`configlet` :guilabel:`Utilisateurs et groupes`. Un
-    utiisateur peut appartenir à autant de groupes que nécessaire, voire aucun
-    groupe. Un groupe peut appartenir à un autre groupe (imbrication)
+    utilisateur peut appartenir à autant de groupes que nécessaire, voire aucun
+    groupe. Un groupe peut appartenir à un autre groupe (imbrication).
 
   i18n
-    Abbréviation commune du terme "internationalisation" (il y a 18 lettres
+    Abréviation commune du terme "internationalisation" (il y a 18 lettres
     entre le "i" et le "n" de "internatonalisation"). Opération consistant à
     marquer le code (Python, templates, ...) pour lui permettre de fournir les
     textes de l'interface utilisateur en différents langages. Voir :term:`l10n`.
@@ -120,7 +120,7 @@ Définition des termes et abbréviations utilisés dans ce document.
     base de la :term:`ZCA`.
 
   l10n
-    Abbréviation commune de "localisation" (il y a 10 lettres entre le "l" et le
+    Abréviation commune de "localisation" (il y a 10 lettres entre le "l" et le
     "n" de "localisation"). Opération consistant à fournir les textes de
     l'interface utilisateur d'un logiciel (d'un composant Plone) dans un langage
     particulier. Voir :term:`i18n`.
@@ -147,13 +147,13 @@ Définition des termes et abbréviations utilisés dans ce document.
     voir :term:`permission`.
 
   PAS
-    Abbréviation de PluggableAuthService, la base du service de gestion des
+    Aréviation de PluggableAuthService, la base du service de gestion des
     utilisateurs, rôles et groupes de Plone. Voir le chapitre :ref:`plonepas`.
 
   plugin
     Se dit d'un composant logiciel (fonction, classe, ou objet) s'intégrant dans
     une infrastructure existante et ayant une interface et un rôle pré-défini
-    vis-à vis de cette infrastructure (le rôle est généralement défini par une
+    vis-à-vis de cette infrastructure (le rôle est généralement défini par une
     :term:`interface`), mais implémentant le rôle d'une façon qui lui est
     propre. Les logiciels de type "plugin" sont légion dans le monde de Plone,
     et plus notamment dans le service de gestion des utilisateurs
