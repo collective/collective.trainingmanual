@@ -152,15 +152,15 @@ Présentation des ZPT
 
 Objectif
 
-Etre capable de comprendre, créer et modifier les pages dynamiques.
+Être capable de comprendre, créer et modifier les pages dynamiques.
 
-Les Zope Page Template sont un mécanisme permettant d'écrire des pages xhtml
+Les Zope Page Template sont un mécanisme permettant d'écrire des pages XHTML
 dynamiques.
 
 Elles sont constituées de page XHTML dans lesquelles sont inclus des balises et
-attributs TAL/METAL
+attributs TAL/METAL.
 
-ex :
+Exemple :
 
 .. code-block:: xml
 
@@ -189,28 +189,27 @@ Le langage TAL
 Le texte d'origine est accessible à
 http://www.sebastien-verbois.be/plone/zpt/zpt-am
 
-
 Template Attribute Language (commandes possibles)
 
 
 Liste des commandes
 -------------------
 
-- ``tal:content`` pour remplacer le contenu d'une balise;
+- ``tal:content`` pour remplacer le contenu d'une balise ;
 
-- ``tal:replace`` pour remplacer toute la balise;
+- ``tal:replace`` pour remplacer toute la balise ;
 
-- ``tal:condition`` condition d'exécution du bloc;
+- ``tal:condition`` condition d'exécution du bloc ;
 
-- ``tal:attributes`` pour manipuler les attributs de la balise;
+- ``tal:attributes`` pour manipuler les attributs de la balise ;
 
-- ``tal:define`` pour définir des variables;
+- ``tal:define`` pour définir des variables ;
 
-- ``tal:repeat`` pour faire une boucle;
+- ``tal:repeat`` pour faire une boucle ;
 
-- ``tal:omit-tag`` pour ne pas produire la balise elle-même;
+- ``tal:omit-tag`` pour ne pas produire la balise elle-même ;
 
-- ``tal:on-error`` pour définir le comportement en cas d'erreur
+- ``tal:on-error`` pour définir le comportement en cas d'erreur.
 
 ``tal:content`` et ``tal:replace`` sont mutuellement exclusives.
 
@@ -222,8 +221,8 @@ Ordre d'évaluation
 
 define -> condition -> repeat -> (content | replace) -> attributes -> omit-tag
 
-``on-error`` est évalué si une exception est levée lors d'un traitement d'une des
-opérations ci-dessus.
+``on-error`` est évalué si une exception est levée lors d'un traitement
+d'une des opérations ci-dessus.
 
 
 Content et Replace
@@ -246,7 +245,7 @@ Condition
 
 .. code-block:: xml
 
-  tal:condition = "Tales"
+  tal:condition="Tales"
 
 Tales est évalée à True ou False.
 Le nombre zéro, la chaîne vide, une liste vide et la variable ``nothing`` sont
@@ -257,25 +256,23 @@ Attributes
 
 .. code-block:: xml
 
-  tal:attributes = "NomAttribut1 Tales1; NomAttribut2 Tales2; ...; NomAttributN TalesN"
+  tal:attributes="NomAttribut1 Tales1; NomAttribut2 Tales2; ...; NomAttributN TalesN"
 
 
 Define
 ------
 
-
 .. code-block:: xml
 
-  tal:define = "[global] NomVariable1 Tales1; [global] NomVariable2 Tales2; ...; [global] NomVariableN TalesN;"
+  tal:define="[global] NomVariable1 Tales1; [global] NomVariable2 Tales2; ...; [global] NomVariableN TalesN;"
 
 
 Repeat
 ------
 
-
 .. code-block:: xml
 
-  tal:repeat = "NomVariable Tales"
+  tal:repeat="NomVariable Tales"
 
 Les itérations imbriquées sont possibles.
 
@@ -311,7 +308,7 @@ On-error
 
 .. code-block:: xml
 
-  tal:on-error = "Tales"
+  tal:on-error="Tales"
 
 La valeur de Tales est utilisée pour remplacer l'expression qui a levé une exception dans une autre TAL.
 
@@ -321,12 +318,11 @@ Omit-tag
 
 .. code-block:: xml
 
-  tal:omit-tag = ""
+  tal:omit-tag=""
 
 
 TALES
 =====
-
 
 Définition
 ----------
@@ -341,24 +337,24 @@ TAL Expression Syntax (language d'expression des opérations possibles)
 
 Si Type n'est pas donné, le type path est utilisé (type par défaut).
 
-- path permet d'accéder au rendu d'un objet ou attribut disponible dans la pile
-  d'aquisition de la template;
+- ``path`` permet d'accéder au rendu d'un objet ou attribut disponible
+  dans la pile d'acquisition de la template ;
 
-- string permet de combiner une expression simple avec du texte;
+- ``string`` permet de combiner une expression simple avec du texte ;
 
-- python permet d'évaluer du code python
+- ``python`` permet d'évaluer du code python ;
 
-- not permet d'effectuer une négation sur une expression path, string ou
-  python;
+- ``not`` permet d'effectuer une négation sur une expression path, string ou
+  python ;
 
-- nocal permet d'accéder à l'objet évalué plutôt qu'à son rendu;
+- ``nocall`` permet d'accéder à l'objet évalué plutôt qu'à son rendu ;
 
-- exists permet de tester l'existence d'un attribut ou d'une méthode (même
-  formalisme que path);
+- ``exists`` permet de tester l'existence d'un attribut ou d'une méthode (même
+  formalisme que path).
 
-path, nocal et exists sont des expressions "path"
+``path``, ``nocall`` et ``exists`` sont des expressions "path".
 
-Variables implicites
+Variables implicites :
 
 - attrs
 
@@ -389,7 +385,6 @@ L'utilisation de here est dépréciée au profit de context.
 
 Exemples
 --------
-
 
 Path
 ^^^^
@@ -436,8 +431,8 @@ par ${}.
 - string:$$ 30
 
 
-Nocal
-^^^^^
+Nocall
+^^^^^^
 
 .. code-block:: xml
 
@@ -451,7 +446,7 @@ Python
 
   python:len(container.objectValues(['File','Image']))
 
-  python:here.bobobase_modification_time.strftime('%d/%m/%Y')
+  python:context.bobobase_modification_time.strftime('%d/%m/%Y')
 
   python:test(nombre/2,'Nombre pair','Nombre impair')
 
@@ -500,7 +495,7 @@ Macro Expansion Template Attribute Language (système de macros)
 metal:define-macro
 ------------------
 
-Permet de définir une macro que l'on pourra appeler par metal=use-macro
+Permet de définir une macro que l'on pourra appeler par ``metal=use-macro``.
 
 
 metal:define-slot
@@ -515,17 +510,17 @@ metal:use-macro
 
 Permet d'indiquer que l'on souhaite utiliser une macro définie dans une ZPT.
 
-Ainsi <div metal:use-macro="here/main_template/macros/master"> va chercher la
-macro master définie dans la ZPT main_template
+Ainsi ``<div metal:use-macro="here/main_template/macros/master">`` va
+chercher la macro master définie dans la ZPT main_template.
 
 
 metal:fill-slot
 ---------------
 
-Permet d'insérer du xhtml dans l'espace prévue pour cela dans une macro.
+Permet d'insérer du XHTML dans l'espace prévue pour cela dans une macro.
 
-Ainsi <metal:fill fill-slot="main">Mon contenu</metal:fill> permet d'insérer
-«Mon contenu » dans la partie metal:define-slot="main" de la zpt appelée par
+Ainsi ``<metal:fill fill-slot="main">Mon contenu</metal:fill>`` permet d'insérer
+"Mon contenu" dans la partie ``metal:define-slot="main"`` de la zpt appelée par
 metal-use-macro.
 
 
@@ -546,15 +541,14 @@ Afficher du texte dans la template qui ne sera pas rendu par la suite
 
 Choisir la classe d'une entité
 
-
 .. code-block:: xml
 
   tal:attributes="class python:test(...,'selected','plain')"
 
 Utilisation d'un dictionnaire dans les expressions path
 
-getPerson est une fonction python qui renvoie le dictionnaire
-{'name': 'Toto', 'age': 8}.
+``getPerson`` est une fonction python qui renvoie le dictionnaire
+``{'name': 'Toto', 'age': 8}``.
 
 Accéder à des modules python
 
@@ -563,7 +557,6 @@ Accéder à des modules python
   tal:define="global mstring modules/string" tal:replace="python:mstring.join(slist, ':')"
 
 Module "PythonScripts" de Zope
-
 
 .. code-block:: xml
 
