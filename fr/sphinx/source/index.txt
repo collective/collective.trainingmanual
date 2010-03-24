@@ -26,6 +26,7 @@ California 94105, USA.
    presentation_html_xml
    presentation_nouveautes_plone3
    presentation_nouveautes_plone4
+   installation_et_creation_d_une_instance_Plone
    concepts_python_eggs
    presentation_buildout
    buildout_plone3

@@ -1,0 +1,388 @@
+.. -*- coding: utf-8 -*-
+
+=============================================
+Installation et création d'une instance Plone
+=============================================
+
+Définition
+==========
+
+Quatre types d'installation sont possibles, soit "From scratch", soit en
+utilisant un "template" de configuration, soit en utilisant
+"UnifiedInstaller", soit en utilisant une archive contenant les binaires
+compilés.
+
+Savoir
+======
+
+La récupération des archives et leur installation, la création d'un buildout et
+la compilation de Zope.
+
+Plone est disponible en plusieurs versions et selon différent mode.
+
+L'installation from scratch
+---------------------------
+
+Ce mode d'installation et devenu complètement obsolète mais on trouve encore de
+la littérature qui en parle ou certaine personne qui procède ainsi.
+
+Elle consiste a installer la version de python correspondant à la version de
+Zope/Plone que nous allons utiliser.
+
+Ensuite, on récupère zope à partir du dépôt subversion en choisissant une
+branche (les sources d'une version à instant donné) qui soit compatible avec la
+version de Plone que nous voulons installer.
+
+Il faut compiler Zope pour que les parties optimisées en C soient exécutables.
+
+Il est indispensable de vérifier que zope fonctionne en le lançant, en se
+connectant dessus, et en vérifiant les logs.
+
+Une fois Zope opérationnel, on peut aller chercher le code source de la version
+de Plone voulue depuis le dépôt subversion. Il faut alors les mettre dans le
+répertoire des produits de Zope.
+
+En lisant le fichier README de Plone on peut voir les bibliothèques dont il
+dépend, il faut alors les installer.
+
+Une fois l'ensemble des bibliothèques installées, on redémarre Zope pour qu'il
+prenne en compte le produit Plone.
+
+Si tout va bien il est alors possible dans la ZMI de Zope de créer une instance
+de Plone Site.
+
+Nous ne verrons pas plus de détail sur ce mode d'installation car il est
+remplacé par l'usage de "buildout".
+
+L'installation via "UnifiedInstaller"
+-------------------------------------
+
+C'est la solution la plus simple.
+
+Le :term:`UnifiedInstaller` est un paquet qui contient toutes les sources,
+bibliothèques et outils nécessaires à l'exécution de Plone.
+
+Il contient aussi un script d'installation qui permet de configurer Plone.
+
+Il contient le mécanisme :term:`buildout` qui permettra de facilement modifier
+la configuration de Plone.
+
+Il est très utilisé par la communauté Zope/Plone et sera détaillé dans l'un des
+chapitres suivants.
+
+Pour l'installer, il suffit de récupérer le paquet sur
+`http://plone.org/products/plone` et d'exécuter ou de détarer le paquet selon
+sa plateforme.
+
+L'inconvénient est que les paquets :term:`UnifiedInstaller` sont réalisés pour
+les versions stables ou béta de Plone. Les impatients doivent suivre la
+procédure d'installation par buildout.
+
+L'installation via un template buildout
+---------------------------------------
+
+Cette section est une mise à jour pour Plone 4 et une francisation de
+http://plone.org/documentation/kb/using-buildout-on-windows
+
+:term:`Buildout` est un outil qui permet de créer et déployer des
+configurations de projets Python.
+
+Il est possible à partir d'un outil nommé :command:`paster` de créer un squelette
+de configuration pour :term:`buildout`. Cet outil sera aussi détaillé par la
+suite, il se repose sur un mécanisme de patrons (template) propre à chaque
+projet.
+
+Pour installer une version de Plone donnée (depuis les versions 3), il suffit
+donc de créer une configuration pour la version de Plone voulue en utilisant
+:command:`paster` puis de compléter cette configuration pour enfin la
+construire.
+
+L'intérêt de cette méthode est de permettre l'installation de version en cours
+de développement ou en vue d'automatiser le déploiement sur plusieurs serveurs. 
+
+Installation sur Windows
+++++++++++++++++++++++++
+
+Cette partie est une francisation et adaptation de
+http://plone.org/documentation/kb/using-buildout-on-windows à l'installation
+de Plone 4 sur Windows.
+
+Beaucoup de données vont être téléchargées vous devez donc avoir une connexion
+rapide.
+
+Vous devez être à l'aise avec Windows et sa console Dos.
+
+Nous réaliserons l'installation de Plone 4, mais l'installation de Plone 3 est
+la même à la différence qu'au lieu d'utiliser Python2.6 vous utiliserez
+Python2.4 :
+
+.. rubric:: Python
+
+Installer Python via le :term:`msi installer` en le téléchargeant depuis le
+site http://python.org, sélectionner "install for all users" qui créera le répertoire
+``c:\Python26`` par défaut (voir cours Python).
+
+Changer la variable d'environnement :term:`path` pour que Windows puisse
+automatiquement associer la commande :command:`python` à l'environnement :
+
+    - Python2.6. Pour cela ouvrez Le panneau de configuration ->
+      Les Propriétés système -> Variables d'environnement -> Path -> Modifier
+
+    - Ajoutez y en fin ``;c:\Python26;c:\Python26\Scripts``.
+
+    - Vérifier que vos modifications sont bien prises en compte en ouvrant une
+      :term:`invite de commandes` en saisissant :command:`python -V` qui doit
+      vous afficher la version de Python.
+
+.. rubric:: Distribute
+
+* Télécharger le gestionnaire de paquet Python :term:`distribute` à l'adresse
+  http://python-distribute.org/distribute_setup.py ce qui permettra de récupérer
+  les bibliothèques tierces nécessaire à Plone.
+* Exécuter le dans l'environnement Python correspondant à votre distribution
+  Plone : ::
+
+    c:\Python26\python.exe distribute_setup.py
+
+.. rubric:: pywin32
+
+Installer l'extension :term:`pywin32` qui permettra d'utiliser les applications
+Windows dans Python. Elle est disponible à l'adresse
+http://sourceforge.net/projects/pywin32/files dans notre cas :
+
+http://sourceforge.net/projects/pywin32/files/pywin32/Build%20214/pywin32-214.win32-py2.6.exe/download
+
+.. rubric:: PIL
+
+* Installer PIL la bibliothèque de traitement d'image dont a besoin Plone pour
+  retailler les images importées, disponible à l'adresse
+  http://effbot.org/downloads :
+
+  http://effbot.org/downloads/PIL-1.1.7.win32-py2.6.exe
+
+
+.. figure:: ModificationDuPath.jpg
+    :align: center
+
+    Modification du path
+
+.. rubric:: Subversion
+
+Installation de subversion. Subversion est un système de gestion de version qui
+permet conserver et de réaliser des différences entre les évolution d'un
+programme.
+
+La communauté Plone l'utilise pour gérer le code source de Plone.
+
+Ainsi, nous récupèrerons les fichiers nécessaires à la configuration du
+:term:`buildout`
+
+* Nous allons donc le télécharger et l'installer :
+
+  http://subversion.tigris.org/files/documents/15/45953/Setup-Subversion-1.6.2.msi
+
+* Puis nous ajoutons à notre variable d'environnement Path le chemin vers
+  subversion : ::
+
+    c:\Program Files\Subversion\bin
+
+* Vérifier en entrant la commande :command:`svn --version` dans
+  :term:`Invite de commandes` que vous avez bien une version 1.6.2
+
+.. rubric:: MinGW
+
+Installation de MinGW. MinGW est un portage du compilateur gcc pour Windows.
+Nous pourrons ainsi compiler le code :term:`C` de Zope.
+
+* Récupérez le sur http://sourceforge.net/projects/mingw/files/
+* Exécutez 
+* Choisir *download and install* 
+* Acceptez la licence
+* Prendre la version actuelle
+* Cocher *MinGW base tools* et *MinGW Make*
+* Installer MinGW dans :file:`c:\\MinGW` et faire *suivant*
+* MinGW télécharge les outils nécessaires
+* Ajoutez :file:`C:\\MinGW\\bin` au :guilabel:`Path`
+* Copiez :command:`cc1.exe` et :command:`collect2.exe` du répertoire
+  :file:`c:\\MinGW\\libexec\\gcc\\mingw32\\3.4.5` dans :file:`C:\\MinGW\\bin`
+* Vérifiez en entrant :command:`gcc --version` dans l'invite de commande
+* Vérifier qu'il existe un fichier :file:`libpython26.a` dans
+  :file:`C:\\Python26\\libs` sinon suivez la procédure décrite à
+  http://www.python.org/doc/2.4.1/inst/tweak-flags.html#SECTION000622000000000000000
+* Si vous utilisez Python depuis une installation de Plone, vous devez copier
+* :file:`Plone\\Python\\PC\\pyconfig.h` vers :file:`Plone\\Python\\Include`
+
+.. rubric:: Configuration de Distutils pour utiliser MinGW
+
+Nous allons créer un fichier de configuration qui permettra à :term:`distutils`
+de savoir qu'il doit compiler les fichiers avec MinGW.
+
+Enregistrez les lignes suivantes dans
+:file:`C:\\Python26\\Lib\\distutils\\distutils.cfg` :
+
+.. code-block:: cfg
+
+    [build]
+    compiler=mingw32
+
+.. rubric:: Installation de paster
+:term:`Paster` va nous permettre de créer le squelette de déploiement de notre
+site Plone. Il sera détaillé dans le chapitre qui lui est consacré.
+
+Pour installer :term:`Paster` il suffit de faire :command:`easy_install
+PasteScript`
+
+Pour vérifier qu'il a bien été installé nous pouvons afficher les patrons de
+projets existant par défaut : ::
+
+  C:\>paster create --list-templates
+  Available templates:
+    basic_package:  A basic setuptools-enabled package
+    paste_deploy:   A web application deployed through paste.deploy
+
+Qui n'affiche que deux types de patron.
+
+Nous allons ajouter les patrons liés aux projets Zope avec la commande
+:command:`easy_install ZopeSkel` et vérifier les patrons disponibles : ::
+
+  C:\>paster create --list-templates
+  Available templates:
+    archetype:          A Plone project that uses Archetypes content types
+    basic_namespace:    A basic Python project with a namespace package
+    basic_package:      A basic setuptools-enabled package
+    basic_zope:         A Zope project
+    kss_plugin:         A project for a KSS plugin
+    nested_namespace:   A basic Python project with a nested namespace (2 dots
+    in name)
+    paste_deploy:       A web application deployed through paste.deploy
+    plone:              A project for Plone products
+    plone2.5_buildout:  A buildout for Plone 2.5 projects
+    plone2.5_theme:     A theme for Plone 2.5
+    plone2_theme:       A theme for Plone 2.1
+    plone3_buildout:    A buildout for Plone 3 installation
+    plone3_portlet:     A Plone 3 portlet
+    plone3_theme:       A theme for Plone 3
+    plone_app:          A project for Plone products with a nested namespace (2
+    dots in name)
+    plone_hosting:      Plone hosting: buildout with ZEO and any Plone version
+    plone_pas:          A project for a Plone PAS plugin
+    recipe:             A recipe project for zc.buildout
+    silva_buildout:     A buildout for Silva projects
+
+.. rubric:: Installation de Plone 4
+
+Nous allons procéder à l'installation de Plone en créant un :term:`buildout`
+spécifique.
+
+Pour cela saisissez la commande :command:`paster create monplone4 -t plone3_buildout`.
+Pour l'instant on utilise le patron de Plone 3 pour un site Plone 4 car les deux
+versions possède la même arborescence. Répondez au question comme ceci : ::
+
+  Expert mode ? expert
+  Plone version : 4.0b1-1
+  Zope2 Install Path :
+  Plone Products Directory :
+  Initial Zope Username ['admin'] :
+  Initial User Password : admin
+  HTTP Port ['8080'] : 9080
+  debug mode |'off'] :
+  verbose mode ['off'] :
+
+Nous avons volontairement changer le port de Plone pour pouvoir faire cohabiter
+plusieurs versions ensemble.
+
+La plupart de ces variables peuvent être changées par la suite.
+
+L'exécution a pour conséquence de créer l'arborescence suivante : ::
+
+  C:\Documents and Settings\utlisateur>dir monplone4
+   Le volume dans le lecteur C n'a pas de nom.
+   Le numéro de série du volume est BC6D-1497
+
+   Répertoire de C:\Documents and Settings\utlisateur\monplone4
+
+  15/03/2010  23:26    <REP>          .
+  15/03/2010  23:26    <REP>          ..
+  15/03/2010  23:26             3 901 bootstrap.py
+  15/03/2010  23:26             2 285 buildout.cfg
+  15/03/2010  23:26    <REP>          products
+  15/03/2010  23:26            10 856 README.txt
+  15/03/2010  23:26    <REP>          src
+  15/03/2010  23:26    <REP>          var
+               3 fichier(s)           17 042 octets
+               5 Rép(s)   8 233 197 568 octets libres
+
+  
+Nous allons générer les scripts de génération : ::
+
+  C:\Documents and Settings\utlisateur>cd monplone4
+
+  C:\Documents and Settings\utlisateur\monplone4>python bootstrap.py
+  Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin'
+  Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\parts'
+  Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\eggs'
+  Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\
+                      \develop-eggs'
+  Generated script 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin\
+                      \buildout'
+
+Nous allons provoquer la récupération, la compilation et l'installation de Zope
+et Plone : ::
+
+  C:\Documents and Settings\utlisateur\monplone4>.\bin\buildout.exe
+  Getting distribution for 'plone.recipe.distros'.
+  zip_safe flag not set; analyzing archive contents...
+  plone.__init__: module references __path__
+  plone.recipe.__init__: module references __path__
+  Got plone.recipe.distros 1.5.
+  Getting distribution for 'plone.recipe.zope2instance==4.0a4'.
+  Got plone.recipe.zope2instance 4.0a4.
+  Getting distribution for 'Zope2==2.12.3'.
+  ...
+  Generated script 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin\
+  \instance'.Installing zopepy.
+  Generated interpreter 'C:\\Documents and Settings\\utlisateur\\monplone4\
+  \bin\\zopepy'.
+
+Si tout ce passe bien nous avons un répertoire :file:`bin` qui contient les
+lanceurs.
+
+Pour démarrer Plone : ::
+
+  C:\Documents and Settings\utlisateur\monplone4>bin\instance.exe fg
+
+.. rubric:: Création de l'instance
+
+Connectez vous à l'interface d'administration de Zope c'est à dire la
+:terme:`ZMI` via l'url `http://localhost:8080/manage_main` et ajoutez un Plone
+Site.
+
+.. rubric:: Remarques
+
+L'installation de plone via buildout pour Windows, n'est recommandée par la
+communauté en raison de sa complexité.
+
+Pour Windows, il vaut mieux passer par :term:`Unified Installer` qui possèdera
+une installation de Python, un PIL, un Zope, et un buildout prêt à l'emploi.
+
+Ce qui correspond à une installation réussie des étapes précédentes...
+
+Dans les deux cas, l'ajout des modules à Plone (anciennement appelés
+:term:`produit`) ce fait par ajout d'un :term:`egg`.
+
+Les :term`eggs` sont désormais la forme standard des paquets contenant les
+modules d'extensions de Plone.
+
+Nous détaillerons les :term:`egg` dans un autre chapitre de ce cours.
+
+Donc l'ajout d'un :term:`egg` ce fait par déclaration du nom du :term:`egg`
+voulu dans le fichier :file:`buildout.cfg` à la section :term:`eggs`.
+
+En lançant la commande :command:`bin\buildout.exe`, le egg sera téléchargé, et
+au prochain démarrage de Plone, il y sera accessible dans la liste des modules
+du menu de configuration de Plone.
+
+Exercice
+========
+
+Nous allons créer l'instance de test qui sera utilisée dans les exercices suivants.
