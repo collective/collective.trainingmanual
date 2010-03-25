@@ -354,7 +354,7 @@ Pour démarrer Plone : ::
 .. rubric:: Création de l'instance
 
 Connectez vous à l'interface d'administration de Zope c'est à dire la
-:terme:`ZMI` via l'url `http://localhost:8080/manage_main` et ajoutez un Plone
+:term:`ZMI` via l'url `http://localhost:8080/manage_main` et ajoutez un Plone
 Site.
 
 .. rubric:: Remarques
