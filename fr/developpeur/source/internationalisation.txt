@@ -101,7 +101,7 @@ vous devez procéder ainsi.
    effectuer ceci dans du code Python :
 
    .. code-block:: python
-   
+
      from Procucts.CMFPlone import PloneMessageFactory as p_
      # ...
      def foo(value):
@@ -137,7 +137,7 @@ les emplacements réservés aux variables dans le message. Ces emplacements
 variables sont marqués dans le message sous la forme ``${clé}``.
 
 .. code-block:: python
-   
+
    def bar(value):
        # ...
        msg_map = {'count': value}

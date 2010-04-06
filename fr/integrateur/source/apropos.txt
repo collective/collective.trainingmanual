@@ -1,0 +1,77 @@
+.. -*- coding: utf-8 -*-
+
+=======================
+A propos de ce document
+=======================
+
+Organisation
+============
+
+La formation est découpée en thèmes.
+
+Presque chaque thème comprend :
+
+- un objectif,
+- un savoir à acquérir,
+- un exercice pratique permettant de fixer le savoir acquis,
+- un bilan oral, résumant ce qui a été acquis.
+
+Liste des thèmes abordés
+========================
+
+- Présentation des nouveautés de Plone 3 et 4
+- Concept de Python eggs
+- Création d'un buildout Plone 3 avec paster
+- Concepts de base Zope 3
+- Migration des composants développés pour Plone 2.5
+- Migration d'un portail Plone 2.5 à Plone 3
+- Déploiement et backup
+- Formation de TAL/Metal permettant l'écriture de pages dynamiques
+- Envoi de mail suite à un évènement sur le portail
+- Internationalisation d'un composant
+- Notions avancées de formulaire d'édition
+- Nouvelles fonctionnalités de ArchGenXML
+- Création d'un thème Plone 3 (avec paster)
+
+Ressources
+==========
+
+Livres de Packt Publishing, en anglais :
+
+- `Practical Plone 3: A Beginner's Guide to Building Powerful Websites
+  <http://www.packtpub.com/practical-plone-3-beginners-guide-to-building-powerful-websites/book>`_,
+  Alex Clark, Clayton Parker, Darci Hanning, David Convent, John
+  DeStefano, Jon Stahl, Martin Aspeli, Matt Bowen, Ricardo Newbery, Sam
+  Knox, Steve McMahon, Tom Conklin, Veda Williams,
+  février 2009
+
+- `Plone 3 Theming
+  <http://www.packtpub.com/plone-3-theming-create-flexible-powerful-professional-templates/book>`_,
+  Veda Williams,
+  juillet 2009
+
+- `Plone 3 for Education <http://www.packtpub.com/plone-3-for-education/book>`_,
+  Erik Rose,
+  décembre 2009
+
+- `Plone 3.3 Site Administration
+  <http://www.packtpub.com/plone-3-3-site-administration/book>`_,
+  Alex Clark,
+  mars 2010
+
+- `Plone 3.3 Multimedia
+  <http://www.packtpub.com/plone-3-3-multimedia-website/book>`_,
+  Tom Gross,
+  juin 2010
+
+Version
+=======
+
+0.1
+
+Le contenu de cette version est validé, mais n'est pas considéré comme publiable en l'état
+
+Changes
+=======
+
+0.1 - Première version de la documentation intégrateur
