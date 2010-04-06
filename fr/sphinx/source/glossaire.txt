@@ -35,8 +35,13 @@ Définition des termes et abréviations utilisés dans ce document.
     d'informations. Plone est installable par ce mode depuis sa version 2.5.
     zc.buildout permet en outre de personnaliser l'installation des composants
     qui concourent à l'installation de "votre" site Plone en modifiant son
-    fichier de configuration. Le packaging sous forme d':term:`egg` s est
+    fichier de configuration. Le packaging sous forme d':term:`eggs` est
     favorisé.
+
+  C
+    Langage compilé de bas niveau utilisé pour coder - entre autres - Linux et
+    Python. Un compilateur C est nécessaire pour installer Zope ainsi que de
+    nombreuses extensions Python.
 
   component
     Package Python fournissant des fonctionnalités supplémentaires à Zope ou
@@ -68,6 +73,22 @@ Définition des termes et abréviations utilisés dans ce document.
     - formulaires de création/modification de ce schéma d'informations
     - services "métier" proposés par l'élément.
 
+  distribute
+    Distribute est une refonte et une alternative à :mod:`setuptools` élaborée à
+    l'initiative de Tarek Ziadé. :mod:`distribute` fournit les outils de
+    packaging, de distribution et d'installation de packages Python sous forme
+    d':term:`egg`.
+
+    Nous recommandons vivement l'utilisation de :mod:`distribute` dont les
+    contributeurs sont bien plus réactifs que ceux de :mod:`setuptools`. Bien
+    entendu, :mod:`distribute` est packagé sous forme d':term:`egg`.
+
+  distutils
+    :mod:`distutils` est un package fourni en standard avec Python fournissant
+    les outils de packaging. :term:`distribute` s'appuie sur :mod:`distutils` et
+    on préfèrera l'utilisation de ce dernier qui fournit des outils plus
+    avancés.
+
   dotted name
     Il n'y a pas de traduction en français facile et concise pour ce terme. Un
     ``dotted name`` permet - généralement dans un fichier :term:`ZCML` - de
@@ -89,6 +110,9 @@ Définition des termes et abréviations utilisés dans ce document.
     grande majorité des eggs publics sont distribués sur le site
     :term:`pypi`. Reportez-vous au chapitre :ref:`python_eggs` pour plus de
     détails.
+
+  eggs
+    Voir :term:`egg`.
 
   élément
     (de contenu) ou "content item". Unité atomique de contenu fournie par un
@@ -119,11 +143,25 @@ Définition des termes et abréviations utilisés dans ce document.
     de toute autre classe l'implémentant. L'utilisation des interfaces est à la
     base de la :term:`ZCA`.
 
+  invite de commandes
+    Logiciel vous invitant à contrôler votre système en fournissant des
+    commandes et en lisant le compte-rendu des dites commandes. Jusque dans les
+    années 80, l'invite de commandes était l'unique moyen de contrôler un
+    ordinateur. Sous Windows, l'invite de commandes est fournie par le logiciel
+    :command:`cmd.exe`` alors que sous Unix - le choix est plus vaste - le
+    couple `xterm <http://fr.wikipedia.org/wiki/Xterm>`_ et `bash
+    <http://fr.wikipedia.org/wiki/Bourne-Again_shell>`_ est généralement
+    utilisé.
+
   l10n
     Abréviation commune de "localisation" (il y a 10 lettres entre le "l" et le
     "n" de "localisation"). Opération consistant à fournir les textes de
     l'interface utilisateur d'un logiciel (d'un composant Plone) dans un langage
     particulier. Voir :term:`i18n`.
+
+  msi installer
+    Format de bundle d'installation du monde Windows. Les fichiers de ce type
+    ont l'extension ``.msi``.
 
   multiplugin
     Un :term:`plugin` ayant l'aptitude de remplir plusieurs rôles, donc,
@@ -149,6 +187,16 @@ Définition des termes et abréviations utilisés dans ce document.
   PAS
     Aréviation de PluggableAuthService, la base du service de gestion des
     utilisateurs, rôles et groupes de Plone. Voir le chapitre :ref:`plonepas`.
+
+  paster
+    Couteau suisse du développeur d'applications Python. Voir
+    http://pythonpaste.org/index.html
+
+  PATH
+    Variable d'environnement utilisée par votre système d'exploitation pour
+    trouver les logiciels invoqués par l':term:`invite de commandes`. Cette
+    variable d'environnement est constituée d'une liste de répertoires, séparés
+    par ``:`` pour Unix et ``;`` sous Windows.
 
   plugin
     Se dit d'un composant logiciel (fonction, classe, ou objet) s'intégrant dans
@@ -225,6 +273,13 @@ Définition des termes et abréviations utilisés dans ce document.
     lequel la grande majorité des packages open source Python sont mis à la
     disposition du public. Sa page d'accueil est http://pypi.python.org/pypi
 
+  pywin32
+    Package Python pour Windows - disponible pour les architectures 32 et 64
+    bits - fournissant l'accès aux services système spécifiques à ce système
+    d'exploitation : contrôle des services, de la base de registres, accès COM
+    ou DCOM aux applications, accès à Exchange et Active Directory, extensions
+    et filtres ISAPI, etc, etc.
+
   recipe
     Peut être traduit en français par "recette". Une recipe définit le rôle
     d'une :term:`part` d'une configuration :term:`buildout` (exemples:
@@ -267,6 +322,11 @@ Définition des termes et abréviations utilisés dans ce document.
 
   type de contenu
     Traduction libre de :term:`content type`.
+
+  unified installer
+    Bundle d'installation complète de Plone, incluant Python, Zope, Plone ainsi
+    que tous les modules requis (PIL, elementtree, ...). L'unified installer est
+    disponible pour Windows, Mac OSX et Linux.
 
   viewlet
     Une viewlet est responsable du rendu d'un composant de page, donc de la
@@ -349,3 +409,4 @@ Définition des termes et abréviations utilisés dans ce document.
 
    définir "namespace"
    définir "permission" plus précisément
+   définir "paster"

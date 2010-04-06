@@ -1,5 +1,7 @@
 .. -*- coding: utf-8 -*-
 
+.. _installation_creation_instance_plone:
+
 =============================================
 Installation et création d'une instance Plone
 =============================================
@@ -7,9 +9,9 @@ Installation et création d'une instance Plone
 Définition
 ==========
 
-Quatre types d'installation sont possibles, soit "From scratch", soit en
-utilisant un "template" de configuration, soit en utilisant
-"UnifiedInstaller", soit en utilisant une archive contenant les binaires
+Quatre types d'installation sont possibles, soit ex-nihilo, soit en
+utilisant un "template" de configuration, soit en utilisant un
+:term:`unified installer`, soit en utilisant une archive contenant les binaires
 compilés.
 
 Savoir
@@ -54,12 +56,12 @@ de Plone Site.
 Nous ne verrons pas plus de détail sur ce mode d'installation car il est
 remplacé par l'usage de "buildout".
 
-L'installation via "UnifiedInstaller"
--------------------------------------
+L'installation via "unified installer"
+--------------------------------------
 
 C'est la solution la plus simple.
 
-Le :term:`UnifiedInstaller` est un paquet qui contient toutes les sources,
+Le :term:`unified installer` est un paquet qui contient toutes les sources,
 bibliothèques et outils nécessaires à l'exécution de Plone.
 
 Il contient aussi un script d'installation qui permet de configurer Plone.
@@ -74,7 +76,7 @@ Pour l'installer, il suffit de récupérer le paquet sur
 `http://plone.org/products/plone` et d'exécuter ou de détarer le paquet selon
 sa plateforme.
 
-L'inconvénient est que les paquets :term:`UnifiedInstaller` sont réalisés pour
+L'inconvénient est que les paquets :term:`unified installer` sont réalisés pour
 les versions stables ou béta de Plone. Les impatients doivent suivre la
 procédure d'installation par buildout.
 
@@ -98,7 +100,7 @@ donc de créer une configuration pour la version de Plone voulue en utilisant
 construire.
 
 L'intérêt de cette méthode est de permettre l'installation de version en cours
-de développement ou en vue d'automatiser le déploiement sur plusieurs serveurs. 
+de développement ou en vue d'automatiser le déploiement sur plusieurs serveurs.
 
 Installation sur Windows
 ++++++++++++++++++++++++
@@ -118,9 +120,9 @@ Python2.4 :
 
 .. rubric:: Python
 
-Installer Python via le :term:`msi installer` en le téléchargeant depuis le
-site http://python.org, sélectionner "install for all users" qui créera le répertoire
-``c:\Python26`` par défaut (voir cours Python).
+Installer Python via le :term:`msi installer` en le téléchargeant depuis le site
+http://python.org, sélectionner "install for all users" qui créera le répertoire
+``c:\Python26`` par défaut.
 
 Changer la variable d'environnement :term:`path` pour que Windows puisse
 automatiquement associer la commande :command:`python` à l'environnement :
@@ -148,9 +150,8 @@ automatiquement associer la commande :command:`python` à l'environnement :
 
 Installer l'extension :term:`pywin32` qui permettra d'utiliser les applications
 Windows dans Python. Elle est disponible à l'adresse
-http://sourceforge.net/projects/pywin32/files dans notre cas :
-
-http://sourceforge.net/projects/pywin32/files/pywin32/Build%20214/pywin32-214.win32-py2.6.exe/download
+http://sourceforge.net/projects/pywin32/files . Installez la version la plus
+récente proposée pour Python 2.6.
 
 .. rubric:: PIL
 
@@ -195,8 +196,8 @@ Installation de MinGW. MinGW est un portage du compilateur gcc pour Windows.
 Nous pourrons ainsi compiler le code :term:`C` de Zope.
 
 * Récupérez le sur http://sourceforge.net/projects/mingw/files/
-* Exécutez 
-* Choisir *download and install* 
+* Exécutez
+* Choisir *download and install*
 * Acceptez la licence
 * Prendre la version actuelle
 * Cocher *MinGW base tools* et *MinGW Make*
@@ -226,6 +227,7 @@ Enregistrez les lignes suivantes dans
     compiler=mingw32
 
 .. rubric:: Installation de paster
+
 :term:`Paster` va nous permettre de créer le squelette de déploiement de notre
 site Plone. Il sera détaillé dans le chapitre qui lui est consacré.
 
@@ -312,7 +314,7 @@ L'exécution a pour conséquence de créer l'arborescence suivante : ::
                3 fichier(s)           17 042 octets
                5 Rép(s)   8 233 197 568 octets libres
 
-  
+
 Nous allons générer les scripts de génération : ::
 
   C:\Documents and Settings\utlisateur>cd monplone4
@@ -362,7 +364,7 @@ Site.
 L'installation de plone via buildout pour Windows, n'est recommandée par la
 communauté en raison de sa complexité.
 
-Pour Windows, il vaut mieux passer par :term:`Unified Installer` qui possèdera
+Pour Windows, il vaut mieux passer par :term:`unified installer` qui possèdera
 une installation de Python, un PIL, un Zope, et un buildout prêt à l'emploi.
 
 Ce qui correspond à une installation réussie des étapes précédentes...
@@ -370,7 +372,7 @@ Ce qui correspond à une installation réussie des étapes précédentes...
 Dans les deux cas, l'ajout des modules à Plone (anciennement appelés
 :term:`produit`) ce fait par ajout d'un :term:`egg`.
 
-Les :term`eggs` sont désormais la forme standard des paquets contenant les
+Les :term:`eggs` sont désormais la forme standard des paquets contenant les
 modules d'extensions de Plone.
 
 Nous détaillerons les :term:`egg` dans un autre chapitre de ce cours.
