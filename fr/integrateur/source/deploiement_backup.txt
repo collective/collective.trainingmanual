@@ -381,6 +381,7 @@ Ressources
 ==========
 
 - `Varnish Guru Meditation on timeout <http://vincentfretin.ecreall.com/articles/varnish-guru-meditation-on-timeout>`_
+- `Plone Scaling and Performance <http://scalingplone.pbworks.com/>`__ par Elizabeth Leddy
 
 Apache et Zope, VirtualHostMonster :
 
