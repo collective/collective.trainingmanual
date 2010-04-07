@@ -71,7 +71,7 @@ Version
 
 Le contenu de cette version est validé, mais n'est pas considéré comme publiable en l'état
 
-Changes
-=======
+Changements
+===========
 
 0.1 - Première version de la documentation intégrateur
