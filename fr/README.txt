@@ -21,30 +21,33 @@ récente. Attention, Python 3.x n'est pas (encore) supporté.
 Installez `distribute
 <http://pypi.python.org/pypi/distribute#installation-instructions>`_.
 
-Puis (optionnel mais recommandé) : ::
+Puis : ::
 
   $ easy_install virtualenv
-  $ easy_install -b. -e virtualenvwrapper
-  $ cp virtualenvwrapper/virtualenvwrapper_bashrc ~/.virtualenvwrapper_bashrc
-  $ source ~/.virtualenvwrapper_bashrc # mettez cette ligne dans votre ~/.bashrc
-  $ rm -rf virtualenvwrapper
+  $ easy_install virtualenvwrapper
   $ mkdir ~/.virtualenvs
+
+Ajoutez dans votre .bashrc : ::
+
+  TMPDIR=/tmp
+  source /usr/local/bin/virtualenvwrapper.sh
+
+Créez un environnement sphinx et installez Sphinx : ::
+
   $ mkvirtualenv sphinx
-
-Installez Sphinx : ::
-
-  $ easy_install Sphinx
+  (sphinx)$ easy_install Sphinx
 
 Si vous avez par la suite des soucis de génération, installez la version 0.6.4
 ou ultérieure. La génération du html et pdf fonctionne avec cette version : ::
 
-  $ easy_install Sphinx==0.6.4
+  (sphinx)$ easy_install Sphinx==0.6.4
 
 .. admonition::
    ``sudo`` ?
 
    Selon votre installation Python sous Unix (Linux, MacOSX, ...) il vous faudra
-   remplacer ``easy_install`` par ``sudo easy_install``.
+   remplacer ``easy_install`` par ``sudo easy_install`` pour l'installation de
+   virtualenv et virtualenvwrapper (pas pour Sphinx).
 
 Latex (optionnel)
 -----------------

@@ -574,23 +574,25 @@ Pour l'installer, récupérez l'archive :
     $ cd /tmp
     $ easy_install -b . -e virtualenvwrapper
 
-Copiez le fichier :file:`virtualenvwrapper_bashrc` dans votre :envvar:`HOME`, en
-fichier caché :
+Installez le package :
 
 .. code-block:: sh
 
-    $ cp virtualenvwrapper/virtualenvwrapper_bashrc ~/.virtualenvwrapper_bashrc
+    $ cd virtualenvwrapper
+    $ sudo python setup.py install
 
-Éditez ensuite votre :file:`~/.bashrc` pour sourcer ce fichier.
+Éditez ensuite votre :file:`~/.bashrc` pour sourcer le fichier
+:file:`/usr/local/bin/virtualenvwrapper.sh`.
 
 Sur Ubuntu, j'ai l'habitude de décommenter dans :file:`~/.bashrc` les 3 lignes
 concernant l'inclusion de :file:`~/.bash_aliases`.  Je met ensuite dans ce
 fichier tous les alias et autres variables d'environnement que je veux.  Ici
-nous voulons cette ligne :
+nous voulons ces deux lignes :
 
 .. code-block:: sh
 
-    $ source ~/.virtualenvwrapper_bashrc
+    TMPDIR=/tmp
+    source /usr/local/bin/virtualenvwrapper.sh
 
 :mod:`virtualenvwrapper` utilise le dossier :file:`~/.virtualenvs` par défaut
 pour créer et chercher les environnements :
@@ -613,6 +615,7 @@ suivantes :
 - :command:`cdsitepackages` : va dans le dossier site-packages de
   l'environnement actif
 - :command:`lssitepackages` : liste les eggs installés de l'environnement actif
+- :command:`cpvirtualenv` : copie un environnement existant
 
 Donc avant pour activer un environnement, vous faisiez :
 
