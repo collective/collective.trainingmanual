@@ -4,11 +4,6 @@
 A propos de ce document
 =======================
 
-Version
-=======
-
-Ce document est en cours de rédaction
-
 Organisation
 ============
 
@@ -89,3 +84,8 @@ Livres de Packt Publishing, en anglais :
   <http://www.packtpub.com/plone-3-3-multimedia-website/book>`_,
   Tom Gross,
   juin 2010
+
+Version
+=======
+
+Ce document est en cours de rédaction

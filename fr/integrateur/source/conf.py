@@ -39,7 +39,7 @@ source_encoding = 'utf-8'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Formation Plone'
+project = u'Plone pour les intégrateurs'
 copyright = u'2010, Communauté Plone francophone'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -166,7 +166,7 @@ html_last_updated_fmt = today_fmt
 # If true, an OpenSearch description file will be output, and all pages will
 # contain a <link> tag referring to it.  The value of this option must be the
 # base URL from which the finished HTML is served.
-html_use_opensearch = 'http://docs.ecreall.com'
+html_use_opensearch = 'http://docs.ecreall.com/integrateur'
 
 # If nonempty, this is the file name suffix for HTML files (e.g. ".xhtml").
 #html_file_suffix = ''
@@ -186,7 +186,7 @@ latex_paper_size = 'a4'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'FormationPlone.tex', u'Formation Plone Documentation',
+  ('index', 'FormationPloneIntegrateur.tex', u'Plone pour les intégrateurs',
    u'plone-fr', 'manual'),
 ]
 

@@ -4,14 +4,14 @@
 Plone pour les développeurs
 ===========================
 
-Ce document constitué à partir de contributions de la commuanuté Plone
+Ce document constitué à partir de contributions de la communauté Plone
 francophone, notamment :
 
 * Le manuel de formation intégrateur Plone par `Vincent Fretin
   <http://vincentfretin.ecreall.com>`__ (`Ecréall <http://www.ecreall.com>`__)
 
 `Lire la dernière version de ce document au format PDF
-<http://docs.ecreall.com/FormationPlone.pdf>`__
+<http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`__
 
 Cette création est mise à disposition selon le Contrat Paternité 2.0 France
 disponible en ligne http://creativecommons.org/licenses/by/2.0/fr/ ou par
