@@ -1,0 +1,6 @@
+# Theme Plone pour Sphinx
+# Apres modif de ce fichier, passer les commandes
+# $ svn ps svn:externals -F EXTERNALS.txt .
+# $ svn update
+# $ svn ci EXTERNALS.txt
+plonetheme https://svn.plone.org/svn/collective/sphinx.plonetheme/trunk/plone/
