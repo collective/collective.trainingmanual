@@ -19,9 +19,24 @@ Définition des termes et abréviations utilisés dans ce document.
   adaptateur
     Traduction libre de :term:`adapter`.
 
+  affectation
+    On **affecte** une variable par une valeur en utilisant le signe :term:`=`
+    (qui n'a rien à voir avec l'égalité en math !). Dans une affectation, le
+    membre de gauche **reçoit** le membre de droite ce qui nécessite d'évaluer
+    la valeur correspondant au membre de droite avant de l'affecter au membre
+    de gauche. ::
+
+      a = 2 # le symbole "a" est une référence à un objet entier valant "2".
+      b = 7.2 * math.log(math.e / 45.12) - 2*math.pi
+      c = b ** a
+
   AT
     Abréviation courante d'Archetypes utilisée dans les documentations, blogs,
     mailing-lists, forums ayant trait à Plone.
+
+  bool
+    Classe de base Python pour les objets booléens. Ces derniers ne pouvant être
+    que :code:`True` ou :code:`False`.
 
   brain
     Toute requête au catalogue fournit une itération de brains. Chaque brain
@@ -122,6 +137,15 @@ Définition des termes et abréviations utilisés dans ce document.
     de la même façon qu'un répertoire peut inclure d'autres fichiers et
     répertoires dans un disque dur.
 
+  expression
+    *Python* : Une expression est une portion de code que l'interpréteur Python
+    peut évaluer pour obtenir une valeur.  Les expressions peuvent être simples
+    ou complexes. Elles sont formées d'une combinaison de littéraux,
+    d'identifiants et d'opérateurs.
+
+    *TALES* : Expression utilisées dans les templates :term:`ZPT` pour calculer
+    les attributs et les contenus des éléments.
+
   groupe
     (d'utilisateurs). Un groupe d'utilisateurs permet d'associer un ensemble
     d'utilisateurs à une fonction dans un site Plone. Ceci permet -
@@ -137,6 +161,14 @@ Définition des termes et abréviations utilisés dans ce document.
     entre le "i" et le "n" de "internatonalisation"). Opération consistant à
     marquer le code (Python, templates, ...) pour lui permettre de fournir les
     textes de l'interface utilisateur en différents langages. Voir :term:`l10n`.
+
+  identifiant
+    Un identifiant Python valide est une suite non vide de caractères, de
+    longueur quelconque, formée d'un caractère de début et de zéro ou plusieurs
+    caractères de continuation.
+
+  int
+    Classe de base Python pour les objets représentant un nombre entier.
 
   interface
     (en Python) : Une interface est une classe spéciale décrivant l'API publique
@@ -328,6 +360,14 @@ Définition des termes et abréviations utilisés dans ce document.
     que tous les modules requis (PIL, elementtree, ...). L'unified installer est
     disponible pour Windows, Mac OSX et Linux.
 
+  variable
+    Une variable est un **identifiant** associé à une valeur.
+    Informatiquement, c'est une **référence d'objet** situé à une adresse
+    mémoire.
+
+  variables
+    Voir :term:`variable`.
+
   viewlet
     Une viewlet est responsable du rendu d'un composant de page, donc de la
     réalisation d'un bloc - generalement - HTML. Les viewlets sont généralement
@@ -404,6 +444,12 @@ Définition des termes et abréviations utilisés dans ce document.
   ZMI
     Zope Management Interface : Interface Web de paramétrage et contrôle d'une
     instance Zope, permettant l'exploration de la ZODB.
+
+  ZPT
+    Zope Page Templates : Langage de templates pour produire - généralement - du
+    texte XML ou HTML. Les templates ZPT utilisent les attributs spéciaux
+    préfixés par ``tal``, ``metal`` et ``i18n`` qui définissent les règles de
+    transformation.
 
 .. todo::
 

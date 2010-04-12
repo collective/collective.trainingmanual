@@ -1,5 +1,7 @@
 .. -*- coding: utf-8 -*-
 
+.. _presentation_python:
+
 ======================
 Presentation de Python
 ======================
@@ -17,10 +19,9 @@ Ce cours est issu du cours de Robert Cordeau disponible à l'adresse
 http://www.afpy.org/Members/bcordeau/Python3v1-1.pdf/download
 
 Afin de respecter la licence initiale définie par Robert Cordeau, cette
-présentation de Python est sous les termes de la licence
-Paternité-Pas d'Utilisation Commerciale-Partage des Conditions Initiales à
-l'Identique 2.0 France accessible à
-http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+présentation de Python est sous les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
 
 Introduction
 ============
@@ -50,7 +51,7 @@ Langage Open Source
 
 - Licence Open Source CNRI, compatible GPL, mais sans la restriction copyleft.
   Python est libre et gratuit même pour les usages commerciaux
-- GvR (Guido van Rossum) est le < BDFL > (dictateur bénévole à vie !)
+- GvR (Guido van Rossum) est le "BDFL" (dictateur bénévole à vie !)
 - Importante communauté de développeurs
 - Nombreux outils standard disponibles : Batteries included
 
@@ -107,11 +108,6 @@ L'ordinateur
 ++++++++++++
 
 On peut simplifier la définition de l'ordinateur de la façon suivante :
-
-.. glossary::
-
-   Ordinateur
-       Automate déterministe à composants électroniques.
 
 L'ordinateur comprend entre autres :
 
@@ -181,9 +177,9 @@ compilation est contraignante mais offre au final une grande vitesse
 d'exécution.
 
 .. figure:: ChaineDeCompilation.jpg
-    :align: center
+   :align: center
 
-    Chaîne de compilation
+   Chaîne de compilation
 
 Dans la technique de l'interprétation chaque ligne du source analysé est
 traduite au fur et à mesure en instructions directement exécutées. Aucun
@@ -192,9 +188,9 @@ générés sont peu performants : l'interpréteur doit être utilisé à chaque
 exécution...
 
 .. figure:: TechniqueDeLInterpretation.jpg
-    :align: center
+   :align: center
 
-    Technique de l'interprétation
+   Technique de l'interprétation
 
 Technique de production de Python
 +++++++++++++++++++++++++++++++++
@@ -205,9 +201,9 @@ Technique de production de Python
   la machine virtuelle Python.
 
 .. figure:: InterpretationDuBytecodeCompile.jpg
-    :align: center
+   :align: center
 
-    Interprétation du bytecode compilé
+   Interprétation du bytecode compilé
 
 La construction des programmes
 ++++++++++++++++++++++++++++++
@@ -232,6 +228,8 @@ Algorithme et programme
 Définitions
 +++++++++++
 
+.. todo:: Déplacer les entrées "glossary" de la présentattion Python à l'mplacement ad hoc
+
 .. glossary::
 
     Algorithme
@@ -255,13 +253,15 @@ La signification de parties non triviales (et uniquement celles-là) doit être
 expliquée par un commentaire.
 
 Un commentaire commence par le caractère # et s'étend jusqu'à la fin de la
-ligne : ::
+ligne :
 
- #---------------------
- # Voici un commentaire
- #---------------------
+.. code-block:: python
 
- 9 + 2 # En voici un autre
+  #---------------------
+  # Voici un commentaire
+  #---------------------
+
+  x = 9 + 2 # En voici un autre
 
 Les implémentations de Python
 -----------------------------
@@ -274,20 +274,22 @@ Les implémentations de Python
 * Stackless Python : élimine l'utilisation de la pile du langage C (permet de
   récurser tant que l'on veut)
 * Pypy : projet de recherche européen d'un interpréteur Python écrit en Python
-
+* Unladen Swallow est un nouveau projet de Google utilisant les techniques de
+  compilation JIT de Java. Ce projet, encore au stade de développement
+  multipliera par 5 la vitesse d'exécution de Python.
 
 Installation de python
 ======================
 
 L'installation est simple :
 
-Si vous êtes sur Linux votre système a probablement une version de python déjà
-installée. Pour connaître sa version il vous suffit de faire python -V. Pour
-installer une autre version vous devez utiliser le gestionnaire de paquet de
-votre distribution.
+Si vous êtes sur Linux ou MacOSX, votre système a probablement une version de
+python déjà installée. Pour connaître sa version il vous suffit de faire python
+-V. Pour installer une autre version vous devez utiliser le gestionnaire de
+paquet de votre distribution.
 
-Pour windows, Mac, et autres Unix , il vous suffit d'ouvrir votre navigateur
-sur la page www.python.org/download et de choisir la version correspondant à
+Pour Windows et autres Unix, il vous suffit d'ouvrir votre navigateur sur la
+page http://www.python.org/download et de choisir la version correspondant à
 votre choix.
 
 La console Python
@@ -298,11 +300,11 @@ vocabulaire de mots réservés et grâce à des types de données - approximatio
 des ensembles définis en mathématique.
 
 Ce chapitre présente les règles de construction des identifiants, les types de
-données simples (les conteneurs seront examinés au chapitre 4) ainsi que les
-types chaîne de caractères (Unicode et binaires).
+données simples (les conteneurs seront examinés au chapitre `Les conteneurs
+standard`_) ainsi que les types chaîne de caractères (Unicode et binaires).
 
-Enfin, last but not the least, ce chapitre s'étend sur les notions non
-triviales de variables, de références d'objet et d'affectation.
+Enfin, last but not the least, ce chapitre s'étend sur les notions non triviales
+de variables, de références d'objet et d'affectation.
 
 Les modes d'exécution
 ---------------------
@@ -328,14 +330,8 @@ Identifiants et mots clés
 Identifiants
 ++++++++++++
 
-Comme tout langage, Python utilise des identifiants pour nommer ses objets.
-
-.. glossary::
-
-    Identifiants
-        Un identifiant Python valide est une suite non vide de caractères, de
-        longueur quelconque, formée d'un caractère de début et de zéro ou 
-        plusieurs caractères de continuation.
+Comme tout langage, Python utilise un :ref:`identifiant` pour nommer chaque
+objet.
 
 Sachant que :
 
@@ -345,12 +341,12 @@ Sachant que :
 
 .. note::
 
-  En python 2.6, les caractères ne peuvent être que des lettres ASCII, c'est à
-  dire sans accent.
+   En python 2.6, les caractères ne peuvent être que des lettres ASCII, c'est à
+   dire sans accent.
 
 .. warning::
 
-  Les identifiants sont sensibles à la casse et ne doivent pas être un mot clé.
+   Les identifiants sont sensibles à la casse et ne doivent pas être un mot clé.
 
 Styles de nommage
 +++++++++++++++++
@@ -359,12 +355,14 @@ Il est important d'utiliser une politique cohérente de nommage des identifiants
 
 Voici les styles préconisés :
 
-* **UPPERCASE** ou **UPPER_CASE** pour les constantes ;
-* **TitleCase** pour les classes ;
-* **camelCase** pour les fonctions, les méthodes et les interfaces graphiques ;
-* **lowercase** ou **lower_case** pour tous les autres identifiants.
+* ``UPPERCASE`` ou ``UPPER_CASE`` pour les constantes ;
+* ``TitleCase`` pour les classes ;
+* ``camelCase`` pour les fonctions, les méthodes et les interfaces graphiques ;
+* ``lowercase`` ou ``lower_case`` pour tous les autres identifiants.
 
-Exemples : ::
+Exemples :
+
+.. code-block:: python
 
     NB_ITEMS = 12 # UPPER_CASE
     class MaClasse: pass # TitleCase
@@ -416,15 +414,9 @@ La version 3.1.1 de Python compte 33 mots clés :
 Notion d'expression
 -------------------
 
-.. glossary::
+Exemples de deux expressions simples et d'une :term:`expression` complexe :
 
-  Expression
-    Une expression est une portion de code que l'interpréteur Python peut
-    évaluer pour obtenir une valeur.
-    Les expressions peuvent être simples ou complexes. Elles sont formées d'une
-    combinaison de littéraux, d'identifiants et d'opérateurs.
-
-Exemples de deux expressions simples et d'une expression complexe : ::
+.. ceode-block:: python
 
     id1 = 15.3
     id2 = maFonction(id1)
@@ -445,7 +437,9 @@ Le type int
 Le type int n'est limité en taille que par la mémoire de la machine.
 
 Les entiers littéraux sont décimaux par défaut, mais on peut aussi utiliser les
-bases suivantes : ::
+bases suivantes :
+
+.. code-block:: pycon
 
     >>> 2009 # décimal
     2009
@@ -458,85 +452,113 @@ bases suivantes : ::
 
 **Opérations arithmétiques**
 
-Les principales opérations : ::
+Les principales opérations :
 
-    20 + 3 # 23
-    20 - 3 # 17
-    20 * 3 # 60
-    20 ** 3 # 8000
-    20 / 3 # 6.666666666666667
-    20 // 3 # 6 (division entière)
-    20 % 3 # 2 (modulo)
-    abs(3 - 20) # valeur absolue
+.. code-block:: pycon
+
+    >>> 20 + 3
+    23
+    >>> 20 - 3
+    17
+    >>> 20 * 3
+    60
+    >>> 20 ** 3
+    8000
+    >>> 20 / 3
+    6.666666666666667
+    >>> 20 // 3 # division entière
+    6
+    >>> 20 % 3 # modulo
+    2
+    >>> abs(3 - 20) # valeur absolue
+    17
 
 Bien remarquer le rôle des deux opérateurs de division :
 
-- :term:`/` : produit une division flottante ;
-- :term:`//` : produit une division entière.
+- :samp:`/` : produit une division flottante ;
+- :samp:`//` : produit une division entière.
 
 .. note::
 
-  En python 2.6, les nombres dépassants 2 puissance 63 - 1 étaient des Longs.
-  La notation des longs est marquée par un `L` ex : 9223372036854775808L
+   En python 2.6, les nombres dépassants 2 puissance 63 - 1 étaient des
+   :samp:`long`.  La notation des longs est marquée par un `L` ex :
+   9223372036854775808L
 
 Le type bool
 ++++++++++++
 
-* Deux valeurs possibles : False, True.
-* Opérateurs de comparaison : ==, !=, >, >=, < et <= : ::
+* **Deux valeurs possibles** : :samp:`False`, :samp:`True`.
 
-    2 > 8 # False
-    2 <= 8 < 15 # True
+* **Opérateurs de comparaison** : :samp:`==`, :samp:`!=`, :samp:`>`, :samp:`>=`,
+  :samp:`<` et :samp:`<=` :
 
-* Opérateurs logiques (concept de shortcut) : not, or et and.
-  En observant les tables de vérité des opérateurs and et or (cf. p. 108), on
-  remarque que :
+.. code-block:: pycon
 
-   - dès qu'un premier membre à la valeur False, l'expression False and
-     expression2 vaudra False. On n'a donc pas besoin de l'évaluer ;
-   - de même dès qu'un premier membre à la valeur True, l'expression True or
-     expression2 vaudra True.
-  
-  Cette optimisation est appelée "principe du shortcut" : ::
+   >>> 2 > 8
+   False
+   >>> 2 <= 8 < 15
+   True
 
-    (3 == 3) or (9 > 24) # True (dès le premier membre)
-    (9 > 24) and (3 == 3) # False (dès le premier membre)
+* **Opérateurs logiques** (concept de shortcut) : :samp:`not`, :samp:`or` et
+  :samp:`and`.
+
+  En observant les tables de vérité des opérateurs and et or
+  (cf. p. 108), on remarque que :
+
+   - dès qu'un premier membre à la valeur :samp:`False`, l'expression
+     :samp:`False and expression2` vaudra :samp:`False`. On n'a donc pas besoin
+     de l'évaluer ;
+   - de même dès qu'un premier membre à la valeur :samp:`True`, l'expression
+     :samp:`True or expression2` vaudra :samp:`True`.
+
+Cette optimisation est appelée "principe du shortcut" :
+
+.. code-block:: pycon
+
+   >>> (3 == 3) or (9 > 24) # True (dès le premier membre)
+   True
+   >>> (9 > 24) and (3 == 3) # False (dès le premier membre)
+   False
 
 * Les opérations logiques et de comparaisons sont évaluées afin de donner des
-résultats booléens dans False, True.
+  résultats booléens dans :samp:`False`, :samp:`True`.
 
 **Les expressions booléennes**
 
-Une expression booléenne a deux valeurs possibles : False ou True.
+Une expression booléenne a deux valeurs possibles : :samp:`False` ou
+:samp:`True`.
 
-Python attribut à une expression booléennes la valeur False si c'est :
- * la constante :command:`False` ;
- * la constante :command:`None` ;
- * une séquence ou une collection vide ;
- * une donnée numérique de valeur 0.
+Python attribut à une expression booléennes la valeur :samp:`False` si c'est :
 
-Tout le reste vaut True.
+* la constante :samp:`False` ;
+* la constante :samp:`None` ;
+* une séquence ou une collection vide ;
+* une donnée numérique de valeur 0.
 
-Exemple : ::
+Tout le reste vaut :samp:`True`.
 
-    >>> l = ( None, "N'est pas False", "", (), (1), [], [1] , {}, {'a':'A'},
-    ...       True, False, 0, 1)
-    >>> for e in l:
-    ...   print("{!r} est {}".format(e, e and "VRAI" or "FAUX"))
-    ... 
-    None est FAUX
-    "N'est pas False" est VRAI
-    '' est FAUX
-    () est FAUX
-    1 est VRAI
-    [] est FAUX
-    [1] est VRAI
-    {} est FAUX
-    {'a': 'A'} est VRAI
-    True est VRAI
-    False est FAUX
-    0 est FAUX
-    1 est VRAI
+Exemple :
+
+.. code-block:: pycon
+
+   >>> l = ( None, "N'est pas False", "", (), (1), [], [1] , {}, {'a':'A'},
+   ...       True, False, 0, 1)
+   >>> for e in l:
+   ...   print("{!r} est {}".format(e, e and "VRAI" or "FAUX"))
+   ...
+   None est FAUX
+   "N'est pas False" est VRAI
+   '' est FAUX
+   () est FAUX
+   1 est VRAI
+   [] est FAUX
+   [1] est VRAI
+   {} est FAUX
+   {'a': 'A'} est VRAI
+   True est VRAI
+   False est FAUX
+   0 est FAUX
+   1 est VRAI
 
 Les types de données flottants
 ------------------------------
@@ -544,42 +566,71 @@ Les types de données flottants
 Le type float
 +++++++++++++
 
-* Un float est noté avec un point décimal ou en notation exponentielle : ::
+* Un :samp:`float` est noté avec un point décimal ou en notation exponentielle :
 
-    2.718
-    .02
-    3e8
-    6.023e23
+.. code-block:: pycon
 
-* Les floottants supportent les mêmes opérations que les entiers.
-* Les float ont une précision finie indiquée dans sys.float_info.epsilon.
-* L'import du module math autorise toutes les opérations mathématiques 
-  usuelles : ::
+   >>> float()
+   0.0
+   >>> float(1) # Construit avec un entier = conversion
+   1.0
+   >>> 2.718
+   2.718
+   >>> .02
+   0.02
+   >>> 3e8
+   300000000.0
+   >>> 6.023e23
+   6.0229999999999998e+23
 
-    import math
-    print(math.sin(math.pi/4)) # 0.7071067811865475
-    print(math.degrees(math.pi)) # 180.0
-    print(math.factorial(9)) # 362880
-    print(math.log(1024, 2)) # 10.0
+* Les flottants (:samp:`float`) supportent les mêmes opérations que les entiers.
+* Les float ont une précision finie indiquée dans
+  :samp:`sys.float_info.epsilon`.
+* L'import du module :mod:`math` autorise toutes les opérations mathématiques
+  usuelles :
+
+.. code-block:: pycon
+
+   >>> import math
+   >>> math.sin(math.pi/4)
+   0.70710678118654746
+   >>> math.degrees(math.pi)
+   180.0
+   >>> math.factorial(9)
+   362880
+   >>> math.log(1024, 2)
+   10.0
 
 Le type complex
 ---------------
 
 * Les complexes sont écrits en notation cartésienne formée de deux flottants.
-* La partie imaginaire est suffixée par j : ::
+* La partie imaginaire est suffixée par :samp:`j` :
 
-    print(1j) # 1j
-    print((2+3j) + (4-7j)) # (6-4j)
-    print((9+5j).real) # 9.0
-    print((9+5j).imag) # 5.0
-    print((abs(3+4j))) # 5.0 : module
+.. code-block:: pycon
 
-* Un module mathématique spécifique (cmath) leur est réservé : ::
+   >>> 1j
+   1j
+   >>> (2+3j) + (4-7j)
+   (6-4j)
+   >>> (9+5j).real
+   9.0
+   >>> (9+5j).imag
+   5.0
+   >>> abs(3+4j)
+   5.0
 
-    import cmath
-    print(cmath.phase(-1 + 0j)) # 3.14159265359
-    print(cmath.polar(3 + 4j)) # (5.0, 0.9272952180016122)
-    print(cmath.rect(1., cmath.pi/4)) # (0.707106781187+0.707106781187j)
+* Un module mathématique spécifique (:mod:`cmath`) leur est réservé :
+
+.. code-block:: pycon
+
+   >>> import cmath
+   >>> cmath.phase(-1 + 0j)
+   3.1415926535897931
+   >>> cmath.polar(3 + 4j)
+   (5.0, 0.92729521800161219)
+   >>> cmath.rect(1., cmath.pi/4)
+   (0.70710678118654757+0.70710678118654746j)
 
 Variables et affectation
 ------------------------
@@ -587,45 +638,28 @@ Variables et affectation
 Les variables
 +++++++++++++
 
-Dès que l'on possède des :term:`types de données`, on a besoin des
-:term:`variables` pour stocker les données.
+Dès que l'on possède des types de données, on a besoin des :term:`variables`
+pour stocker les données.
 
 En réalité, Python n'offre pas la notion de variable, mais plutôt celle de
-:term:`référence d'objet`. Tant que l'objet n'est pas modifiable (comme les
-entiers, les flottants, etc.), il n'y a pas de différence notable. On verra que
-la situation change dans le cas des objets modifiables...
-
-.. glossary::
-
-  Variable
-    Une variable est un **identifiant** associé à une valeur.
-    Informatiquement, c'est une **référence d'objet** situé à une adresse
-    mémoire.
+**référence d'objet**. Tant que l'objet n'est pas modifiable (comme les entiers,
+les flottants, etc.), il n'y a pas de différence notable. On verra que la
+situation change dans le cas des objets modifiables...
 
 L'affectation
 +++++++++++++
 
-.. glossary::
+La valeur d'une variable, comme son nom l'indique, peut évoluer au cours de chaque :term:`affectation` (la valeur antérieure est perdue) :
 
-  Affectation
-    On **affecte** une variable par une valeur en utilisant le signe :term:`=`
-    (qui n'a rien à voir avec l'égalité en math !). Dans une affectation, le
-    membre de gauche **reçoit** le membre de droite ce qui nécessite d'évaluer
-    la valeur correspondant au membre de droite avant de l'affecter au membre
-    de gauche. ::
+.. code-block:: pycon
 
-      a = 2 # prononcez : a "reçoit" 2
-      b = 7.2 * math.log(math.e / 45.12) - 2*math.pi
-      c = b ** a
-
-La valeur d'une variable, comme son nom l'indique, peut évoluer au cours du
-temps (la valeur antérieure est perdue) : ::
-
-    a = a + 1 # 3 (incrémentation)
-    a = a - 1 # 2 (décrémentation)
+   >>> a = a + 1 # 3 (incrémentation)
+   >>> a = a - 1 # 2 (décrémentation)
 
 Affecter n'est pas comparer !
 +++++++++++++++++++++++++++++
+
+.. ZZZ On reprend ici le reformatage de ce document. Je suis crevé ce soir :)
 
 .. glossary::
 
@@ -654,13 +688,13 @@ Outre l'affectation simple, on peut aussi utiliser les formes suivantes : ::
 
    # affectation simple
    v = 4
-   
+
    # affectation augmentée
    v += 2 # idem à : v = v + 2 si v est déjà référencé
-   
+
    # affectation de droite à gauche
    c = d = 8 # cibles multiples
-   
+
    # affectations parallèles d'une séquence
    e, f = 2.7, 5.1 # tuple
    g, h, i = ['G', 'H', 'I'] # liste
@@ -728,16 +762,16 @@ d'inclure une notation dans l'autre : ::
   En python 2.6 "une chaine" est en faite une suite d'octets, contrairement à
   la chaîne unicode u"Avec un é" qui correspond à la chaine de caractères de
   python 3.
-  
+
   Il faut passer de la chaine d'octets vers l'unicode en utilisant la méthode
   decode et en précisant l'encodage exemple :
-  
+
   >>> print "Le \xc3\xa9 en utf8 est cod\xc3\xa9 sur 2 octets".decode("utf-8")
   Le é en utf8 est codé sur 2 octets
-  
+
   >>> print "Le \xe9 en iso 8859-15 est cod\xe9 sur 1 octet".decode("iso 8859-15")
   Le  é en iso 8859-15 est codé sur 1 octet
-  
+
   Pour passer d'un encodage à un autre directement depuis une chaine d'octets, on
   utilise la méthode encode en lui précisant en paramètre l'encodage de
   destination et l'encodage source :
@@ -753,10 +787,10 @@ d'inclure une notation dans l'autre : ::
   valeur 233 (e9) soit en mémoire "00 00 00 E9", or en iso 8859-15 le `é` a
   aussi pour valeur 233 (e9), mais en mémoire il prendra simplement un octet
   soit "E9".
-  
+
   Beaucoup d'erreurs de compréhension viennent de cette intersection dans la
   représentation des unicodes et des iso 8859-15.
-  
+
 
 
 Les chaînes de caractères : opérations
@@ -817,7 +851,7 @@ omettre lors de l'utilisation de la méthode.
 
     print("Chaise Basse".istitle()) # True
 
-* :command:`isalnum()`, :command:`isalpha()`, :command:`isdigit()` et 
+* :command:`isalnum()`, :command:`isalpha()`, :command:`isdigit()` et
   :command:`isspace()` : retournent True si ch ne contient respectivement que
   des caractères alphanumériques, alphabétiques, numériques ou des espaces : ::
 
@@ -1340,7 +1374,7 @@ Syntaxe complète d'une exception : ::
 
   En python 2.6, il est encore possible de lever une exception avec une simple
   chaîne ::
-  
+
     >>> raise "Une exception"
     Traceback (most recent call last):
       File ...
@@ -1947,12 +1981,12 @@ Ces avantages sont illustrés ci-dessous :
     Exemple (b) Met en relief entrées et sorties.
 
 
-.. figure:: LImportPermetLaReutilisation.jpg  
+.. figure:: LImportPermetLaReutilisation.jpg
     :align: center
 
     Exemple (c) L'import permet la réutilisation.
 
-.. figure:: AmelioreLaConception.jpg  
+.. figure:: AmelioreLaConception.jpg
     :align: center
 
     Exemple (d) Améliore la conception.
@@ -2002,6 +2036,7 @@ Un ou plusieurs paramètres, pas de retour
 Exemple sans l'instruction return, ce qu'on appelle souvent une procédure.
 
 Dans ce cas la fonction renvoie implicitement la valeur None : ::
+
     def table(base, debut, fin):
         """Affiche la table des <base> de <debut> à <fin>."""
         n = debut
@@ -2021,10 +2056,10 @@ Exemple avec utilisation d'un return unique : ::
     from math import pi
     def cube(x):
         return x**3
-     
+
     def volumeSphere(r):
         return 4.0 * pi * cube(r) / 3.0
-    
+
     # Saisie du rayon et affichage du volume
     rayon = float(input('Rayon : '))
     print("Volume de la sphère =", volumeSphere(rayon))
@@ -2036,7 +2071,7 @@ Exemple avec utilisation d'un return multiple : ::
         surf = 4.0 * math.pi * r**2
         vol = surf * r/3
         return surf, vol
-    
+
     # programme principal
     rayon = float(input('Rayon : '))
     s, v = surfaceVolumeSphere(rayon)
@@ -2073,7 +2108,7 @@ suivantes : ::
     def initPort(speed=9600, parity="paire", data=8, stops=1):
         print("Init. à", speed, "bits/s", "parité :", parity)
         print(data, "bits de données", stops, "bits d'arrêt")
-    
+
     # Appels possibles :
     initPort()
     # Init. à 9600 bits/s parité : paire
@@ -2166,16 +2201,16 @@ Exemples de portée ::
         x += 2
         z = x + y
         return z
-    
+
     x = 99
     print(fonc(1)) # 102
     # x et fonc sont affectés dans le module : globaux
-     
+
     def fonc(y): # y et z sont affectés dans fonc : locaux
         # dans fonc : portée locale
         z = x + y
         return z
-    
+
     x = 99
     print(fonc(1)) # 100
     # x et fonc sont affectés dans le module : globaux
@@ -2183,7 +2218,7 @@ Exemples de portée ::
         x = 3 # ce nouvel x est local et masque le x global
         z = x + y
         return z
-    
+
     x = 99
     print(fonc(1)) # 4
 
@@ -2338,7 +2373,7 @@ fonction scanner() utilisant le même traitement : ::
     def scanner(objet_fichier, gestionnaire_ligne):
         for ligne in objet_fichier:
             gestionnaire_ligne(ligne)
-    
+
     if __name__=='__main__':
         def premierMot(ligne): print(ligne.split()[0])
         fic = open("data.dat")
@@ -2372,7 +2407,7 @@ ou ::
 produisent la même documentation : ::
 
     Usage: 6_025.py [options]
-    
+
     Options:
       -h, --help show this help message and exit
       -f FILE, --file=FILE write report to FILE
@@ -2403,12 +2438,12 @@ Les modules calendar, time et datetime fournissent les fonctions courantes de
 gestion du temps et des durées : ::
 
     import calendar, datetime, time
-    
+
     moon_apollo11 = datetime.datetime(1969, 7, 20, 20, 17, 40)
     print(moon_apollo11)
     print(time.asctime(time.gmtime(0)))
     # Thu Jan 01 00:00:00 1970 ("epoch" UNIX)
-    
+
     vendredi_precedent = datetime.date.today()
     un_jour = datetime.timedelta(days=1)
     while vendredi_precedent.weekday() != calendar.FRIDAY:
@@ -2427,18 +2462,18 @@ plus petit : ::
 
     import heapq
     import random
-    
+
     heap = []
     for i in range(10):
         heapq.heappush(heap, random.randint(2, 9))
-    
+
     print(heap) # [2, 3, 5, 4, 6, 6, 7, 8, 7, 8]
 
 À l'instar des structures C, Python propose désormais, via le module
 collections, la notion de type tuple nommé : ::
 
     import collections
-    
+
     # description du type :
     Point = collections.namedtuple("Point", "x y z")
     # on instancie un point :
@@ -2451,14 +2486,14 @@ Il est bien sûr possible d'avoir des tuples nommés emboîtés.
 Le type defaultdict permet des utilisations avancées : ::
 
     from collections import defaultdict
-    
+
     s = [('y', 1), ('b', 2), ('y', 3), ('b', 4), ('r', 1)]
     d = defaultdict(list)
     for k, v in s:
         d[k].append(v)
     print(d.items())
     # dict_items([('y', [1, 3]), ('r', [1]), ('b', [2, 4])])
-    
+
     s = 'mississippi'
     d = defaultdict(int)
     for k in s:
@@ -2641,7 +2676,7 @@ canard et cancane comme un canard, alors c'est un canard !". Ce qui signifie
 que Python ne s'intéresse qu'au comportement des objets.
 
 Par exemple un objet fichier peut être créé par :command:`open()` ou par une
-instance de io.StringIO. 
+instance de io.StringIO.
 
 Les deux approches offrent la même API (interface de programmation),
 c'est-à-dire les mêmes méthodes.
@@ -2757,7 +2792,7 @@ Autrement dit self est la référence d'instance.
         self.z = 42 # attribut d'instance
         print(C.y) # dans une méthode, on qualifie un attribut de classe,
         print(self.z) # mais pas un attribut d'instance
-    
+
     ob = C() # instanciation de l'objet ob
     ob.affiche() # 28 42 (à l'appel, ob affecte self)
 
@@ -2787,7 +2822,7 @@ nécessaires : ::
     class C:
         def __init__(self, n):
         self.x = n # initialisation de l'attribut d'instance x
-    
+
     une_instance = C(42) # paramètre obligatoire, affecté à n
     print(une_instance.x) # 42
 
@@ -2835,16 +2870,16 @@ Exemple de surcharge
         def __init__(self, x, y):
             self.x = x
             self.y = y
-        
+
         def __add__(self, autre): # addition vectorielle
             return Vecteur2D(self.x + autre.x, self.y + autre.y)
-        
+
         def __str__(self): # affichage d'un Vecteur2D
             return "Vecteur({:g}, {:g})" % (self.x, self.y)
-    
+
     v1 = Vecteur2D(1.2, 2.3)
     v2 = Vecteur2D(3.4, 4.5)
-    
+
     print(v1 + v2) # Vecteur(4.6, 6.8)
 
 Héritage et polymorphisme
@@ -2874,12 +2909,12 @@ méthode ::command:`__init__` est polymorphe : ::
     class Rectangle:
         def __init__(self, longueur=30, largeur=15):
             self.L, self.l, self.nom = longueur, largeur, "rectangle"
-    
+
     class Carre(Rectangle):
         def __init__(self, cote=10):
             Rectangle.__init__(self, cote, cote)
             self.nom = "carré"
-    
+
     r = Rectangle()
     print(r.nom) # 'rectangle'
     c = Carre()
@@ -2911,14 +2946,14 @@ La classe Cercle
 Voici le code de la classe Point :
 
     class Point:
-    
+
         def __init__(self, x=0, y=0):
             self.x, self.y = x, y
-    
+
         @property
         def distance_origine(self):
             return math.hypot(self.x, self.y)
-    
+
         def __eq__(self, other):
             return self.x == other.x and self.y == other.y
 
@@ -2938,15 +2973,15 @@ De nouveau, les méthodes renvoyant un simple flottant seront utilisées comme
 des attributs grâce à :command:`property` : ::
 
     class Cercle(Point):
-    
+
         def __init__(self, rayon, x=0, y=0):
             super().__init__(x, y)
             self.rayon = rayon
-    
+
         @property
         def aire(self):
             return math.pi * (self.rayon ** 2)
-    
+
         @property
         def circonference(self):
             return 2 * math.pi * self.rayon
@@ -2975,11 +3010,11 @@ Exemple d'utilisation des instances de Cercle : ::
     def __eq__(self, other):
         return (self.rayon == other.rayon
             and super().__eq__(other))
-    
+
     def __str__(self):
         return ("{0.__class__.__name__}({0.rayon!s}, {0.x!s}, "
             "{0.y!s})".format(self))
-    
+
     if __name__ == "__main__":
         c1 = Cercle(2, 3, 4)
         print(c1, c1.aire, c1.circonference)
@@ -3020,18 +3055,18 @@ Exemple ::
     class Point:
         def __init__(self, x, y):
             self.px, self.py = x, y
-    
+
     class Segment:
         """Classe composite utilisant la classe distincte Point."""
         def __init__(self, x1, y1, x2, y2):
             self.orig = Point(x1, y1) # Segment "a-un" Point origine,
             self.extrem = Point(x2, y2) # et "a-un" Point extrémité
-    
+
         def __str__(self):
             return ("Segment : [({:g}, {:g}), ({:g}, {:g})]"
                 .format(self.orig.px, self.orig.py,
                     self.extrem.px, self.extrem.py))
-    
+
     s = Segment(1.0, 2.0, 3.0, 4.0)
     print(s) # Segment : [(1, 2), (3, 4)]
 
@@ -3054,7 +3089,7 @@ Exemple
     class Rectangle:
         def __init__(self, longueur=30, largeur=15):
             self.L, self.l, self.nom = longueur, largeur, "rectangle"
-    
+
     class Carre(Rectangle): # héritage simple
         """Sous-classe spécialisée de la super-classe Rectangle."""
         def __init__(self, cote=20):
@@ -3082,10 +3117,10 @@ et affiche les docstrings associés sous une forme plus lisible que help() : ::
         methods = [el for el in dir(element) if not el.startswith('_')]
         for meth in methods:
             print(getattr(element, meth).__doc__)
-    
+
     if __name__ == "__main__":
         printApi([])
-    
+
     """
     L.append(object) -- append object to end
     L.count(value) -> integer -- return number of occurrences of value
@@ -3118,18 +3153,18 @@ premier servi.
 Source du module de fonctions : ::
 
     """Module de gestion d'une queue FIFO."""
-    
+
     queue = [] # initialisation
-    
+
     def enQueue():
         queue.append(int(input("Entrez un entier : ")))
-    
+
     def deQueue():
         if len(queue) == 0:
             print("\nImpossible : la queue est vide !")
         else:
             print("\nElément '%d' supprimé" % queue.pop(0))
-    
+
     def afficheQueue():
         print("\nqueue :", queue)
 
@@ -3140,13 +3175,13 @@ Source du menu de gestion : ::
       Un menu (utilisant un dictionnaire)
       appelle des procédures sans argument.
     """
-    
+
     # import
     from queue_FIFO_menu_m import enQueue, deQueue, afficheQueue
-    
+
     # programme principal -----------------------------------------------
     afficheQueue()
-    
+
     CMDs = {'a':enQueue, 'v':afficheQueue, 's':deQueue}
 
     menu = """
@@ -3161,7 +3196,7 @@ Source du menu de gestion : ::
                 choix = input(menu).strip()[0].lower()
             except:
                 choix = 'q'
-    
+
         if choix not in 'avsq':
             print("Option invalide ! Réessayez")
         else:
@@ -3196,7 +3231,7 @@ Ainsi :
   * [aez] soit `a`, soit `e`, soit `z`
   * [a-z] tout de a à z
 
-- `[^` `]` indique tout caractère autres que ceux de l'ensemble, ex [^a-c] 
+- `[^` `]` indique tout caractère autres que ceux de l'ensemble, ex [^a-c]
   tout sauf a,b,c,
 - `.` tout caractère,
 - `|` indique une alternative,
@@ -3257,7 +3292,7 @@ factorielle : ::
     n! = | 1 si n = 0
          | n (n - 1)! si n > 1
 
-.. note:: 
+.. note::
 
   Son code est très exactement calqué sur sa définition mathématique : ::
 
@@ -3288,14 +3323,14 @@ Voici un exemple de générateur qui fournit autant de valeurs que demandées : 
         while True:
             yield next_quarter
             next_quarter += 0.25
-    
+
     if __name__ == "__main__":
         result = []
         for x in quarters():
             result.append(x)
             if x == 1.0:
                 break
-    
+
     print("Liste résultante : ", result)
     # Liste résultante : [0.0, 0.25, 0.5, 0.75, 1.0]
 
@@ -3350,7 +3385,7 @@ leur définition. Distinguons deux cas d'emplois :
             """Fonction 'fermeture' : utilise des noms locaux à creer_plus()."""
             return increment + ajout
         return plus
-    
+
     # Programme principal -----------------------------------------------
     ## création de deux fabriques distinctes
     p = creer_plus(23)
@@ -3365,20 +3400,20 @@ Fonction fabrique renvoyant une classe : ::
     class CasNormal(object):
         def uneMethode(self):
             print("normal")
-    
+
     class CasSpecial(object):
         def uneMethode(self):
             print("spécial")
-    
+
     # fonction
     def casQuiConvient(estNormal=True):
         """Fonction fabrique renvoyant une classe."""
         return CasNormal() if estNormal else CasSpecial()
-    
+
     # Programme principal -----------------------------------------------
     une_instance = casQuiConvient()
     une_instance.uneMethode() # normal
-    
+
     autre_instance = casQuiConvient(False)
     autre_instance.uneMethode() # spécial
 
@@ -3395,11 +3430,11 @@ Soit le prétraitement suivant : ::
     def pretraitement(fonction):
         fonction.__doc__ += "(fonction décorée)."
         return fonction
-    
+
     def traitement():
         """ma fonction """
         print("traitement")
-    
+
     traitement = pretraitement(traitement)
     print(traitement.__doc__) # ma fonction (fonction décorée).
 
@@ -3408,12 +3443,12 @@ Nous obtenons le même résultat en utilisant un décorateur : ::
     def pretraitement(fonction):
         fonction.__doc__ += "(fonction décorée)."
         return fonction
-    
+
     @pretraitement
     def traitement():
         """ma fonction """
         print("traitement")
-    
+
     print(traitement.__doc__) # ma fonction (fonction décorée).
 
 Enfin il est possible d'enchaîner les décorateurs (à l'image de la composition
@@ -3473,7 +3508,7 @@ propriété : ::
 
     >>> def maFonction():
         print('Ceci est "appelable"')
-    
+
     >>> callable(maFonction)
     True
     >>> chaine = 'Ceci est "appelable"'
@@ -3534,7 +3569,7 @@ souvent codés ainsi : ::
 
     f = lambda x=1, y=1, z=0: 3*x + 2*y - z
     print(f()) # 5
-    
+
     def make_increment(n):
         return lambda x: x + n
 
@@ -3578,7 +3613,7 @@ retourne un itérateur : ::
 
     >>> def renvoiTitres(element):
         return element.title()
-    
+
     >>> map(renvoiTitres, ['fiat lux', "lord of the fly"])
     ['Fiat Lux', 'Lord Of The Fly']
     >>>
@@ -3643,7 +3678,7 @@ attributs (qui peuvent toujours être surchargés) : ::
 
     from functools import partial
     import tkinter as tk
-    
+
     root = tk.Tk()
     # instanciation partielle de classe :
     MonBouton = partial(tk.Button, root, fg='purple', bg='green')
