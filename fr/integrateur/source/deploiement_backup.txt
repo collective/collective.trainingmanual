@@ -391,6 +391,9 @@ Apache et Zope, VirtualHostMonster :
 - http://wiki.zope.org/zope2/ZopeAndApache
 - http://doc.ubuntu-fr.org/tutoriel/securiser_apache2_avec_ssl
 
+Erreurs PosKey dans vos ZODB storages :
+
+- `Checking your ZODB storages for PosKey errors <http://www.zopyx.de/blog/checking-your-zodb-storages-for-poskey-errors>`__
 
 Exercice
 ========
