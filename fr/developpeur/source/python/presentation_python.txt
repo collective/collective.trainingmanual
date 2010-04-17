@@ -416,7 +416,7 @@ Notion d'expression
 
 Exemples de deux expressions simples et d'une :term:`expression` complexe :
 
-.. ceode-block:: python
+.. code-block:: python
 
     id1 = 15.3
     id2 = maFonction(id1)
@@ -933,8 +933,8 @@ Les chaînes de caractères : indiçage simple
 +++++++++++++++++++++++++++++++++++++++++++
 
 Pour indicer une chaîne, on utilise l'opérateur :term:`[ ]` dans lequel
-l'indice, un entier signé qui commence à 0 indique la position d'un caractère :
- ::
+l'indice, un entier signé qui commence à 0 indique la position d'un
+caractère : ::
 
     s = "Rayon X" # len(s) ==> 7
     print(s[0]) # R
@@ -1561,6 +1561,7 @@ Les tuples
 ----------
 
 .. glossary::
+
   Tuple
     Collection ordonnée et non modifiable d'éléments éventuellement
     hétérogènes.
@@ -1622,7 +1623,7 @@ Dans les rares occasions où l'on veut aussi que chaque élément et attribut de
 l'objet soit copié séparément et de façon récursive, on emploie la fonction
 :command:`copy.deepcopy()`.
 
-.. section:: Complément graphique sur l'assignation
+.. rubric:: Complément graphique sur l'assignation
 
 Assignation augmentée d'un objet non modifiable (cas d'un entier).
 
@@ -1807,7 +1808,7 @@ Une seule méthode de fermeture : ::
 
    f1.close()
 
-.. section:: Écriture séquentielle
+.. rubric:: Écriture séquentielle
 
 Méthodes d'écriture : ::
 
@@ -1822,7 +1823,7 @@ Méthodes d'écriture : ::
     print("abcd", file=f2)
     f2.close()
 
-.. section:: Lecture séquentielle
+.. rubric:: Lecture séquentielle
 
 Méthodes de lecture : ::
 
@@ -2756,7 +2757,7 @@ Tout comme les fonctions, les classes possèdent leurs espaces de noms :
 * **Noms qualifiés** (exemple dimension.hauteur) l'affectation crée ou modifie
   l'attribut dans l'espace de noms de l'objet. Un attribut est cherché dans
   l'objet, puis dans toutes les classes dont l'objet dépend (mais pas dans les
-   modules).
+  modules).
 
 L'exemple suivant affiche le dictionnaire lié à la classe C puis la liste des
 attributs liés à une instance de C : ::
@@ -2943,7 +2944,7 @@ sont redéfinis (surchargés).
 La classe Cercle
 ++++++++++++++++
 
-Voici le code de la classe Point :
+Voici le code de la classe Point : ::
 
     class Point:
 
@@ -3084,7 +3085,7 @@ L'implémentation Python utilisée est généralement l'appel dans le constructe
 de la classe dérivée du constructeur de la classe parente, soit nommément, soit
 grâce à l'instruction super.
 
-Exemple
+Exemple : ::
 
     class Rectangle:
         def __init__(self, longueur=30, largeur=15):
@@ -3334,7 +3335,7 @@ Voici un exemple de générateur qui fournit autant de valeurs que demandées : 
     print("Liste résultante : ", result)
     # Liste résultante : [0.0, 0.25, 0.5, 0.75, 1.0]
 
-Il est aussi possible de passer une initialisation au générateur :
+Il est aussi possible de passer une initialisation au générateur : ::
 
     # import
     import sys
