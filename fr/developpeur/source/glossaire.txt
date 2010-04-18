@@ -30,6 +30,10 @@ Définition des termes et abréviations utilisés dans ce document.
       b = 7.2 * math.log(math.e / 45.12) - 2*math.pi
       c = b ** a
 
+    Les affectations relient les identificateurs aux données : si une donnée en
+    mémoire n'est plus reliée, le ramasse-miettes *(garbage collector)* de
+    Python la supprime automatiquement
+
   AT
     Abréviation courante d'Archetypes utilisée dans les documentations, blogs,
     mailing-lists, forums ayant trait à Plone.

@@ -6,6 +6,8 @@
 Presentation de Python
 ======================
 
+.. todo:: Découper en pages séparées
+
 Définition
 ==========
 
@@ -342,11 +344,36 @@ Sachant que :
 .. note::
 
    En python 2.6, les caractères ne peuvent être que des lettres ASCII, c'est à
-   dire sans accent.
+   dire sans accent
 
 .. warning::
 
    Les identifiants sont sensibles à la casse et ne doivent pas être un mot clé.
+
+.. tip::
+
+   Pour être certain de ne pas empiéter sur le vocabulaire (mot clés et
+   bibliothèque standard de Python), essayez ceci en mode interactif :
+
+   .. code-block:: pycon
+
+      >>> # Un symbole valable doit produire les erreurs suivantes
+      >>> symbole
+      Traceback (most recent call last):
+        File "<stdin>", line 1, in <module>
+      NameError: name 'symbole' is not defined
+      >>> import symbole
+      Traceback (most recent call last):
+        File "<stdin>", line 1, in <module>
+      ImportError: No module named symbole
+      >>> # Un symbole non valable doit produire Une erreur de syntaxe
+      >>> with
+      File "<stdin>", line 1
+        with
+            ^
+      SyntaxError: invalid syntax
+      >>> # Un import de symbole non valable ne produit pas d'erreur
+      >>> import calendar
 
 Styles de nommage
 +++++++++++++++++
@@ -659,32 +686,36 @@ La valeur d'une variable, comme son nom l'indique, peut évoluer au cours de cha
 Affecter n'est pas comparer !
 +++++++++++++++++++++++++++++
 
-.. ZZZ On reprend ici le reformatage de ce document. Je suis crevé ce soir :)
+.. rubric:: Affectation
 
-.. glossary::
+L' :term:`affectation` a un effet (elle modifie l'état interne du programme
+en cours d'exécution) mais n'a pas de valeur (on ne peut pas l'utiliser dans une
+expression) :
 
-  Affectation
-    **L'affectation** a un effet (elle modifie l'état interne du programme en
-    cours d'exécution) mais n'a pas de valeur (on ne peut pas l'utiliser dans
-    une expression) : ::
+.. code-block:: python
 
-      >>> a = 2
-      >>> x = (a = 3) + 2
-      SyntaxError: invalid syntax
+   >>> a = 2
+   >>> x = (a = 3) + 2
+   SyntaxError: invalid syntax
 
-  Comparaison
-    **La comparaison** a une valeur utilisable dans une expression mais n'a pas
-    d'effet (l'automate interne représentant l'évolution du programme n'est pas
-    modifié) : ::
+.. rubric:: Comparaison
 
-      >>> x = (a == 3) + 2
-      >>> x
-      2
+La :term:`comparaison` a une valeur utilisable dans une expression mais n'a pas
+d'effet (l'automate interne représentant l'évolution du programme n'est pas
+modifié) :
+
+.. code-block:: python
+
+   >>> x = (a == 3) + 2
+   >>> x
+   2
 
 Les variantes de l'affectation
 ++++++++++++++++++++++++++++++
 
-Outre l'affectation simple, on peut aussi utiliser les formes suivantes : ::
+Outre l'affectation simple, on peut aussi utiliser les formes suivantes :
+
+.. code-block:: python
 
    # affectation simple
    v = 4
@@ -706,12 +737,9 @@ Les affectations (explications graphiques)
 Dans les schémas des figures ci-dessous, les cercles représentent les
 identificateurs alors que les rectangles représentent les données.
 
-.. glossary::
-
-  Affectation
-    **Les affectations** relient les identificateurs aux données : si une
-    donnée en mémoire n'est plus reliée, le ramasse-miettes *(garbage
-    collector)* de Python la supprime automatiquement :
+**Les affectations** relient les identificateurs aux données : si une donnée en
+mémoire n'est plus reliée, le ramasse-miettes *(garbage collector)* de Python la
+supprime automatiquement :
 
 
 
@@ -747,7 +775,9 @@ Les chaînes de caractères : présentation
 Trois syntaxes de chaînes sont disponibles.
 
 Remarquez que l'on peut aussi utiliser le ' à la place de ", ce qui permet
-d'inclure une notation dans l'autre : ::
+d'inclure une notation dans l'autre :
+
+.. code-block:: python
 
     syntaxe1 = "Première forme avec un retour à la ligne \n"
     syntaxe2 = r"Deuxième forme sans retour à la ligne \n"
@@ -766,52 +796,63 @@ d'inclure une notation dans l'autre : ::
   Il faut passer de la chaine d'octets vers l'unicode en utilisant la méthode
   decode et en précisant l'encodage exemple :
 
-  >>> print "Le \xc3\xa9 en utf8 est cod\xc3\xa9 sur 2 octets".decode("utf-8")
-  Le é en utf8 est codé sur 2 octets
+  .. code-block:: pycon
 
-  >>> print "Le \xe9 en iso 8859-15 est cod\xe9 sur 1 octet".decode("iso 8859-15")
-  Le  é en iso 8859-15 est codé sur 1 octet
+     >>> print "Le \xc3\xa9 en utf8 est cod\xc3\xa9 sur 2 octets".decode("utf-8")
+     Le é en utf8 est codé sur 2 octets
+     >>> print "Le \xe9 en iso 8859-15 est cod\xe9 sur 1 octet".decode("iso 8859-15")
+     Le  é en iso 8859-15 est codé sur 1 octet
 
   Pour passer d'un encodage à un autre directement depuis une chaine d'octets, on
   utilise la méthode encode en lui précisant en paramètre l'encodage de
   destination et l'encodage source :
 
-  >>> 'le sybole euro \xe2\x82\xac'.encode("iso 8859-15", "utf8")
-  'le sybole euro \xa4'
+  .. code-block:: pycon
 
+     >>> 'le symbole euro \xe2\x82\xac'.encode("iso 8859-15", "utf8")
+     'le symbole euro \xa4'
 
-.. warning::
+.. attention::
 
-  Un caractère unicode occupe 4 octets en mémoire, il s'agit d'un chiffre dont
-  la valeur numérique correspond au symbole a représenter. Ainsi le `é` a pour
-  valeur 233 (e9) soit en mémoire "00 00 00 E9", or en iso 8859-15 le `é` a
-  aussi pour valeur 233 (e9), mais en mémoire il prendra simplement un octet
-  soit "E9".
+   Un caractère unicode occupe 4 octets en mémoire, il s'agit d'un chiffre dont
+   la valeur numérique correspond au symbole a représenter. Ainsi le `é` a pour
+   valeur 233 (e9) soit en mémoire "00 00 00 E9", or en iso 8859-15 le `é` a
+   aussi pour valeur 233 (e9), mais en mémoire il prendra simplement un octet
+   soit "E9".
 
-  Beaucoup d'erreurs de compréhension viennent de cette intersection dans la
-  représentation des unicodes et des iso 8859-15.
-
+   Beaucoup d'erreurs de compréhension viennent de cette intersection dans la
+   représentation des unicodes et des iso 8859-15.
 
 
 Les chaînes de caractères : opérations
 ++++++++++++++++++++++++++++++++++++++
 
-* Longueur : ::
+* Longueur :
 
-    s = "abcde"
-    len(s) # 5
+.. code-block:: pycon
 
-* Concaténation : ::
+   >>> s = "abcde"
+   >>> len(s)
+   5
 
-    s1 = "abc"
-    s2 = "defg"
-    s3 = s1 + s2 # 'abcdefg'
+* Concaténation :
 
-* Répétition : ::
+.. code-block:: pycon
 
-    s4 = "Fi! "
-    s5 = s4 * 3 # 'Fi! Fi! Fi! '
-    print(s5)
+   >>> s1 = "abc"
+   >>> s2 = "defg"
+   >>> s3 = s1 + s2
+   >>> s3
+   abcdefg
+
+* Répétition :
+
+.. code-block:: pycon
+
+   >>> s4 = "Fi! "
+   >>> s5 = s4 * 3
+   >>> s5
+   Fi! Fi! Fi!
 
 Les chaînes de caractères : fonctions vs méthodes
 +++++++++++++++++++++++++++++++++++++++++++++++++
@@ -819,146 +860,211 @@ Les chaînes de caractères : fonctions vs méthodes
 On peut agir sur une chaîne (et plus généralement sur une séquence) en
 utilisant des fonctions (notion procédurale) ou des méthodes (notion objet).
 
-* Pour appliquer une fonction, on utilise l'opérateur () appliqué à la
-fonction : ::
+* Pour appliquer une fonction, on utilise l'opérateur () appliqué à la fonction
+  :
 
-    ch1 = "abc"
-    long = len(ch1) # 3
+.. code-block:: pycon
+
+   >>> ch1 = "abc"
+   >>> long = len(ch1)
+   3
 
 * On applique une méthode à un objet en utilisant la notation pointée entre la
-donnée/variable à laquelle on applique la méthode, et le nom de la méthode
-suivi de l'opérateur () appliqué à la méthode : ::
+  donnée/variable à laquelle on applique la méthode, et le nom de la méthode
+  suivi de l'opérateur ``()`` appliqué à la méthode :
 
-    ch2 = "abracadabra"
-    ch3 = ch2.upper() # "ABRACADABRA"
+.. code-block:: pycon
+
+   >>> ch2 = "abracadabra"
+   >>> ch3 = ch2.upper()
+   ABRACADABRA
 
 Méthodes de test de l'état d'une chaîne ch
 ++++++++++++++++++++++++++++++++++++++++++
 
 Les méthodes suivantes sont à valeur booléennes, c'est-à-dire qu'elles
-retournent la valeur True ou False.
+retournent la valeur ``True`` ou ``False``.
 
-La notation :term:`[xxx]` indique un élément optionnel que l'on peut donc
+La notation :samp:`[{xxx}]` indique un élément optionnel que l'on peut donc
 omettre lors de l'utilisation de la méthode.
 
-* :command:`isupper()` et :command:`islower()` : retournent True si ch ne
-  contient respectivement que des majuscules/minuscules : ::
+* :samp:`isupper()` et :samp:`islower()` : retournent ``True`` si ``ch`` ne
+  contient respectivement que des majuscules/minuscules :
 
-    print("cHAise basSe".isupper()) # False
+.. code-block:: pycon
 
-* :command:`istitle()` : retourne True si seule la première lettre de chaque
-  mot de ch est en majuscule : ::
+   >>> print("cHAise basSe".isupper())
+   False
 
-    print("Chaise Basse".istitle()) # True
+* :samp:`istitle()` : retourne ``True`` si seule la première lettre de chaque
+  mot de ``ch`` est en majuscule :
 
-* :command:`isalnum()`, :command:`isalpha()`, :command:`isdigit()` et
-  :command:`isspace()` : retournent True si ch ne contient respectivement que
-  des caractères alphanumériques, alphabétiques, numériques ou des espaces : ::
+.. code-block:: pycon
 
-    print("3 chaises basses".isalpha()) # False
-    print("54762".isdigit()) # True
+   >>> print("Chaise Basse".istitle())
+   True
 
-* :command:`startswith(prefix[, start[, stop]])` et
-  :command:`endswith(suffix[, start[, stop]])` testent si la sous-chaîne
-  définie par *start* et *stop* commence respectivement par *prefix* ou finit
-  par *suffix* : ::
+* :samp:`isalnum()`, :samp:`isalpha()`, :samp:`isdigit()` et :samp:`isspace()` :
+  retournent ``True`` si ``ch`` ne contient respectivement que des caractères
+  alphanumériques, alphabétiques, numériques ou des espaces :
 
-    print("abracadabra".startswith('ab')) # True
-    print("abracadabra".endswith('ara')) # False
+.. code-block:: pycon
+
+   >>> print("3 chaises basses".isalpha())
+   False
+   >>> print("54762".isdigit())
+   True
+
+* :samp:`startswith({prefix}[, {start}[, {stop}]])` et :samp:`endswith({suffix}[,
+  {start}[, {stop}]])` testent si la sous-chaîne définie par ``start`` et ``stop``
+  commence respectivement par ``prefix`` ou finit par ``suffix`` :
+
+.. code-block:: pycon
+
+   >>> print("abracadabra".startswith('ab'))
+   True
+   >>> print("abracadabra".endswith('ara'))
+   False
 
 Méthodes retournant une nouvelle chaîne
 +++++++++++++++++++++++++++++++++++++++
 
-* :command:`lower()`, :command:`upper()`, :command:`capitalize()` et
-  :command:`swapcase()` : retournent respectivement une chaîne en minuscule, en
+* :samp:`lower()`, :samp:`upper()`, :samp:`capitalize()` et
+  :samp:`swapcase()` : retournent respectivement une chaîne en minuscule, en
   majuscule, en minuscule commençant par une majuscule, ou en casse inversée :
-  ::
 
-    # s sera notre chaîne de test pour toutes les méthodes
-    s = "cHAise basSe"
-    print(s.lower()) # chaise basse
-    print(s.upper()) # CHAISE BASSE
-    print(s.capitalize()) # Chaise basse
-    print(s.swapcase()) # ChaISE BASsE
+.. code-block:: pycon
 
-* :command:`expandtabs([tabsize])` : remplace les tabulations par tabsize
+   >>> # s sera notre chaîne de test pour toutes les méthodes
+   >>> s = "cHAise basSe"
+   >>> print(s.lower())
+   chaise basse
+   >>> print(s.upper())
+   CHAISE BASSE
+   >>> print(s.capitalize())
+   Chaise basse
+   >>> print(s.swapcase())
+   ChaISE BASsE
+
+* :samp:`expandtabs([{tabsize}])` : remplace les tabulations par tabsize
   espaces (8 par défaut).
 
-* :command:`center(width[, fillchar])`, :command:`ljust(width[, fillchar])` et
-  :command:`rjust(width[, fillchar])` : retournent respectivement une chaîne
-  centrée, justifiée à gauche ou à droite, complétée par le caractère
-  *fillchar* (ou par l'espace par défaut) : ::
+* :samp:`center({width}[, {fillchar}])`, :samp:`ljust({width}[, {fillchar}])` et
+  :samp:`rjust({width}[, {fillchar}])` : retournent respectivement une chaîne
+  centrée, justifiée à gauche ou à droite, de largeur maximale fixée par le
+  paramètre ``width`` complétée par le caractère ``fillchar`` (ou par l'espace
+  par défaut) :
 
-    print(s.center(20, '-')) # ----cHAise basSe----
-    print(s.rjust(20, '@')) # @@@@@@@@cHAise basSe
+.. code-block:: pycon
 
-* :command:`zfill(width)` : complète ch à gauche avec des 0 jusqu'à une
-  longueur maximale de width : ::
+   >>> print(s.center(20, '-'))
+   ----cHAise basSe----
+   >>> print(s.rjust(20, '@'))
+   @@@@@@@@cHAise basSe
 
-    print(s.zfill(20)) # 00000000cHAise basSe
+* :samp:`zfill({width})` : complète ``ch`` à gauche avec des 0 jusqu'à une
+  longueur maximale de ``width`` :
 
-* :command:`strip([chars])`, :command:`lstrip([chars])` et
-  :command:`rstrip([chars])` : suppriment toute les combinaisons de *chars* (ou
+.. code-block:: pycon
+
+   >>> print(s.zfill(20))
+   00000000cHAise basSe
+
+* :samp:`strip([{chars}])`, :samp:`lstrip([{chars}])` et
+  :samp:`rstrip([{chars}])` : suppriment toute les combinaisons de ``chars`` (ou
   l'espace par défaut) respectivement au début et en fin, au début, ou en fin
-  d'une chaîne : ::
+  d'une chaîne :
 
-    print(s.strip('ce')) # HAise basS
+.. code-block:: pycon
 
-* :command:`find(sub[, start[, stop]])` : renvoie l'indice de la chaîne *sub*
-  dans la sous-chaîne *start* à *stop*, sinon renvoie *-1*. :command:`rfind()`
-  effectue le même travail en commençant par la fin. :command:`index()` et
-  :command:`rindex()` font de même mais produisent une erreur (exception) si
-  la chaîne n'est pas trouvée : ::
+   >>> print(s.strip('ce'))
+   HAise basS
 
-    print(s.find('se b')) # 4
+* :samp:`find({sub}[, {start}[, {stop}]])` : renvoie l'indice de la chaîne
+  ``sub`` dans la sous-chaîne ``start`` à ``stop``, sinon renvoie
+  ``-1``. :samp:`rfind()` effectue le même travail en commençant par la
+  fin. :samp:`index()` et :samp:`rindex()` font de même mais produisent une
+  erreur (exception) si la chaîne n'est pas trouvée :
 
-* :command:`replace(old[, new[, count]])` : remplace *count* instances (toutes
-  pas défaut) de *old* par *new* : ::
+.. code-block:: pycon
 
-    print(s.replace('HA', 'ha')) # chaise basSe
+   >>> print(s.find('se b'))
+   4
 
-* :command:`split(seps[, maxsplit])` : découpe la chaîne en *maxsplit* morceaux
-  (tous par défaut). :command:`rsplit()` effectue la même chose en commençant
-  par la fin et :command:`striplines()` effectue ce travail avec les caractères
-  de fin de ligne : ::
+* :samp:`replace({old}[, {new}[, {count}]])` : remplace *count* instances (toutes
+  pas défaut) de ``old`` par ``new`` :
 
-    print(s.split()) # ['cHAise', 'basSe']
+.. code-block:: pycon
 
-* :command:`join(seq)` : concatène les chaînes du conteneur *seq* en
-  intercalant la chaîne sur laquelle la méthode est appliquée : ::
+   >>> print(s.replace('HA', 'ha'))
+   chaise basSe
 
-    print("**".join(['cHAise', 'basSe'])) # cHAise**basSe
+* :samp:`split({seps}[, {maxsplit}])` : découpe la chaîne en ``maxsplit``
+  morceaux (tous par défaut). :samp:`rsplit()` effectue la même chose en
+  commençant par la fin et :samp:`striplines()` effectue ce travail avec les
+  caractères de fin de ligne :
+
+.. code-block:: pycon
+
+   >>> print(s.split())
+   ['cHAise', 'basSe']
+
+* :samp:`join({seq})` : concatène les chaînes du conteneur ``seq`` en
+  intercalant la chaîne sur laquelle la méthode est appliquée :
+
+.. code-block:: pycon
+
+   >>> print("**".join(['cHAise', 'basSe']))
+   cHAise**basSe
 
 Les chaînes de caractères : indiçage simple
 +++++++++++++++++++++++++++++++++++++++++++
 
-Pour indicer une chaîne, on utilise l'opérateur :term:`[ ]` dans lequel
-l'indice, un entier signé qui commence à 0 indique la position d'un
-caractère : ::
+Pour indicer une chaîne, on utilise l'opérateur :samp:`[{x}]` dans lequel
+l'indice ``x``, un entier signé qui commence à 0 indique la position d'un
+caractère :
 
-    s = "Rayon X" # len(s) ==> 7
-    print(s[0]) # R
-    print(s[2]) # y
-    print(s[-1]) # X
-    print(s[-3]) # n
+.. code-block:: pycon
+
+   >>> s = "Rayon X"
+   >>> len(s)
+   7
+   >>> print(s[0])
+   R
+   >>>>> print(s[2])
+   y
+   >>> print(s[-1])
+   X
+   >>> print(s[-3])
+   n
 
 .. figure:: LIndicageDUneChaine.jpg
-    :align: center
+   :align: center
 
-    L'indiçage d'une chaîne
+   L'indiçage d'une chaîne
 
 Extraction de sous-chaînes
 ++++++++++++++++++++++++++
 
-L'opérateur :term:`[ ]` avec 2 ou 3 indices séparés par le caractère permet
-d'extraire des sous-chaînes (ou tranches) d'une chaîne : ::
+L'opérateur :samp:`[ ]` avec 2 ou 3 indices séparés par le caractère permet
+d'extraire des sous-chaînes (ou tranches) d'une chaîne. La littérrature
+anglophone appelle cette notation le "slice" :
 
-    s = "Rayon X" # len(s) ==> 7
-    s[1:4] # 'ayo' (de l'indice 1 compris à 4 non compris)
-    s[-2:] # ' X' (de l'indice -2 compris à la fin)
-    s[:3] # 'Ray' (du début à 3 non compris)
-    s[3:] # 'on X' (de l'indice 3 compris à la fin)
-    s[::2] # 'RynX' (du début à la fin, de 2 en 2)
+.. code-block:: pycon
+
+   >>> s = "Rayon X"
+   >>> len(s)
+   7
+   >>> s[1:4] # (de l'indice 1 compris à 4 non compris)
+   'ayo'
+   >>> s[-2:] # (de l'indice -2 compris à la fin)
+   ' X'
+   >>> s[:3] # (du début à 3 non compris)
+   'Ray'
+   >>> s[3:] # (de l'indice 3 compris à la fin)
+   'on X'
+   >>> s[::2] # (du début à la fin, de 2 en 2)
+   'RynX'
 
 .. figure:: LExtractionDeSousChaines.jpg
     :align: center
@@ -983,21 +1089,27 @@ Les deux types sont assez semblables au type str et possèdent la plupart de ses
 méthodes. Le type modifiable bytearray possède des méthodes communes au type
 list.
 
-Exemples de données binaires et de méthodes : ::
+Exemples de données binaires et de méthodes :
 
-    # données binaires
-    b_mot = b"Animal" # chaîne préfixée par b : type byte
-    print(b_mot) # b'Animal'
-    for b in b_mot:
-        print(b, end=" ") # 65 110 105 109 97 108 (cf. table ASCII)
-    print()
-    bMot = bytearray(b_mot) # retourne un nouveau tableau de bytes...
-    bMot.pop() # ...qui possède les méthodes usuelles
-    print()
-    print(bMot, "\n") # bytearray(b'Anima')
-    data = b"5 Hills \x35\x20\x48\x69\x6C\x6C\x73"
-    print(data.upper()) # b'5 HILLS 5 HILLS'
-    print(data.replace(b"ill", b"at")) # b'5 Hats 5 Hats'
+.. code-block:: pycon
+
+   >>> b_mot = b"Animal" # chaîne préfixée par b : type byte
+   >>> print(b_mot)
+   b'Animal'
+   >>> for b in b_mot:
+   ...     print(b, end=" ") # (cf. table ASCII)
+   ...
+   65 110 105 109 97 108
+   >>> bMot = bytearray(b_mot) # retourne un nouveau tableau de bytes...
+   >>> bMot.pop() # ...qui possède les méthodes usuelles
+   108
+   >>> bMot
+   bytearray(b'Anima')
+   >>> data = b"5 Hills \x35\x20\x48\x69\x6C\x6C\x73"
+   >>> data.upper()
+   b'5 HILLS 5 HILLS'
+   >>> data.replace(b"ill", b"at")
+   b'5 Hats 5 Hats'
 
 Bien différencier les codes, glyphes, caractères et octets !
 
@@ -1015,12 +1127,14 @@ depuis une lecture au clavier. Inversement, on doit pouvoir afficher ou sortir
 des informations, ce qui correspond généralement à une écriture sur l'écran.
 
 .. figure:: LesEntreesSorties.jpg
-    :align: center
+   :align: center
 
-    Les entrées-sorties.
+   Les entrées-sorties.
 
 Les entrées
 +++++++++++
+
+.. zzz on reprendra le reformatage ici quand on aura la forme
 
 Il s'agit de réaliser une saisie à l'écran : la fonction standard
 :command:`input()` interrompt le programme, afficher une éventuelle invite et
@@ -1131,7 +1245,7 @@ Les instructions composées
       - d'une ligne d'en-tête terminée par deux-points ;
       - d'un bloc d'instructions indenté par rapport à la ligne d'en-tête.
 
-.. warning::
+.. important::
 
       Toutes les instructions au même niveau d'indentation appartiennent au
       même bloc
