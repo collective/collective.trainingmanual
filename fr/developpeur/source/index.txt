@@ -23,7 +23,7 @@ California 94105, USA.
    :maxdepth: 1
 
    apropos
-   python/presentation_python
+   python/index
    concepts_zope3
    migration_composants_plone25
    notions_avancees_formulaire

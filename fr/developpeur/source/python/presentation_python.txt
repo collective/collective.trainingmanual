@@ -1134,25 +1134,30 @@ des informations, ce qui correspond généralement à une écriture sur l'écran
 Les entrées
 +++++++++++
 
-.. zzz on reprendra le reformatage ici quand on aura la forme
 
 Il s'agit de réaliser une saisie à l'écran : la fonction standard
 :command:`input()` interrompt le programme, afficher une éventuelle invite et
 attend que l'utilisateur entre une donnée et la valide par Entrée.
 La fonction standard :command:`input()` effectue toujours une saisie en mode
 texte (la saisie est une chaîne) dont on peut ensuite changer le type (on dit
-aussi transtyper) : ::
+aussi transtyper) :
 
-    nb_etudiant = input("Entrez le nombre d'étudiants : ")
-    print(type(nb_etudiant)) # <class 'str'> (c'est une chaîne)
-    f1 = input("\nEntrez un flottant : ")
-    f1 = float(f1) # transtypage en flottant
-    # ou plus brièvement :
-    f2 = float(input("Entrez un autre flottant : "))
-    print(type(f2)) # <class 'float'>
+.. code-block:: pycon
+
+   >>> nb_etudiant = input("Entrez le nombre d'étudiants : ")
+   >>> type(nb_etudiant) # (c'est une chaîne)
+   <class 'str'>
+   >>> f1 = input("\nEntrez un flottant : ")
+   >>> f1 = float(f1) # transtypage en flottant
+   >>> # ou plus brièvement :
+   >>> f2 = float(input("Entrez un autre flottant : "))
+   >>> type(f2))
+   <class 'float'>
 
 Les sorties
 +++++++++++
+
+.. zzz on reprendra le reformatage ici quand on aura la forme
 
 En mode "Console", Python lit-évalue-affiche, mais la fonction
 :command:`print()` reste indispensable aux affichages dans les scripts : ::

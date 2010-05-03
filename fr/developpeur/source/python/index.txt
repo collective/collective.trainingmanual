@@ -1,0 +1,21 @@
+.. -*- coding: utf-8 -*-
+
+.. _presentation_python:
+
+======================
+Presentation de Python
+======================
+
+.. toctree::
+   :maxdepth: 2
+
+   definition
+   introduction
+   installation
+   console
+   controle_flux_instructions
+   conteneurs_standard
+   fonctions_espaces_noms
+   modules_packages
+   programmation_orientee_objet
+   techniques_avancees_programmation
