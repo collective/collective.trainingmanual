@@ -6,6 +6,8 @@
 Les conteneurs standard
 =======================
 
+.. zzz on reprend ici le nettoyage et le reformattage.
+
 Le chapitre "La console Python" a présenté les types de données simples, mais
 Python offre beaucoup plus : les conteneurs.
 

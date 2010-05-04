@@ -32,9 +32,9 @@ Les deux modes d'exécution d'un code Python
   boucle d'évaluation (cf. Fig. 2.1)
 
 .. figure:: LaBoucleDEvaluationDeIDLE.jpg
-    :align: center
+   :align: center
 
-    La boucle d'évaluation de IDLE
+   La boucle d'évaluation de IDLE
 
 Identifiants et mots clés
 =========================
@@ -114,39 +114,43 @@ La version 3.1.1 de Python compte 33 mots clés :
 .. hlist::
    :columns: 4
 
-   * and
-   * del
-   * from
+   * False
    * None
    * True
+   * and
    * as
-   * elif
-   * global
-   * nonlocal
-   * try
    * assert
-   * else
-   * if
-   * not
-   * while
    * break
-   * except
-   * import
-   * or
-   * with
    * class
-   * False
-   * in
-   * pass
-   * yield
    * continue
-   * finally
-   * is
-   * raise
    * def
+   * del
+   * elif
+   * else
+   * except
+   * finally
    * for
+   * from
+   * global
+   * if
+   * import
+   * in
+   * is
    * lambda
+   * nonlocal [#notpy2]_
+   * not
+   * or
+   * pass
+   * print [#onlypy2]_
+   * raise
    * return
+   * try
+   * while
+   * with
+   * yield
+
+.. [#notpy2] N'est pas supporté par Python 2.x.
+.. [#onlypy2] N'est supporté que par Python 2.x en tant que mot clé.
 
 Notion d'expression
 ===================
@@ -867,72 +871,84 @@ aussi transtyper) :
 Les sorties
 -----------
 
-.. zzz on reprendra le reformatage ici quand on aura la forme
-
 En mode "Console", Python lit-évalue-affiche, mais la fonction
-:command:`print()` reste indispensable aux affichages dans les scripts : ::
+:command:`print()` reste indispensable aux affichages dans les scripts :
 
-    import sys
-    a, b = 2, 5
-    print(a, b) # 2 5
-    print("Somme :", a + b) # Somme : 7
-    print(a - b, "est la différence") # -3 est la différence
-    print("Le produit de", a, "par", b, "vaut :", a * b)
-    # Le produit de 2 par 5 vaut : 10
-    print() # affiche une nouvelle ligne
-    # pour afficher un espace à la place de la nouvelle ligne:
-    print(a, end=" ") # 2 (et ne va pas à la ligne)
-    print("\nErreur fatale !", file=sys.stderr) # dans un fichier
-    print("On a <", 2**32, "> cas !", sep="###")
-    # On a <###4294967296###> cas !
+.. code-block:: pycon
+
+   >>> import sys
+   >>> a, b = 2, 5
+   >>> print(a, b)
+   2 5
+   >>> print("Somme :", a + b)
+   Somme : 7
+   >>> print(a - b, "est la différence")
+   -3 est la différence
+   >>> print("Le produit de", a, "par", b, "vaut :", a * b)
+   Le produit de 2 par 5 vaut : 10
+   >>> print() # affiche une nouvelle ligne
+   >>> # pour afficher un espace à la place de la nouvelle ligne:
+   >>> print(a, end=" ")
+   2 # (et ne va pas à la ligne)
+   >>> print("\nErreur fatale !", file=sys.stderr) # dans un fichier
+   >>> print("On a <", 2**32, "> cas !", sep="###")
+   On a <###4294967296###> cas !
+
+.. attention::
+   La fonction ``print`` n'est pas active par défaut en Python 2.6. Voir la note
+   à cette adresse : http://docs.python.org/library/functions.html#print
 
 Les séquences d'échappement
 ---------------------------
 
-À l'intérieur d'une chaîne, le caractère antislash :term:`\\` permet de donner
+À l'intérieur d'une chaîne, le caractère antislash ``\`` permet de donner
 une signification spéciale à certaines séquences :
 
-+------------+----------------------------------------------+
-| Séquence   | Signification                                |
-+------------+----------------------------------------------+
-| \          | saut_ligne saut de ligne ignoré              |
-+------------+----------------------------------------------+
-| \\         | affiche un antislash                         |
-+------------+----------------------------------------------+
-| \'         | apostrophe                                   |
-+------------+----------------------------------------------+
-| \"         | guillemet                                    |
-+------------+----------------------------------------------+
-| \a         | sonnerie (bip)                               |
-+------------+----------------------------------------------+
-| \b         | retour arrière                               |
-+------------+----------------------------------------------+
-| \f         | saut de page                                 |
-+------------+----------------------------------------------+
-| \n         | saut de ligne                                |
-+------------+----------------------------------------------+
-| \r         | retour en début de ligne                     |
-+------------+----------------------------------------------+
-| \t         | tabulation horizontale                       |
-+------------+----------------------------------------------+
-| \v         | tabulation verticale                         |
-+------------+----------------------------------------------+
-| \N{nom}    | caractère sous forme de code Unicode nommé   |
-+------------+----------------------------------------------+
-| \uhhhh     | caractère sous forme de code Unicode 16 bits |
-+------------+----------------------------------------------+
-| \Uhhhhhhhh | caractère sous forme de code Unicode 32 bits |
-+------------+----------------------------------------------+
-| \ooo       | caractère sous forme de code octal           |
-+------------+----------------------------------------------+
-| \xhh       | caractère sous forme de code hexadécimal     |
-+------------+----------------------------------------------+
+.. list-table::
+   :widths: 30 70
 
-Exemples : ::
+   * - Séquence
+     - Signification
+   * - :samp:`\\`
+     - saut_ligne saut de ligne ignoré
+   * - :samp:`\\\\`
+     - affiche un antislash
+   * - :samp:`\\'`
+     - apostrophe
+   * - :samp:`\\"`
+     - guillemet
+   * - :samp:`\\a`
+     - sonnerie (bip)
+   * - :samp:`\\b`
+     - retour arrière
+   * - :samp:`\\f`
+     - saut de page
+   * - :samp:`\\n`
+     - saut de ligne
+   * - :samp:`\\r`
+     - retour en début de ligne
+   * - :samp:`\\t`
+     - tabulation horizontale
+   * - :samp:`\\v`
+     - tabulation verticale
+   * - :samp:`\\N{nom}`
+     - caractère sous forme de code Unicode nommé
+   * - :samp:`\\u{hhhh}`
+     - caractère sous forme de code Unicode 16 bits
+   * - :samp:`\\U{hhhhhhhh}`
+     - caractère sous forme de code Unicode 32 bits
+   * - :samp:`\\{ooo}`
+     - caractère sous forme de code octal
+   * - :samp:`\\x{hh}`
+     - caractère sous forme de code hexadécimal
+
+Exemples :
+
+.. code-block:: pycon
 
    >>> print("\N{pound sign} \u00A3 \U000000A3")
    £ £ £
    >>> print("d \144 \x64")
    d d d
-   >>> printt("d \144 \x64") #séquence d'échapement inactive dans les chaînes brutes
+   >>> print("d \144 \x64") #séquence d'échapement inactive dans les chaînes brutes
    d \144 \x64
