@@ -6,6 +6,8 @@
 Fonctions et espaces de noms
 ============================
 
+.. zzz on reprend ici le reformatage de la doc Python.
+
 .. note::
 
   Les fonctions sont les éléments structurants de base de tout langage
