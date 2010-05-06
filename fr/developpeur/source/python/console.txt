@@ -515,7 +515,7 @@ d'inclure une notation dans l'autre :
      >>> print "Le \xc3\xa9 en utf8 est cod\xc3\xa9 sur 2 octets".decode("utf-8")
      Le é en utf8 est codé sur 2 octets
      >>> print "Le \xe9 en iso 8859-15 est cod\xe9 sur 1 octet".decode("iso 8859-15")
-     Le  é en iso 8859-15 est codé sur 1 octet
+     Le é en iso 8859-15 est codé sur 1 octet
 
   Pour passer d'un encodage à un autre directement depuis une chaine d'octets, on
   utilise la méthode encode en lui précisant en paramètre l'encodage de
