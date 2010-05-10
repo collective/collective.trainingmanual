@@ -110,19 +110,18 @@ L'auto-test suivant illustre son utilisation :
 .. code-block:: python
 
    if __name__ == '__main__':
-   f, g, h = open("d1.dat", "w"), open("d2.dat", "w"), open("d3.dat", "w")
-   for i in range(201):
-       x = 0.1*i - 5.0
-       y = x**3 - 20*x**2
-       f.write("%g %g\n" %(x, y))
-       y = x**3 - 30*x**2
-       g.write("%g %g\n" %(x, y))
-       y = x**3 - 40*x**2
-       h.write("%g %g\n" %(x, y))
-   h.close(); g.close(); f.close()
-   plotFic([('d1.dat', 'points')])
-   plotFic([('d1.dat', 'lines'), ('d2.dat', 'points'),
-   ('d3.dat', 'lines')])
+       f, g, h = open("d1.dat", "w"), open("d2.dat", "w"), open("d3.dat", "w")
+       for i in range(201):
+           x = 0.1*i - 5.0
+           y = x**3 - 20*x**2
+           f.write("%g %g\n" %(x, y))
+           y = x**3 - 30*x**2
+           g.write("%g %g\n" %(x, y))
+           y = x**3 - 40*x**2
+           h.write("%g %g\n" %(x, y))
+       h.close(); g.close(); f.close()
+       plotFic([('d1.dat', 'points')])
+       plotFic([('d1.dat', 'lines'), ('d2.dat', 'points'), ('d3.dat', 'lines')])
 
 Bibliothèque standard
 =====================
@@ -160,7 +159,7 @@ expressions régulières.
 Ce module fournit des objets compatibles avec l'interface des objets fichiers.
 
 Exemple de gestion ligne à ligne d'un fichier ou d'une chaîne avec la même
-fonction :function:`scanner()` utilisant le même traitement :
+fonction :func:`scanner()` utilisant le même traitement :
 
 .. code-block:: python
 
@@ -243,76 +242,73 @@ En plus des bibliothèques :mod:`math` et :mod:`cmath` déjà vues, la biblioth�
 
 .. rubric:: La gestion du temps et des dates
 
-.. zzz On reprend ici le formattage
-
 Les modules :mod:`calendar`, :mod:`time` et :mod:`datetime` fournissent les
 fonctions courantes de gestion du temps et des durées :
 
-.. code-block:: python
+.. code-block:: pycon
 
-    import calendar, datetime, time
+   >>> import calendar, datetime, time
+   >>> moon_apollo11 = datetime.datetime(1969, 7, 20, 20, 17, 40)
+   >>> print(moon_apollo11)
+   >>> print(time.asctime(time.gmtime(0)))
+   Thu Jan 01 00:00:00 1970 ("epoch" UNIX)
+   >>> vendredi_precedent = datetime.date.today()
+   >>> un_jour = datetime.timedelta(days=1)
+   >>> while vendredi_precedent.weekday() != calendar.FRIDAY:
+   ...     vendredi_precedent -= un_jour
+   >>> print(vendredi_precedent.strftime("%A, %d-%b-%Y"))
+   Friday, 09-Oct-2009
 
-    moon_apollo11 = datetime.datetime(1969, 7, 20, 20, 17, 40)
-    print(moon_apollo11)
-    print(time.asctime(time.gmtime(0)))
-    # Thu Jan 01 00:00:00 1970 ("epoch" UNIX)
+.. rubric:: Algorithmes et types de données collection
 
-    vendredi_precedent = datetime.date.today()
-    un_jour = datetime.timedelta(days=1)
-    while vendredi_precedent.weekday() != calendar.FRIDAY:
-        vendredi_precedent -= un_jour
-    print(vendredi_precedent.strftime("%A, %d-%b-%Y"))
-    # Friday, 09-Oct-2009
+Le module :mod:`bisect` fournit des fonctions de recherche de séquences triées.
+Le module :mod:`array` propose un type semblable à la liste, mais plus rapide
+car de contenu homogène.  Le module :mod:`heapq` gère des tas dans lesquels
+l'élément d'indice 0 est toujours le plus petit :
 
-.. rubric::Algorithmes et types de données collection
+.. code-block:: pycon
 
-Le module bisect fournit des fonctions de recherche de séquences triées.
-Le module array propose un type semblable à la liste, mais plus rapide car de
-contenu homogène.
-
-Le module heapq gère des tas dans lesquels l'élément d'indice 0 est toujours le
-plus petit : ::
-
-    import heapq
-    import random
-
-    heap = []
-    for i in range(10):
-        heapq.heappush(heap, random.randint(2, 9))
-
-    print(heap) # [2, 3, 5, 4, 6, 6, 7, 8, 7, 8]
+   >>> import heapq
+   >>> import random
+   >>> heap = []
+   >>> for i in range(10):
+   ...     heapq.heappush(heap, random.randint(2, 9))
+   >>> print(heap)
+   [2, 3, 5, 4, 6, 6, 7, 8, 7, 8]
 
 À l'instar des structures C, Python propose désormais, via le module
-collections, la notion de type tuple nommé : ::
+:mod:`collections`, la notion de type tuple nommé :
 
-    import collections
+.. code-block:: pycon
 
-    # description du type :
-    Point = collections.namedtuple("Point", "x y z")
-    # on instancie un point :
-    point = Point(1.2, 2.3, 3.4)
-    # on l'affiche :
-    print("point : [{}, {}, {}]"
-        .format(point.x, point.y, point.z)) # point : [1.2, 2.3, 3.4]
+   >>> import collections
+   >>> # description du type :
+   >>> Point = collections.namedtuple("Point", "x y z")
+   >>> # on instancie un point :
+   >>> point = Point(1.2, 2.3, 3.4)
+   >>> # on l'affiche :
+   >>> print("point : [{}, {}, {}]".format(point.x, point.y, point.z))
+   point : [1.2, 2.3, 3.4]
 
-Il est bien sûr possible d'avoir des tuples nommés emboîtés.
-Le type defaultdict permet des utilisations avancées : ::
+Il est bien sûr possible d'avoir des tuples nommés emboîtés.  Le type
+:samp:`defaultdict` permet des utilisations avancées :
 
-    from collections import defaultdict
+.. code-block:: pycon
 
-    s = [('y', 1), ('b', 2), ('y', 3), ('b', 4), ('r', 1)]
-    d = defaultdict(list)
-    for k, v in s:
-        d[k].append(v)
-    print(d.items())
-    # dict_items([('y', [1, 3]), ('r', [1]), ('b', [2, 4])])
+   >>> from collections import defaultdict
+   >>> s = [('y', 1), ('b', 2), ('y', 3), ('b', 4), ('r', 1)]
+   >>> d = defaultdict(list)
+   >>> for k, v in s:
+   ...     d[k].append(v)
+   >>> print(d.items())
+   dict_items([('y', [1, 3]), ('r', [1]), ('b', [2, 4])])
 
-    s = 'mississippi'
-    d = defaultdict(int)
-    for k in s:
-        d[k] += 1
-    print(d.items())
-    # dict_items([('i', 4), ('p', 2), ('s', 4), ('m', 1)])
+   >>> s = 'mississippi'
+   >>> d = defaultdict(int)
+   >>> for k in s:
+   ...     d[k] += 1
+   >>> print(d.items())
+   dict_items([('i', 4), ('p', 2), ('s', 4), ('m', 1)])
 
 .. rubric:: Et tant d'autres domaines...
 
@@ -341,24 +337,26 @@ bibliothèques dans tous les domaines :
 * 3D;
 * ...
 
-Le site pypi.python.org/pypi (The Python Package Index) recense des milliers de
+Le site http://pypi.python.org/pypi (The Python Package Index) recense des milliers de
 modules et de packages !
 
 Un exemple : la bibliothèque Unum
 ---------------------------------
 
 Elle permet de calculer en tenant compte des unités du système S.I.
-Voici un exemple de session interactive : ::
+Voici un exemple de session interactive :
 
-    -- Welcome in Unum Calculator (ver 04.00) --
-    >>> d = 1609 * M
-    >>> t = 11.7 * S
-    >>> v = d/t
-    >>> v
-    137.521367521 [m/s]
-    >>> a = v/t
-    >>> a
-    11.753963036 [m/s2]
+.. code-block:: pycon
+
+   -- Welcome in Unum Calculator (ver 04.00) --
+   >>> d = 1609 * M
+   >>> t = 11.7 * S
+   >>> v = d/t
+   >>> v
+   137.521367521 [m/s]
+   >>> a = v/t
+   >>> a
+   11.753963036 [m/s2]
 
 Packages
 ========
@@ -371,4 +369,4 @@ Packages
     arborescente.
 
 En résumé, un package est simplement un répertoire qui contient des modules et
-un fichier __init__.py décrivant l'arborescence du package.
+un fichier :file:`__init__.py` décrivant l'arborescence du package.

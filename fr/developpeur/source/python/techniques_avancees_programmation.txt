@@ -6,6 +6,8 @@
 Quelques Techniques avancées de programmation
 =============================================
 
+.. zzz On reprend ici le reformattage.
+
 Ce chapitre présente quelques exemples de techniques avancées dans les trois
 paradigmes que supporte Python, les programmations procédurale, objet et
 fonctionnelle.
