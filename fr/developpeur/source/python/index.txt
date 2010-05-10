@@ -32,3 +32,5 @@ France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
    modules_packages
    programmation_orientee_objet
    techniques_avancees_programmation
+
+.. todo:: Placer en un point unique les termes du glossaire Python.

@@ -140,6 +140,8 @@ une liste dans le membre de droite.*
    >>> print(mots)
    ['jambon', 'mayonnaise', 'miel', 'poulet', 'tomate']
 
+.. _python_listes_en_intention:
+
 Les listes en intension
 =======================
 
