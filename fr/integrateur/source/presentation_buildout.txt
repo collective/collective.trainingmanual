@@ -568,7 +568,7 @@ development.cfg``. Buildout tente d'aller chercher :mod:`foo.bar` sur
 
 Nous allons donc lui dire où le trouver.
 
-Ajoutez à la section ``[buildout]`` de :file:`developement.cfg` :
+Ajoutez à la section ``[buildout]`` de :file:`development.cfg` :
 
 .. code-block:: cfg
 
