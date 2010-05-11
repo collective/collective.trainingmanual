@@ -119,6 +119,16 @@ Commandes :
     See README.txt for details
     -----------------------------------------------------------
 
+.. note::
+
+	Avec l'option --svn-directory,
+	un bug connu de Paste-1.7.3 et ZopeSkel-2.16
+	produit l'erreur suivante à la fin du processus :
+
+	IOError: No egg-info directory found
+
+	Vous devrez faire à la main les svn add des contenus du dossier 'plone3'
+
 Vous allez éditer un peu le fichier :file:`buildout.cfg` avant de l'exécuter.
 En effet le fichier généré avec ZopeSkel 2.12 n'est pas suffisant pour Ubuntu
 9.04 et 9.10.
@@ -205,7 +215,7 @@ initialization*, c'est-à-dire que tous les packages installés globalement dans
 site-packages ne seront pas dans le sys.path.
 
 Comme cela le package setuptools du système ne sera pas visible et une version
-récente sera téléchargée et installée dans le buildout. Notez que l'option 
+récente sera téléchargée et installée dans le buildout. Notez que l'option
 s'applique juste au script file:`bootstrap.py`, file:`bin/buildout` aura accès
 à tous les packages installés (PIL, libxml2, ...) avec le gestionnaire de paquets
 de votre OS.
