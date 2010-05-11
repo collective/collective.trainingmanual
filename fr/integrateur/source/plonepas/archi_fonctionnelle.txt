@@ -20,7 +20,7 @@ par l'intégrateur.
 Le schéma générique ci-dessous résume les opérations effectuées lors de
 l'utilisation par une application de l'un des services de :mod:`PlonePAS`.
 
-.. sequence_pas.dot, diagrammee Graphviz à générer avec:
+.. sequence_pas.dot, diagramme Graphviz à générer avec:
 .. "dot -Tpng -osequence_pas.png sequence_pas.dot"
 
 .. image:: sequence_pas.png

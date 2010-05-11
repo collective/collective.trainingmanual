@@ -31,13 +31,13 @@ A la gestion des login / mot de passe et des rôles des utilisateurs,
 - L'attribution de rôles globaux et contextuels
 
 De plus, et comme son nom l'indique, les mécanismes de base de :mod:`PlonePAS`
-sont fournis par des composants dits :term:`plugin` qui permettent une grande
-souplesse pour personnaliser ses propres règles :
+ sont fournis par des composants dits :term:`plugin` qui permettent une grande
+ souplesse pour personnaliser ses propres règles :
 
 - D'extraction des données d'authentification
 - D'authentification
 - D'attribution de rôles
-- De classesment des utilisateurs dans des groupes
+- De classement des utilisateurs dans des groupes
 
 :mod:`PlonePAS` est muni d'origine d'un ensemble de plugins standard
 pré-paramétrés lors de la construction du site qui fournissent les services par
@@ -51,14 +51,14 @@ hoc vous pouvez tout à la fois :
 - Intégrer Plone dans l'infrastructure :term:`SSO` (NTLM, CAS) de votre
   entreprise
 
-- Assigner automatiquement l'adresse mail <login>@mondomaine.com à chaque
+- Assigner automatiquement l'adresse mail <login@mondomaine.com> à chaque
   utilisateur
 
 - Obtenir le nom complet et le département d'un utilisateur dans un serveur LDAP
   ou ActiveDirectory
 
 - Grouper les utilisateurs par fonction (direction, ingénierie, commercial,
-  production, marketing par exemple) et par entités (fromages, apértifs par
+  production, marketing par exemple) et par entités (fromages, apéritifs par
   exemple) à l'aide d'une requête dans un SGBDR externe classique (MySQL,
   Oracle...)
 

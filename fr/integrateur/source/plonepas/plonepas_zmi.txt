@@ -26,7 +26,8 @@ de PlonePAS. Intéressons-nous à ce dernier en premier. [#joke]_
 Catégories de plugins
 =====================
 
-.. vide pour permettre la ligne horizontale ci-dessous
+Ouvrons maintenant l'objet :guilabel:`acl_users/plugins` qui est le "chef
+d'orchestre" de l'utilisation des :term:`plugins`.
 
 --------
 
@@ -36,66 +37,212 @@ Catégories de plugins
 
 Cette vue vous propose les différentes catégories de plugins de
 :mod:`PlonePAS`. Comme vous pouvez le constater, chaque catégorie de
-:term:`plugin` est expliquée.
+:term:`plugin` est expliquée brièvement.
 
 Une petite traduction commentée :
 
 Anonymoususerfactory Plugins
-  Les plugins de ce type sont des factories d'utilisateurs anonymes. Plone en
-  standard n'en utilise pas, sachant qu'il ne propose pas de fonctionnalité
-  nécessitant un objet évolué, contrairement aux utilisateurs authentifiés.
+----------------------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.IAnonymousUserFactoryPlugin``
+Les plugins de ce type sont des factories d'utilisateurs anonymes. Plone en
+standard n'en utilise pas, sachant qu'il ne propose pas de fonctionnalité
+nécessitant un objet évolué, contrairement aux utilisateurs authentifiés.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IAnonymousUserFactoryPlugin`
 
 Authentication Plugins
-  Les plugins de ce type sont responsable de vérifier la validité d'une
-  accréditation, généralement un couple identité, mot de passe.
+----------------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.IAuthenticationPlugin``
+Les plugins de ce type sont responsable de vérifier la validité d'une
+accréditation, généralement un couple identité, mot de passe.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IAuthenticationPlugin`
 
 Challenge Plugins
-  Ces plugins sont chargés de retourner directement ou indirectement une
-  ressource à partir de laquelle l'utilisateur pourra fournir ses
-  accréditations - par exemple la page d'authentification. Ce genre de plugin
-  est sollicité lorsqu'un utilisateur anonyme tente d'accéder directement ou
-  indirectement à une ressource protégée.
+-----------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.IChallengePlugin``
+Ces plugins sont chargés de retourner directement ou indirectement une ressource
+à partir de laquelle l'utilisateur pourra fournir ses accréditations - par
+exemple la page d'authentification. Ce genre de plugin est sollicité lorsqu'un
+utilisateur anonyme tente d'accéder directement ou indirectement à une ressource
+protégée.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IChallengePlugin`
 
 Challenge Protocol Chooser Plugins
-  Ces plugins sont chargés de fournir une liste de protocoles (HTTP, FTP, ...)
-  pour lesquels un challenge d'authentification peut être lancé. Vous n'aurez
-  généralement pas besoin de changer le paramétrage du chooser standard fourni
-  avec Plone, encore moins de réaliser votre propre plugin de ce type.
+----------------------------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.IChallengeProtocolChooser``
+Ces plugins sont chargés de fournir une liste de protocoles (HTTP, FTP, ...)
+pour lesquels un challenge d'authentification peut être lancé. Vous n'aurez
+généralement pas besoin de changer le paramétrage du chooser standard fourni
+avec Plone, encore moins de réaliser votre propre plugin de ce type.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IChallengeProtocolChooser`
 
 Reset Credentials Plugins
-  Les plugins de ce type sont chargés de supprimer le jeton d'authentification
-  de l'utilisateur. Ils sont sollicités lorsque l'utilisateur de déconnecte du
-  site. Comme le jeton d'authentification est récupéré par un plugin de type
-  :guilabel:`Extration Plugin`, et est placé par un plugin de type
-  :guilabel:`Update Credentials Plugins`, ces trois rôles sont généralement
-  assurés par le même plugin qui est donc un :term:`multiplugin`.
+-------------------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.ICredentialsResetPlugin``
+Les plugins de ce type sont chargés de supprimer le jeton d'authentification de
+l'utilisateur. Ils sont sollicités lorsque l'utilisateur de déconnecte du
+site. Comme le jeton d'authentification est récupéré par un plugin de type
+`Extraction Plugins`_, et est placé par un plugin de type `Update Credentials
+Plugins`_, ces trois rôles sont généralement assurés par le même plugin qui est
+donc un :term:`multiplugin`.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.ICredentialsResetPlugin`
 
 Update Credentials Plugins
-  Les plugins de ce type sont chargés de fournir au client le jeton
-  d'authentification, après une authentification réussie à travers un
-  :guilabel:`Authentication Plugin` ou un changement de mot de passe.
+--------------------------
 
-  Interface :
-  ``Products.PluggableAuthService.interfaces.plugins.ICredentialsUpdatePlugin``
+Les plugins de ce type sont chargés de fournir au client le jeton
+d'authentification, après une authentification réussie à travers un
+`Authentication Plugins`_ ou un changement de mot de passe.
 
-.. todo:: Reprendre ici avec la suite de la description des plugins PlonePAs
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.ICredentialsUpdatePlugin`
+
+Extraction Plugins
+------------------
+
+Les plugins de ce type ont pour rôle d'extraire l'accréditation du
+request. C'est-à-dire le jeton d'authentification de l'utilisateur
+authentifié. Dans le cas du protocole HTTP, celui-ci est généralement placé dans
+un header (typiquement ``WWW-Authenticate``) ou dans un cookie. C'est
+typiquement ce type de plugin que vous devrez réaliser pour intégrer votre site
+Plone dans une infrastructure :term:`SSO`.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IExtractionPlugin`
+
+Group_Enumeration Plugins
+-------------------------
+
+Les plugins de ce type permettent de retrouver des informations sur des groupes
+en fonction de critères de recherche.
+
+Interface :
+:class:`Products.PluggableAuthService.interfaces.plugins.IGroupEnumerationPlugin`
+
+Group_Introspection Plugins
+---------------------------
+
+Les plugins de ce type sont sollicités pour fournir des informations avancées
+sur les groupes (informations étendues d'un groupe, membres d'un groupe, liste
+de groupes, ...). En général, ce genre de plugin est un :term:`multiplugin` qui
+est également un `Group_Enumeration Plugins`_
+
+Interface : :class:`Products.PlonePAS.interfaces.group.IGroupIntrospection`
+
+Group_Management Plugins
+------------------------
+
+Les plugins de ce type gèrent des groupes dits "mutables", c'est à dire dont les
+caractéristiques et les membres sont gérés à travers Zope et Plone comme c'est
+le cas du gestionnaire de groupes fourni en standard par Plone. Un
+:term:`multiplugin` de ce type est généralement également de type `Groups
+Plugins`_.
+
+Interface : :class:`Products.PlonePAS.interfaces.group.IGroupManagement`
+
+Groups Plugins
+--------------
+
+Les plugins de ce type fournissent les noms des groupes auxquels appartient un
+:term:`principal`.
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IGroupsPlugin`
+
+Local_Roles Plugins
+-------------------
+
+Les plugins de ce type fournissent les rôles dont dispose un :term:`principal`
+dans un contexte donné.
+
+Interface : :class:`Products.PlonePAS.interfaces.plugins.ILocalRolesPlugin`
+
+Properties Plugins
+------------------
+
+Les plugins de ce types sont chargés de fournir des propriétés à un
+:term:`principal` (exemple: nom comlet, adresse mail, etc.). Ces propriétés sont
+fournies sous forme de. Lors de la collection des propriétés d'un
+:term:`principal`, les propriétés fournies par l'ensemble des `Properties
+Plugins`_ activés sont cumulées.
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IPropertiesPlugin`
+
+A noter que les plugins de ce type peuvent également implémenter l'interface
+:class:`Products.PlonePAS.interfaces.plugins.IMutablePropertiesPlugin`
+lorsqu'ils offrent à Plone la possibilité de modifier les propriétés de
+l'utilisateur.
+
+Request_Type_Sniffer Plugins
+----------------------------
+
+Les plugins de ce type ont pour rôle de déterminer le type de requête de
+l'application cliente (WebDav, XML-RPC, FTP ou navigateur). Sauf en cas de
+besoins "spéciaux" pour un type de client particulier, vous n'aurez jamais à
+réaliser de plugin de ce type, ni même à modifier le paramétrage du plugin de ce
+type installé en standard.
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRequestTypeSniffer`
+
+Role_Assigner Plugins
+---------------------
+
+.. zzz reprendre ici la liste des types de plugins.
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRoleAssignerPlugin`
+
+Role_Enumeration Plugins
+------------------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRoleEnumerationPlugin`
+
+Roles Plugins
+-------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRolesPlugin`
+
+Update Plugins
+--------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUpdatePlugin`
+
+User_Adder Plugins
+------------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserAdderPlugin`
+
+User_Enumeration Plugins
+------------------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserEnumerationPlugin`
+
+Userfactory Plugins
+-------------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserFactoryPlugin`
+
+User_Introspection Plugins
+--------------------------
+
+Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserIntrospection`
+
+User_Management Plugins
+-----------------------
+
+Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserManagement`
+
+Validation Plugins
+------------------
+
+Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IValidationPlugin`
 
 
 .. [#joke] Ceci est un oxymore, je le sais.
-
-
