@@ -10,6 +10,15 @@ francophone, notamment :
 * Le manuel de formation intégrateur Plone par `Vincent Fretin
   <http://vincentfretin.ecreall.com>`__ (`Ecréall <http://www.ecreall.com>`__)
 
+* Le cours sur le développement pour Plone par `Michael Launay`
+  (`Ecréall <http://www.ecreall.com>`__)
+
+* Les travaux, les relectures et les très nombreuses contributions de `Gilles
+  Lenfant` et `Thomas Desvenain`
+
+* Le cours sur Python 3 de `Robert Cordeau
+  <http://www.afpy.org/Members/tarek/initiation-python-3>`__
+
 `Lire la dernière version de ce document au format PDF
 <http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`__
 
@@ -24,6 +33,10 @@ California 94105, USA.
 
    apropos
    python/index
+   ploneformgen/index
+   cahier_des_charges_aq
+   uml/index
+   archgenxml/index
    concepts_zope3
    migration_composants_plone25
    notions_avancees_formulaire

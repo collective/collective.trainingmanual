@@ -1,0 +1,759 @@
+.. -*- coding: utf-8 -*-
+
+=========================
+Modélisation avec ArgoUML
+=========================
+
+Définition
+==========
+
+ArgoUML est un outil de modélisation d'application basé sur le formalisme UML.
+
+Dans le cas de création d'application Plone/Zope, il est utilisé pour avoir une
+vue synthétique de l'architecture d'un produit.
+
+Savoir
+======
+
+- Création des diagrammes de classes correspondant à la structure du produit,
+- Création des diagrammes d'états correspondant aux workflows,
+- Création des étiquettes permettant de gérer les noms, les permissions et les
+  worklists,
+- Dérivation des classes du système.
+
+Installation d'ArgoUML
+======================
+
+ArgoUML est un outil de modélisation UML open source qui gère la version 1.4
+d'UML.
+
+Bien que sommaire, il suffit à modéliser notre besoin. Son format de sauvegarde
+sera interprété par l'outil de génération ArchGenXML pour produire le code du
+module de Plone qui satisfera le besoin de notre cahier des charges.
+
+ArgoUML est accessible à http://argouml.tigris.org nous téléchargeons la
+version 0.30 et l'installons.
+
+Cette installation requière Java. Si aucune machine virtuelle java n'est
+présente sur votre poste, le logiciel d'installation correspondant à votre OS
+vous proposera d'installer celle de SUN.
+
+Installation de ArchGenXML
+==========================
+
+Nous utiliserons ArchGenXML pour générer le code Python à partir du modèle créé
+avec ArgoUML.
+
+De plus, ArchGenXML fournit un profil permettant d'ajouter à ArgoUML les types et
+les tags dont nous allons avoir besoin pour modéliser notre module.
+
+L'installation peut être faite à partir de pypi ou depuis le dépôt subversion
+(subversion est accessible à http://subversion.apache.org).
+
+L'intérêt du dépôt subversion est de disposer des dernières corrections ::
+
+  C:\Program Files>cd C:\ 
+  C:\>svn export http://svn.plone.org/svn/archetypes/ArchGenXML/buildout ArchGenXML
+  C:\>cd ArchGenXML
+  C:\ArchGenXML>C:\python26\python.exe bootstrap.py
+  C:\ArchGenXML>bin\buildout.exe
+  C:\ArchGenXML>bin\test-archgenxml.exe
+  Running zope.testing.testrunner.layer.UnitTests tests:
+    Set up zope.testing.testrunner.layer.UnitTests in 0.000 seconds.
+    Ran 82 tests with 0 failures and 0 errors in 0.211 seconds.
+  Tearing down left over layers:
+    Tear down zope.testing.testrunner.layer.UnitTests in 0.000 seconds.
+
+La dernière commande permet d'exécuter les tests unitaires et donc de vérifier
+qu'ArchGenXML fonctionne, l'affichage montre qu'il a eu 82 tests exécutés sans
+erreurs.
+
+Configuration d'ArgoUML pour utiliser le profil d'ArchGenXML
+============================================================
+
+Pour ajouter le profil, allez dans le menu :guilabel:`Édition` ->
+:guilabel:`Préférences...` -> :guilabel:`Profiles` -> :guilabel:`Add`
+et saisissez le chemin vers le dossier contenant le profil ArchGenXML
+:file:`C:\\ArchGenXML\\src\\archgenxml\\umltools\\argouml`.
+
+.. figure:: argouml_ajout_profile.jpg
+    :align: center
+
+    Ajout du dossier contenant le profil ArchGenXML
+
+Vous devez voir normalement `AGXProfile` dans :guilabel:`Available Profiles`.
+Sur certaine version d'ArgoUML il fallait le relancer pour que soit pris en
+compte le nouveau répertoire des profils.
+
+On ouvre (à nouveau) la gestion des profils et l'on ajoute dans
+:guilabel:`Default Profiles` le profil ArchGenXML et on retire tous les autres
+excepté UML 1.4 qu'on ne peut pas retirer à partir d'ici.
+
+.. figure:: argouml_configuration_profile.jpg
+    :align: center
+
+    Ajout du profil ArchGenXML
+
+Maintenant dans le panneau qui s'ouvre lorsqu'on clique sur le
+lien :guilabel:`Configure project specific settings...` de la fenêtre précédente,
+retirez le profil UML 1.4. Vous ne devez avoir que le profil ArchGenXML
+d'activé.
+
+Voilà ArgoUML est prêt à être utilisé pour modéliser notre module.
+
+Création du buildout de notre module
+====================================
+
+La première étape est de créer et ajouter la structure de notre nouveau module
+(Product) à Plone.
+
+Pour cela plaçons nous dans le répertoire :file:`src` de notre Plone (le créer
+s'il n'existe pas) et lançons la commande :command:`paster` comme suit : ::
+
+  c:\Plone4>cd src
+  C:\Plone4\src>paster create -t basic_namespace Products.StandArt_AQ
+  Selected and implied templates:
+    zopeskel#basic_namespace  A basic Python project with a namespace package
+
+  Variables:
+    egg:      Products.StandArt_AQ
+    package:  productsstandart_aq
+    project:  Products.StandArt_AQ
+  Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
+  Version (Version number for project) ['1.0']: 0.1
+  Description (One-line description of the project) ['']: The Stand'Art company
+    Qualite Assurance
+  Creating template basic_namespace
+  Creating directory .\Products.StandArt_AQ
+    Recursing into +namespace_package+
+      Creating .\Products.StandArt_AQ\Products/
+      Recursing into +package+
+
+L'arborescence créée est alors : ::
+
+  C:\Program Files\Plone4\src>tree Products.StandArt_AQ
+  Structure du dossier
+  Le numéro de série du volume est XXXXXXXX XXXX:XXXX
+  C:\PROGRAM FILES\PLONE4\SRC\PRODUCTS.STANDART_AQ
+  |-- Products
+  |   `-- StandArt_AQ
+  |-- Products.StandArt_AQ.egg-info
+  `-- docs
+
+Nous allons ajouter un répertoire :file:`model` dans Products.StandArt_AQ pour y
+stocker le modèle UML que nous allons réaliser.
+
+Création du plan documentaire
+=============================
+
+Notre modélisation reposera en partie sur le mécanisme des Archetypes proposé
+par Plone et sur celui des vues Zope 3. Il est donc possible de consulter la
+documentation dédiée à ces deux technologies pour compléter ce cours.
+
+Dans le cahier des charges nous avons vu que l'ensemble des documents sous
+assurance qualité allait être stocké dans un répertoire dédié et que les
+documents seront stockés dans un conteneur spécial possédant plusieurs champs.
+
+Modifier le nom du paquetage "untitledModel" en "Products.StandArt_AQ". Pour
+cela mettez vous en vue "Orienté Paquetage", cliquer sur "untitledModel" dans la
+navigation puis sur l'onglet "Propriété" et dans le champ "nom" saisissez
+"StandArt_AQ".
+
+.. figure:: argouml_nommer_paquetage.jpg
+    :align: center
+
+    Nommer le paquetage en Products.StandArt_AQ
+
+Puis enregistrez le modèle sous le nom StandArt_AQ dans le répertoire
+:file:`model`
+
+Cliquez sur "Diagramme de classe" dans la barre de navigation, vous pouvez alors
+ajouter les éléments symbolisés par les icônes de la zone de dessin.
+
+Ajoutez y un paquetage nommé "content", par convention nous mettons tous les
+types de contenu dans ce répertoire, les classes utilitaires seront mises dans
+un paquetage nommé "tools".
+
+De même, puisque généralement nos paquets ont vocation à être partagés avec la
+communauté Plone nous réalisons la modélisation en Anglais.
+
+Dans le paquetage "content", créez un diagramme de classes "Content diagram"
+
+Éditez le diagramme pour ajouter les classes de bases ``ATFolder`` et
+``ATDocument`` qui sont les types des répertoires et des documents de Plone.
+
+Nous les utiliserons comme classes de bases pour nos types de façon à réutiliser
+leur comportement.
+
+Ajoutez y le stéréotype ``stub`` qui permettra d'indiquer à ArchGenXML
+qu'il ne doit pas générer ces classes car elles existent déjà.
+
+Pour ``ATFolder`` allez dans l'onglet :guilabel:`Étiquettes` et ajoutez le marqueur
+(tag) ``import_from`` ayant pour valeur ``Products.ATContentTypes.content.folder``.
+
+
+Pour ``ATDocument`` ajoutez le marqueur (tag) ``import_from`` avec pour
+valeur ``Products.ATContentTypes.content.document``.
+
+On peut aussi utiliser le stéréotype <<ATFolder>> et <<ATDocument>> dans les
+classes dérivées au lieu de modéliser la généralisation, mais il arrive
+qu'ArchGenXML ne réussisse pas à générer le code.
+
+Nous créons le répertoire qui contiendra tous les documents sous assurance
+qualité en dérivant ``ATFolder`` et en nommant cette nouvelle classe
+StandArt_FolderAQ.
+
+Il est conseillé de préfixer ses types de contenu afin d'éviter toute collision
+avec d'autres modules Plone.
+
+De même pour les attributs, préfixez les d'un `m` pour "membre" par exemple pour
+éviter de surcharger par accident tout attribut ou méthode existant dans la
+classe de base (et avec le mécanisme de wrapper c'est près d'une centaine de
+membres).
+
+Toutefois, si vous souhaitez redéfinir un attribut déjà existant gardez le nom
+d'origine (exemple : title, description).
+
+.. figure:: argouml_plan_documentaire_01.jpg
+    :align: center
+
+    Création du plan documentaire
+
+Pour les classes, la signification des marqueurs est la suivante :
+
++---------------------+-------------------------------------------------------+
+| label               | Le nom du type tel qu'il apparaitra dans le menu      |
+|                     | d'ajout de contenu.                                   |
++---------------------+-------------------------------------------------------+
+| creation_permission | Permission qu'il faut avoir pour créer une instance.  |
++---------------------+-------------------------------------------------------+
+| creation_roles      | Rôles qui ont la permission par défaut (à la racine). |
++---------------------+-------------------------------------------------------+
+| use_portal_factory  | 1 signifie que l'on travaille dans une instance       |
+|                     | temporaire tant que l'enregistrement n'est pas fait.  |
++---------------------+-------------------------------------------------------+
+| content_icon        | Permet d'associer un fichier d'icône aux instances.   |
++---------------------+-------------------------------------------------------+
+| base_class          | 0 signifie qu'ArchGenXML ne doit pas associer par lui |
+|                     | même de classe de base car elle est précisée dans le  |
+|                     | modèle par l'héritage.                                |
++---------------------+-------------------------------------------------------+
+| description         | Donne la description du type d'objet.                 |
++---------------------+-------------------------------------------------------+
+
+Nous avons dérivé nos types de ceux contenus dans Plone, mais nous aurions très
+bien pu sur cet exemple partir d'un type défini dans un module. De cette façon
+il est possible d'étendre et particulariser des produits que l'on n'a pas fait
+soit même.
+
+Si l'on avait voulu qu'il y ait plusieurs roles pouvant créer des instances nous
+aurions alors donné au marqueur ``creation_roles`` la valeur
+:code:`python:("Manager", "Contributor")`.
+
+Nous allons remplir les informations concernant le champ documentation :
+
+.. figure:: argouml_champ_document.jpg
+    :align: center
+
+    Information concernant le champ mDocument
+
+La signification des marqueurs du champs mDocument est :
+
++--------------------------+--------------------------------------------------+
+| widget:label             | Le nom du champ.                                 |
++--------------------------+--------------------------------------------------+
+| widget:label_msgid       | L'identifiant de traduction associé au nom.      |
++--------------------------+--------------------------------------------------+
+| widget:description       | La description du champ.                         |
++--------------------------+--------------------------------------------------+
+| widget:description_msgid | L'identifiant de traduction associé à la         |
+|                          | description.                                     |
++--------------------------+--------------------------------------------------+
+| read_permission          | Le nom de la permission à avoir pour voir le     |
+|                          | champ. On peut ainsi en créer de nouvelle.       |
++--------------------------+--------------------------------------------------+
+| write_permission         | Le nom de la permission à avoir pour modifier le |
+|                          | champ.                                           |
++--------------------------+--------------------------------------------------+
+| storage                  | Comment le contenu du champ doit être stocké.    |
++--------------------------+--------------------------------------------------+
+
+Les formulaires d'édition ou de consultation sont générés automatiquement par
+Plone à partir du type des champs.
+
+Toutefois, un type de champ peut être affiché ou édité de façons différentes
+selon le :term:`widget` qui lui est associé.
+
+Ces ``widgets`` sont configurés en étiquetant le champ avec des marqueurs
+préfixés par `widget:`.
+
+Il est également possible de créer ses propres ``widgets``.
+
+Voici une liste des types des champs possibles.
+
++--------------------+----------------+------------------------+--------------------------------+
+| **Nom**            | **Type**       | **Widget par défaut**  | **Description**                |
++--------------------+----------------+------------------------+--------------------------------+
+| BackReferenceField | backreference  | BackReferenceWidget    | Référence navigable.           |
++--------------------+----------------+------------------------+--------------------------------+
+| BooleanField       | boolean        | ComputedWidget         | Champ stockant vrai ou faux.   |
++--------------------+----------------+------------------------+--------------------------------+
+| ColorField         | color          | ColorWiget             | Sélection d'une couleur.       |
++--------------------+----------------+------------------------+--------------------------------+
+| ComputedField      | computed       | ComputedWidget         | Champ calculé.                 |
++--------------------+----------------+------------------------+--------------------------------+
+|                    | copy           |                        | Permet de surcharger un champ  |
+|                    |                |                        | d'une des classes de base.     |
++--------------------+----------------+------------------------+--------------------------------+
+| DataGridField      | datagrid       | DataGridWidget         | Des lignes de tableau.         |
++--------------------+----------------+------------------------+--------------------------------+
+| DateTimeField      | date           | CalendarWidget         | Stocke des dates et heures.    |
++--------------------+----------------+------------------------+--------------------------------+
+| FileField          | file           | FileWidget             | Stocke un fichier sans         |
+|                    |                |                        | réaliser de traitement.        |
++--------------------+----------------+------------------------+--------------------------------+
+| FixedPointField    | fixedpoint     | FixedPointWidget       | Champ numérique à virgule fixe |
++--------------------+----------------+------------------------+--------------------------------+
+| FloatField         | float          | FloatWidget            | Champ numérique à virgule fixe |
++--------------------+----------------+------------------------+--------------------------------+
+| ImageField         | image          | ImageWidget            | Stocke une image et permet de  |
+|                    |                |                        | la retailler dynamiquement.    |
++--------------------+----------------+------------------------+--------------------------------+
+| IntegerField       | int            | IntegerWidget          | Stocke une donnée numérique    |
+|                    |                |                        | entière.                       |
++--------------------+----------------+------------------------+--------------------------------+
+| LinesField         | keywords       | KeywordWidget          | Une liste de données, par      |
+|                    |                |                        | exemple des mots clés.         |
++--------------------+----------------+------------------------+--------------------------------+
+| LinesField         | lines          | LinesWidget            | Une liste de ligne.            |
++--------------------+----------------+------------------------+--------------------------------+
+| LinesField         | multiselection | MultiSelectionWidget   | Une liste de données à         |
+|                    |                |                        | sélections multiples.          |
++--------------------+----------------+------------------------+--------------------------------+
+| ReferenceField     | reference      | ReferenceBrowserWidget | Permet de référencer un autre  |
+|                    |                |                        | objet.                         |
++--------------------+----------------+------------------------+--------------------------------+
+| TextField          | richtext       | RichWidget             | Texte avec mise en forme.      |
++--------------------+----------------+------------------------+--------------------------------+
+| StringField        | selection      | SelectionWidget        | Permet de sélectionner une     |
+|                    |                |                        | ligne de texte parmi plusieurs.|
++--------------------+----------------+------------------------+--------------------------------+
+| StringField        | string         | StringWidget           | Champ texte pour les chaines   |
+|                    |                |                        | de moins de 100 caractères.    |
++--------------------+----------------+------------------------+--------------------------------+
+| TextField          | string         | TextAreaWidget         | Champ texte pour les grandes   |
+|                    |                |                        | chaînes.                       |
++--------------------+----------------+------------------------+--------------------------------+
+
+Certains de ces champs reposent sur des produits. Ainsi DataGridField repose sur
+le produit :term:`Products.DataGridField` qu'il faut alors ajouter au
+:term:`buildout`.
+
+Le type :term:`copy` est une astuce qui permet de surcharger les marqueurs d'un
+champ défini dans l'une des classes mères.
+
+Par exemple pour changer la description, le titre et la permission de lecture et
+d'écriture du champ ``title``, il suffit de créer un champ portant comme
+``Nom`` ``title`` et de lui associer les marqueurs suivants avec les valeurs
+voulues : 
+
++--------------------------+------------------------------------------------+
+| **Marqueur**             | **Valeur**                                     |
++--------------------------+------------------------------------------------+
+| widget:label             | Le nom du champ                                |
++--------------------------+------------------------------------------------+
+| widget:label_msgid       | IdentifiantDuNomPourLesTraductions             |
++--------------------------+------------------------------------------------+
+| widget:description       | La description du champ                        |
++--------------------------+------------------------------------------------+
+| widget:description_msgid | IdentifiantDeLaDescriptionPourLesTraductions   |
++--------------------------+------------------------------------------------+
+| read_permission          | View                                           |
++--------------------------+------------------------------------------------+
+| write_permission         | MonProduit: le nom de la permission            |
++--------------------------+------------------------------------------------+
+
+Les identifiants doivent être en ASCII sans espaces.
+
+Le nom des permissions est soit celui d'une permission déjà existante soit une
+chaîne de caractères ASCII qui, par convention, doit être préfixée par le nom du
+produit, ce qui permettra de les regrouper dans l'onglet ``security`` de
+Zope.
+
+Parfois, ``ArchGenXML`` ne réalise pas automatiquement l'importation de la
+définition de certains types de champ ou de widget. Il faut alors l'ajouter
+soit comme marqueur de la classe en utilisant l'étiquette `import` soit dans la
+zone protégée du module python généré, c'est-à-dire entre les lignes : ::
+
+  ##code-section module-header #fill in your manual code here
+  from archetypes.referencebrowserwidget import ReferenceBrowserWidget
+  ##/code-section module-header
+
+
+@TODO mettre à jour la liste suivante et expliquer l'usage
+
+Chacun de ces types de champs possède un ou plusieurs attributs qui permettent
+de paramétrer leur comportement :
+
+ - accessor
+ - default
+ - default_method
+ - edit_accessor
+ - enforceVocabulary
+ - index
+ - name
+ - mode
+ - multiValued
+ - mutator
+ - primary
+ - required
+ - schemata
+ - searchable
+ - validators
+ - vocabulary
+ - storage
+
+Nous allons générer une première version de notre module : ::
+
+  C:\Program Files\Plone4\src\Products.StandArt_AQ\Products>c:\ArchGenXML\bin\ar
+  chgenxml.exe ..\model\Products.StandArt_AQ.zargo StandArt_AQ
+  INFO  ArchGenXML Version 2.5.dev
+  (c) 2003-2009 BlueDynamics Alliance, Austria, GPL 2.0 or later
+  INFO  Directories to search for profiles: ['C:\\ArchGenXML\\src\\archgenxml\\u
+  mltools\\argouml']
+  INFO  Parsing...
+  INFO  Profile files: '{u'archgenxml_profile.xmi': u'C:\\ArchGenXML\\src\\archg
+  enxml\\umltools\\argouml\\archgenxml_profile.xmi'}'
+  INFO  Directory in which we're generating the files: 'StandArt_AQ'.
+  INFO  Generating...
+  INFO  Starting new Product: 'StandArt_AQ'.
+  c:\archgenxml\eggs\i18ndude-3.1.2-py2.6.egg\i18ndude\odict.py:7: DeprecationWa
+  rning: object.__init__() takes no parameters
+    dict.__init__(self, dict)
+  INFO      Generating package 'content'.
+  INFO          Generating class 'StandArt_DocumentAQ'.
+  INFO          Generating class 'StandArt_FolderAQ'.
+  INFO  generator run took 0.96 sec.
+
+:command:`archgenxml.exe ..\\model\\Products.StandArt_AQ.zargo StandArt_AQ` a
+lancé l'exécution de ArchGenXML en lui demandant de prendre comme fichier
+d'entrée notre modèle et de générer un répertoire :file:`StandArt_AQ` contenant
+le code du module. Pour faire cela nous nous sommes d'abord placé dans le
+répertoire :file:`src\\Products.StandArt_AQ\\Products`.
+
+Puis, nous pouvons ajouter ce nouveau module au :file:`buildout.cfg` de notre
+Plone pour le faire apparaitre dans la liste des modules disponibles.
+
+Pour cela, il suffit d'y ajouter : ::
+
+   eggs =
+     Plone
+     Products.StandArt_AQ
+
+   develop =
+     src/Products.StandArt_AQ
+
+D'enregistrer et de lancer la commande :command:`bin\\buildout`.
+
+Puis de démarrer l'instance et d'ajouter le produit.
+
+On peut alors, lorsqu'on est administrateur, ajouter au site Plone une instance
+de StandArt_FolderQA.
+
+Vous constaterez également en regardant l'onglet Security de la ZMI que nos
+nouvelles permissions ont été ajoutées.
+
+Si l'on regarde le code du module StandArt_DocumentAQ.py, on constate qu'il
+contient la définition d'un schéma Archetypes : ::
+
+  schema = Schema((
+    FileField(
+         name='mDocument',
+        widget=FileField._properties['widget'](
+            label="Document",
+            label_msgid="StandArt_DocumentAQ_Document_label",
+            description="A document under Quality Assurance",
+            description_msgid="StandArt_DocumentAQ_Document_description",
+            i18n_domain='StandArt_AQ',
+        ),
+        storage=AttributeStorage(),
+        read_permission="View",
+        write_permission="StandArt: write AQ document",
+    ),
+  ),
+  )
+  
+  StandArt_DocumentAQ_schema = BaseSchema.copy() + \
+    getattr(ATDocument, 'schema', Schema(())).copy() + \
+    schema.copy()
+
+La variable :term:`schema` est une liste de champs, qui ici contient la
+déclaration du champ ``mDocument``. On peut voir comment sont implémentés les
+différents marqueurs du champ et comment lui est associé son `widget`.
+
+Suit la définition de la classe : ::
+
+  class StandArt_DocumentAQ(ATDocument, BrowserDefaultMixin):
+    """
+    """
+    security = ClassSecurityInfo()
+
+    implements(interfaces.IStandArt_DocumentAQ)
+
+    meta_type = 'StandArt_DocumentAQ'
+    _at_rename_after_creation = True
+
+    schema = StandArt_DocumentAQ_schema
+
+    ##code-section class-header #fill in your manual code here
+    ##/code-section class-header
+
+    # Methods
+
+Qui utilise le schéma créé.
+
+Lors des futures générations du code, `ArchGenXML` conservera les modifications
+qui auront été apportées aux modules du produit, et complètera le schéma
+Archetypes avec les champs ajoutés à la classe dans le modèle UML.
+
+Le modèle et le code généré sont multi-plateforme. Ainsi vous pouvez éditer le
+modèle sous Windows ou GNU/Linux sans être lié à l'OS de développement ni à
+celui de déploiement.
+
+Dans la suite de ce cours nous continuerons notre exposé sous Ubuntu.
+
+En conséquence les chemins devront être adaptés, c'est-à-dire que les
+séparateurs de fichiers sont des ``slash`` au lieu d'être des ``anti-slash``.
+
+Création des workflows
+======================
+
+Nous allons associer un workflow documentaire à chaque classe créée.
+
+Pour cela sélectionnez StandArt_FolderAQ dans la barre de navigation, puis
+cliquez sur le bouton droit pour faire apparaître le menu contextuel.
+Sélectionnez le menu "Create Diagram" et le sous menu "Diagramme d'état".
+
+.. figure:: argouml_creation_diagramme_etats.jpg
+    :align: center
+
+    Ajout diagramme d'états-transition
+
+Une machine d'états-transitions avec le nom "(Unnamed StateMachine)" est créée
+dans "StandArt_FolderAQ".
+
+Depuis la barre de navigation, descendez dans "StandArt_FolderAQ", puis
+sélectionnez "(Unnamed StateMachine)".
+Renommez le en "standart_folder_workflow".
+
+Descendez d'un niveau dans "standart_folder_workflow", s'y trouve le diagramme
+d'états-transitions "StandArt_FolderAQ 1", renommez le
+"standart_folderaq_state_machine".
+
+Lorsque vous sélectionnez le diagramme "standart_folderaq_state_machine" vous
+pouvez y créer des états et transitions. Ainsi vous définissez le workflow de
+votre objet.
+
+Pour ajouter des états il suffit de sélectionner le symbole correspondant dans
+la barre d'icônes, de positionner le curseur dans la zone de dessin et de
+cliquer.
+
+Pour ajouter des transitions, soit vous sélectionnez l'icône correspondante dans
+la barre et pouvez alors relier deux états déjà existants, soit vous
+sélectionnez un état et cliquez sur l'une des flèches apparaissant à la droite
+et à la gauche de l'état sélectionné.
+
+Nous allons créer le workflow de FolderAQ, qui contient un état ``private`` et
+un état ``published``, reliés par une transition ``publish``.
+
+Les noms des états et transitions doivent être saisi dans le champ ``Nom``
+accessible par l'onglet ``Propriétés`` sur chaque état et transition.
+
+Les marqueurs des états vont nous permettre de définir qu'elles seront les
+permissions de l'objet lorsqu'il sera dans cet état.
+
+ArchGenXML permet de manipuler quatre ``meta`` permissions qui sont ``access``,
+``view``, ``modify`` et ``list``. Ainsi, à la génération du code, ArchGenXML
+remplace ces meta par le vrai nom des permissions.
+
+Si l'on veut directement travailler avec les permissions de Plone, il faut créer
+pour chaque permission une ``Tag Definition`` en cliquant sur l'icône ``TD`` de
+l'onglet ``Étiquettes`` et en lui donnant le nom de la permission voulue.
+
+On peut alors les ajouter comme marqueurs dans l'onglet ``Étiquettes`` de
+l'état. En valeur on précise alors les rôles qui auront cette permission.
+
+C'est de cette façon que l'on peut préciser qui a les permissions de lecture ou
+d'écriture que l'on a affecté spécifiquement aux champs de nos objets.
+
+Dans notre cas on crée un ``TD`` ``StandArt: write AQ document`` pour la
+permission d'écriture de notre champ `mDocument` et l'on donne cette permission
+au rôle ``Reviewer`` dans l'état ``submited`` pour que seuls les membres ayant le
+rôle ``Reviewer`` puissent changer le fichier associé au champ `mDocument`.
+
+.. figure:: argouml_folderaq_workflow.jpg
+    :align: center
+
+    workflow de FolderAQ
+
+Il reste à créer de la même façon le workflow de DocumentAQ, qui contiendra
+trois états nommés ``private``, ``submited``, ``published``.
+
+.. figure:: argouml_documentaq_workflow.jpg
+    :align: center
+
+    workflow de DocumentAQ
+
+Puis éditez les transitions, nommez les ``submit``, ``publish``.
+
+Il est possible d'ajouter aux transitions un garde qui vérifiera que l'on peut
+ou non réaliser cette transition. Plone n'affichera la transition que si le
+garde est vérifié.
+
+Pour créer un garde il suffit de faire un clic droit dans la la zone d'édition du
+champ ``Garde`` dans l'onglet ``Propriété`` de la transition, puis de
+sélectionner l'item de menu ``Nouveau``.
+
+On entre alors dans le panneau d'édition du garde.
+
+.. figure:: argouml_garde_publish.jpg
+    :align: center
+
+    Garde de la transition publish
+
+On peut alors expliciter comment on veut filtrer la transition en remplissant le
+champ ``Expression``. Pour cela on dispose de trois possibilités :
+
++---------------------+---------------------+--------------------------------+
+| **Prefixe du garde**| **Valeur du garde** | **Exemple**                    |
++---------------------+---------------------+--------------------------------+
+| guard_roles         | Une liste de rôles  | guard_roles: Manager; Owner    |
++---------------------+---------------------+--------------------------------+
+| guard_permissions   | Liste de permissions| guard_permissions: View        |
++---------------------+---------------------+--------------------------------+
+| guard_expr          | Expression Tales    | guard_expr:python:object.isOk()|
++---------------------+---------------------+--------------------------------+
+
+Les expressions peuvent être combinées, par exemple la transition avec le garde
+:code:`guard_roles:Reviewer|guard_permission:Modify Portal Content` ne sera
+déclenchable que par les modérateurs ayant les droits de modification.
+
+En plus des gardes, il est possible d'exécuter des scripts avant et après
+transition. Pour cela il faut ajouter une conséquence à la transition comme on
+l'a fait pour le garde. Le nom de la conséquence sera le nom de la fonction
+python appelée lors de la transition.
+
+.. figure:: argouml_garde_et_consequence.jpg
+    :align: center
+
+    Garde et conséquence
+
+ArchGenXML va créer une arborescence
+:file:`Products.StandArt_AQ/Products/StandArt_AQ/profiles/default/workflows`
+contenant un répertoire contenant la définition XML du workflow pour FolderAQ et
+un autre pour DocumentAQ.
+
+Il génère aussi un fichier :file:`wfsubscribers.py` contenant la définition des
+scripts appelés lors des transitions : ::
+
+  # -*- coding: utf-8 -*-
+  #
+  # File: wfsubscribers.py
+  #
+  # Copyright (c) 2010 by Michael Launay <michaellaunay@ecreall.com>
+  # Generator: ArchGenXML Version 2.5.dev
+  #            http://plone.org/products/archgenxml
+  #
+  # GNU General Public License (GPL)
+  #
+  
+  __author__ = """Michael Launay <michaellaunay@ecreall.com>"""
+  __docformat__ = 'plaintext'
+  
+  
+  ##code-section module-header #fill in your manual code here
+  ##/code-section module-header
+  
+  
+  def onSubmitDocumentAQ(obj, event):
+      """generated workflow subscriber."""
+      # do only change the code section inside this function.
+      if not event.transition \
+         or event.transition.id not in [u'submit'] \
+         or obj != event.object:
+          return
+      ##code-section onSubmitDocumentAQ #fill in your manual code here
+      ##/code-section onSubmitDocumentAQ
+
+
+
+  ##code-section module-footer #fill in your manual code here
+  ##/code-section module-footer
+
+Pour ajouter du code spécifique tel que la notification par mail des
+principaux modérateurs, il suffit de le mettre entre la balise
+:code:`##code-section onSubmitDocumentAQ` et
+:code:`##/code-section onSubmitDocumentAQ`, mais si le code est volumineux ou
+doit être partagé nous pouvons le mettre dans un module qui sera importé dans la
+section :code:`##code-section module-header` et l'appel se fera dans la section
+:code:`##code-section onSubmitDocumentAQ`.
+
+L'événement ``event`` contient l'objet qui subit la transition, ainsi que la
+requête.
+
+Si vous voulez faire de l'introspection et voir ce qui se passe vous pouvez
+mettre un :code:`pdb.set_trace ()` dans la section, relancer Zope en mode
+``foreground`` :command:`bin/instance fg`, et déclencher la transition. Python
+s'arrêtera sur le point d'arrêt et en tapant la commande :command:`h` vous aurez la
+liste des commandes possibles : ::
+
+   ##code-section onSubmitDocumentAQ #fill in your manual code here
+   import pdb
+   pdb.set_trace ()
+   ##/code-section onSubmitDocumentAQ
+
+
+Ajout d'une worklist
+--------------------
+
+Il est possible pour un état donné d'un objet de le déclarer comme devant
+apparaître dans une liste de modération.
+
+Pour cela il suffit d'ajouter le marqueur ``worklist`` à la liste des étiquettes
+de l'état dans lequel l'objet doit être modéré.
+
+La valeur est alors le nom de la woklist dans laquelle devrait apparaître
+l'objet, mais la liste de modération de Plone regroupe tous les objets associés
+à une ``worklist``.
+
+Le marqueur ``worklist:guard_roles`` permet de restreindre la notification de
+modération aux rôles donnés en valeur au marqueur.
+
+Ajout d'un validator sur un champ
+---------------------------------
+@TODO
+
+Ajout une méthode
+-----------------
+@TODO
+
+Ajout d'une validation sur l'ensemble de l'édition
+--------------------------------------------------
+@TODO
+
+Ajout d'un portlet d'affichage des Document soumis
+--------------------------------------------------
+@TODO
+
+Ajout d'une vue d'édition
+-------------------------
+@TODO
+
+Ajout d'une vue de consultation
+-------------------------------
+@TODO
+
+exercice
+========
+
+Création des fondements du modèle de l'application "StandArt_AQ".

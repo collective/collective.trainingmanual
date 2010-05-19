@@ -10,6 +10,9 @@ francophone, notamment :
 * Le manuel de formation intégrateur Plone par `Vincent Fretin
   <http://vincentfretin.ecreall.com>`__ (`Ecréall <http://www.ecreall.com>`__)
 
+* Les travaux, les relectures et les très nombreuses contributions de `Gilles
+  Lenfant` et `Thomas Desvenain`
+
 `Lire la dernière version de ce document au format PDF
 <http://docs.ecreall.com/integrateur/FormationPloneIntegrateur.pdf>`__
 

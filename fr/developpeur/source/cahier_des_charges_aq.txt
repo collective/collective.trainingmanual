@@ -1,0 +1,453 @@
+.. -*- coding: utf-8 -*-
+
+====================================================
+Cahier des charges du besoin de la sociéte Stand'Art
+====================================================
+
+Contexte
+********
+
+La société Stand'Art possède un service qualité dont l'objectif est de définir
+les procédures qualités et de veiller à leur application au sein de
+l'entreprise.
+
+Ainsi les documents sous assurance qualité sont visés par ce service qui leur
+attribut un numéro unique de document, un numéro de version et diverses
+informations.  Le service a aussi en charge de conserver un exemplaire papier
+signé par les différentes autorités.
+
+Il serait très pratique de pouvoir accéder à une version électronique des ces
+documents sans « déranger » systématiquement les membres du service qualité.
+
+En conséquence, le présent document établit le cahier des charges de ce besoin.
+
+Il a été décidé de personnaliser le site Plone déjà utilisé par la société pour
+gérer les documents sous assurance qualité.
+
+En conséquence, ce cahier des charges est orienté Plone, dans un cas classique
+il serait neutre et il ne serait pas fait référence à une solution technique ni
+théoriquement à une quelconque solution de stockage des données (SQL ou autres).
+
+Ce cahier des charges décrit le fonctionnement attendu, pour être le plus clair
+possible, il est rédigé au présent comme si le système répondait déjà au besoin.
+Ceci permet de supprimer tout conditionnel, adverbe et adjectif risquant d'être
+interpréter comme « optionnel » par le prestataire.
+
+
+Objectif
+********
+
+L'objectif est de stocker dans Plone les documents sous assurance qualité gérés
+par le service Qualité (SQ) de la Société Industrielle Stand'Art.
+
+Ainsi, on supplée électroniquement au processus suivant :
+
+1. Un exemplaire papier de chaque document est stocké signé au service qualité
+   ou directement au service responsable du document.
+2. Les services destinataires reçoivent une copie papier du document.
+
+
+Volumes
+*******
+
+Nombre de documents gérés dans le système qualité : 1200
+
+1000 mots-clés (500 obsolètes)
+
+100 destinataires
+
+
+Les États
+*********
+
+Brouillon : créé par l'auteur ou par le SQ.
+
+SoumisAuSQ : l'auteur attend le visa du SQ qui attribuera le numéro unique et
+changera l'état du document.
+
+SoumisALAuteur : l'auteur valide les saisies du SQ avant publication et réalise
+la transition d'état.
+
+En attente : document validé mais non publié.
+
+Publié : document validé et consultable par les destinataires.
+
+Archivé : document obsolète, seulement consultable par le SQ et l'auteur.
+
+Il peut être possible de déplacer le document dans un répertoire visible
+seulement par le SQ.
+
+
+Les autorisations
+*****************
+
+Il valide le document avant diffusion.
+
+Les conteneurs possèdent une liste des services et personnes destinataires
+habilitées à consulter le document.
+
+Les personnes du SQ peuvent mettre à jour l'ensemble des documents.
+
+
+La gestion des documents
+************************
+
+Les documents sont créés dans un dossier où ils sont triés par numéro et par
+nom.
+
+Il est possible de rechercher un document par son titre.
+
+Le SQ crée le conteneur du document afin d'en saisir le numéro unique et autres
+informations.
+
+L'auteur du document y ajoute la pièce jointe.
+
+Les conteneurs sont des instances du type "DocAq" dont l'un des attributs reçoit
+la pièce jointe qui est sous assurance qualité.
+
+Chaque document a une date d'échéance.
+
+Avant cette date, l'auteur du document est alerté par courriel et par liste de
+modération qu'il doit vérifier l'actualité du document.  Valider le document
+fait évoluer la date d'échéance.
+
+Les destinataires ne peuvent que consulter le document et émettre des
+commentaires.
+
+Chaque modification du document entraîne un changement de version.
+
+Les anciennes versions sont consultables.
+
+Le portail prévient les destinataires par courriel et à travers la liste de
+modération de la disponibilité des nouvelles versions des documents.
+
+Le responsable du SQ connaît à tout moment la liste des documents qui sont
+arrivés à échéance.
+
+
+Les écrans de consultation existants
+************************************
+
+::
+
+  CONSULTATION DES DOCUMENTS Le : 30/03/10 
+  à : 12:08:57 
+  Type de Document : PROCEDURE N° du document : 5 N° de version : 12 
+  Options : 5=affichage affectations 
+  =============================================================================
+  =    code   =                Libelle Sociétés concernées                    =
+  =============================================================================
+  =    002    =                     S.I.S.                                    =
+  =    008    =                Stand'Art INTERNATIONAL                        = 
+  =============================================================================
+  =    Code   =                Libelle service destinataire                   =
+  =============================================================================
+  =    991    =                TOUS SERV TOUS SERVICES                        = 
+  =============================================================================
+  =   Option  =   Code   =          Libelle fonction destinataire             =
+  =============================================================================
+  =           =   002    =          RESP STOCK                                =
+  =           =   003    =          RESP EMBALLAGE                            + 
+  =============================================================================
+
++-------------------------+------------------------+--------------------------+
+| Données                 | Description            | Remarque                 |
++-------------------------+------------------------+--------------------------+
+| Sociétés concernées     | Périmètre du document  | 1 ou plusieurs sociétés. |
++-------------------------+------------------------+--------------------------+
+| Services destinataires  | Liste des services qui |                          |
+|                         | seront en copie        |                          |
++-------------------------+------------------------+--------------------------+
+| Fonctions destinataires | 1 fonction = 1 ou      | 1 fonction a une date de |
+|                         | plusieurs personnes    | début et une date de fin |
++-------------------------+------------------------+--------------------------+
+
+::
+
+  CONSULTATION DES DOCUMENTS Le : 30/03/10
+  
+  à : 12:09:55
+  
+  Type de Document : PROCEDURE N° de document : 5 N° de version : 12
+  
+  Mots-clés: RECLAMATION NON CONFORME
+  
+  Titre : TRAITEMENT DES RECLAMATIONS CLIENTS
+  
+  Objet : DEFINIR LE CIRCUIT DES INFORMATIONS ET LES RESPONSABILITES POUR UN
+          TRAITEMENT DES RECLAMATIONS CLIENTS DANS LES MEILLEURS DELAIS 
+  
+  Date Effet : 02 / 12 / 20 03 Serv.Emet. : 035 SQ
+  
+  Annule :  P 5 V11       N°:        du  10 / 10 / 20 02
+
++-------------+---------------------+-------------+---------------------------+
+| Données     | Description         | Longueur    | Remarque                  |
++-------------+---------------------+-------------+---------------------------+
+| Type de     | Famille du          | code 3 car, |                           |
+| document    | document            | lib 30 car  |                           |
++-------------+---------------------+-------------+---------------------------+
+| N° de       | N° du document      | Num         | Il s'agit d'un incrément  |
+| document    |                     |             | associé à chaque type de  |
+|             |                     |             | document                  |
++-------------+---------------------+-------------+---------------------------+
+| N° version  | Numéro de version   | Num         | A chaque révision, un     |
+|             | du document         |             | numéro est attribué       |
++-------------+---------------------+-------------+---------------------------+
+| Titre       | Titre du document   | 120 car     |                           |
++-------------+---------------------+-------------+---------------------------+
+| Objet       | Description         | 250 car     |                           |
++-------------+---------------------+-------------+---------------------------+
+| Mots\-clés  | 7 mots\-clés        | 15 car      | Il y a 1000 mots\-clés.   |
+|             | possibles choisis à |             | 500 à fusionner.          |
+|             | partir d'une même   |             |                           |
+|             | liste               |             |                           |
++-------------+---------------------+-------------+---------------------------+
+| Date effet  | Date d'entrée en    | Date        | Aucune règle particulière |
+|             | vigueur du document |             | sur cette date            |
++-------------+---------------------+-------------+---------------------------+
+| Annule      | Document et version |             |                           |
+|             | remplacée           |             |                           |
++-------------+---------------------+-------------+---------------------------+
+
+::
+
+  Type de Document : PROCEDURE N° du document : 5 N° de version : 12 
+  
+  Initiales auteur : PPJ 
+  Fonction auteur : 327 RESP AQ SIS 
+  Date échéance : 02 / 12 / 20 05 
+  
+  Stockage du document : 
+  Nbre de pages : 3 Nbre d exemplaires : 15 
+  Type Stockage : DD DISQUE DUR 
+  Format Support : 
+  Densité Support : 
+  
+  Lieu Stockage : 
+  Service : 035 SQ SIS 
+  Initiales responsable :BT 
+                                                    Validation: O (O=Oui/N=Non)
+
++-------------+-----------------------+----------+----------------------------+
+| Données     | Description           | Longueur | Remarque                   |
++-------------+-----------------------+----------+----------------------------+
+| Initiales   | Responsable du        |          |                            |
+| auteur      | document              |          |                            |
++-------------+-----------------------+----------+----------------------------+
+| Fonction    |                       | Num      | Non utilisée               |
+| auteur      |                       |          |                            |
++-------------+-----------------------+----------+----------------------------+
+| Date        | Date à laquelle le    | Date     | En général tous les 2 ans. | 
+| échéance    | document doit être    |          | Le SQ saisit une période   |
+|             | validé à nouveau      |          | qui sert au calcul de la   |
+|             |                       |          | prochaine échéance.        |
++-------------+-----------------------+----------+----------------------------+
+| Validation  | Lorsque le document   |  O/N     |                            |
+|             | arrive à échéance, il |          |                            |
+|             | doit être validé à    |          |                            |
+|             | nouveau, la date      |          |                            |
+|             | d'échéance est alors  |          |                            |
+|             | mise à jour           |          |                            |
++-------------+-----------------------+----------+----------------------------+
+
+
+Analyse et conception
+*********************
+
+Comme tout cahier des charges une première étape dite de spécification permet de
+préciser ce qui va être réalisé.
+
+Le but est de lever les imprécisions de l'expression des besoins et donc de
+permettre la conception.
+
+Pour cela, nous réalisons des scénarios d'utilisations du futur développement.
+
+Ceci a deux intérêts :
+
+1. Reformuler permet de vérifier que nous avons bien compris ;
+
+2. Les détails fonctionnels précisent ce qui va être livré.
+
+Un fois écrits, les scénarios sont soumis au client qui les commente.  Le
+prestataire tient compte des remarques et lui soumet à nouveaux les scénarios
+corrigés, jusqu'à ce qu'ils soient stables.
+
+Les navettes entre le prestataire et le client sont inévitables, car le sujet
+est abstrait, et le client perçoit son besoin d'un point de vue métier
+contrairement au prestataire qui le voit d'un point de vue technique.
+
+Toutefois, et par expérience, cette étape n'est pas suffisante, car souvent le
+client a besoin d'être en face du système pour « préciser » son besoin.  Il faut
+alors développer des parties de la solution et la soumettre au client le plus
+tôt possible.
+
+Il devient alors inutile de vouloir détailler les scénarios dés le début puisque
+le besoin change tout au long de la réalisation.
+
+La seule façon de gérer ces projets et d'utiliser une méthode agile comme 
+« scrum », où les scénarios sont détaillés au fur et à mesure de leur
+implémentations.
+
+
+Scénarios
+*********
+
+
+Dépôt d'un document sous assurance qualité
+==========================================
+
+
+Scénario avec délégation
+------------------------
+
+1. Un membre du service qualité (SQ) se connecte au portail et s'authentifie.
+
+2. Le portail identifie le membre comme faisant partie du service qualité.
+
+3. Le membre du SQ navigue jusqu'au répertoire des documents sous assurance
+   qualité.
+
+4. Il crée un conteneur de document.
+
+5. Il remplit les champs d'informations.
+
+6. Et associe à ce conteneur un auteur du document.
+
+7. Puis, il associe un document au conteneur.
+
+8. Le SQ change l'état du conteneur et attend le visa de l'auteur.
+
+9. L'auteur est prévenu par mail et par liste de modération.
+
+10. Il vérifie alors l'adéquation du document avec sa version.
+
+11. Et valide le conteneur.
+
+12. Le document est publié.
+
+13. Le membre du SQ est notifié de la publication.
+
+
+Scénario sans délégation
+------------------------
+
+Ce scénario reprend les étapes du scénario précédent jusqu'à l'étape 6 comprise.
+
+6. Le membre associe à ce conteneur un auteur du document.
+
+7. Il change l'état du conteneur.
+
+8. L'auteur est averti par courriel et par liste de modération de la nécessité
+   de joindre le document.
+
+9. Il ajoute au conteneur en pièce jointe son document.
+
+10. Et soumet le conteneur pour validation.
+
+11. Le service SQ est notifié par mail et par la liste de modération.
+
+12. L'un des membres du SQ vérifie et publie.
+
+Remarques :
+
+Nous n'avons traité ici que deux scénarios, sans parler des cas alternatifs ou du traitement des erreurs.
+Nous n'avons pas non plus précisé les pré-conditions et ressources liées.
+Ceci afin de ne pas alourdir la formation.
+
+
+Acteurs
+*******
+
+Les membres du SQ, nous proposons de les gérer à travers un groupe.
+
+L'auteur du document, cela peut être n'importe quel membre du portail.
+
+
+Les données
+***********
+
+Nous allons créer un conteneur contenant les champs suivants :
+
+Sociétés concernées : liste de groupe à sélection multiple dont les choix sont
+calculés dynamiquement.
+
+Services destinataires : liste de groupe à sélection multiple.
+
+Fonctions destinataires : liste d'items à sélection multiple.
+
+Type de document : Champ de saisie avec vérification sur la taille et la forme,
+pourra être recherché.
+
+N° de document : Entier avec validation sur l'unicité, pourra être recherché.
+
+N° version : Entier automatique,
+
+Titre : Le titre du document inférieur à 120 caractères.
+
+Objet : Description inférieure à 250 caractères.
+
+Mots-clés : Sélection multiple, et définition de 1000 mot clé avec fusion de 500
+à prévoir.
+
+Date effet : Champ date de visibilité du document.
+
+Annule : Référence vers un autre conteneur de document.
+
+Auteur : Champ de sélection permettant de choisir le membre considéré comme
+l'auteur du document du conteneur.
+
+Date échéance : Date permettant de gérer la validation à nouveau.
+
+Période de validité : Champ numérique.
+
+État de validité : Booléen indiquant si le document doit être revue ou non.
+
+
+Les Vues et actions
+*******************
+
+Nous allons retrouver ici les informations du conteneur présentées par des vues
+correspondant aux vues du cahier des charges.
+
+
+Vue « Consultation des documents »
+==================================
+
+On y retrouve les champs « sociétés concernées », « Services destinataires », «
+Fonctions destinataires ».
+
+
+Vue « Consultation du Document »
+================================
+
+En plus des champs, ajoute automatiquement les champs suivants issus des
+informations concernant l'auteur :
+
+Initiales auteur.
+
+Fonction auteur.
+
+Et permet aux personnes habilitées de valider à nouveau le document.
+
+
+Les États
+*********
+
+Brouillon : créé par l'auteur ou par le SQ.
+
+SoumisAuSQ : l'auteur attend le visa du SQ qui attribuera le numéro unique.
+
+SoumisALAuteur : l'auteur valide les saisies du SQ avant publication.
+
+En attente : document validé mais non publié.
+
+Publié : document validé et consultable par les destinataires.
+
+Archivé : document obsolète, seulement consultable par le SQ et l'auteur.
+
+
+Le workflow
+***********
+
+Le workflow est modélisé en utilisant le diagramme d'états transitions d'UML.
