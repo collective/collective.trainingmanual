@@ -278,7 +278,7 @@ spécifique.
 
 Pour cela saisissez la commande :command:`paster create monplone4 -t plone3_buildout`.
 Pour l'instant on utilise le patron de Plone 3 pour un site Plone 4 car les deux
-versions possède la même arborescence. Répondez au question comme ceci : ::
+versions possèdent la même arborescence. Répondez au question comme ceci : ::
 
   Expert mode ? expert
   Plone version : 4.0b1-1
