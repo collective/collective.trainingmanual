@@ -1,5 +1,19 @@
 - nouveautés Plone 4 (rôles globaux sur groupes imbriqués)
 - utilisation de zest.releaser, tagger le buildout, svn switch en prod
 
-zc.buildout macros
-http://keeshink.blogspot.com/2010/02/turning-my-standalone-zope-buildout.html
+outils :
+pyflakes
+pep8 --repeat
+z3c.checkversions
+z3c.dependencychecker
+
+zc.buildout macros::
+
+    [instance2]
+    <= instance1
+    http-address = 8081
+
+variable ${:_buildout_section_name_}
+exemple :
+zeo-log = ${zope:datadir}/var/log/${:_buildout_section_name_}.log
+
