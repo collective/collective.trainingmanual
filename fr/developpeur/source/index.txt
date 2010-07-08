@@ -11,7 +11,7 @@ Plone pour les développeurs
    <http://docs.ecreall.com/developpeur/>`_.
 
    `Lire la dernière version de ce document au format PDF
-   <http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`__
+   <http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`_
 
 Ce document constitué à partir de contributions de la communauté Plone
 francophone, notamment :
