@@ -4,6 +4,15 @@
 Plone pour les développeurs
 ===========================
 
+.. tip::
+
+   Pour voir cette documentation dans son site original et accéder à son moteur
+   de recherche, `veuillez vous rendre ici
+   <http://docs.ecreall.com/developpeur/>`_.
+
+   `Lire la dernière version de ce document au format PDF
+   <http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`__
+
 Ce document constitué à partir de contributions de la communauté Plone
 francophone, notamment :
 
@@ -18,9 +27,6 @@ francophone, notamment :
 
 * Le cours sur Python 3 de `Robert Cordeau
   <http://www.afpy.org/Members/tarek/initiation-python-3>`__
-
-`Lire la dernière version de ce document au format PDF
-<http://docs.ecreall.com/developpeur/FormationPloneDeveloppeur.pdf>`__
 
 Cette création est mise à disposition selon le Contrat Paternité-Partage des
 Conditions Initiales à l'Identique 2.0 France disponible en ligne
