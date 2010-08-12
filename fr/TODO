@@ -17,3 +17,5 @@ variable ${:_buildout_section_name_}
 exemple :
 zeo-log = ${zope:datadir}/var/log/${:_buildout_section_name_}.log
 
+Pour Plone 4, utilisation des blobs, shared-blob=on sur un zeoclient qui est sur la même machine que le zeoserver
+migration des blobs dans vos produits : http://pypi.python.org/pypi/example.blobattype
