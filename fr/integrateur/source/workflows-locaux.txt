@@ -1,0 +1,158 @@
+Paramétrage local des workflows
+===============================
+
+Nous allons montrer ici comment affecter, sous Plone 4, des processus documentaires différents selon les rubriques du site.
+
+Imaginons que nous voulons gérer une partie Intranet et une partie Internet sur notre site Plone. Les permissions et les circuits de validation ne seront probablement pas les mêmes.
+
+Nous allons donc gérer, grâce à la fonctionalité `Support des politiques documentaires locales`, un dossier Intranet dans lequel les documents auront un workflow de type Intranet (les membres peuvent soumettre des documents à un modérateur, qui publie pour tous les membres),
+et un dossier Internet, où les documents auront un workflow avec modération a priori (les membres peuvent soumettre des documents à un modérateur, qui publie soit pour les anonymes soit pour les seuls membres).
+
+Création des dossiers
+---------------------
+
+Connectez vous en tant qu'administrateur du site.
+
+Avant de commencer, vous aurez crée à la racine un dossier `Intranet` et un dossier `Internet`, que vous aurez publié.
+
+Dans chacun de ces dossiers, vous aurez ajouté une actualité, sans la publier.
+
+
+.. figure:: ./workflowslocaux_images/intranet.jpg
+    :align: center
+
+.. figure:: ./workflowslocaux_images/internet.jpg
+    :align: center
+
+
+Installation du module
+----------------------
+
+Le système de workflows locaux n'est pas activé par défaut. Nous allons commencer par installer la fonctionnalité.
+
+Allez dans configuration du site, puis modules.
+
+
+.. figure:: ./workflowslocaux_images/selectionneconfiguration.jpg
+    :align: center
+
+
+.. figure:: ./workflowslocaux_images/selectionnemodules.jpg
+    :align: center
+
+Vérifiez si la ligne `Support des politiques documentaire locales (CMFPlacefulWorkflow)` apparaît pas dans `Modules disponibles`. Sinon, vérifiez qu'elle n'est pas déjà dans `Modules installés` : dans ce cas, passez à l'étape suivante.
+
+Cochez a ligne `Support des politiques documentaire locales (CMFPlacefulWorkflow)` dans `Modules disponibles`, et cliquez sur `Activer`.
+
+.. figure:: ./workflowslocaux_images/activemodule.jpg
+    :align: center
+
+Le module est maintenant installé.
+
+.. figure:: ./workflowslocaux_images/moduleinstalle.jpg
+    :align: center
+
+Gestion des politiques de workflow
+----------------------------------
+
+Revenez dans la configuration du site. Dans `Configuration de module`, cliquez sur la nouvelle entrée : `Politiques documentaires`.
+
+.. figure:: ./workflowslocaux_images/politiquesdocumentaires.jpg
+    :align: center
+
+.. figure:: ./workflowslocaux_images/pagepolitiquesdocumentaires.jpg
+    :align: center
+
+Les listes de politiques documentaires existant par défaut sont affichées
+
+Il existe déjà une politique 'Intranet'. Pour en connaître les détails, cliquez sur le titre.
+
+.. figure:: ./workflowslocaux_images/politiqueintranet.jpg
+    :align: center
+
+Ce que vous voyez est en fait une version simplifiée de la page de configuration du workflow général, dans la `zmi` > `portal_workflows`. Référez vous à la formation sur les workflows pour davantage d'informations.
+
+Vous pouvez sélectionner le workflow par défaut, et éventuellement un workflow spécifique par type de contenu (en général on utilise des workflows différents pour les contenus de type rubrique). Les différents workflows disponibles sont ceux décrits dans portal_workflows, onglet 'Contents'. Référez vous à la formation sur les workflows pour retrouver comment ajouter et modifier des workflows existants.
+
+Cette configuration conviendra pour notre partie Intranet. Revenons à la page principale de configuration des processus en cliquant sur "Aller au niveau supérieur".
+
+Nous pourrions vérifier parmi les trois autres workflows disponibles s'il y en a qui pourraient correspondre à notre besoin pour la partie Internet. Mais nous allons créer une nouvelle politique pour les besoins de cette formation.
+
+Entrez `internet` dans le champ `Nouvelle politique documentaire`, puis cliquez sur `Ajouter`.
+
+Donnez lui pour titre `Publication Internet`.
+
+Nous allons choisir, pour les documents, un `Processus de publication simple`, qui consiste en un circuit privé -> en attente de validation -> publié pour tous. Pour cela, nous sélectionnons cette valeur pour le champ `Processus documentaire par défaut`.
+
+Pour tous les documents sauf Dossier et Collection, nous choisissons `Processus par défaut de la politique`, qui renvoit à la valeur choisie ci-avant.
+Imaginons que dans le cas de notre site Internet, nous n'ayons pas besoin de valider les dossiers vu que seul l'administrateur pourra en ajouter. Nous choisirons alors un workflow à un seul état : le dossier est immédiatement publié, seul son contenu est modéré. Nous choisissons donc `Processus de publication à état unique`.
+Supposons que nous voulons que la gestion des Collections soit identique sur le dossier Internet et au niveau du site. Nous choisirons `Acquisition du processus dans les dossiers parents` pour Collection : le workflow sera le même que pour le dossier parent (le site Plone).
+
+
+.. figure:: ./workflowslocaux_images/politiqueinternet.jpg
+    :align: center
+
+Vous pouvez maintenant cliquer sur `Enregistrer`. Votre politique a été ajoutée.
+
+
+Affectation des workflows locaux
+--------------------------------
+
+Nous allons maintenant associer des workflows différents pour les actualités selon que nous sommes sur l'intranet ou sur l'internet.
+Allez dans le dossier Intranet. Cliquez sur le menu `État`, puis `Politique locale`.
+
+
+.. figure:: ./workflowslocaux_images/menupolitiquelocale.jpg
+    :align: center
+
+L'affectation locale des workflows n'est pas activée par défaut dans ce dossier. Vous arrivez donc sur une page intermédiaire.
+Cliquez sur `Ajouter une configuration locale des politiques documentaire dans le Dossier`.
+
+
+.. figure:: ./workflowslocaux_images/politiquelocale.jpg
+    :align: center
+
+Vous arrivez sur la page de configuration locale des processus. Vous choisissez ici quelle est la politique que vous voulez activer pour ce Dossier. Sélectionnez dans `Pour ce dossier` : `Intranet`, puis enregistrez.
+
+Vous pouvez également faire en sorte que la politique soit associée à tous les sous dossiers du dossier Intranet, mais pas au dossier Intranet lui-même. C'est utile, par exemple, quand vous voulez des droits et des validations différents pour les modifications à la racine de votre rubrique. Dans ce cas, vous choisirez la politique dans `En dessous de ce dossier`.
+
+Revenez dans le dossier Intranet. Ce dossier est maintenant en 'Brouillon interne' : il est modifiable par les modérateurs et visible par les membres). Si vous vous déconnectez, vous observerez qu'il n'est plus visible aux anonymes.
+
+
+.. figure:: ./workflowslocaux_images/nvworkflowlocal.jpg
+    :align: center
+
+Allez sur l'actualité. Vous observerez que les transitions proposées correspondent au workflow `Publication internet` : en tant qu'administrateur, je peux `Publier en interne`, c'est à dire rendre visible aux membres seulement.
+
+.. figure:: ./workflowslocaux_images/nvworkflowdoclocal.jpg
+    :align: center
+
+Allez maintenant sur le dossier Internet. Cliquez sur Etat -> Politique locale. Faites de même, mais sélectionnez `Pour ce dossier` -> `Publication Internet`.
+
+Le dossier est resté à l'état 'Publié', mais vous observerez qu'aucune autre transition n'est disponible : nous utilisons pour les dossiers dans le workflow `Processus de publication à état unique`.
+
+Allez dans l'actualité. Vous avez en tant qu'administrateur le choix entre `Publier` et `Soumettre à la publication`. Nous utilisons ici le workflow `Processus de publication simple`.
+
+Export Generic Setup
+--------------------
+
+Les politiques documentaires peuvent être exportées en xml via l'outil Generic Setup.
+
+Dans `portal_setup` > `Export`, sélectionnez `Placeful Workflow Policies` puis Export selected steps.
+
+L'outil ne permet pas d'exporter la configuration des politiques locales.
+
+
+Conclusion
+----------
+
+Nous savions déjà que nous pouvions avoir des processus documentaires différents suivant le type de contenu.
+Nous savons maintenant que Plone permet de paramétrer des workflows différents pour un même type de contenu mais à différents endroits du site.
+
+Pour conclure, il faut prendre garde à distinguer trois notions, que nous définirons ici :
+
+`Processus de publication`, ou `workflow` : c'est la description d'un processus de validation, avec états, transitions, permissions... On les définit dans la ZMI, dans portal_workflows > Contents.
+
+`Politique documentaire` : c'est la configuration des workflows pour tous les types de documents du site. On définit la politique par défaut sur la page d'accueil de portal_workflows, et des politiques supplémentaires dans `Configuration du site` > `Politiques documentaires`.
+
+`Politique locale` : c'est la sélection d'une politique documentaire pour qu'elle s'applique sur une rubrique du site. On les définit via l'action `État` > `Politique locale` sur la rubrique.

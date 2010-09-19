@@ -44,6 +44,7 @@ California 94105, USA.
    munin
    plonepas/index
    formation_tal_metal
+   workflows-locaux
    glossaire
 
 
