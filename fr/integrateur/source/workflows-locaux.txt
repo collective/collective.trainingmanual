@@ -13,7 +13,7 @@ Création des dossiers
 
 Connectez vous en tant qu'administrateur du site.
 
-Avant de commencer, vous aurez crée à la racine un dossier `Intranet` et un dossier `Internet`, que vous aurez publié.
+Avant de commencer, vous aurez créé à la racine un dossier `Intranet` et un dossier `Internet`, que vous aurez publié.
 
 Dans chacun de ces dossiers, vous aurez ajouté une actualité, sans la publier.
 
@@ -63,7 +63,7 @@ Revenez dans la configuration du site. Dans `Configuration de module`, cliquez s
 .. figure:: ./workflowslocaux_images/pagepolitiquesdocumentaires.jpg
     :align: center
 
-Les listes de politiques documentaires existant par défaut sont affichées
+Les listes de politiques documentaires existantes par défaut sont affichées.
 
 Il existe déjà une politique 'Intranet'. Pour en connaître les détails, cliquez sur le titre.
 
@@ -106,7 +106,7 @@ Allez dans le dossier Intranet. Cliquez sur le menu `État`, puis `Politique loc
     :align: center
 
 L'affectation locale des workflows n'est pas activée par défaut dans ce dossier. Vous arrivez donc sur une page intermédiaire.
-Cliquez sur `Ajouter une configuration locale des politiques documentaire dans le Dossier`.
+Cliquez sur `Ajouter une configuration locale des politiques documentaires dans le Dossier`.
 
 
 .. figure:: ./workflowslocaux_images/politiquelocale.jpg
@@ -122,14 +122,14 @@ Revenez dans le dossier Intranet. Ce dossier est maintenant en 'Brouillon intern
 .. figure:: ./workflowslocaux_images/nvworkflowlocal.jpg
     :align: center
 
-Allez sur l'actualité. Vous observerez que les transitions proposées correspondent au workflow `Publication internet` : en tant qu'administrateur, je peux `Publier en interne`, c'est à dire rendre visible aux membres seulement.
+Allez sur l'actualité. Vous observerez que les transitions proposées correspondent au workflow `Publication internet` : en tant qu'administrateur, je peux `Publier en interne`, c'est-à-dire rendre visible aux membres seulement.
 
 .. figure:: ./workflowslocaux_images/nvworkflowdoclocal.jpg
     :align: center
 
-Allez maintenant sur le dossier Internet. Cliquez sur Etat -> Politique locale. Faites de même, mais sélectionnez `Pour ce dossier` -> `Publication Internet`.
+Allez maintenant sur le dossier Internet. Cliquez sur État -> Politique locale. Faites de même, mais sélectionnez `Pour ce dossier` -> `Publication Internet`.
 
-Le dossier est resté à l'état 'Publié', mais vous observerez qu'aucune autre transition n'est disponible : nous utilisons pour les dossiers dans le workflow `Processus de publication à état unique`.
+Le dossier est resté à l'état 'Publié', mais vous observerez qu'aucune autre transition n'est disponible : nous utilisons pour les dossiers le workflow `Processus de publication à état unique`.
 
 Allez dans l'actualité. Vous avez en tant qu'administrateur le choix entre `Publier` et `Soumettre à la publication`. Nous utilisons ici le workflow `Processus de publication simple`.
 
@@ -138,7 +138,7 @@ Export Generic Setup
 
 Les politiques documentaires peuvent être exportées en xml via l'outil Generic Setup.
 
-Dans `portal_setup` > `Export`, sélectionnez `Placeful Workflow Policies` puis Export selected steps.
+Dans `portal_setup` > `Export`, sélectionnez `Placeful Workflow Policies` puis `Export selected steps`.
 
 L'outil ne permet pas d'exporter la configuration des politiques locales.
 
