@@ -45,6 +45,7 @@ California 94105, USA.
    plonepas/index
    formation_tal_metal
    workflows-locaux
+   contentrules
    glossaire
 
 
