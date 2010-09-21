@@ -42,7 +42,7 @@ Allez dans configuration du site, puis modules.
 
 Vérifiez si la ligne `Support des politiques documentaire locales (CMFPlacefulWorkflow)` apparaît pas dans `Modules disponibles`. Sinon, vérifiez qu'elle n'est pas déjà dans `Modules installés` : dans ce cas, passez à l'étape suivante.
 
-Cochez a ligne `Support des politiques documentaire locales (CMFPlacefulWorkflow)` dans `Modules disponibles`, et cliquez sur `Activer`.
+Cochez la ligne `Support des politiques documentaire locales (CMFPlacefulWorkflow)` dans `Modules disponibles`, et cliquez sur `Activer`.
 
 .. figure:: ./workflowslocaux_images/activemodule.jpg
     :align: center
