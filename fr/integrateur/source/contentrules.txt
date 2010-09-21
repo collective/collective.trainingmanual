@@ -232,9 +232,9 @@ Les règles de contenu sont largement extensibles. Il est possible d'ajouter ou 
 - de nouvelles actions.
 
 Si vous avez des besoins spécifiques,
-recherchez sur pypi le mot-clé `contentrules` pour vérifier si une extension existe pour votre cas d'utilisation : _`http://pypi.python.org/pypi?%3Aaction=search&term=contentrules&submit=search`.
+recherchez sur pypi le mot-clé `contentrules` pour vérifier si une extension existe pour votre cas d'utilisation : `<http://pypi.python.org/pypi?%3Aaction=search&term=contentrules&submit=search>`_.
 
-Vous pouvez également vous lancer dans le développement de conditions et actions (niveau avancé) avec l'aide de ce guide _`http://plone.org/documentation/kb/creating-content-rule-conditions-and-actions`.
+Vous pouvez également vous lancer dans le développement de conditions et actions (niveau avancé) avec l'aide de ce guide `<http://plone.org/documentation/kb/creating-content-rule-conditions-and-actions>`_.
 Ou contactez votre prestataire Plone favori.
 
 Conclusion
