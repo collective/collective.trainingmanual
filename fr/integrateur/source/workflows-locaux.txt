@@ -114,7 +114,7 @@ Cliquez sur `Ajouter une configuration locale des politiques documentaires dans 
 
 Vous arrivez sur la page de configuration locale des processus. Vous choisissez ici quelle est la politique que vous voulez activer pour ce Dossier. Sélectionnez dans `Pour ce dossier` : `Intranet`, puis enregistrez.
 
-Vous pouvez également faire en sorte que la politique soit associée à tous les sous dossiers du dossier Intranet, mais pas au dossier Intranet lui-même. C'est utile, par exemple, quand vous voulez des droits et des validations différents pour les modifications à la racine de votre rubrique. Dans ce cas, vous choisirez la politique dans `En dessous de ce dossier`.
+Vous pouvez également faire en sorte que la politique soit associée à tous les sous-dossiers du dossier Intranet, mais pas au dossier Intranet lui-même. C'est utile, par exemple, quand vous voulez des droits et des validations différents pour les modifications à la racine de votre rubrique. Dans ce cas, vous choisirez la politique dans `En dessous de ce dossier`.
 
 Revenez dans le dossier Intranet. Ce dossier est maintenant en 'Brouillon interne' : il est modifiable par les modérateurs et visible par les membres). Si vous vous déconnectez, vous observerez qu'il n'est plus visible aux anonymes.
 
