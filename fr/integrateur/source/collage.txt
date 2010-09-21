@@ -171,6 +171,16 @@ La vue portlet permet de choisir un habillage.
 .. figure:: ./collage/habillage-change.jpg
     :align: center
 
+Extensibilité
+-------------
+
+Il est possible de développer de nouveaux layouts et de nouveaux types d'éléments pour les compositions de Collage.
+
+Pour trouver les modules d'extension existants, cherchez sur pypi : `<http://pypi.python.org/pypi?%3Aaction=search&term=Products.Collage&submit=search>`_.
+
+S'il n'existe pas d'élément correspondant à vos besoins, contactez votre prestataire Plone favori :).
+
+
 Conclusion
 ----------
 
