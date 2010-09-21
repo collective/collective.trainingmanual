@@ -8,8 +8,8 @@ Imaginons que nous voulons gérer une partie Intranet et une partie Internet sur
 Nous allons donc gérer, grâce à la fonctionalité `Support des politiques documentaires locales`, un dossier Intranet dans lequel les documents auront un workflow de type Intranet (les membres peuvent soumettre des documents à un modérateur, qui publie pour tous les membres),
 et un dossier Internet, où les documents auront un workflow avec modération a priori (les membres peuvent soumettre des documents à un modérateur, qui publie soit pour les anonymes soit pour les seuls membres).
 
-Création des dossiers
----------------------
+Préparation
+-----------
 
 Connectez vous en tant qu'administrateur du site.
 
