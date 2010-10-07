@@ -52,7 +52,7 @@ L'installation peut être faite à partir de pypi ou depuis le dépôt subversio
 
 L'intérêt du dépôt subversion est de disposer des dernières corrections ::
 
-  C:\Program Files>cd C:\ 
+  C:\Program Files>cd C:\
   C:\>svn export http://svn.plone.org/svn/archetypes/ArchGenXML/buildout ArchGenXML
   C:\>cd ArchGenXML
   C:\ArchGenXML>C:\python26\python.exe bootstrap.py
@@ -355,7 +355,7 @@ champ défini dans l'une des classes mères.
 Par exemple pour changer la description, le titre et la permission de lecture et
 d'écriture du champ ``title``, il suffit de créer un champ portant comme
 ``Nom`` ``title`` et de lui associer les marqueurs suivants avec les valeurs
-voulues : 
+voulues :
 
 +--------------------------+------------------------------------------------+
 | **Marqueur**             | **Valeur**                                     |
@@ -482,7 +482,7 @@ contient la définition d'un schéma Archetypes : ::
     ),
   ),
   )
-  
+
   StandArt_DocumentAQ_schema = BaseSchema.copy() + \
     getattr(ATDocument, 'schema', Schema(())).copy() + \
     schema.copy()
@@ -666,15 +666,15 @@ scripts appelés lors des transitions : ::
   #
   # GNU General Public License (GPL)
   #
-  
+
   __author__ = """Michael Launay <michaellaunay@ecreall.com>"""
   __docformat__ = 'plaintext'
-  
-  
+
+
   ##code-section module-header #fill in your manual code here
   ##/code-section module-header
-  
-  
+
+
   def onSubmitDocumentAQ(obj, event):
       """generated workflow subscriber."""
       # do only change the code section inside this function.
@@ -712,6 +712,7 @@ liste des commandes possibles : ::
    pdb.set_trace ()
    ##/code-section onSubmitDocumentAQ
 
+@TODO: associer un workflow à un type de contenu avec use_workflow
 
 Ajout d'une worklist
 --------------------
