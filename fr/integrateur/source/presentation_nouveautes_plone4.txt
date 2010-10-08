@@ -1,36 +1,156 @@
 .. -*- coding: utf-8 -*-
 
-======================================
-Présentation des nouveautés de Plone 4
-======================================
+=========================
+Les nouveautés de Plone 4
+=========================
 
-Présentation des nouveautés de Plone 4 par rapport à la version Plone 3.3.
+Présentation des nouveautés de Plone 4 par rapport à Plone 3.3.
 
-PLIP acceptés
-=============
 
-.. todo:: lister les PLIPS acceptés dans Plone 4.
+Performances
+============
 
-http://plone.org/roadmap
+Plone 4 est centrée sur l'amélioration des performances.
+Il est en moyenne 1,5 à 2 fois plus rapide que Plone 3, 4 fois plus rapide que Plone 2.5
+aussi bien pour les anonymes que pour les utilisateurs connectés.
+Il consomme beaucoup moins de mémoire que les anciennes versions.
+Plone 4 est, à la date de sa sortie l'une des plates-formes open-source CMS les plus rapides du marché.
 
+Cela est dû à la fois à un effort majeur sur l'optimisation du code de Plone,
+qu'au passage à python 2.6 plus rapide et moins gourmand que python 2.4.
+
+`http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances`_
+
+Thème
+=====
+
+Plone 4 possède un nouveau thème par défaut appelé "Sunburst", élégant et, minimaliste.
+Il est conçu comme un composant à part, mais inclus par défaut.
+Il est donc facile à remplacer.
+
+Il n'utilise plus de tableaux. La css a été très fortement simplifiée. Il reste compatible ie6.
+
+Il est prévu pour être compatible avec le futur outil de mise en page Deco prévu pour Plone 5.
+
+Ergonomie
+=========
+
+L'interface utilisateur de Plone 4 a été améliorée.
+
+Plone 4 inclut par défaut un nouvel éditeur léger HTML Wysiwyg light (TinyMCE),
+et offre de nouveaux paramètres de configuration. TinyMCE remplace kupu.
+Il existe un produit en remplacement de l'éditeur complet FCKeditor : ckeditor.
+
+.. figure:: ./nouveautesplone4/tinymce-screenshot-1.png
+    :align: center
+
+Amélioration du formulaire de recherche : les options non pertinentes ont été retirées,
+les critères sont choisis par un système de plié/déplié beaucoup plus clair.
+
+Amélioration de l'administration du site
+========================================
+
+Ordonnancement dans les dossiers amélioré
+-----------------------------------------
+
+L'interface pour ordonner les documents dans les dossiers a été améliorée.
+L'intégration entre 'tri' et 'ordonnancement' a été améliorée.
+
+Possibilité de masquer les portlets
+-----------------------------------
+
+Un simple clic dans l'outil de management des portlets
+permet de masquer/afficher une portlet.
+
+Interface améliorée de gestion des groupes
+------------------------------------------
+
+L'interface a été améliorée pour chercher des groupes,
+associer des utilisateurs à des groupes, etc.
+
+.. todo:: faire des captures d'écran montrant la différences entre Plone 3.3 et Plone 4.
+
+Tableaux de bord des groupes
+----------------------------
+
+Il est maintenant possible de paramétrer des tableaux de bord par défaut
+pour tous les utilisateurs d'un groupe.
 
 Rôles sur groupes imbriqués
-===========================
+---------------------------
 
-La notion de groupes imbriqués existait déjà dans Plone 3.3.
-Pour cela il vous faut créer un plugin "Recursive Groups Plugin" depuis acl_users
-et activer le plugin via l'onglet *Activate*.
-
+Plone 4 permet de mieux gérer les groupes imbriqués.
 Dans Plone 3.3, vous ne voyiez pas que vous aviez un rôle récupéré grâce un
 super groupe. Plone 4 a été modifié pour le voir, un peu comme la présentation
 faite dans l'onglet partage pour les rôles locaux.
 
-.. todo:: faire des captures d'écran montrant la différences entre Plone 3.3 et Plone 4.
+Possibilité de masquer les portlets
+-----------------------------------
 
+Un simple clic dans l'outil de management des portlets
+permet de masquer/afficher une portlet.
+
+
+Amélioration de la customization du site
+========================================
+
+Gestion des icones d'actions
+----------------------------
+
+Les icones d'actions ne sont plus gérées séparément des actions
+(disparition du tool portal_actionicons)
+
+Suppression du base_properties
+------------------------------
+
+Les css ne sont plus écrites en dtml, mais en text pur.
+
+Améliorations techniques
+========================
+
+Utilisation de Python 2.6 et Zope 2.12
+--------------------------------------
+
+Plone 2.5 et 3.x fonctionnaient sous Python 2.4.
+Python 2.6 est plus rapide et beaucoup moins gourmand en mémoire.
+
+Zope 2.12 est compatible avec la dernière version de la ZODB.
+Totalement eggifié, il est plus facile à déployer.
+
+Gestion des pièces jointes avec les blobs
+-----------------------------------------
+
+La ZODB gère maintenant les pièces jointes (images et fichier) de Plone
+dans des fichiers à part de la Data.fs, appelés 'blobs'.
+
+Cela limite l'impact des modifications de pièces jointes sur la taille des transactions :
+la zodb est plus rapide et grossit moins rapidement entre chaque pack.
+
+Refonte de l'outil de migration
+-------------------------------
+
+Plone utilise maintenant Generic Setup comme outil de migration.
+On a maintenant le même système de migration pour les produits externes et pour Plone lui-même
+
+JQuery Tools de base
+--------------------
+
+Le plugin JQuery Tools est inclus de base.
+
+Support de l'indexation des langues orientales
+----------------------------------------------
+
+Le moteur d'indexation plain texte gère maintenant les langues orientales.
+
+Les dossiers sont tous des BTree
+--------------------------------
+
+Il y avait auparavant deux types de dossiers : Folder et Large Folder,
+les seconds étant des BTree. Les Folder sont maintenant des BTree et les Large Folder ont été retirés.
 
 Migration de Plone 3.3 vers Plone 4
 ===================================
 
-Plone 4 apporte quelques changements radicals. Il vous faut sans doute adapter
+Plone 4 apporte quelques changements radicaux. Il vous faudra sans doute adapter
 le code de vos produits.
 Il existe une `documentation pour vous y aider <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0>`__.
