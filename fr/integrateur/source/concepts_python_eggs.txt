@@ -24,30 +24,79 @@ Savoir
 - installation via :command:`easy_install`
 - entry points et plugins (:command:`paster` utilise ce mécanisme de plugins)
 
-Dans ce qui suit, je considère que vous êtes sous Ubuntu ou Debian avec les
-packages suivants d'installés :
+
+Installation de Python et Distribute
+====================================
+
+Dans ce qui suit, je considère que vous êtes sous Ubuntu ou Debian et que vous
+souhaitez travailler sur Plone 4 qui requiert Python 2.6. Si vous voulez
+installer un Plone 3, il vous faudra Python 2.4, dans ce cas, remplacez 2.6
+par 2.4 dans les instructions suivantes.
+
+Installez les packages suivants :
 
 .. code-block:: sh
 
-   $ sudo apt-get install python2.4 python2.4-dev
+   $ sudo apt-get install build-essential python2.6 python2.6-dev
 
-Sous Ubuntu :
+Le meta-paquet *build-essential* vous installera tout ce qu'il faut
+(compilateur gcc, make, etc.) pour compiler certains modules Python.
+Si par la suite vous avez une erreur disant que le fichier :file:`Python.h`
+ne peut être trouvé, c'est très probablement que vous n'avez
+pas le paquet *python2.6-dev* d'installé.
+
+Sous Ubuntu, installez le gestionnaire de paquets :mod:`distribute` comme ceci :
 
 .. code-block:: sh
 
    $ wget http://python-distribute.org/distribute_setup.py
    $ sudo python distribute_setup.py
 
-Sous Windows, installez Python 2.4 via le *msi installer* et installez
-:mod:`distribute` de la manière suivante :
+Si vous voulez être sûr de la version de Python que vous utilisez, vous pouvez
+vérifier la version comme ceci :
+
+.. code-block:: sh
+
+    $ python --version
+    Python 2.6.4
+
+Et savoir exactement où il se trouve comme ceci :
+
+.. code-block:: sh
+
+    $ which python
+    /usr/bin/python
+
+Ce python est en fait un lien symbolique ici vers python2.6, comme on peut le voir :
+
+.. code-block:: sh
+
+    $ ls -l /usr/bin/python
+    lrwxrwxrwx 1 root root 9 2009-11-07 17:08 /usr/bin/python -> python2.6
+
+À tout moment, vous pouvez exécuter ces commandes pour savoir quel Python
+vous utilisez réellement.
+
+Après l'installation de `distribute`, la commande :command:`easy_install` 
+est disponible pour installer de nouveaux eggs pour Python 2.6.
+
+Windows
+-------
+
+Sous Windows, installez Python (2.4 pour Plone 3, 2.6 pour Plone 4) via le *msi installer*
+et installez :mod:`distribute` de la manière suivante :
 
 - téléchargez http://python-distribute.org/distribute_setup.py
 
 - ajoutez à votre variable d'environnement :envvar:`PATH` le répertoire
   d'installation de Python (par défaut *C:\\Python24*) ainsi que le répertoire
   des scripts exécutables (par défaut *C:\\Python24\\Scripts*)
+  (remplacez par Python26 le cas échéant)
 
 - exécutez ``python distribute_setup.py``
+
+Mac OSX
+-------
 
 Sous Mac OSX, installez Python 2.4 soit avec le bundle Python 2.4 *.dmg* proposé
 en téléchargement, soit en utilisant `MacPorts <http://www.macports.org/>`_,
@@ -59,10 +108,10 @@ Packaging Python
 Un package Python peut être distribué sous la forme d'une simple archive (zip ou
 tar.gz).
 
-Python inclu la librairie `disutils`_ afin de réaliser ces distributions, mais
-celle-ci ne gère pas les dépendances entre packages. :mod:`distribute` est un
-fork de :mod:`setuptools`, une extension à :mod:`disutils` qui ajoute de
-nombreuses fonctionnalités :
+Python inclu la librairie `distutils`_ afin de réaliser ces distributions source,
+mais celle-ci ne gère pas les dépendances entre packages.
+:mod:`distribute` est un fork de :mod:`setuptools`, une extension à
+:mod:`distutils` qui ajoute de nombreuses fonctionnalités :
 
 - dépendances (metadata install_requires)
 - distribution binaire, egg
@@ -78,17 +127,21 @@ d'installer un package donné :
 Il y a également `pip`_ qui lui propose un moyen alternatif à
 :command:`easy_install` pour installer un package.
 
-`Tarek Ziadé s'occupe de faire évoluer`_ le module disutils pour améliorer l'expérience du packaging Python :
+
+`Tarek Ziadé`_ et d'autres personnes travaillent sur l'amélioration de la gestion
+des packages Python avec le nouveau package `distutils2 <http://pypi.python.org/pypi/Distutils2>`_
+qui remplacera :mod:`distutils` et :mod:`distribute`.
 
 - implémentation d'une fonctionnalité de désinstallation d'un package
 - ajout du metadata install_requires (entre autres) pour décrire les
   dépendances, mais la gestion des dépendances se fera toujours avec une
   commande tierce.
 
+Vous pouvez lire le `billet de Tarek <http://tarekziade.wordpress.com/2009/05/10/distutils-state/>`_
+et les PEPs associés si vous êtes intéressé sur le sujet.
 
-.. _`Tarek Ziadé s'occupe de faire évoluer`: http://tarekziade.wordpress.com/2009/05/10/distutils-state/
-
-.. _`disutils`: http://docs.python.org/library/distutils.html
+.. _`Tarek Ziadé`: http://tarekziade.wordpress.com
+.. _`distutils`: http://docs.python.org/library/distutils.html
 .. _`pip`: http://pypi.python.org/pypi/pip
 .. _`distribute`: http://pypi.python.org/pypi/distribute
 
@@ -97,7 +150,7 @@ Installation d'un egg
 
 La communauté Python possède un dépôt central où sont stockés tous les packages
 Python, c'est le :term:`Pypi` (Python Package Index), connu autrefois sous le
-nom de Cheese Shop.  Son adresse : http://pypi.python.org/pypi
+nom de Cheese Shop. Son adresse : http://pypi.python.org/pypi
 
 Lorsque vous installez un package Python via :command:`easy_install`, c'est sur
 cet index que le package est recherché.
@@ -107,17 +160,17 @@ En effet l'index par défaut est l'URL suivante : http://pypi.python.org/simple
 Exécutez :command:`easy_install PIL`, voici ce qui est exactement fait :
 
 - connexion à l'index http://pypi.python.org/simple
-- recherche de zope.interface dans la liste des liens, si lien trouvé, on suit
-  le lien
+- recherche de PIL dans la liste des liens, si un lien est trouvé, il est
+  suivi
 - nous arrivons donc sur http://pypi.python.org/simple/PIL/ Cette page contient
-  une liste d'url où l'on peut télécharger directement l'egg, mais également
-  tous les urls contenus dans la description longue du egg.
-- la liste fournie sur cette page est ensuite filtré de la manière suivante :
+  une liste d'urls où l'on peut télécharger directement l'egg, mais également
+  toutes les urls contenues dans la description longue du egg.
+- la liste fournie sur cette page est ensuite filtrée de la manière suivante :
 
-  - on donne priorité au egg binaire (bdist egg) qu'à la distribution source
+  - on donne priorité au egg binaire (bdist) qu'à la distribution source
     (sdist)
 
-  - on garde les packages lié à l'OS, donc si on est sous Windows, les eggs
+  - on garde les packages liés à l'OS, donc si on est sous Windows, les eggs
     ayant win32 sont gardés
 
   - seul les eggs utilisant la version de Python qu'on est en train d'utiliser
@@ -129,7 +182,7 @@ Exécutez :command:`easy_install PIL`, voici ce qui est exactement fait :
   - il se peut qu'il n'y ait aucun lien direct vers un egg sur cette page, mais
     un lien vers une ou plusieurs urls où l'on peut les télécharger (liens
     contenus dans long_description ou via l'option :data:`download_url` précisé
-    lors de la création du egg).  Dans ce cas-là, les liens sont suivis pour
+    lors de la création du egg). Dans ce cas-là, les liens sont suivis pour
     aller chercher une liste des versions.
 
 Si le package n'a pas été trouvé sur l'index, alors on entame une nouvelle
@@ -140,14 +193,14 @@ par l'option :option:`-H/--allow-hosts`) :
 
    $ easy_install --find-links http://pkg.example.com/packages/ monpackage
 
-Vous pouvez par exemple autoriser seulement les connections vers votre intranet
+Vous pouvez par exemple autoriser seulement les connexions vers votre intranet
 et pypi :
 
 .. code-block:: sh
 
    $ easy_install -H *.myintranet.example.com,*.python.org zope.interface
 
-L'option =option:`-H/--allow-hosts` permet aussi par exemple d'installer un
+L'option :option:`-H/--allow-hosts` permet aussi par exemple d'installer un
 package sans le réseau, en interdissant toutes les URLs et en spécifiant un
 dossier :file:`somedir` où aller chercher le package :mod:`SomePackage` :
 
@@ -200,7 +253,7 @@ Création d'un environnement isolé avec virtualenv
 Il est fréquent de vouloir tester plusieurs versions d'un framework. Admettons
 que vous ayez zope 3.4 installé globalement, comment pouvez-vous tester zope 3.5
 sans que votre installation de zope 3.4 interfère ? La solution est de créer une
-environnement isolé avec `virtualenv`_
+environnement isolé avec `virtualenv`_.
 
 Lisez le `tutoriel virtualenv sur grok.zope.org`_ pour savoir comment
 l'installer et l'utiliser. Revenez ici lorsque c'est fait.
@@ -272,10 +325,10 @@ Entrons dans le dossier et activons l'environnement :
    $ cd myenv/
    $ source bin/activate
 
-Le prompt indique que votre environnement est actif.  Jetez un œil au source du
-fichier activate, il n'y a rien de magique la dedans, il change seulement la
+Le prompt indique que votre environnement est actif. Jetez un œil au source du
+fichier :file:`bin/activate`, il n'y a rien de magique là dedans, il change seulement la
 variable d'environnement :envvar:`PATH` pour y inclure au début le dossier
-:file:`myenv/bin`.  La partie essentielle de ce script est :
+:file:`myenv/bin`. La partie essentielle de ce script est :
 
 .. code-block:: sh
 
@@ -320,8 +373,8 @@ Maintenant regardons le sys.path :
    '/var/lib/python-support/python2.4/gtk-2.0']
 
 Vous voyez que les chemins vers les dossiers globaux sont toujours inclus mais
-que les premiers sont ceux de notre environnement.  En effet vous pouvez
-utiliser la librairie PIL qui est installé globalement :
+que les premiers sont ceux de notre environnement. En effet vous pouvez
+utiliser la bibliothèque PIL qui est installé globalement :
 
 .. code-block:: pycon
 
@@ -430,11 +483,11 @@ eggs zippés :
     -rw-r--r-- 1 vincentfretin vincentfretin     29 2009-05-25 11:34 setuptools.pth
 
 Tous les eggs ne sont pas installés zippés. C'est le mainteneur du package qui
-décide si son egg est zipe-safe ou non.  Un package n'est par exemple pas
-zipe-safe s'il utilise la variable spéciale :data:`__file__` dans son code.
+décide si son egg est "zip safe" ou non.  Un package n'est par exemple pas
+zip safe s'il utilise la variable spéciale :data:`__file__` dans son code.
 
 Vous vous demandez à quoi sert ces fichiers :file:`setuptools.pth` et
-:file:`easy-install.pth` n'est-ce pas ?  Un petit rappel Python va vous faire du
+:file:`easy-install.pth` n'est-ce pas ? Un petit rappel Python va vous faire du
 bien alors.
 
 Que contient ces fichiers :file:`{xyz}.pth` (pour path) ? Comme son extension le
@@ -471,20 +524,23 @@ packages éventuellement installés.
 Suppression d'un egg
 --------------------
 
-Il n'y a pas de commande uninstall pour désinstaller un egg. Une implémentation
-est en cours pour inclusion dans Python 2.7.
+Il n'y a pas de commande uninstall pour désinstaller un egg.
+Une implémentation est en cours dans distutils2.
 
-Avec les versions de Python inférieurs à 2.7, il faut donc désinstaller
-manuellement et là il faut savoir ce que l'on fait.
+Pour le moment, il faut donc désinstaller manuellement et là il faut
+savoir ce que l'on fait.
 
-La première chose qui vient à l'esprit est de supprimer le egg du site-packages, c'est très bien mais cela ne suffit pas comme nous allons le voir.
+La première chose qui vient à l'esprit est de supprimer le egg du
+site-packages. C'est très bien mais cela ne suffit pas comme nous allons
+le voir.
 
 Nous allons désinstaller Fabric pour l'installer d'une autre manière.  Nous
 allons profiter de cette désintallation pour revenir sur le fichier
 :file:`{xyz}.pth`.
 
-Notez bien que nous avons dans le :data:`sys.path` :mod:`setuptools`, Fabric et
-paramiko, dans le même ordre que listé dans :file:`easy-install.pth` :
+Notez bien que nous avons dans le :data:`sys.path` :mod:`setuptools`,
+Fabric et paramiko, dans le même ordre que listé dans
+:file:`easy-install.pth` :
 
 .. code-block:: sh
 
@@ -510,10 +566,10 @@ Maintenant supprimons le egg de Fabric :
 
     (myenv25)vincentfretin@lelouch:~/myenv25$ rm lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg
 
-Mais nous n'avons pas supprimé l'entrée dans :file:`easy-install.pth`.  Allons
-nous encore avoir
+Mais nous n'avons pas supprimé l'entrée dans :file:`easy-install.pth`.
+Allons nous encore avoir
 :file:`/home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg`
-dans le :data:`sys.path` ?  Voyons voir :
+dans le :data:`sys.path` ? Voyons voir :
 
 .. code-block:: sh
 
@@ -533,7 +589,7 @@ dans le :data:`sys.path` ?  Voyons voir :
    '/home/vincentfretin/myenv25/lib/python2.5/site-packages/pycrypto-2.0.1-py2.5-linux-x86_64.egg',
    '/home/vincentfretin/myenv25/lib/python2.5', ...]
 
-Et bien non, Python n'a trouvé aucun package Python dans
+Et bien non, Python n'a trouvé aucun package Python
 :file:`./Fabric-0.9a3-py2.5.egg` qui n'existe plus, il ne l'a donc pas ajouté
 dans le sys.path.
 
@@ -549,9 +605,9 @@ Methode "originelle" pour installer un package
 ----------------------------------------------
 
 :command:`easy_install` fait partie du package :mod:`distribute` /
-:mod:`setuptools`.  Si :mod:`distribute` ou :mod:`setuptools` n'est pas
+:mod:`setuptools`. Si :mod:`distribute` ou :mod:`setuptools` n'est pas
 disponible dans votre environnement, on peut très bien installer un package en
-l'extrayant et exécutant la commande :command:`install` :
+l'extrayant et exécutant la commande :command:`python setup.py install` :
 
 .. code-block:: sh
 
@@ -585,7 +641,7 @@ Installez le package :
 :file:`/usr/local/bin/virtualenvwrapper.sh`.
 
 Sur Ubuntu, j'ai l'habitude de décommenter dans :file:`~/.bashrc` les 3 lignes
-concernant l'inclusion de :file:`~/.bash_aliases`.  Je met ensuite dans ce
+concernant l'inclusion de :file:`~/.bash_aliases`. Je met ensuite dans ce
 fichier tous les alias et autres variables d'environnement que je veux.  Ici
 nous voulons ces deux lignes :
 
@@ -653,7 +709,7 @@ Pour lister les templates disponibles :
 
 Il n'y a pas beaucoup de templates par défaut.
 
-Installez le egg :mod:`ZopeSkel` qui fournit divers templates et reéxécutez la
+Installez le egg :mod:`ZopeSkel` qui fournit divers templates et reexécutez la
 commande :
 
 .. code-block:: sh
@@ -798,10 +854,10 @@ La première chose a laquelle vous pensez est de faire :command:`python setup.py
 install` et vous avez raison !
 
 Mais l'inconvénient dans ce cas-là est qu'à chaque fois que vous allez changer
-quelque chose à votre package, vous devrez rééxécuter cette commande.
+quelque chose à votre package, vous devrez reexécuter cette commande.
 
 Nous avons une commande :option:`develop`, qui est bien mieux pour installer un
-egg tout en le développant.  Faites donc ceci :
+egg tout en le développant. Faites donc ceci :
 
 .. code-block:: sh
 
@@ -1194,7 +1250,7 @@ Exécutez ensuite :
 - :option:`-r mycompany` précise d'enregistrer et de transfèrer sur le serveur
   mycompany (r pour repository dans doute).  Si cette option n'est pas précisée,
   c'est le serveur Pypi d'origine.
-- :option:`--formats=zip`, génère une archive au format zip.  Par défaut sous
+- :option:`--formats=zip`, génère une archive au format zip. Par défaut sous
   Linux, une archive tar.gz est générée, le module tarfile dans Python < 2.6
   semble avoir certains problèmes de lecture de ces archives.
 
