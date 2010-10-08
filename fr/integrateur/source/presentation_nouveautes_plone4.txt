@@ -90,6 +90,12 @@ Possibilité de masquer les portlets
 Un simple clic dans l'outil de management des portlets
 permet de masquer/afficher une portlet.
 
+Authentification par email
+--------------------------
+
+Plone 4 prévoit la possibilité d'autoriser l'authentification de l'utilisateur
+par son email plutôt que par son login.
+
 
 Amélioration de la customization du site
 ========================================
