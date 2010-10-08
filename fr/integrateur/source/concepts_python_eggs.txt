@@ -221,13 +221,14 @@ pourront être installés.
 
 Il est possible de changer l'index par défaut par lequel les eggs sont recherché
 via l'option :option:`-i/--index-url`.
+`Pypi possède des miroirs <http://pypi.python.org/mirrors>`_
 
 Voir aussi le projet pour créer et/ou utiliser des `miroirs de pypi`_.
 
 Si l'on veut utiliser un miroir ou un index privé par exemple. Nous traiterons
 le cas d'un index privé avec le produit `PloneSoftwareCenter`_ par la suite.
 
-.. _`miroirs de pypi`: http://www.openplans.org/projects/pypi-mirroring/project-home
+.. _`miroirs de pypi`: http://coactivate.org/projects/pypi-mirroring/project-home
 
 Télécharger un package sans l'installer
 ---------------------------------------
