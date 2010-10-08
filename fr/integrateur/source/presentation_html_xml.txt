@@ -10,36 +10,64 @@ Définition
 Comment sont composées les pages internet ?
 -------------------------------------------
 
-Les pages internet sont de simples documents texte dont certains mots sont interprétés par le navigateur pour insérer des images, mettre en forme le document comme par exemple créer des titres, proposer des liens, exécuter des scripts qui sont des suites d'instructions indiquant au navigateur ce qu'il doit faire, etc.
+Les pages internet sont de simples documents texte dont certains mots sont
+interprétés par le navigateur pour insérer des images, mettre en forme le
+document comme par exemple créer des titres, proposer des liens, exécuter des
+scripts qui sont des suites d'instructions indiquant au navigateur ce qu'il
+doit faire, etc.
 
-Lorsque on utilise un logiciel produisant du HTML, il ne fait qu'écrire un fichier texte mélangeant notre contenu avec les éléments du HTML.
+Lorsque on utilise un logiciel produisant du HTML, il ne fait qu'écrire un
+fichier texte mélangeant notre contenu avec les éléments du HTML.
 
 Rappel sur les bases HTML et XML
 --------------------------------
 
-Lorsqu'en 1989 Tim Berners-Lee créait le protocole HTTP, il créait aussi HTML (Hypertext Markup Language) qui est le format de données transmis par HTTP, il met aussi au point le mécanisme d'URL qui permet de localiser une ressource sur le web.
+Lorsqu'en 1989 Tim Berners-Lee créait le protocole HTTP, il créait aussi HTML
+(Hypertext Markup Language) qui est le format de données transmis par HTTP, il
+met aussi au point le mécanisme d'URL qui permet de localiser une ressource sur
+le web.
 
-Le format HTML est un format texte issu de SGML, dont la volonté est de séparer le fond de la forme.
+Le format HTML est un format texte issu de SGML, dont la volonté est de séparer
+le fond de la forme.
 
-Il permet de mettre en évidence les parties importantes d'un texte en les balisant. Pour cela, on encadre le texte avec un élément HTML qui se présente sous la forme ``<element attribut1="valeur1" attribut2="valeur2">texte</element>``.
+Il permet de mettre en évidence les parties importantes d'un texte en les
+balisant. Pour cela, on encadre le texte avec un élément HTML qui se présente
+sous la forme ``<element attribut1="valeur1"
+attribut2="valeur2">texte</element>``.
 
-Les différentes versions de HTML spécifient les noms des éléments et des attributs possibles.
+Les différentes versions de HTML spécifient les noms des éléments et des
+attributs possibles.
 
-HTML évolue continuellement, nous sommes à la version 4.1 et la version 5 est à l'étude.
+HTML évolue continuellement, nous sommes à la version 4.1 et la version 5 est à
+l'étude.
 
-Dès ses origines le langage de balise évolue par l'ajout des différents éditeurs de navigateur web.
+Dès ses origines le langage de balise évolue par l'ajout des différents
+éditeurs de navigateur web.
 
-Jusqu'en 1992, il n'existe aucune spécification du langage, et par convention on parle de HTML 1.0 pour désigner ce qui se faisait à l'époque. En 1993, Mosaic apporte les formulaires rendant ainsi le web interactif ainsi que l'affichage des images.
+Jusqu'en 1992, il n'existe aucune spécification du langage, et par convention
+on parle de HTML 1.0 pour désigner ce qui se faisait à l'époque. En 1993,
+Mosaic apporte les formulaires rendant ainsi le web interactif ainsi que
+l'affichage des images.
 
-En 1995 sort la version 2.0 de HTML, proposée par le W3C World Wide Web Consortium qui vient d'être créé.
+En 1995 sort la version 2.0 de HTML, proposée par le W3C World Wide Web
+Consortium qui vient d'être créé.
 
-En 1997 sort la version 3 puis la version 4.0 qui décrit le mécanisme des feuilles de styles CSS (Cascading Style Sheets). La version 4 est devenue la version la plus utilisée sur le web, les dernières corrections date de 1999 avec la version 4.1.
+En 1997 sort la version 3 puis la version 4.0 qui décrit le mécanisme des
+feuilles de styles CSS (Cascading Style Sheets). La version 4 est devenue la
+version la plus utilisée sur le web, les dernières corrections datent de 1999
+avec la version 4.1.
 
-XML à fait son apparition en 1998 avec la version 1.0, afin de rendre plus cohérent l'usage des éléments, il demande que chaque balise ouverte soit fermée, que les attributs aient toujours une valeur entre guillemets. En 2004 sort la version 1.1.
+XML a fait son apparition en 1998 avec la version 1.0, afin de rendre plus
+cohérent l'usage des éléments, il demande que chaque balise ouverte soit
+fermée, que les attributs aient toujours une valeur entre guillemets. En 2004
+sort la version 1.1.
 
-La version 2.0 de XHTML qui devait apporter XForms et XFrames a finalement été abandonnée en décembre 2009. Et HTML 5 a du coup été relancé.
+La version 2.0 de XHTML qui devait apporter XForms et XFrames a finalement été
+abandonnée en décembre 2009. Et HTML 5 a du coup été relancé.
 
-La grande force de XML est la possibilité d'enrichir facilement l'ensemble des balises existantes sans avoir à modifier les recommandations du w3c, contrairement à HTML.
+La grande force de XML est la possibilité d'enrichir facilement l'ensemble des
+balises existantes sans avoir à modifier les recommandations du w3c,
+contrairement à HTML.
 
 Savoir
 ======
@@ -49,12 +77,18 @@ Nous traiterons en priorité XHTML car c'est le format utilisé par Plone.
 Les nœuds
 ---------
 
-On peut représenter un texte XML ou HTML par une arborescence de nœuds contenant du texte et/ou d'autres nœuds, cela reviendrait à dire qu'un nœud est l'équivalent d'un répertoire ou d'un fichier en faisant le parallèle avec une arborescence de fichiers.
+On peut représenter un texte XML ou HTML par une arborescence de nœuds
+contenant du texte et/ou d'autres nœuds, cela reviendrait à dire qu'un nœud est
+l'équivalent d'un répertoire ou d'un fichier en faisant le parallèle avec une
+arborescence de fichiers.
 
 Les éléments
 ------------
 
-Chaque nœud ayant un nom est appelée un élément, il est composé d'une balise ouvrante commençant par un chevron ouvert ``<`` puis d'un nom ne contenant que des lettres, des chiffres ou des tirets bas, de zéro à plusieurs attributs séparés par des espaces, enfin la balise finie par un chevron fermé ``>``.
+Chaque nœud ayant un nom est appelée un élément, il est composé d'une balise
+ouvrante commençant par un chevron ouvert ``<`` puis d'un nom ne contenant que
+des lettres, des chiffres ou des tirets bas, de zéro à plusieurs attributs
+séparés par des espaces, enfin la balise finie par un chevron fermé ``>``.
 
 Exemple :
 
@@ -69,24 +103,32 @@ Exemple :
    <un_element_avec_un_attribut un_attribut="sa valeur"/>
  </un_element>
 
-Un élément doit obligatoirement être fermé soit par une balise portant le même nom mais précédé par ``/`` et ne pouvant contenir aucun attribut, soit par ``/`` avant le chevron de fermeture.
+Un élément doit obligatoirement être fermé soit par une balise portant le même
+nom mais précédé par ``/`` et ne pouvant contenir aucun attribut, soit par
+``/`` avant le chevron de fermeture.
 
 Les attributs
 -------------
 
-Un attribut est un couple nom-valeur écrit à l'intérieur de la déclaration d'une balise, qui permet de préciser l'élément qu'il qualifie.
+Un attribut est un couple nom-valeur écrit à l'intérieur de la déclaration
+d'une balise, qui permet de préciser l'élément qu'il qualifie.
 
 En XML la valeur est entre guillemets et peut être vide "" mais ne peux être nulle.
 
 Le texte
 --------
 
-Le texte dans XHTML est contenu par un élément et est en unicode par défaut, le jeu de caractère est celui de l'UTF-8 ce qui permet de traiter toutes les langues.
+Le texte dans XHTML est contenu par un élément et est en unicode par défaut, le
+jeu de caractère est celui de l'UTF-8 ce qui permet de traiter toutes les
+langues.
 
 Distinction entre HTML et XML
 -----------------------------
 
-HTML peut être vu comme un XML permissif car il autorise que les balises ne soient pas fermées, qu'une balise ouvrante soit fermée par une balise dont la casse du nom soit différente de celle ouvrante, que les éléments de style soient fortement mélangés au contenu.
+HTML peut être vu comme un XML permissif car il autorise que les balises ne
+soient pas fermées, qu'une balise ouvrante soit fermée par une balise dont la
+casse du nom soit différente de celle ouvrante, que les éléments de style
+soient fortement mélangés au contenu.
 
 XHTML doit respecter la forme suivante :
 
@@ -114,12 +156,15 @@ XHTML doit respecter la forme suivante :
 Le prologue
 -----------
 
-Le prologue est la première ligne d'un document HTML ou XHTML et a la forme ``<?xml version="1.0"?>``. Il permet de savoir si l'on a affaire à un document XML et si c'est le cas, de connaître la version applicable.
+Le prologue est la première ligne d'un document HTML ou XHTML et a la forme
+``<?xml version="1.0"?>``. Il permet de savoir si l'on a affaire à un document
+XML et si c'est le cas, de connaître la version applicable.
 
 Le doctype
 ----------
 
-Le doctype est généralement défini tout de suite après le prologue et permet de savoir quelle DTD les éléments non qualifiés doivent suivre.
+Le doctype est généralement défini tout de suite après le prologue et permet de
+savoir quelle DTD les éléments non qualifiés doivent suivre.
 
 Cas du HTML :
 
@@ -151,21 +196,29 @@ Cas du XHTML 1.1 :
 Les DTD et schémas
 ------------------
 
-Que ce soit HTML ou XHTML, chacun des deux langages est défini par une DTD (Document Type Définition) qui est une sorte de grammaire expliquant les combinaisons d'éléments et d'attributs possibles.
+Que ce soit HTML ou XHTML, chacun des deux langages est défini par une DTD
+(Document Type Définition) qui est une sorte de grammaire expliquant les
+combinaisons d'éléments et d'attributs possibles.
 
-XML permet d'utiliser des schémas à la place des DTD, qui ont l'avantage d'être en XML et de mieux détailler les éléments et attributs. Il y ainsi moins d'interprétations possible des spécifications.
+XML permet d'utiliser des schémas à la place des DTD, qui ont l'avantage d'être
+en XML et de mieux détailler les éléments et attributs. Il y a ainsi moins
+d'interprétations possibles des spécifications.
 
 Les documents bien formés
 -------------------------
 
-On dit d'un document XML qu'il est bien formé si chaque balise ouvrante a une balise fermante, si les attributs ont bien tous des valeurs au moins vide.
+On dit d'un document XML qu'il est bien formé si chaque balise ouvrante a une
+balise fermante, si les attributs ont bien tous des valeurs au moins vide.
 
 Les documents validés
 ---------------------
 
-Un document XML est validé lorsqu'il respecte l'organisation des éléments prévue par une DTD ou un schéma.
+Un document XML est validé lorsqu'il respecte l'organisation des éléments
+prévue par une DTD ou un schéma.
 
-La validation identifie la ou les DTD et Schémas à appliquer au document, va les chercher et vérifie que toutes les règles de construction décrite dedans sont respectées.
+La validation identifie la ou les DTD et Schémas à appliquer au document, va
+les chercher et vérifie que toutes les règles de construction décrite dedans
+sont respectées.
 
 Les commentaires
 ----------------
@@ -175,7 +228,10 @@ Les commentaires sont délimités par ``<!--`` et ``-->``.
 Les espaces de noms
 -------------------
 
-Pour permettre l'extension, XML a introduit la notion d'espace de nom, ainsi il est possible dans un élément de définir un espace de nom liant un préfixe d'élément à un schéma ou une DTD et donc de mélanger des éléments de natures différentes. Le format est ``xmlns:NomPrefixe="URL"``.
+Pour permettre l'extension, XML a introduit la notion d'espace de nom, ainsi il
+est possible dans un élément de définir un espace de nom liant un préfixe
+d'élément à un schéma ou une DTD et donc de mélanger des éléments de natures
+différentes. Le format est ``xmlns:NomPrefixe="URL"``.
 
 Exemple :
 
