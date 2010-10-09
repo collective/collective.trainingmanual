@@ -3,73 +3,19 @@
 .. _buildout_plone3:
 
 ==========================================
-Création d'un buildout Plone 3 avec paster
+Création d'un buildout Plone avec ZopeSkel
 ==========================================
 
 .. contents:: :local:
 
-Installation de Plone
-=====================
+.. note::
 
-Note à propos des combinaisons de versions de Plone, Python et Zope :
+    Ce chapitre utilise un dépôt subversion créé dans le chapitre
+    `La gestion des sources avec subversion
+    <http://docs.ecreall.com/developpeur/gestion_des_sources.html>`__
 
-- Plone 3.3 utilise Python 2.4, Zope 2.10. Python 2.5 et 2.6 ne sont pas supportés.
-
-- Plone 4 utilise Python 2.6 et Zope 2.12.
-
-Ubuntu ou Debian
-----------------
-
-Installez tout d'abord quelques packages de développement qui seront nécessaires
-pour compiler PIL (Imaging) et python-libxml2 :
-
-.. code-block:: sh
-
-    $ apt-get install libxml2-dev libjpeg62-dev libfreetype6-dev zlib1g-dev
-
-- libxml2-dev pour compiler python-libxml2
-- libjpeg62-dev libfreetype6-dev zlib1g-dev pour compiler PIL
-
-Dans Ubuntu Jaunty Jackalope 9.04 et suivants, les versions de Python installés
-par défaut sont 2.5 et 2.6.
-
-Et les packages python-imaging et python-libxml2 de la distribution ne sont
-compilés que pour ces versions.
-
-Il n'y a donc plus de support de ces packages pour Python 2.4.  C'est pourquoi
-ces deux bibliothèques seront compilées à partir du buildout.
-
-`Voir le billet de Maurits van Rees à ce sujet`_
-
-.. _`Voir le billet de Maurits van Rees à ce sujet`: http://maurits.vanrees.org/weblog/archive/2009/03/using-ubuntu-9-04-beta
-
-Windows
--------
-
-Des installeurs pour PIL et votre version de Python sont disponibles ici : http://www.pythonware.com/products/pil/
-
-Des installeurs pour les bindings Python libxml2 et libxslt pré-compilés sont mis à votre disposition ici : http://users.skynet.be/sbi/libxml-python/
-
-Mac OSX
--------
-
-Si vous avez installé Python avec MacPorts, pas de problème :
-
-.. code-block:: sh
-
-   $ sudo port install py-pil
-   $ sudo port install py-libxml2
-   $ sudo port install py-libxslt
-
-Autrement, vous pouvez trouver une version pré-compilée statique de PIL ici :
-http://pythonmac.org/packages/py25-fat/index.html
-
-Et vous devrez compilez les binders libxml2 et libxslt ceci sur votre poste
-comme indiqué ici : http://jamesclarke.net/notes/libxml2
-
-
-Installer via buildout généré par ZopeSkel
-==========================================
+Création du buildout
+====================
 
 Créez les répertoires buildouts et packages sur le dépôt subversion :
 
@@ -258,33 +204,6 @@ Démarrez l'instance avec ``bin/instance fg`` et connectez vous à http://localh
 
 Créez un Plone Site.
 
-Installation via l'Unified Installer
-====================================
-
-Commandes :
-
-.. code-block:: sh
-
-    $ wget http://launchpad.net/plone/3.3/3.3.X/+download/Plone-3.3.X-UnifiedInstaller.tgz
-    $ tar xvzf Plone-3.3rc3-UnifiedInstaller.tgz
-    $ cd Plone-3.3rc3-UnifiedInstaller
-    $ ./install.sh --with-python=/usr/bin/python2.4 standalone
-    $ cd ~/Plone/zinstance
-    $ bin/plonectl start
-
-Le mode standalone crée une seule instance.  Vous pouvez remplacer
-``standalone`` par ``zeo`` pour créer deux clients avec un zeoserver.
-
-Si vous lancez le script en root, il créera un utilisateur plone et installera
-Python, Zope et Plone dans :file:`/usr/local/Plone`.  Python ne sera pas compilé
-si vous utilisez l'option :option:`--with-python`.
-
-Pour plus d'informations, lisez le fichier README.txt dans l'archive et la
-documentation `Installing Plone 3 with the Unified Installer`_ sur plone.org
-
-.. _`Installing Plone 3 with the Unified Installer`: http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer
-
-
 Installation de produits tierces
 ================================
 
@@ -302,7 +221,6 @@ il faut également l'ajouter dans l'option zcml.
 zcml seront inclus grâce à :mod:`z3c.autoinclude`.
 
 .. _`FCKeditor`: http://pypi.python.org/pypi/Products.FCKeditor
-
 
 Création d'un policy product contenant la configuration du site Plone
 =====================================================================

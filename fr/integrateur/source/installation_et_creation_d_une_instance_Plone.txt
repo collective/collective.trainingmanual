@@ -8,13 +8,9 @@ Installation et création d'une instance Plone
 
 .. contents:: :local:
 
-Définition
-==========
-
-Quatre types d'installation sont possibles, soit ex-nihilo, soit en
+Plusieurs types d'installation sont possibles, soit en
 utilisant un "template" de configuration, soit en utilisant un
-:term:`unified installer`, soit en utilisant une archive contenant les binaires
-compilés.
+:term:`unified installer`.
 
 Savoir
 ======
@@ -24,42 +20,16 @@ la compilation de Zope.
 
 Plone est disponible en plusieurs versions et selon différents modes.
 
-L'installation from scratch
----------------------------
+Note à propos des combinaisons de versions de Plone, Python et Zope :
 
-Ce mode d'installation et devenu complètement obsolète mais on trouve encore de
-la littérature qui en parle ou certaines personnes qui procèdent ainsi.
+- Plone 3.3 utilise Python 2.4, Zope 2.10. Python 2.5 et 2.6 ne sont pas supportés.
 
-Elle consiste à installer la version de Python correspondant à la version de
-Zope/Plone que nous allons utiliser.
+- Plone 4 utilise Python 2.6 et Zope 2.12.
 
-Ensuite, on récupère Zope à partir du dépôt subversion en choisissant une
-branche (les sources d'une version à instant donné) qui soit compatible avec la
-version de Plone que nous voulons installer.
+- Plone 4.1 utilise Zope 2.13, Python 2.7 est supporté.
 
-Il faut compiler Zope pour que les parties optimisées en C soient exécutables.
-
-Il est indispensable de vérifier que Zope fonctionne en le lançant, en se
-connectant dessus, et en vérifiant les logs.
-
-Une fois Zope opérationnel, on peut aller chercher le code source de la version
-de Plone voulue depuis le dépôt subversion. Il faut alors les mettre dans le
-répertoire des produits de Zope.
-
-En lisant le fichier README de Plone on peut voir les bibliothèques dont il
-dépend, il faut alors les installer.
-
-Une fois l'ensemble des bibliothèques installées, on redémarre Zope pour qu'il
-prenne en compte le produit Plone.
-
-Si tout va bien il est alors possible dans la ZMI de Zope de créer une instance
-de Plone Site.
-
-Nous ne verrons pas plus de détail sur ce mode d'installation car il est
-remplacé par l'usage de "buildout".
-
-L'installation via "unified installer"
---------------------------------------
+Installation via l'Unified Installer
+------------------------------------
 
 C'est la solution la plus simple.
 
@@ -71,22 +41,40 @@ Il contient aussi un script d'installation qui permet de configurer Plone.
 Il contient le mécanisme :term:`buildout` qui permettra de facilement modifier
 la configuration de Plone pour ajouter des modules tierces.
 
-Il est très utilisé par la communauté Zope/Plone et sera détaillé dans l'un des
-chapitres suivants.
-
 Pour l'installer, il suffit de récupérer le paquet sur
 `http://plone.org/products/plone` et d'exécuter ou d'extraire le paquet selon
 sa plateforme.
 
-L'inconvénient est que les paquets :term:`unified installer` sont réalisés pour
+Commandes à exécuter :
+
+.. code-block:: sh
+
+    $ wget http://launchpad.net/plone/3.3/3.3.X/+download/Plone-3.3.X-UnifiedInstaller.tgz
+    $ tar xvzf Plone-3.3rc3-UnifiedInstaller.tgz
+    $ cd Plone-3.3rc3-UnifiedInstaller
+    $ ./install.sh --with-python=/usr/bin/python2.4 standalone
+    $ cd ~/Plone/zinstance
+    $ bin/plonectl start
+
+Le mode standalone crée une seule instance.  Vous pouvez remplacer
+``standalone`` par ``zeo`` pour créer deux clients avec un zeoserver.
+
+Si vous lancez le script en root, il créera un utilisateur plone et installera
+Python, Zope et Plone dans :file:`/usr/local/Plone`. Python ne sera pas compilé
+si vous utilisez l'option :option:`--with-python`.
+
+Pour plus d'informations, lisez le fichier README.txt dans l'archive et la
+documentation `Installing Plone 3 with the Unified Installer`_ sur plone.org
+
+.. _`Installing Plone 3 with the Unified Installer`: http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer
+
+L'inconvénient de cette solution est que les paquets
+:term:`unified installer` sont réalisés pour
 les versions stables ou beta de Plone. Les impatients doivent suivre la
 procédure d'installation par buildout.
 
-L'installation via un template buildout
----------------------------------------
-
-Cette section est une mise à jour pour Plone 4 et une francisation de
-http://plone.org/documentation/kb/using-buildout-on-windows
+Installation via un template buildout
+-------------------------------------
 
 :term:`Buildout` est un outil qui permet de créer et déployer des
 configurations de projets Python.
@@ -104,8 +92,39 @@ construire.
 L'intérêt de cette méthode est de permettre l'installation de version en cours
 de développement ou en vue d'automatiser le déploiement sur plusieurs serveurs.
 
+Installation sous Ubuntu/Debian
++++++++++++++++++++++++++++++++
+
+Installez tout d'abord quelques packages de développement qui seront nécessaires
+pour compiler PIL (Imaging) et python-libxml2 :
+
+.. code-block:: sh
+
+    $ apt-get install libxml2-dev libjpeg62-dev libfreetype6-dev zlib1g-dev
+
+- libxml2-dev pour compiler python-libxml2
+- libjpeg62-dev libfreetype6-dev zlib1g-dev pour compiler PIL
+
+Dans Ubuntu Jaunty Jackalope 9.04 et suivants, les versions de Python installés
+par défaut sont 2.5 et 2.6.
+
+Et les packages python-imaging et python-libxml2 de la distribution ne sont
+compilés que pour ces versions.
+
+Il n'y a donc plus de support de ces packages pour Python 2.4. C'est pourquoi
+ces deux bibliothèques seront compilées à partir du buildout.
+
+`Voir le billet de Maurits van Rees à ce sujet`_
+
+.. _`Voir le billet de Maurits van Rees à ce sujet`: http://maurits.vanrees.org/weblog/archive/2009/03/using-ubuntu-9-04-beta
+
+Continuez sur le chapitre :ref:`buildout_plone3`.
+
 Installation sur Windows
 ++++++++++++++++++++++++
+
+Cette section est une mise à jour pour Plone 4 et une francisation de
+http://plone.org/documentation/kb/using-buildout-on-windows
 
 Beaucoup de données vont être téléchargées vous devez donc avoir une connexion
 rapide.
@@ -160,6 +179,9 @@ automatiquement associer la commande :command:`python` à l'environnement :
 
   http://effbot.org/downloads/PIL-1.1.7.win32-py2.6.exe
 
+Des installeurs pour PIL et votre version de Python sont disponibles ici : http://www.pythonware.com/products/pil/
+
+Des installeurs pour les bindings Python libxml2 et libxslt pré-compilés sont mis à votre disposition ici : http://users.skynet.be/sbi/libxml-python/
 
 .. figure:: ModificationDuPath.jpg
     :align: center
@@ -381,6 +403,26 @@ voulu dans le fichier :file:`buildout.cfg` à la section :term:`eggs`.
 En lançant la commande :command:`bin\\buildout.exe`, le egg sera téléchargé, et
 au prochain démarrage de Plone, il y sera accessible dans la liste des modules
 du menu de configuration de Plone.
+
+Installation sous Mac OSX
++++++++++++++++++++++++++
+
+Sous Mac OSX, installez Python 2.4 soit avec le bundle Python 2.4 *.dmg* proposé
+en téléchargement, soit en utilisant `MacPorts <http://www.macports.org/>`__,
+
+Si vous avez installé Python avec MacPorts, pas de problème :
+
+.. code-block:: sh
+
+   $ sudo port install py-pil
+   $ sudo port install py-libxml2
+   $ sudo port install py-libxslt
+
+Autrement, vous pouvez trouver une version pré-compilée statique de PIL ici :
+http://pythonmac.org/packages/py25-fat/index.html
+
+Et vous devrez compilez les binders libxml2 et libxslt ceci sur votre poste
+comme indiqué ici : http://jamesclarke.net/notes/libxml2
 
 Exercice
 ========

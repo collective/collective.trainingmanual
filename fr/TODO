@@ -1,6 +1,3 @@
-- nouveautés Plone 4 (rôles globaux sur groupes imbriqués)
-- utilisation de zest.releaser, tagger le buildout, svn switch en prod
-
 outils :
 pyflakes
 pep8 --repeat

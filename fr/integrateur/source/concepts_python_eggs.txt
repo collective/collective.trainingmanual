@@ -81,28 +81,6 @@ vous utilisez réellement.
 Après l'installation de `distribute`, la commande :command:`easy_install` 
 est disponible pour installer de nouveaux eggs pour Python 2.6.
 
-Windows
--------
-
-Sous Windows, installez Python (2.4 pour Plone 3, 2.6 pour Plone 4) via le *msi installer*
-et installez :mod:`distribute` de la manière suivante :
-
-- téléchargez http://python-distribute.org/distribute_setup.py
-
-- ajoutez à votre variable d'environnement :envvar:`PATH` le répertoire
-  d'installation de Python (par défaut *C:\\Python24*) ainsi que le répertoire
-  des scripts exécutables (par défaut *C:\\Python24\\Scripts*)
-  (remplacez par Python26 le cas échéant)
-
-- exécutez ``python distribute_setup.py``
-
-Mac OSX
--------
-
-Sous Mac OSX, installez Python 2.4 soit avec le bundle Python 2.4 *.dmg* proposé
-en téléchargement, soit en utilisant `MacPorts <http://www.macports.org/>`_,
-puis procédez comme sous Ubuntu ou Debian.
-
 Packaging Python
 ================
 
@@ -1361,3 +1339,8 @@ release.
 
 .. _`PloneSoftwareCenter`: http://pypi.python.org/pypi/Products.PloneSoftwareCenter
 .. _`collective.dist`: http://pypi.python.org/pypi/collective.dist
+
+
+Outils
+------
+.. todo:: utilisation de zest.releaser
