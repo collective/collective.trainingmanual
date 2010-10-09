@@ -19,7 +19,7 @@ Plone 4 est, à la date de sa sortie l'une des plates-formes open-source CMS les
 Cela est dû à la fois à un effort majeur sur l'optimisation du code de Plone,
 qu'au passage à python 2.6 plus rapide et moins gourmand que python 2.4.
 
-`http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances`_
+http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances
 
 Thème
 =====
