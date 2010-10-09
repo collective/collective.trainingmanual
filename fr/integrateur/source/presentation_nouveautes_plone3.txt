@@ -30,7 +30,7 @@ Support des copies de travail
 `Working Copy support
 <http://plone.org/products/plone/features/3.0/new/working-copy-support>`__
 
-Installez le produit "Working Copy Support (Iterate)" via "Configuration du site
+Installez le produit "Support des copies de travail (Iterate)" via "Configuration du site
 -> Produits d'extension".
 
 Vous avez maintenant une nouvelle action "Créer un brouillon" accessible sur
