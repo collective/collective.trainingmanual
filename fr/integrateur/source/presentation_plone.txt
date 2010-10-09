@@ -1,0 +1,595 @@
+.. -*- coding: utf-8 -*-
+
+.. _presentation_plone
+
+=====================
+Présentation de Plone
+=====================
+
+Les besoins
+===========
+
+Plone permet de satisfaire les besoins d'espaces collaboratifs pour organiser,
+partager et diffuser des informations et des documents.
+
+Il permet de centraliser et référencer l’information pour l’utilisateur via une
+interface web intuitive.
+
+Il fournit une vitrine et un outil d’animation.
+
+Nous montrerons comment le CMS open source Plone répond aux exigences fortes que sont :
+
+ * Un usage simple et ergonomique pour l’utilisateur.
+ * Un fort niveau de paramétrage pour l’administrateur.
+
+Pourquoi Plone
+==============
+
+Plone est une solution open source multiplateforme, performante, stable et sûre
+qui existe depuis 2001.
+
+Le CMS Plone évolue constamment sans perte de compatibilité. Il est maintenu
+par une communauté de sociétés qui en assure la pérennité et l'adéquation avec
+le besoin des clients.
+
+En France on trouve pas moins de 11 sociétés spécialisées réalisant en support
+expert sur cette technologie sur les 336 sociétés mondiales réparties sur 62
+pays (C.f.  ).
+
+Centralisation des documents
+============================
+
+Le portail collaboratif Plone est un un espace unique où trouver et échanger
+des informations.  Il se présente sous la forme d'un site internet accessible
+en intranet comme en extranet.
+
+Le fonctionnement client-serveur d'internet offre naturellement la
+centralisation voulue.
+
+Les utilisateurs saisissent l'URL du portail depuis leur navigateur internet,
+s'authentifient, et accèdent alors aux documents de l'entreprise.
+
+Édition des contenus
+====================
+
+L'édition des contenus se fait par une étape de création, suivie
+automatiquement d'une édition, d'un enregistrement puis éventuellement d'un
+changement d'état.
+
+L'utilisateur se place dans une partie de l'arborescence du site en utilisant
+la navigation.
+
+S'il en a les droits il peut alors ajouter un contenu qui peut être un
+document, d'événement, de répertoire, de fichier ou tout type créé
+spécifiquement, etc.
+
+.. figure:: presentation_plone_images/picture_12.png
+   :align: center
+
+   Exemple de navigation
+
+Une fois placé à l'endroit voulu dans l'arborescence, l'utilisateur choisit le
+type d'élément voulu dans le menu "Ajout d'un élément".
+
+.. figure:: presentation_plone_images/picture_14.png
+
+   Ajout d'un élément
+
+Une page sur l'édition du nouveau document s'ouvre et l'on peut saisir le
+contenu du document :
+
+.. figure:: presentation_plone_images/picture_10.png
+
+   Création d'un document
+
+Le portail vérifie les saisies lorsqu'on passe d'un champ à l'autre.
+
+Une fois la saisie réalisée, il suffit de cliquer sur le bouton "Enregistrer".
+
+Tant que l'enregistrement n'est pas fait le nouveau contenu est en mode
+brouillon, c'est-à-dire qu'il n'est pas réellement ajouté à l'arborescence.
+
+L'édition des contenus se fait par l'intermédiaire de formulaires propres à
+chaque type.
+
+.. figure:: presentation_plone_images/picture_17.png
+
+   Exemple d'édition d'un document
+
+On peut remarquer dans cette capture l'éditeur en ligne qui permet une mise en
+forme riche avec création de titre, changement de police, de couleur, insertion
+de listes numérotées, d'images pouvant être retaillées...
+
+De nombreuses fonctionnalités de cet éditeur peuvent être paramétrées par
+l'administrateur (boutons disponibles, etc)
+
+Chaque type de document possède une liste de méta-informations telles que
+l’auteur, la date de création, la date de publication, la date de retrait du
+document, etc.
+
+Il est à noter que toutes les méta-informations sont remplies par défaut avec
+les valeurs issues du contexte.
+
+.. figure:: presentation_plone_images/picture_16.png
+
+   Association de mots clés aux documents
+
+L'édition des méta-informations se fait par clic sur l'onglet voulu, ici nous
+avons appuyé sur "Catégorisation".
+
+Pour ajouter de nouveaux mots-clés, il suffit lorsqu'on a les droits de les
+entrer dans l'encart "Nouveaux mots-clés".
+
+.. figure:: presentation_plone_images/picture_5.png
+
+   Date de publication d'un document
+
+L'onglet date permet de préciser la période de publication d'un élément. Ici le
+document sera visible entre le 16 juin 2010 et le 30 juillet.
+
+.. figure:: presentation_plone_images/picture_15.png
+
+   Propriété d'un élément
+
+L'onglet propriété permet de gérer les notions de droit d'auteur.
+
+.. figure:: presentation_plone_images/picture_7.png
+
+   Paramètres d'un document 
+
+L'onglet paramètres permet de préciser comment le document sera visible dans
+l'arborescence et si l'on autorise les commentaires.
+
+Seul l'onglet "contenu" est obligatoire, les autres sont remplis par défaut et
+peuvent être cachés aux utilisateurs.
+
+Une fois que l'on a "enregistré", le document s'affiche en mode consultation et
+l'on peut alors changer son état en cliquant sur l'onglet affichant l'état (ici
+"Privé").
+
+
+Visualisation des documents
+===========================
+
+La visualisation des documents, que ce soient des fichiers, des pages, des
+images, des liens, des actualités, des événements, permet des mises en formes
+élaborées reposant sur les dernières techniques du web.
+
+Si les documents à partager via le portail sont des images ou des fichiers
+produits par les outils de bureautique classique (suite Microsoft office, Open
+Office, PDF, etc.), ils pourront être prévisualisés directement sur le
+navigateur internet des utilisateurs.
+
+Plone peut embarquer des outils permettant de transformer des documents Word,
+Excel, PowerPoint, etc, en page web.  Dès lors un simple navigateur internet
+suffit pour les consulter.
+
+
+Classement des documents
+========================
+
+La création et le dépôt des documents peuvent suivre les règles de classement
+des documents édictées par les habitudes des utilisateurs.  Il est donc
+possible de garantir le respect d'un plan documentaire défini par des
+procédures qualités.
+
+Ce classement est naturel, le portail possède un espace de navigation qui se
+présente comme une arborescence de fichiers, en conséquence Plone ne permet de
+créer les documents et sous-répertoires que là où ils ont du sens.
+
+On peut définir des types de sous-répertoires n'acceptant que certains types
+d'éléments, par exemple un répertoire Photothèque ne contiendra que des images.
+
+Autre exemple, le répertoire Présentation ne permettra que le dépôt des
+documents respectant le modèle des présentations.
+
+Le plan documentaire peut être établi dynamiquement en ligne par les
+utilisateurs du site – selon leurs droits - et/ou être défini de manière
+statique.
+
+Stockage des documents
+======================
+
+Le portail est une zone d'échange et d'archivage des contenus, qui permet de
+savoir qui a déposé un document, et quand.
+
+Il gère le temps de visibilité des documents et les droits de consultation ou
+de modification.
+
+Les documents, les changements effectués, la liste des membres sont stockés par
+défaut dans une base de données objet.  Il est possible d'utiliser notre
+solution avec d'autres bases de données, relationnelles ou non.
+
+
+Authentification
+================
+
+Seules les personnes habilitées à voir les documents les voient, seules celles
+habilitées à les modifier peuvent le faire.
+
+Chaque utilisateur de Plone possède son propre login et mot de passe.
+
+Ils peuvent être spécifiques au site ou issus d'une source externe, comme un
+annuaire LDAP (l'Active Directory de Microsoft par exemple).
+
+Il est très aisé de combiner différentes sources.
+
+Des solutions existent pour gérer la connexion par SSO.
+
+Dans ce cas, l'utilisateur connecté à sa session de Windows (par exemple) est
+automatiquement logué au site quand il y accède.
+
+.. figure:: presentation_plone_images/picture_3.png
+
+   Authentification par login et mot de passe
+
+Permissions, rôles et groupes d'utilisateurs
+============================================
+
+Chaque état d'un type de contenu définit les permissions nécessaires à sa
+création, sa consultation, à son édition et sa suppression.
+
+Un utilisateur possède un ou plusieurs rôles qui lui attribuent ou non les
+permissions sur les contenus parcourus.
+
+On peut définir autant de rôles que voulus.
+
+Il est possible de réunir plusieurs rôles dans des groupes auxquels
+appartiennent plusieurs utilisateurs (administrateur, relecteur, membre,
+anonyme, authentifié, etc).  En conséquence, un utilisateur possède un ou
+plusieurs rôles, et un rôle peut lui être attribué de façon locale dans un
+dossier, ou attribué par les groupes auxquels il appartient.
+
+Les administrateurs peuvent aisément créer des groupes et les gérer.
+
+La gestion des permissions se fait à travers le mécanisme des ACL (Access
+Control List).
+
+.. figure:: presentation_plone_images/picture_4.png
+
+   Gestion des utilisateurs 
+
+La gestion des utilisateurs, des rôles, et des groupes se fait à travers une
+interface relativement simple.
+
+Indexation
+==========
+
+Le portail offre des fonctions de recherche simple et complexe, sur le contenu
+des documents et les méta-informations.
+
+Le texte des documents saisis en ligne ou téléchargés (pour les formats les
+plus courants : Word, Excel, Power Point, pdf, etc.) est indexé.
+
+Le moteur de recherche rapide est constitué d'un champ présent en permanence
+sur toute les pages.
+
+Il permet d'effectuer des recherches rapides.
+
+La recherche de l'utilisateur est analysée au fur et à mesure de la saisie, des
+propositions sont faites automatiquement à partir des données de la base.
+
+Un formulaire de recherche détaillé permet de filtrer la recherche en fonction
+des méta-informations, et de lier les critères entre-eux avec les mots-clés OR
+et AND.
+
+.. figure:: presentation_plone_images/picture_6.png
+
+   Recherche dynamique
+
+L'indexation des éléments (document, fichier, événements) est entièrement
+paramétrable.
+
+Photothèques
+============
+
+Les images, dessins, photos peuvent être gérées dans des galeries permettant
+leur manipulation, visualisation, recherche et intégration aux documents
+rédigés en ligne.
+
+Plone permet de retailler les images, de les afficher sous forme de vignettes,
+ou dans des diaporamas.
+
+Fonction d'alerte
+=================
+
+Les membres du portail peuvent être prévenus lorsque des mises à jour ou des
+modifications ont été réalisées sur les documents.
+
+Un mécanisme événementiel permet de réaliser des actions lorsque certaines
+choses se produisent sur le portail (nouvel utilisateur, publication d'un
+document...).
+
+Toutefois, la façon standard de notifier les contenus modifiés récemment, ou à
+modérer est d'afficher leur liste à droite ou à gauche du contenu publié.
+
+Actualités, événements, calendrier, lettres d'informations
+==========================================================
+
+Les actualités et les événements sont des types de base de Plone, le calendrier
+affiche les événements que l'on est autorisé à voir en fonction de ses rôles,
+ou groupes.
+
+La liste des événements est accessible par simple clic sur l'onglet "Événements".
+
+Les dernières actualités sont accessibles en cliquant sur l'onglet "Actualités".
+
+Ces deux listes peuvent être affichées directement à gauche ou à droite du contenu.
+
+Ce placement est paramétrable en ligne par l'administrateur (par exemple en
+dessous du calendrier).
+
+Plusieurs types de lettres d'informations sont possibles, il est facile de
+modifier la charte graphique des lettres.
+
+Le système de lettres d'informations permet de gérer les abonnements
+désabonnements et peut déléguer à l'émetteur de choisir les membres ou groupes
+devant la recevoir.
+
+Espace projet
+=============
+
+Le portail permet facilement de mettre en place la notion de projet, et offre
+donc :
+
+ 1. un calendrier qui tient compte de vos droits pour afficher les événements,
+ 2. des listes de tâches,
+ 3. des classeurs de documents (containers),
+ 4. des forums,
+ 5. des sondages,
+ 6. des actualités.
+
+
+Répertoires dynamiques
+======================
+
+Il est également possible de créer ses propres "collections" de documents : il
+s'agit de répertoires dont le contenu est en réalité le résultat d'un recherche
+basée sur des filtres.
+
+Il peuvent être emboité les uns dans les autres et en modifiant les critère de
+recherche, on peut ainsi créer des répertoires transversaux au plan
+documentaire.
+
+
+Références croisées
+===================
+
+Le portail permet de "lier" des documents entre-eux.
+Exemples :
+
+ 1. Fiche descriptive d'un produit et différentes photos d'applications de ce
+    produit.
+ 2. Associer un document en anglais et des traductions faites à partir de ce
+    document.
+
+La notion de lien internet est fortement utilisée et permet à Plone de créer
+des références entre documents.
+
+Modération du contenu
+=====================
+
+Certaines personnes peuvent avoir pour charge d’accepter ou non la publication
+des documents sur le portail.
+
+Plone permet ceci comme la plupart des CMS (Content Management System) du
+marché, mais il ne fige pas la chaîne de validation (Workflow), que l'on peut
+modifier.
+
+Par exemple nous avons défini le workflow des tâches de la gestion des projets
+comme suit :
+
+.. figure:: presentation_plone_images/picture_8.png
+
+   Exemple de workflow
+
+Les états définissent les permissions à avoir pour par exemple voir ou modifier
+les documents, en les attribuant ou non à des rôles.
+
+Les transitions définissent qui a le droit de changer les états des documents,
+dans quelles conditions et quels sont alors les traitements à réaliser.
+
+Les utilisateurs voient les transitions qu'ils peuvent exécuter.
+
+.. figure:: presentation_plone_images/picture_11.png
+
+   Changement d'état d'un élément
+
+La mise en place de chaîne de validation des documents autres que ceux prévus
+par défaut, passe par la création d’états et transitions. Ceci se fait soit
+directement à travers l'interface d'administration de Plone soit par
+l'utilisation d'outils spécifiques.
+
+La possibilité de créer simplement et efficacement les workflows associés aux
+documents déposés ou créés sur le portail est l'un des grands atouts de Plone.
+
+La précision de paramétrage des permissions permet de cacher ou montrer les
+champs d'un document en fonction de l'état du document et des rôles de
+l'utilisateur.
+
+Il est possible de modéliser les workflows en utilisant les outils graphiques
+basés sur UML (Unified Model Language), Argouml et ArchgenXML.
+
+Les administrateurs peuvent modifier les workflows soit en utilisant ces même
+outils, soit le faire directement à travers le web une fois authentifiés sur le
+portail.
+
+Historique des changements effectués sur le contenu
+===================================================
+
+Le système trace toutes actions.
+De plus il permet de revenir à l’état précédent pour chaque action.
+
+Ainsi pour les document nous avons un historique pour les changement d'états et
+pour les modifications apportées.
+
+.. figure:: presentation_plone_images/picture_9.png
+
+   Affichage de l'historique d'un élément
+
+L'historique permet de voir les changements du document que ce soit les états
+ou les modifications du contenu.
+
+En comparant deux versions ensemble on peut voir les modifications apportées.
+
+.. figure:: presentation_plone_images/picture_0.png
+
+   Différences entre deux versions d'un élément
+
+Ici nous voyons que l'image a été déplacée et qu'un paragraphe a été ajouté.
+
+Il est facile de revenir à une version précédente, puisqu'il suffit de cliquer
+sur les boutons "revenir à cette version" que l'on voit dans l'historique.
+
+Flux RSS
+========
+
+Plone propose nativement l'intégration des flux RSS, ce qui permet aux habitués
+d'utiliser leur lecteur de flux rss pour savoir s'ils ont des documents à lire.
+
+Langue du portail, Multilinguisme, Traduction
+=============================================
+
+Plone est multi-langue et permet de traduire chaque document ou formulaire en
+plusieurs langues.
+
+Actuellement prés de 80 langues sont supportées et 32 le sont complètement.
+
+Pour rajouter une langue non encore supportée par exemple le "Picard", il
+suffit de traduire un ensemble de fichiers linguistiques.
+
+Les contributeurs peuvent traduire les articles dans une des langues activées
+pour le site.
+
+Quand un contenu est traduit, les visiteurs du site le consultent dans leur
+propre langue.
+
+S'il n'est pas traduit dans leur langue, ils le consultent dans la langue par
+défaut.
+
+Charte graphique
+================
+
+Plone utilise la technologie CSS2 pour réaliser les feuilles de styles
+permettant d'avoir le design approprié.
+
+Le placement des composants tels que le calendrier est facilement effectué en
+ligne ou par fichier de configuration.
+
+.. figure:: presentation_plone_images/picture_13.png
+
+   Exemple de style basique 
+
+Il est possible d'adapter des chartes existantes à vos besoins en changeant par
+exemple les couleurs, les icônes.
+
+
+Trombinoscope et annuaires
+==========================
+
+Le portail, fournit un trombinoscope des membres.
+
+Génération de documents à partir de modèles
+===========================================
+
+Il est possible de créer des formulaires permettant aux utilisateurs de n'avoir
+à saisir que les informations à forte valeur ajoutée d'un document et de
+laisser le portail générer les documents en les complétant avec les données
+pouvant être automatisées.
+
+Ces documents pourraient aussi bien être des documents textes que des feuilles
+de calcul, des organigrammes, des tableaux, des diagrammes et autres courbes.
+
+Sécurité
+--------
+
+Plone est reconnu pour le souci de la sécurité qui fait parti de son design
+initial. Il a été choisi par la CIA, le FBI, le ministère français de la
+défense pour cette raison.
+
+Montée en charge
+----------------
+
+Plone fournit des mécanismes de dimensionnement permettant de déployer
+plusieurs processus sur une ou plusieurs machines en fonction des besoins.
+
+Il est également possible d'utiliser un proxy cache permettant de limiter la
+sollicitation du serveur.
+
+.. figure:: presentation_plone_images/picture_1.png
+
+   Exemple d'architecture de déploiement pour un site conséquent
+
+
+Serveur virtuel GNU/Linux vs Serveur W2K8
+-----------------------------------------
+
+Plone est compatible avec Windows 2008 mais nous lui préférons GNU/Linux en
+raison de la puissance du scripting shell qui permet de réaliser simplement et
+à moindre frais l'intégration de composants complexes.
+
+Avec GNU/Linux, il est possible de réaliser des montages vidéos, photos, ou
+gérer de la génération de documents sans interface graphique, ce qui permet par
+exemple de réaliser des conversions de vidéos avec incrustation et watermarking
+avec pour seul investissement celui d'une formation.
+
+
+Tests Unitaires, tests d'intégrations, tests fonctionnels
+---------------------------------------------------------
+
+La communauté assure un haut niveau de qualité en automatisant les tests
+unitaires qui vérifient le bon fonctionnement du code, les tests d'intégration
+quant à eux permettent de tester que les différents composants n'entrent pas en
+conflit.
+
+Les tests de validation vérifient que les fonctionnalités continuent de
+fonctionner comme prévu.
+
+Pour les tests de validation nous enregistrons des scénarios d'utilisation avec
+des outils comme Selenium.
+
+Ainsi nous pouvons les rejouer à chaque changement, ce qui permet de détecter
+les effets de bord.
+
+
+Besoin de formation / Transfert technique
+-----------------------------------------
+
+L'ensemble des développements, fichiers de configuration, sont réalisés sous
+licence compatible GPL.
+
+Nos supports de cours sont reversés à la communauté Plone sous licence
+Creative-Common Share Alike By, ils sont donc librement téléchargeables et
+peuvent être partagés, modifiés tant qu'à votre tour vous redistribuez vos
+améliorations sous les même termes de licence.
+
+Des tutoriels en ligne peuvent être installés (produit Amberjack). Ces
+tutoriels permettent de réaliser sous forme d'exercices les étapes
+fondamentales à la création et à la publication de document. 
+
+Sécurisation
+------------
+
+La sécurité de Plone passe par l'utilisation du protocole ssl et vous devez
+donc acheter un certificat X509 au prés d'une autorité reconnue par vos
+navigateurs internet ou en générer un autosigné.
+
+Statistiques
+------------
+
+Les rapports sur la fréquentation sont donnés par des outils libres
+complémentaires tels que webalizer, ou fournissant les même services que Google
+Analytics pour les sites web.
+
+Par exemple avec piwik  nous retrouvons toutes la richesse d'Analytics ce qui
+vous permet de définir nos propres statistiques.
+
+Piwik possède en plus l'avantage de pouvoir tenir compte des pages servies par
+les caches.
+
+Ceci est rendu possible par l'utilisation d'un script javascript exécuté par le
+navigateur chaque fois qu'une page du portail est affichée.
+
+.. figure:: presentation_plone_images/picture_2.png
+
+   Statistiques avec Piwik 
