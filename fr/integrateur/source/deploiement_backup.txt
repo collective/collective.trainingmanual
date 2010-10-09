@@ -6,6 +6,8 @@
 Déploiement et backup
 =====================
 
+.. contents:: :local:
+
 Définition
 ==========
 
@@ -24,7 +26,6 @@ Savoir
 - plone.app.caching
 
 .. todo:: configuration supervisord
-
 
 Profil de déploiement
 =====================
@@ -83,7 +84,6 @@ Pour l'arrêter :
 .. code-block:: sh
 
     $ pkill varnish
-
 
 Support des backups
 ===================
@@ -144,7 +144,6 @@ récupérez ensuite la sauvegarde (les fichiers :file:`.fsz` et :file:`.dat`) vi
 :command:`scp` et vous placez la sauvegarde dans votre dossier
 :file:`var/backups/` en local et exécutez :command:`bin/restore` en local.
 
-
 Cron job pour zeopack et backup
 ===============================
 
@@ -197,7 +196,6 @@ ne demande aucun mot de passe.
 Pour utiliser cette configuration, exécutez :command:`bin/buildout -c
 serveur0.example.com`.  Le cron job sera automatiquement ajouté dans le crontab
 de l'utilisateur.
-
 
 Configuration d'Apache
 ======================
@@ -273,7 +271,6 @@ Activez les modules :
     #Deny from all
     Allow from devagile
 
-
 Activation de la compression
 ----------------------------
 
@@ -292,7 +289,6 @@ et éditez le fichier de configuration
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css \
                           text/javascript application/x-javascript
    </IfModule>
-
 
 Redémarrez Apache :
 

@@ -1,22 +1,29 @@
+.. -*- coding: utf-8 -*-
+
+.. _addon_collage:
+
+=======================================
 Créer des layouts en ligne avec Collage
 =======================================
 
 Collage permet de composer en ligne, comme des contenus, des pages complexes composées d'éléments organisés en grille.
 C'est le moyen idéal de permettre à un webmaster de gérer lui-même ses pages d'accueil.
 
+.. contents:: :local:
+
 Préparation
------------
+===========
 
 Vous n'aurez besoin sur votre site que d'un dossier et de quelques actualités publiées.
 
 Objectif de la formation
-------------------------
+========================
 
 Nous allons associer comme page par défaut d'un dossier une page composée d'une collection d'actualités,
 d'une image et d'une actualité complète.
 
 Installer Products.Collage
---------------------------
+==========================
 
 Ajoutez à l'entrée `eggs` de votre buildout la valeur `Products.Collage`. Relancez le buildout puis redémarrez votre site.
 La dernière version du package Products.Collage a été ajoutée à votre environnement Plone.
@@ -30,7 +37,7 @@ Cochez Products.Collage, puis enregistrez.
     :align: center
 
 Créer un Collage
-----------------
+================
 
 Allez dans un dossier de votre site, faites `Ajout d'un élémént` > `Collage`.
 
@@ -54,7 +61,7 @@ Cela ajoute une rangée, contenant par défaut une colonne.
     :align: center
 
 Ajouter les éléments du Collage
--------------------------------
+===============================
 
 Nous allons composer un collage en deux colonnes sur une ligne. La première colonne contiendra une liste des actualités,
 la seconde contiendra une image statique et le rendu d'une actualité.
@@ -121,7 +128,7 @@ Cliquez sur `Voir` pour observer le résultat.
     :align: center
 
 Utiliser le collage comme page d'accueil
-----------------------------------------
+========================================
 
 Publiez le collage, puis assignez-le comme vue par défaut du dossier :
 sur le dossier, cliquez sur `Affichage` > `Changer la vue par défaut` et sélectionnez votre collage.
@@ -139,7 +146,7 @@ Allez dans `Modifier` > `Paramètres`. Décochez `Afficher le titre` et enregist
     :align: center
 
 Paramétrer l'affichage du collage
----------------------------------
+=================================
 
 Nous allons maintenant tester quelques options de paramétrage de notre collage.
 Nous pouvons choisir un modèle pour notre ligne.
@@ -172,7 +179,7 @@ La vue portlet permet de choisir un habillage.
     :align: center
 
 Extensibilité
--------------
+=============
 
 Il est possible de développer de nouveaux layouts et de nouveaux types d'éléments pour les compositions de Collage.
 
@@ -180,9 +187,8 @@ Pour trouver les modules d'extension existants, cherchez sur pypi : `<http://pyp
 
 S'il n'existe pas d'élément correspondant à vos besoins, contactez votre prestataire Plone favori :).
 
-
 Conclusion
-----------
+==========
 
 Le module collage permet de créer des pages composées.
 

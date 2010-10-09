@@ -1,3 +1,8 @@
+.. -*- coding: utf-8 -*-
+
+.. _content_rules:
+
+=====================================================
 Déclenchement d'événements avec les règles de contenu
 =====================================================
 
@@ -14,8 +19,10 @@ Les événements peuvent lancer des actions diverses telles que :
 - affichage d'un message,
 - etc.
 
+.. contents:: :local:
+
 Objectif de la formation
-------------------------
+========================
 
 Nous allons créer :
 
@@ -24,7 +31,7 @@ Nous allons créer :
 - une règle qui déplace tous les événements ajoutés dans la partie Internet dans le dossier Événements.
 
 Préparation
------------
+===========
 
 Il nous faudra un dossier `Intranet` et un dossier `Internet` à la racine de notre site (cf. chapitre précédent).
 
@@ -32,7 +39,7 @@ Il faut créer un utilisateur `Modérateur Intranet` qui ait le rôle `Peut Mod�
 Le smtp et l'email par défaut du site doivent être correctement configurés.
 
 Créer une règle
----------------
+===============
 
 Créons la première règle citée ci-dessous.
 
@@ -55,7 +62,6 @@ Choisissez comme titre : `Une actualité a été ajoutée`.
 Il faut vérifier si la règle s'applique à chaque fois qu'un utilisateur effectue une transition.
 Sélectionnez comme déclencheur `Workflow state changed`.
 
-
 .. figure:: ./contentrules_images/ajouter-regle.jpg
     :align: center
 
@@ -68,7 +74,7 @@ Puis enregistrez. La règle a été ajoutée. Elle apparaît maintenant dans la 
 Mais pour l'instant, elle ne se déclenche jamais, et ne fait rien... Il faut la paramétrer.
 
 Paramétrer une règle
---------------------
+====================
 
 Cliquez sur la règle, vous arrivez à la page de paramétrage de cette règle.
 
@@ -78,7 +84,7 @@ Cliquez sur la règle, vous arrivez à la page de paramétrage de cette règle.
 Il nous faut maintenant ajouter les conditions de la règle, et ses résultats.
 
 Créer une condition
--------------------
+===================
 
 La règle a deux conditions : il doit s'agir d'une actualité, et la transition doit être une soumission à la publication.
 
@@ -96,7 +102,7 @@ De même, ajoutez la condition sur la transition : sélectionnez `Ajouter une tr
 Choisissez `Submit for publication` puis enregistrez.
 
 Créer une action
-----------------
+================
 
 On veut que le modérateur reçoive un mail. Pour `Effectue les actions suivantes`, sélectionnez `Ajouter une action` > `Send email`, puis `Ajouter`.
 
@@ -130,7 +136,7 @@ Indiquez comme message : `Les modérateurs ont été notifiés par mail de votre
 Votre règle a été créée. Il reste maintenant à l'activer dans la partie Intranet du site.
 
 Activer la règle pour une partie du site
-----------------------------------------
+========================================
 
 Allez dans la rubrique `Intranet`, sélectionnez l'onglet `Règles`.
 
@@ -152,7 +158,7 @@ Vous pouvez activer / désactiver la règle ici.
 Si vous l'avez associée à d'autres dossiers via d'autres onglets `règles`, seul celui-ci est impacté.
 
 Tester la règle
----------------
+===============
 
 Cliquez sur l'onglet `Voir`, puis sur une actualité du dossier. `Soumettez à la publication` le document.
 
@@ -167,7 +173,7 @@ Et le modérateur a reçu un courriel.
     :align: center
 
 Exemple 2 : Logguer les suppressions de documents
--------------------------------------------------
+=================================================
 
 Dans `Configuration du site` > `Règles`, cliquez `Ajouter une règle`.
 
@@ -195,7 +201,7 @@ Ajoutez un document sur le site, et supprimez-le. Si votre site est démarré en
 Sinon, consultez vos logs avec la commande ``tail -f ./var/log/instance.log`` depuis la racine du buildout.
 
 Exemple 3 : Déplacer les événements dans un même dossier, où qu'ils soient ajoutés
-----------------------------------------------------------------------------------
+==================================================================================
 
 Imaginons que nous voulions regrouper tous les événements du site dans un seul dossier, sans contraindre l'utilisateur à être à un endroit particulier du site lorsqu'il ajoute un tel élément.
 
@@ -213,7 +219,7 @@ Au niveau du dossier `Internet`, activez cette règle, et rendez-la applicable �
 Dans ce même dossier, ajoutez un événement. Allez ensuite dans le dossier `Événements`, vous verrez qu'il y a été déplacé. Revenez dans le dossier `Internet` : il n'y est plus.
 
 Export Generic Setup
---------------------
+====================
 
 Les règles de contenu peuvent être exportées en xml via l'outil Generic Setup.
 
@@ -223,7 +229,7 @@ Cela exporte à la fois vos définitions de règles et les activations des règl
 Attention : après l'export, vérifiez que l'indentation automatique du xml n'a pas ajouté des espaces non désirés dans vos messages.
 
 Extensibilité
--------------
+=============
 
 Les règles de contenu sont largement extensibles. Il est possible d'ajouter ou créer :
 
@@ -238,7 +244,7 @@ Vous pouvez également vous lancer dans le développement de conditions et actio
 Ou contactez votre prestataire Plone favori.
 
 Conclusion
-----------
+==========
 
 Il est possible d'associer à un événement du site et suivant des conditions, sur des parties déterminées du site, des actions.
 Un certain nombre de déclencheurs, d'actions et de conditions sont disponibles par défaut. D'autres sont disponibles en tant qu'extensions.

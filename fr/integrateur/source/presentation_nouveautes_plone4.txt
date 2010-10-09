@@ -1,11 +1,14 @@
 .. -*- coding: utf-8 -*-
 
+.. _nouveautes_plone4:
+
 =========================
 Les nouveautés de Plone 4
 =========================
 
 Présentation des nouveautés de Plone 4 par rapport à Plone 3.3.
 
+.. contents:: :local:
 
 Performances
 ============

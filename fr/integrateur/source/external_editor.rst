@@ -1,9 +1,16 @@
+.. -*- coding: utf-8 -*-
+
+.. _external_editor:
+
 ====================
 Zope External Editor
 ====================
 
+.. contents:: :local:
+
 Activation du lien External Editor sur le serveur
 =================================================
+
 Allez dans la ZMI, portal_memberdata, et cocher l'option ext_editor
 Cela activera le lien "Modifier avec une application externe"
 à côté des liens "Envoyer cette page" et "Imprimer" sur les documents.
@@ -16,6 +23,7 @@ et remplacez ``'%s/externalEdit_/%s.zem'`` par ``'%s/externalEdit_/%s'``.
 
 Problèmes avec l'External Editor
 ================================
+
 Le problème suivant peut survenir : l'utilisateur clique sur 
 "Modifier avec une application externe", il l'édite, sauvegarde et lorsqu'il
 reclique sur le lien, il récupère l'ancienne version. Il peut y avoir deux raisons à cela.
@@ -68,6 +76,7 @@ Editor.
 
 Installation du client External Editor sous Ubuntu
 ==================================================
+
 Le système de package d'Ubuntu propose une ancienne version de zopedit.
 Nous allons quand même l'installer car il associe le type mime
 "application/x-zope-edit" à /usr/bin/zopeedit
@@ -107,4 +116,3 @@ par :
 
     # Create a new version when the file is closed ?
     version_control = 1
-

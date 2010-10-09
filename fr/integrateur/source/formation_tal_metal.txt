@@ -12,6 +12,8 @@ dynamiques.
 Ces ZPT utilise un langage de template XML TAL/METAL.  L'objectif est d'être
 capable de comprendre, créer et modifier les pages dynamiques.
 
+.. contents:: :local:
+
 Le langage TAL
 ==============
 

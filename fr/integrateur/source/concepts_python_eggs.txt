@@ -6,6 +6,8 @@
 Concept de Python eggs
 ======================
 
+.. contents:: :local:
+
 Définition
 ==========
 
@@ -23,7 +25,6 @@ Savoir
 - metadata (description au format ReST, dépendances, extras)
 - installation via :command:`easy_install`
 - entry points et plugins (:command:`paster` utilise ce mécanisme de plugins)
-
 
 Installation de Python et Distribute
 ====================================
@@ -126,7 +127,6 @@ d'installer un package donné :
 
 Il y a également `pip`_ qui lui propose un moyen alternatif à
 :command:`easy_install` pour installer un package.
-
 
 `Tarek Ziadé`_ et d'autres personnes travaillent sur l'amélioration de la gestion
 des packages Python avec le nouveau package `distutils2 <http://pypi.python.org/pypi/Distutils2>`_
@@ -521,7 +521,6 @@ La première et dernière ligne du fichier :file:`easy-install.pth` sont utilis�
 pour ajouter les eggs au début de :data:`sys.path` pour prendre précédence aux
 packages éventuellement installés.
 
-
 Suppression d'un egg
 --------------------
 
@@ -601,7 +600,6 @@ Pour faire une désintallation propre d'un egg, il faut :
 - supprimer les éventuels scripts qui ont été généré à l'installation, ici
   :file:`bin/fab`.
 
-
 Methode "originelle" pour installer un package
 ----------------------------------------------
 
@@ -617,7 +615,6 @@ l'extrayant et exécutant la commande :command:`python setup.py install` :
     (myenv25)$ python setup.py install
 
 En fait, c'est exactement ce que fait la commande :command:`easy_install`.
-
 
 Installation de virtualenvwrapper
 ---------------------------------
@@ -685,7 +682,6 @@ Maintenant vous n'avez qu'à taper :command:`workon myenv` où que vous soyez.
 
 
 .. _`virtualenvwrapper`: http://pypi.python.org/pypi/virtualenvwrapper
-
 
 Passons au développement
 ========================
@@ -1043,7 +1039,6 @@ En savoir plus : `Namespace Packages`_
 
 .. _`Namespace Packages`: http://peak.telecommunity.com/DevCenter/setuptools#namespace-packages
 
-
 L'API pkg_resources
 ===================
 
@@ -1067,7 +1062,6 @@ Exemple pour récupérer la version du egg foo.bar installé :
 En savoir plus : `Documentation PkgResources`_
 
 .. _`Documentation PkgResources`: http://peak.telecommunity.com/DevCenter/PkgResources
-
 
 Les entry points
 ================
@@ -1128,7 +1122,6 @@ En savoir plus : `Dynamic Discovery of Services and Plugins`_
 
 .. _`Dynamic Discovery of Services and Plugins`: http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins
 
-
 groupe console_scripts
 ----------------------
 
@@ -1175,7 +1168,6 @@ Concrétement, exécuter la commande *fab* revient à faire :
 En savoir plus : `Automatic Script Creation`_
 
 .. _`Automatic Script Creation`: http://peak.telecommunity.com/DevCenter/setuptools#automatic-script-creation
-
 
 Mise en place d'un Pypi perso
 =============================

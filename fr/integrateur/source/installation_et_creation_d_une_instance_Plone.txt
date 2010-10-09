@@ -6,6 +6,8 @@
 Installation et création d'une instance Plone
 =============================================
 
+.. contents:: :local:
+
 Définition
 ==========
 

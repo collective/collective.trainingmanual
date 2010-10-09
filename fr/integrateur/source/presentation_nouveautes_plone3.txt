@@ -1,10 +1,14 @@
 .. -*- coding: utf-8 -*-
 
+.. _nouveautes_plone3:
+
 =========================
 Les nouveautés de Plone 3
 =========================
 
 Présentation des nouveautés de Plone 3 par rapport à Plone 2.5.
+
+.. contents:: :local:
 
 Édition en ligne
 ================
@@ -99,7 +103,6 @@ document précédent ou le suivant.
 Éditez le dossier et allez dans Paramètres pour cocher "Activer la navigation
 'précédent/suivant'".
 
-
 Générer une table des matières pour un document
 ===============================================
 
@@ -154,7 +157,6 @@ Mais aussi
 En savoir plus : `Features in Plone 3`_
 
 .. _`Features in Plone 3`: http://plone.org/products/plone/features/3.0
-
 
 Et pour le développeur
 ======================

@@ -1,8 +1,12 @@
 .. -*- coding: utf-8 -*-
 
+.. _protocole_http:
+
 ==============================
 Le protocole HTTP et ses tests
 ==============================
+
+.. contents:: :local:
 
 Définition
 ==========
@@ -46,7 +50,6 @@ navigateur une page web :
    les règles html ou xhtml pour réaliser la mise en forme et afficher le
    résultat.
 
-
 Savoir
 ======
 
@@ -81,7 +84,6 @@ qui peuvent la modifier ou y répondre s'ils connaissent déjà la réponse
 L'un des grands avantages du protocole http est qu'il s'agit d'un protocole
 texte.  Ainsi un humain peut à l'aide du programme "telnet" dialoguer avec un
 serveur en entrant directement le nom des commandes et leurs paramètres.
-
 
 Les méthodes (HEAD, GET, POST, DELETE, PUT, CONNECT, OPTIONS, TRACE)
 --------------------------------------------------------------------
@@ -133,7 +135,6 @@ DELETE
 ++++++
 
 Cette méthode supprime une ressource du serveur si l'on est autorisé à le faire.
-
 
 L'entête et ses champs (Host,  Referer, User-Agent, etc.)
 ---------------------------------------------------------
@@ -348,7 +349,6 @@ utile d'utiliser :command:`tcpdump -i eth0 -w /tmp/nomdufichier` sur le serveur,
 afin d'enregistrer tous les paquets circulant sur l'interface `eth0` dans le
 fichier :file:`/tmp/nomdufichier`. On peut alors utiliser 'wireshark' pour
 inspecter les trames enregistrées dans le fichier.
-
 
 Exercice
 ========

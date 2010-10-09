@@ -6,6 +6,8 @@
 Introduction à zc.buildout
 ==========================
 
+.. contents:: :local:
+
 Définition
 ==========
 
@@ -33,7 +35,6 @@ Une configuration buildout spécifie un ensemble de parts qui se composent :
 - d'une recette (recipe)
 - et/ou de données de configuration
 
-
 Organisation d'un buildout
 ==========================
 
@@ -52,7 +53,6 @@ Un buildout est organisé de la manière suivante :
   si on utilise un dossier partagé pour plusieurs buildout.
 - :file:`develop-eggs/` : dossier contenant les liens vers les eggs en
   développement
-
 
 Nous allons prendre comme exemple le :file:`buildout.cfg` pour installer
 archgenxml.
@@ -419,7 +419,6 @@ Relancez buildout. Là les deux parts sont bien installées.
    duquel vous étendez d'autres configurations, ici c'est le fichier
    :file:`buildout.cfg`.
 
-
 Recipe collective.recipe.omelette
 =================================
 
@@ -552,7 +551,6 @@ Mais maintenir deux listes est source d'erreur.  Créez un fichier
 ``[buildout]``), et dites à :file:`buildout.cfg` d'étendre :file:`versions.cfg`.
 Relancez buildout pour voir que tout fonctionne.
 
-
 L'option develop
 ================
 
@@ -612,7 +610,6 @@ Supprimez donc l'option ``develop`` et dans :file:`development.cfg`, ajoutez :
     find-links += http://devagile:8080/site/products/simple
 
 et dans :file:`versions.cfg`, ajoutez ``foo.bar = 1.0``.
-
 
 Ordre d'installation des parts
 ==============================

@@ -1,8 +1,12 @@
 .. -*- coding: utf-8 -*-
 
+.. _rappel_html_xml:
+
 ==================
 Rappel HTML et XML
 ==================
+
+.. contents:: :local:
 
 Définition
 ==========
@@ -264,4 +268,3 @@ Ressources
 - `URL <http://fr.wikipedia.org/wiki/Uniform_Resource_Locator>`__
 - `W3C <http://fr.wikipedia.org/wiki/World_Wide_Web_Consortium>`__
 - `Feuilles de styles <http://fr.wikipedia.org/wiki/Feuilles_de_style_en_cascade>`__
-

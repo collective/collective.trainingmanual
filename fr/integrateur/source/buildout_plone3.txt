@@ -6,6 +6,8 @@
 Création d'un buildout Plone 3 avec paster
 ==========================================
 
+.. contents:: :local:
+
 Installation de Plone
 =====================
 

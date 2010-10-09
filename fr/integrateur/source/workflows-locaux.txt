@@ -1,5 +1,12 @@
+.. -*- coding: utf-8 -*-
+
+.. _workflows_locaux:
+
+===============================
 Paramétrage local des workflows
 ===============================
+
+.. contents:: :local:
 
 Nous allons montrer ici comment affecter, sous Plone 4, des processus documentaires différents selon les rubriques du site.
 
@@ -9,7 +16,7 @@ Nous allons donc gérer, grâce à la fonctionalité `Support des politiques doc
 et un dossier Internet, où les documents auront un workflow avec modération a priori (les membres peuvent soumettre des documents à un modérateur, qui publie soit pour les anonymes soit pour les seuls membres).
 
 Préparation
------------
+===========
 
 Connectez vous en tant qu'administrateur du site.
 
@@ -24,9 +31,8 @@ Dans chacun de ces dossiers, vous aurez ajouté une actualité, sans la publier.
 .. figure:: ./workflowslocaux_images/internet.jpg
     :align: center
 
-
 Installation du module
-----------------------
+======================
 
 Le système de workflows locaux n'est pas activé par défaut. Nous allons commencer par installer la fonctionnalité.
 
@@ -53,7 +59,7 @@ Le module est maintenant installé.
     :align: center
 
 Gestion des politiques de workflow
-----------------------------------
+==================================
 
 Revenez dans la configuration du site. Dans `Configuration de module`, cliquez sur la nouvelle entrée : `Politiques documentaires`.
 
@@ -94,9 +100,8 @@ Supposons que nous voulons que la gestion des Collections soit identique sur le 
 
 Vous pouvez maintenant cliquer sur `Enregistrer`. Votre politique a été ajoutée.
 
-
 Affectation des workflows locaux
---------------------------------
+================================
 
 Nous allons maintenant associer des workflows différents pour les actualités selon que nous sommes sur l'intranet ou sur l'internet.
 Allez dans le dossier Intranet. Cliquez sur le menu `État`, puis `Politique locale`.
@@ -134,7 +139,7 @@ Le dossier est resté à l'état 'Publié', mais vous observerez qu'aucune autre
 Allez dans l'actualité. Vous avez en tant qu'administrateur le choix entre `Publier` et `Soumettre à la publication`. Nous utilisons ici le workflow `Processus de publication simple`.
 
 Export Generic Setup
---------------------
+====================
 
 Les politiques documentaires peuvent être exportées en xml via l'outil Generic Setup.
 
@@ -142,9 +147,8 @@ Dans `portal_setup` > `Export`, sélectionnez `Placeful Workflow Policies` puis 
 
 L'outil ne permet pas d'exporter la configuration des politiques locales.
 
-
 Conclusion
-----------
+==========
 
 Nous savions déjà que nous pouvions avoir des processus documentaires différents suivant le type de contenu.
 Nous savons maintenant que Plone permet de paramétrer des workflows différents pour un même type de contenu mais à différents endroits du site.

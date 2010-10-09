@@ -1,6 +1,13 @@
+.. -*- coding: utf-8 -*-
+
+.. _munin:
+
 =====================
 Monitoring avec Munin
 =====================
+
+.. contents:: :local:
+
 Installez le serveur et le client Munin : ::
 
     apt-get install munin munin-node
