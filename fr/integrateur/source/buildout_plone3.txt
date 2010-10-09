@@ -719,6 +719,7 @@ Pour plus d'informations sur comment faire une release, voyez les liens suivants
 - http://grok.zope.org/documentation/how-to/releasing-software
 - http://plone.org/documentation/tutorial/how-to-upload-your-package-to-plone.org
 
+.. todo:: Evoquer l'utilisation de zest.releaser
 
 Vous pouvez maintenant mettre à jour votre serveur de production.  Il est
 recommandé de créer une branche production de votre buildout trunk.  De cette

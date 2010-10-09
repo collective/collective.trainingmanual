@@ -1341,8 +1341,3 @@ Vous pouvez maintenant importer le code source dans subversion et faire la
 release.
 
 .. _`collective.dist`: http://pypi.python.org/pypi/collective.dist
-
-Outils
-------
-
-.. todo:: utilisation de zest.releaser
