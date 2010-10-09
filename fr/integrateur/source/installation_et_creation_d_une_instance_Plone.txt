@@ -424,6 +424,8 @@ http://pythonmac.org/packages/py25-fat/index.html
 Et vous devrez compilez les binders libxml2 et libxslt ceci sur votre poste
 comme indiqué ici : http://jamesclarke.net/notes/libxml2
 
+Suivez ensuite la procédure pour Ubuntu/Debian.
+
 Exercice
 ========
 

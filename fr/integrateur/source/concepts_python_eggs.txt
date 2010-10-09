@@ -1147,8 +1147,11 @@ En savoir plus : `Automatic Script Creation`_
 
 .. _`Automatic Script Creation`: http://peak.telecommunity.com/DevCenter/setuptools#automatic-script-creation
 
-Mise en place d'un Pypi perso
-=============================
+
+.. _PloneSoftwareCenter:
+
+Mise en place d'un Pypi privé avec PloneSoftwareCenter
+======================================================
 
 Créez une instance Plone avec l'id "site" sur une machine servant de serveur,
 nous allons l'appeler ``devagile``, avec la résolution DNS dans
@@ -1156,7 +1159,7 @@ nous allons l'appeler ``devagile``, avec la résolution DNS dans
 
     10.56.8.47      devagile
 
-Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit `PloneSoftwareCenter`_.
+Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit `PloneSoftwareCenter <http://pypi.python.org/pypi/Products.PloneSoftwareCenter>`__.
 
 Installez le produit et créez une instance de PloneSoftwareCenter nommé
 :guilabel:`products` à la racine de Plone.
@@ -1337,10 +1340,9 @@ Ouvrez le fichier :file:`~/.subversion/config` et configurez
 Vous pouvez maintenant importer le code source dans subversion et faire la
 release.
 
-.. _`PloneSoftwareCenter`: http://pypi.python.org/pypi/Products.PloneSoftwareCenter
 .. _`collective.dist`: http://pypi.python.org/pypi/collective.dist
-
 
 Outils
 ------
+
 .. todo:: utilisation de zest.releaser

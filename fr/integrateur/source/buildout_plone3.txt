@@ -13,6 +13,7 @@ Création d'un buildout Plone avec ZopeSkel
     Ce chapitre utilise un dépôt subversion créé dans le chapitre
     `La gestion des sources avec subversion
     <http://docs.ecreall.com/developpeur/gestion_des_sources.html>`__
+    ainsi qu'un Pypi privé créé via :ref:`PloneSoftwareCenter`.
 
 Création du buildout
 ====================
@@ -637,7 +638,7 @@ Votre fichier doit ressembler à ceci :
    Changelog
    =========
 
-   1.0 - 2009-06-11
+   1.0 (2009-06-11)
    ----------------
 
    - Initial release
@@ -673,10 +674,10 @@ la version dans :file:`setup.py`, donc ici ``1.1``. Et éditez le fichier :file:
    Changelog
    =========
 
-   1.1 - unreleased
+   1.1 (unreleased)
    ----------------
 
-   1.0 - 2009-06-11
+   1.0 (2009-06-11)
    ----------------
 
    - Initial release
