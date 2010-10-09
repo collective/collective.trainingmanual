@@ -13,7 +13,7 @@ Définition
 
 Un :term:`buildout` est un dossier contenant plusieurs fichiers de configuration
 permettant de reproduire à l'identique un environnement de développement ou de
-production. Paster est l'outil qui permet de générer le code squelette pour
+production. `Paster` est l'outil qui permet de générer le code squelette pour
 démarrer.
 
 Introduction
@@ -28,7 +28,7 @@ Buildout est un système d'installation permettant d'obtenir le même résultat 
 .. _`Survol de Buildout`: http://ccomb.gorfou.fr/2007/12/13/tutoriel-sur-buildout#survol-de-buildout
 
 :term:`zc.buildout` permet d'avoir un environnement (pas forcément isolé), mais
-d'une autre manière que virtualenv.
+d'une autre manière que `virtualenv`.
 
 Une configuration buildout spécifie un ensemble de parts qui se composent :
 
@@ -50,7 +50,7 @@ Un buildout est organisé de la manière suivante :
   besoin
 - :file:`.installed.cfg` : fichier caché mémorisant l'état du buildout
 - :file:`eggs/` : dossier contenant les eggs activés ou non. Peut ne pas exister
-  si on utilise un dossier partagé pour plusieurs buildout.
+  si on utilise un dossier partagé pour plusieurs buildouts.
 - :file:`develop-eggs/` : dossier contenant les liens vers les eggs en
   développement
 
@@ -62,7 +62,7 @@ Suivez la `page d'installation du manuel d'archgenxml2`_
 .. _`page d'installation du manuel d'archgenxml2`: http://plone.org/documentation/manual/archgenxml2/startup/installation
 
 Créez un dossier :file:`archgenxml_buildout/`, placez y une copie du fichier
-`bootstrap.py`_ et créez un fichier :file:`buildout.cfg` avec le contenu suivant
+`bootstrap.py (version 1.4.4) <http://svn.zope.org/*checkout*/zc.buildout/branches/1.4/bootstrap/bootstrap.py>`__ et créez un fichier :file:`buildout.cfg` avec le contenu suivant
 :
 
 .. code-block:: cfg
@@ -75,20 +75,28 @@ Créez un dossier :file:`archgenxml_buildout/`, placez y une copie du fichier
     recipe = zc.recipe.egg:scripts
     eggs = archgenxml
 
-.. _`bootstrap.py`: http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py
+.. note::
+
+    Ici, nous utilisons explicitement la version 1.4.4 de zc.buildout avec le
+    fichier :file:`bootstrap.py` téléchargé.
+    Il est possible d'utiliser la dernière version 1.5.1 de zc.buildout
+    qui apporte une meilleure isolation de l'environnement. Pour cela
+    il faut télécharger le `bootstrap.py à partir du trunk
+    <http://svn.zope.org/*checkout*/zc.buildout/trunk/bootstrap/bootstrap.py>`__
+    et remplacer l'utilisation de zc.recipe.egg par z3c.recipe.scripts.
 
 Section principale [buildout]
 =============================
 
 La variable :data:`parts` contient la liste des parts que buildout doit
 installer. La convention est de mettre une :term:`part` par ligne, indenté de 4
-espaces. Il peut y avoir des commentaires et des lignes vides.
+espaces. Il peut y avoir des lignes vides et des commentaires commencant au début de la ligne.
 
-Chaque part fournit une variable :data:`recipe` pour indiquer comment ce part
+Chaque *part* fournit une variable :data:`recipe` pour indiquer comment ce *part*
 doit être installé, mis à jour et supprimé.
 
-Il se peut qu'une section ne fournisse pas de recipe. Elle sert généralement
-pour des données de configuration que d'autres parts utiliseront.
+Il se peut qu'une section ne fournisse pas de *recipe*. Elle sert généralement
+pour des données de configuration que d'autres *parts* utiliseront.
 
 Amorcez le buildout (choisissez bien la version de l'exécutable python) :
 
@@ -180,13 +188,12 @@ l'`API des recettes`_
 
 .. _`API des recettes`: http://ccomb.gorfou.fr/2007/12/13/tutoriel-sur-buildout#criture-de-recettes
 
-
 Le fichier caché :file:`.installed.cfg` garde la configuration de la dernière
 exécution de :term:`buildout`.
 
 Lorsqu'une section a été supprimée de la configuration, cette partie sera
-désinstallée lors de la relance de :command:`bin/buildout`.  Si une section a
-été mis à jour, cette partie sera réinstallée.  Pour les nouvelles sections avec
+désinstallée lors de la relance de :command:`bin/buildout`. Si une section a
+été mis à jour, cette partie sera réinstallée. Pour les nouvelles sections avec
 :term:`recipe`, les parties seront installées.
 
 Notre algorithme de tout à l'heure est maintenant :
@@ -203,11 +210,11 @@ Notre algorithme de tout à l'heure est maintenant :
   - si le :term:`part` n'a pas encore été installé, appeler la méthode install
     de l'entry point
 
-  - si un part existe dans .installed.cfg et n'est plus dans la liste des parts
+  - si un part existe dans :file:`.installed.cfg` et n'est plus dans la liste des parts
     de ``[buildout]``, alors le part est désintallé.
 
 
-Jetez un œil sur les scripts générés.  Rappel : les scripts archgenxml et agx
+Jetez un œil sur les scripts générés. Rappel : les scripts archgenxml et agx
 sont générés car le :term:`egg` :mod:`archgenxml` a des entry points dans le
 groupe ``console_scripts``.  :
 
@@ -236,7 +243,7 @@ groupe ``console_scripts``.  :
         archgenxml.ArchGenXML.main()
 
 La première ligne est le shebang, la version du python avec laquelle vous avez
-fait command:`python bootstrap.py` au début.  :mod:`archgenxml` et toutes ses
+fait command:`python bootstrap.py` au début. :mod:`archgenxml` et toutes ses
 dépendances sont ajoutés au début du :data:`sys.path`.
 
 Partage du dossier eggs et downloads
@@ -292,8 +299,7 @@ Le fichier :file:`versions.cfg` sera mis en cache dans le dossier :file:`~/.buil
 Une fois mis en cache, il est possible de relancer le buildout en mode hors
 ligne avec la commande :command:`bin/buildout -o`.
 
-L'option :data:`zope-directory` permet de partager la même installation de Zope
-pour plusieurs buildouts.
+L'option :data:`zope-directory` permet de partager la même installation de Zope 2.10.x pour plusieurs buildouts Plone 3.
 
 Pinning des versions
 ====================
@@ -309,12 +315,12 @@ jour.
 Si vous aviez ``newest = false`` dans votre buildout, la commande
 :command:`bin/buildout -n` la remettrait à ``true`` pour l'exécution.
 
-Le problème est que votre :term:`buildout` n'est pas reproductible.  Pour qu'il
+Le problème est que votre :term:`buildout` n'est pas reproductible. Pour qu'il
 soit reproductible il faudrait que votre buildout précise quelles versions des
 eggs doivent être installées.
 
-C'est la qu'intervient l'option ``versions`` de la section ``[buildout]``, vous
-spécifiez dans quelle section vous avez les informations sur les versions.  La
+C'est là qu'intervient l'option ``versions`` de la section ``[buildout]``, vous
+spécifiez dans quelle section vous avez les informations sur les versions. La
 convention est de l'appeler également ``versions``. Pour geler (verbe "to pin"
 en anglais, "pinned" au participe passé) archgenxml, modifiez votre
 buildout de cette manière :
@@ -355,7 +361,7 @@ vos buildouts :
     # ...
 
 Relancez :command:`bin/buildout` et à la fin de l'exécution vous verrez
-apparaitre la liste des versions à geler.  Ajoutez-les tous à votre section
+apparaitre la liste des versions à geler. Ajoutez-les tous à votre section
 versions, et reexécutez :command:`bin/buildout`, il ne devrait plus avoir de
 versions.
 
@@ -363,7 +369,7 @@ versions.
 
 Il existe aussi une option ``allow-picked-versions = false`` disponible dans le
 cœur de :mod:`zc.buildout` qui permet de stopper le buildout si un egg n'est pas
-gelé.  Cette option et l'extension :mod:`buildout.dumppickedversions`` sont
+gelé. Cette option et l'extension :mod:`buildout.dumppickedversions`` sont
 mutuellement exclusives.
 
 Option extends
@@ -409,10 +415,8 @@ Toutes les options supportant une liste fonctionnent ainsi (``parts``, ``eggs``,
 
 Relancez buildout. Là les deux parts sont bien installées.
 
-
 .. admonition::
    Remarque
-
 
    imaginez toujours que vous avez implicitement ``extends =
    ~/.buildout/default.cfg`` dans votre :file:`buildout.cfg` de base, à partir
@@ -422,7 +426,7 @@ Relancez buildout. Là les deux parts sont bien installées.
 Recipe collective.recipe.omelette
 =================================
 
-On ne fait pas d'omelette sans casser des eggs.  Cette recipe permet de mettre à
+On ne fait pas d'omelette sans casser des eggs. Cette *recipe* permet de mettre à
 plat les eggs :
 
 .. code-block:: cfg
@@ -471,7 +475,7 @@ Utilisation de variable
 
 Vous avez écrit "archgenxml" à deux endroits, une fois dans la recipe
 :mod:`zc.recipe.egg` et une autre fois dans la recipe
-:mod:`collective.recipe.omelette`.  Il est plus intéressant de l'indiquer une
+:mod:`collective.recipe.omelette`. Il est plus intéressant de l'indiquer une
 seule fois dans une variable et d'utiliser cette variable ensuite dans les
 recipes.
 
@@ -546,13 +550,47 @@ fusionné.
 
 En conclusion, nommez toujours ``versions`` la section contenant les versions.
 
-Mais maintenir deux listes est source d'erreur.  Créez un fichier
+Mais maintenir deux listes est source d'erreur. Créez un fichier
 :file:`versions.cfg` qui contient une section ``[versions]`` (pas de section
 ``[buildout]``), et dites à :file:`buildout.cfg` d'étendre :file:`versions.cfg`.
 Relancez buildout pour voir que tout fonctionne.
 
+Ordre d'installation des parts
+==============================
+
+L'ordre d'installation des parts n'est pas forcément l'ordre donné dans l'option
+``parts`` de ``[buildout]``. Et une part peut très bien être installée si elle
+n'est pas listée dans parts.
+
+Modifiez votre :file:`buildout.cfg` comme ceci :
+
+.. code-block:: cfg
+
+    [buildout]
+    # ...
+    parts = zopeskel archgenxml
+
+    [archgenxml]
+    # ...
+    packages = ZopeSkel
+
+    [zopeskel]
+    recipe = zc.recipe.egg
+    eggs = {archgenxml:packages}
+
+Dans cet exemple, il n'y aucune raison particulière pour installer une part
+avant l'autre. C'est juste pour l'exercice.
+
+L'ordre d'installation sera ``[archgenxml]``, puis ``[zopeskel]``.  Si
+maintenant vous supprimez la part ``[archgenxml]`` de ``parts``, elle sera
+toujours installée car la part ``[zopeskel]`` en dépend, faisant référence à une de ses variables.
+
 L'option develop
 ================
+
+.. note::
+
+    Cette partie dépend du chapitre :ref:`python_eggs`.
 
 L'option :data:`develop` permet d'indiquer quels eggs sont en mode
 développement.
@@ -560,7 +598,7 @@ développement.
 Créez un dossier :file:`src/` et déplacez y vos deux eggs :mod:`foo.bar` et
 :mod:`foo.rab`.
 
-Ajoutez :mod:`foo.bar` à l'omelette et relancer ``bin/buildout -c
+Ajoutez :mod:`foo.bar` à l'omelette et relancez ``bin/buildout -c
 development.cfg``. Buildout tente d'aller chercher :mod:`foo.bar` sur
 :term:`Pypi` et échoue.
 
@@ -592,6 +630,10 @@ en développement.
 Option index et find-links
 ==========================
 
+.. note::
+
+    Cette partie dépend du chapitre :ref:`python_eggs`.
+
 L'option ``index`` permet de spécifier un autre index que celui par défaut, par
 exemple un pypi proxy avec :mod:`collective.eggproxy`.
 
@@ -610,32 +652,3 @@ Supprimez donc l'option ``develop`` et dans :file:`development.cfg`, ajoutez :
     find-links += http://devagile:8080/site/products/simple
 
 et dans :file:`versions.cfg`, ajoutez ``foo.bar = 1.0``.
-
-Ordre d'installation des parts
-==============================
-
-L'ordre d'installation des parts n'est pas forcément l'ordre donné dans l'option
-``parts`` de ``[buildout]``. Et une part peut très bien être installée si elle
-n'est pas listée dans parts.
-
-Modifiez votre :file:`buildout.cfg` comme ceci :
-
-.. code-block:: cfg
-
-    [buildout]
-    # ...
-    parts = zopeskel archgenxml
-
-    [archgenxml]
-    # ...
-    packages = ZopeSkel
-
-    [zopeskel]
-    recipe = zc.recipe.egg
-    eggs = {archgenxml:packages}
-
-.. todo:: Expliquer pourquoi cet ordre des parts (dépendance zopeskel -> archgenxml)
-
-L'ordre d'installation sera ``[archgenxml]``, puis ``[zopeskel]``.  Si
-maintenant vous supprimez la part ``[archgenxml]`` de ``parts``, elle sera
-toujours installée car la part ``[zopeskel]`` en dépend.
