@@ -183,7 +183,21 @@ Extensibilité
 
 Il est possible de développer de nouveaux layouts et de nouveaux types d'éléments pour les compositions de Collage.
 
-Pour trouver les modules d'extension existants, cherchez sur pypi : `<http://pypi.python.org/pypi?%3Aaction=search&term=Products.Collage&submit=search>`_.
+Pour trouver les modules d'extension existants, cherchez sur pypi : `<http://pypi.python.org/pypi?%3Aaction=search&term=collective.collage&submit=search>`_.
+
+
+.. figure:: ./collage/69.jpg
+    :align: center
+
+.. figure:: ./collage/70.jpg
+    :align: center
+
+.. figure:: ./collage/71.jpg
+    :align: center
+
+.. figure:: ./collage/72.jpg
+    :align: center
+
 
 S'il n'existe pas d'élément correspondant à vos besoins, contactez votre prestataire Plone favori :).
 

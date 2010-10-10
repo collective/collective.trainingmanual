@@ -44,6 +44,7 @@ California 94105, USA.
    deploiement_backup
    munin
    plonepas/index
+   ploneformgen/index
    formation_tal_metal
    workflows-locaux
    contentrules
