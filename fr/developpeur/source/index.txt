@@ -40,14 +40,11 @@ California 94105, USA.
 .. toctree::
    :maxdepth: 1
 
-   apropos
    python/index
-   ploneformgen/index
-   cahier_des_charges_aq
    uml/index
    archgenxml/index
-   concepts_zope3
    izca-fr
+   grok
    migration_composants_plone25
    notions_avancees_formulaire
    nouvelles_fonctionnalites_archgenxml
@@ -59,6 +56,7 @@ California 94105, USA.
    rappel_python
    tdd
    ddd
+   ploneformgen/index
    scrum
    glossaire
 

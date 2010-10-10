@@ -1,27 +1,19 @@
 .. -*- coding: utf-8 -*-
 
-.. _concepts_zope3:
+.. _grok:
 
-=======================
-Concepts de base Zope 3
-=======================
+=========================
+Utiliser la ZCA avec Grok
+=========================
 
-Définition
-==========
+Introduction
+============
 
-:term:`ZCA` (Zope Component Architecture), le modèle de composants de Zope 3 est
-utilisé partout dans les dernières versions de Plone. L'apprentissage des
-concepts de Zope 3 est nécessaire pour comprendre le fonctionnement de Plone 3.
+Grok est un composant qui permet de simplifier et d'accélérer considérablement
+l'écriture de code utilisant la Zope Component Architecture.
+C'est principalement un ensemble de directive permettant de diminuer l'utilisation
+du zcml et d'écrire davantage de choses directement dans le code python.
 
-Savoir
-======
-
-- Interfaces
-- Adapters
-- Utilities
-- MultiAdapter et vue (sera vu plus en détails avec le chapitre TAL/METAL)
-- ZCML
-- Approche Grok
 
 Installation de five.grok
 =========================
@@ -76,7 +68,10 @@ ensemble dans le buildout de :mod:`five.grok`
 `pour Zope 2.10/Plone 3 <http://svn.zope.org/repos/main/five.grok/branches/1.0/README.txt>`_,
 `pour Zope 2.12/Plone 4 <http://svn.zope.org/repos/main/five.grok/trunk/README.txt>`_.
 
-Créez un product formation.transforms avec le template paster plone :
+Utiliser Grok
+=============
+
+Créez un package formation.transforms avec le template paster plone :
 
 .. code-block:: sh
 
@@ -117,7 +112,7 @@ Créez un fichier :file:`formation/transforms/interfaces.py` :
 .. code-block:: python
 
     from zope.interface import Interface
-    
+
     class IReplaceLetter(Interface):
         def getText(letter1, letter2):
             """Return a modified text, replace letter1 by letter2.
@@ -130,13 +125,13 @@ Créez un fichier :file:`adapters.py` :
     from five import grok
     from formation.transforms.interfaces import IReplaceLetter
     from Products.ATContentTypes.interface.document import IATDocument
-    
+
     class ReplaceLetter(grok.Adapter):
         grok.implements(IReplaceLetter)
         grok.context(IATDocument)
         def getText(self, letter1, letter2):
             return self.context.getText().replace(letter1, letter2)
-    
+
 Créez un module :file:`views.py` :
 
 .. code-block:: python
@@ -181,7 +176,7 @@ Créez le répertoire :file:`templates/` et créez dedans un fichier
              tal:content="structure view/getContent">
         </div>
     </html>
-    
+
 
 Dans :file:`formation/transforms/configure.zcml`, ajoutez l'espace de nom ``grok``
 et la ligne :
@@ -212,27 +207,3 @@ Viewlets avec grok
 
 - Création d'une viewlet qui affiche un Avertissement lorsque le document est
   expiré : http://vincentfretin.ecreall.com/articles/creating-a-viewlet-with-grok
-
-
-Zope 3 et ZCA
--------------
-
-- Article Zope Component Architecture (ZCA) dans Linux Magazine hors-série n°40
-
-- `Web Component Development with Zope 3 <http://worldcookery.com/>`_, Third
-  Edition, Philipp von Weitershausen. A noter que ce livre est maintenant
-  diponible en téléchargement légal et gratuit depuis `sa page dans le site
-  www.netbks.org
-  <http://www.netbks.org/others/development-for-web/web-component-development-with-zope-3-2_40196.html>`_
-
-- `A Comprehensive Guide to Zope Component Architecture
-  <http://plone.org/documentation/books/guide-to-zca>`_ et sa `traduction
-  française
-  <http://ccomb.gorfou.fr/2009/12/9/le-guide-complet-de-l-architecture-de-composants-de-zope>`_
-
-- `Zope 3 Components <http://wiki.zope.org/zope3/ZopeGuideComponents>`_
-
-- `Zope 3 Interface <http://wiki.zope.org/zope3/ZopeGuideInterfaces>`_
-
-- `Grok Configuration Phase and its Extension
-  <http://exploring-grok.blogspot.com/2009/01/grok-configuration-phase-and-its.html>`_
