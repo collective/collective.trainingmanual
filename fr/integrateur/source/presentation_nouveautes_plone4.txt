@@ -126,7 +126,8 @@ Les icones d'actions ne sont plus gérées séparément des actions
 Suppression du base_properties
 ------------------------------
 
-Les css ne sont plus écrites en dtml, mais en text pur.
+Les css ne sont plus écrites en dtml, mais en texte pur.
+L'expérience d'utilisation a montré que l'utilisation de variables dans les css posait plus de risques qu'elle ne faisait gagner de temps.
 
 Améliorations techniques
 ========================
