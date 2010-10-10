@@ -195,52 +195,89 @@ Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRequestTyp
 Role_Assigner Plugins
 ---------------------
 
-.. zzz reprendre ici la liste des types de plugins.
+Les plugins de ce type permettent d'ajouter ou de supprimer de façon persistante
+un rôle à un :term:`principal`.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRoleAssignerPlugin`
 
 Role_Enumeration Plugins
 ------------------------
 
+Les plugins de ce type permettent d'obtenir une liste de rôles (sous forme de
+mapping incluant des informations supplémentaires) répondant à des critères de
+recherche.
+
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRoleEnumerationPlugin`
 
 Roles Plugins
 -------------
+
+Les plugins de ce type permettent d'assigner des rôles à un
+:term:`principal`. L'ensemble des plugins activés sont sollicités lors de chaque
+transaction pour déterminer les rôles dont dispose un utilisateur.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRolesPlugin`
 
 Update Plugins
 --------------
 
+Cette interface n'est utilisée nulle part.
+
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUpdatePlugin`
 
 User_Adder Plugins
 ------------------
+
+Les plugins implémentant cette interface ont l'aptitude d'ajouter des
+utilisateurs de façon persistente. Attention, on utilise plus souvent
+l'interface `User_Management Plugins`_ plus complète qui hérite de la présente
+interface.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserAdderPlugin`
 
 User_Enumeration Plugins
 ------------------------
 
+Les plugins implémentant cette interface sont utilisés pour énumérer les
+utilisateurs selon des critères particuliers. Par exemple pour rechercher
+les utilisateus don le nom contient "dup".
+
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserEnumerationPlugin`
 
 Userfactory Plugins
 -------------------
+
+Les plugins implémentant cette interface sont susceptibles de construire des
+objets de type "utilisateur". Ce type d'objet, conforme aux utilisateurs Zope
+standard (sécurité, etc...) fournit également les propriétés de l'utilisateur
+(adresse mail, nom complet, ...). Dans le cadre de l'utilisation dans Plone, un
+plugin de ce type est déjà fourni, et sauf exception spécifique, il sera très
+rarement nécessaire de fournir un plugin spécialisé.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserFactoryPlugin`
 
 User_Introspection Plugins
 --------------------------
 
+Les plugins implémentant cette interface permettent de lister sous diffrentes
+formes tous les utilisateurs qu'ils "contiennent". Généralement, les plugins de
+ce type sont également des `Authentication Plugins`_.
+
 Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserIntrospection`
 
 User_Management Plugins
 -----------------------
 
+Les plugins implémentant cette interface sont fournissent les outils pour
+changer le mot de passe d'un utilisateur et pour supprimer un utilisateur.
+
 Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserManagement`
 
 Validation Plugins
 ------------------
+
+Les plugins implémentant cette interface valident les modifications de
+propriétés d'un utilisateur.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IValidationPlugin`
 
