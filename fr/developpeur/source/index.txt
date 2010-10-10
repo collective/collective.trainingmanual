@@ -46,13 +46,12 @@ California 94105, USA.
    grok
    uml/index
    archgenxml/index
-   migration_composants_plone25
-   notions_avancees_formulaire
    nouvelles_fonctionnalites_archgenxml
    creation_theme
    internationalisation
    environnement_de_dev
    gestion_des_sources
+   migration_composants_plone25
    tdd
    ddd
    scrum
