@@ -51,7 +51,6 @@ California 94105, USA.
    nouvelles_fonctionnalites_archgenxml
    creation_theme
    internationalisation
-   envoi_mail
    environnement_de_dev
    gestion_des_sources
    tdd
