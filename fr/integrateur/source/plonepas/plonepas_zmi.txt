@@ -195,7 +195,7 @@ Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRequestTyp
 Role_Assigner Plugins
 ---------------------
 
-Les plugins de ce type permettent d'ajouter ou de supprimer de façon persistante
+Les plugins de ce type permettent d'ajouter ou de supprimer de façon persistente
 un rôle à un :term:`principal`.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IRoleAssignerPlugin`
@@ -240,7 +240,7 @@ User_Enumeration Plugins
 
 Les plugins implémentant cette interface sont utilisés pour énumérer les
 utilisateurs selon des critères particuliers. Par exemple pour rechercher
-les utilisateus don le nom contient "dup".
+les utilisateurs dont le nom contient "dup".
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserEnumerationPlugin`
 
@@ -249,7 +249,7 @@ Userfactory Plugins
 
 Les plugins implémentant cette interface sont susceptibles de construire des
 objets de type "utilisateur". Ce type d'objet, conforme aux utilisateurs Zope
-standard (sécurité, etc...) fournit également les propriétés de l'utilisateur
+standard (sécurité, etc.) fournit également les propriétés de l'utilisateur
 (adresse mail, nom complet, ...). Dans le cadre de l'utilisation dans Plone, un
 plugin de ce type est déjà fourni, et sauf exception spécifique, il sera très
 rarement nécessaire de fournir un plugin spécialisé.
@@ -259,7 +259,7 @@ Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IUserFactor
 User_Introspection Plugins
 --------------------------
 
-Les plugins implémentant cette interface permettent de lister sous diffrentes
+Les plugins implémentant cette interface permettent de lister sous différentes
 formes tous les utilisateurs qu'ils "contiennent". Généralement, les plugins de
 ce type sont également des `Authentication Plugins`_.
 
@@ -268,7 +268,7 @@ Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserIntrospection`
 User_Management Plugins
 -----------------------
 
-Les plugins implémentant cette interface sont fournissent les outils pour
+Les plugins implémentant cette interface fournissent les outils pour
 changer le mot de passe d'un utilisateur et pour supprimer un utilisateur.
 
 Interface : :class:`Products.PlonePAS.interfaces.plugins.IUserManagement`
