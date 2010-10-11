@@ -1,0 +1,127 @@
+.. -*- coding: utf-8 -*-
+
+.. _choix_et_ajout_d_un_module
+
+==========================
+Choix et ajout d'un module
+==========================
+
+Définition
+==========
+
+Plone est un Content Management Système, c'est à dire un portail collaboratif
+qui permet de gérer des contenus tels que des documents, des images, des
+événements, des vidéos etc.
+
+Plone permet de créer et de gérer les cycles de publications des contenus, ainsi
+on peut affecter des rôles aux membres leur permettant ou non de créer, modifier,
+voir, ou changer les règles des contenus.
+
+Dans Plone, la gestion des droits est si fine que l'on peut donner des
+permissions d'accès aux champs des documents en fonction de l'état du document
+(brouillon, soumis, publié etc) et des rôles des membres.
+
+Plone permet facilement la création de nouveaux types de contenus, de nouvelles
+règles de gestion, de nouveau rôles ou groupes.
+
+Cette finesse de la gestion des droits associée au fait que Plone est un logiciel
+libre à permit la création de nombreuses extensions permettant soit de
+spécialiser Plone soit de l'étendre.
+
+Ces extensions ont d'abord été appelées "Produits" mais à partir de la version
+4 de Plone nous parlons de "modules".
+
+La première étape consiste donc à identifier son besoin.
+
+Ensuite, il faut vérifier que Plone ne propose pas déjà les fonctionnalités
+désirées.
+
+Pour cela nous pouvons commencer par voir si Plone fournit de base un type
+de contenu spécifique à ce besoin.
+
+S'il existe un contenu, il faut alors vérifier que le workflow, qui lui est
+associé, correspond à notre besoin et si nécessaire en développer un autre.
+
+Il est possible de créer des nouveaux types de contenu par simple duplication de
+ceux existants. On peut alors leurs affecter des comportements et des valeurs
+par défaut différents de ceux d'origine.
+
+S'il n'existe pas de contenu correspondant à notre besoin et que celui-ci est
+générique, alors il existe surement un module couvrant partiellement ou
+complètement notre besoin.
+
+On va donc chercher et sélectionner un module.
+
+Il existe plusieurs sources de modules :
+
+* Le dépôt des programmes open source de Python, appelé "pypi" et accessible sur
+  le lien http://pypi.python.org/pypi
+* Le dépôt des modules Plone hébergés par la fondation Plone et accessible sur
+  le lien http://plone.org/products
+* Les dépôts des projets et sociétés dont les adresses peuvent être trouvées sur
+  internet.
+
+Le dépôt Pypi est celui de la communauté Python qui est le langage de
+programmation de Plone. Pour y trouver un module spécifique à Plone il faut
+faire une recherche en utilisant le mot clé Plone et les mots que vous pensez
+être associés à votre besoin.
+
+Pypi affichera les "egg" liées à Plone, en effet depuis les versions 3 de Plone
+les modules sont fournis sous forme de paquets appelés "egg" dont on détaillera
+l'anatomie et comment les ajouter à Plone plus loin. Plone est désormais
+entièrement constitué de egg qui forment autant de bibliothèques.
+
+Depuis la version 4 de Plone le site de la communauté Plone possède un nouveau
+classement des modules qui permet entre autre de les chercher par thème.
+
+Un article sur cette nouvelle interface a été écrit sur le site de la communauté
+française http://plone.fr/news/nouveautes-plone-products
+
+Les modules hébergés exclusivement par les sites de leur développeurs sont plus
+dur à identifier et leur capital confiance est moins bon.
+
+Les modules suivent un cycle de vie de développement, les plus utilisés sont
+maintenus et sont adaptés aux nouvelles version de Plone rapidement.
+
+Avant d'utiliser un module il faut se poser les questions suivantes :
+
+* Ce module est il compatible avec notre version de Plone ?
+* Depuis combien de temps existe le module ?
+* Est il encore utilisé ?
+* Est il maintenu ?
+* Y a t'il eu des remontées de bogues et est ce possible ?
+* Si oui y a t'il eu des corrections apportées et au bout de combien de temps ?
+* La société ou les développeurs derrières ce module, sont ils actifs dans la
+  communauté ?
+* A t'on accès au code source du module ?
+* Le code est il sur le dépôt de la communauté Python ou Plone ?
+* Le module respecte t'il les standards de programmation de la communauté ?
+* Le module est il sous forme de egg ?
+* Est il documenté ?
+* Modifie t il Plone ?
+
+Ensuite il faut absolument essayer le module sur une copie du site de production
+pour vérifier qu'il correspond à notre besoin et surtout qu'il ne casse pas nos
+autres modules et respecte l'intégrité de notre site.
+
+Il faut alors dérouler des tests de validation du portail pour vérifier
+l'intégrité du portail.
+
+Puis il faut tester le fonctionnement du module pour vérifier son adéquation
+avec le besoin.
+
+Si le besoin n'est pas complètement satisfait il faut alors chercher un module
+plus complet ou compléter le développement du module sélectionné.
+
+Le fait de compléter un module déjà existant par rapport à en créer un ex nihilo
+est à préférer, surtout si les évolutions que l'on souhaite apporter sont dans
+la logique du module.
+
+Cette attitude vertueuse permet :
+
+- de réduire les coûts en ne recréant pas ce qui existe déjà,
+- de bénéficier d'une communauté d'utilisateurs et de développeurs,
+- d'améliorer la couverture fonctionnelle d'un module ce qui du coup augmente
+  ses chances d'être réutilisé et donc maintenu.
+
+Nous verrons comment contribuer à un module par la suite.
