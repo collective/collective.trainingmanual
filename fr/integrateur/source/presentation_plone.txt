@@ -19,8 +19,8 @@ Il fournit une vitrine et un outil d’animation.
 
 Nous montrerons comment le CMS open source Plone répond aux exigences fortes que sont :
 
- * Un usage simple et ergonomique pour l’utilisateur.
- * Un fort niveau de paramétrage pour l’administrateur.
+* Un usage simple et ergonomique pour l’utilisateur.
+* Un fort niveau de paramétrage pour l’administrateur.
 
 Pourquoi Plone
 ==============
@@ -332,13 +332,12 @@ Espace projet
 Le portail permet facilement de mettre en place la notion de projet, et offre
 donc :
 
- 1. un calendrier qui tient compte de vos droits pour afficher les événements,
- 2. des listes de tâches,
- 3. des classeurs de documents (containers),
- 4. des forums,
- 5. des sondages,
- 6. des actualités.
-
+1. un calendrier qui tient compte de vos droits pour afficher les événements,
+2. des listes de tâches,
+3. des classeurs de documents (containers),
+4. des forums,
+5. des sondages,
+6. des actualités.
 
 Répertoires dynamiques
 ======================
@@ -358,10 +357,10 @@ Références croisées
 Le portail permet de "lier" des documents entre-eux.
 Exemples :
 
- 1. Fiche descriptive d'un produit et différentes photos d'applications de ce
-    produit.
- 2. Associer un document en anglais et des traductions faites à partir de ce
-    document.
+1. Fiche descriptive d'un produit et différentes photos d'applications de ce
+   produit.
+2. Associer un document en anglais et des traductions faites à partir de ce
+   document.
 
 La notion de lien internet est fortement utilisée et permet à Plone de créer
 des références entre documents.

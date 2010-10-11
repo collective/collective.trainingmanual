@@ -20,7 +20,7 @@ francophone, notamment :
   <http://vincentfretin.ecreall.com>`__ (`Ecréall <http://www.ecreall.com>`__)
 
 * Les travaux, les relectures et les très nombreuses contributions de `Gilles
-  Lenfant` et `Thomas Desvenain`
+  Lenfant`, `Thomas Desvenain` et `Michael Launay`
 
 Cette création est mise à disposition selon le Contrat Paternité-Partage des
 Conditions Initiales à l'Identique 2.0 France disponible en ligne
@@ -37,6 +37,7 @@ California 94105, USA.
    presentation_plone
    presentation_nouveautes_plone3
    presentation_nouveautes_plone4
+   choix_et_ajout_d_un_module
    installation_et_creation_d_une_instance_Plone
    concepts_python_eggs
    presentation_buildout
