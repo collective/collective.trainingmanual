@@ -32,15 +32,15 @@ California 94105, USA.
    :maxdepth: 1
 
    apropos
-   presentation_http
-   presentation_html_xml
    presentation_plone
    presentation_nouveautes_plone3
    presentation_nouveautes_plone4
    choix_et_ajout_d_un_module
-   installation_et_creation_d_une_instance_Plone
+   presentation_http
+   presentation_html_xml
    concepts_python_eggs
    presentation_buildout
+   installation_et_creation_d_une_instance_Plone
    buildout_plone3
    deploiement_backup
    munin
