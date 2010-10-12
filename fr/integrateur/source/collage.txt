@@ -2,9 +2,9 @@
 
 .. _addon_collage:
 
-=======================================
-Créer des layouts en ligne avec Collage
-=======================================
+===============================================
+Créer des pages composées en ligne avec Collage
+===============================================
 
 Collage permet de composer en ligne, comme des contenus, des pages complexes composées d'éléments organisés en grille.
 C'est le moyen idéal de permettre à un webmaster de gérer lui-même ses pages d'accueil.
@@ -49,7 +49,8 @@ Indiquez un titre et enregistrez. Cliquez sur `Composer` pour aller sur la page 
 .. figure:: ./collage/menu-composer-collage.jpg
     :align: center
 
-Un collage se compose de rangées elles-mêmes divisiées en colonnes, chaque colonne pouvant contenir plusieurs éléments les uns au-dessus des autres.
+Un collage se compose de rangées elles-mêmes divisiées en colonnes,
+chaque colonne pouvant contenir plusieurs éléments les uns au-dessus des autres.
 Ajoutez une première rangée.
 
 .. figure:: ./collage/ajouter-rangee.jpg
@@ -63,7 +64,8 @@ Cela ajoute une rangée, contenant par défaut une colonne.
 Ajouter les éléments du Collage
 ===============================
 
-Nous allons composer un collage en deux colonnes sur une ligne. La première colonne contiendra une liste des actualités,
+Nous allons composer un collage en deux colonnes sur une ligne. L
+a première colonne contiendra une liste des actualités,
 la seconde contiendra une image statique et le rendu d'une actualité.
 
 Cliquez sur `créer une colonne`. Nous avons maintenant deux colonnes.
@@ -131,7 +133,8 @@ Utiliser le collage comme page d'accueil
 ========================================
 
 Publiez le collage, puis assignez-le comme vue par défaut du dossier :
-sur le dossier, cliquez sur `Affichage` > `Changer la vue par défaut` et sélectionnez votre collage.
+sur le dossier, cliquez sur `Affichage` > `Changer la vue par défaut`
+et sélectionnez votre collage.
 
 .. figure:: ./collage/vue-par-defaut.jpg
     :align: center
@@ -183,31 +186,53 @@ Extensibilité
 
 Il est possible de développer de nouveaux layouts et de nouveaux types d'éléments pour les compositions de Collage.
 
-Pour trouver les modules d'extension existants, cherchez sur pypi : `<http://pypi.python.org/pypi?%3Aaction=search&term=collective.collage&submit=search>`_.
+Pour trouver les modules d'extension existants,
+cherchez sur pypi : `<http://pypi.python.org/pypi?%3Aaction=search&term=collective.collage&submit=search>`_.
+
+Dans la liste des modules disponibles pour collage,
+nous avons le produit collective.collage.portlet.
+C'est un plugin collage qui nous permet d'avoir des portlets dans notre collage.
+Nous allons l'installer.
+
+Dans votre buildout.cfg, ajoutez à votre paramètre eggs la valeur collective.collage.portlet.
+Relancez votre buildout et redémarrez le site.
+
+Allez dans `configuration du site`, et installez le module collective.collage.portlet.
 
 
-.. figure:: ./collage/69.jpg
+.. figure:: ./collage/installe-collage-portlets.jpg
     :align: center
 
-.. figure:: ./collage/70.jpg
+Retournez sur votre collage. Ajoutez une colonne. Cliquez sur `modèles`.
+Un modèle a été ajouté au modèle standard : `portlets`. Choisissez-le.
+
+.. figure:: ./collage/modele-portlets.jpg
     :align: center
 
-.. figure:: ./collage/71.jpg
+La colonne fournit maintenant une interface permettant de sélectionner une portlet,
+similaire à celle de la page 'Gérer les portlets'.
+
+.. figure:: ./collage/ajouter-portlet.jpg
     :align: center
 
-.. figure:: ./collage/72.jpg
+Ajoutez une portlet de modération, et enregistrez.
+
+.. figure:: ./collage/voir-portlet.jpg
     :align: center
 
-
-S'il n'existe pas d'élément correspondant à vos besoins, contactez votre prestataire Plone favori :).
+S'il n'existe pas de plugin correspondant à vos besoins,
+contactez votre prestataire Plone favori :).
 
 Conclusion
 ==========
 
 Le module collage permet de créer des pages composées.
 
-On organise des contenus en lignes et en colonnes. Ces contenus peuvent être des alias de documents du site, des collections, ou des contenus embarqués.
+On organise des contenus en lignes et en colonnes.
+Ces contenus peuvent être des alias de documents du site, des collections, ou des contenus embarqués.
 
 On peut présenter les éléments de la composition suivant différents `modèles`, voire avec différents `habillages`.
 
 Ces compositions sont idéales pour construire des pages d'accueil de sites ou de rubriques.
+
+Des plugins existent pour étendre les éléments disponibles pour vos compositions.
