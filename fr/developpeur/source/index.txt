@@ -23,7 +23,7 @@ francophone, notamment :
   (`Ecréall <http://www.ecreall.com>`__)
 
 * La traduction par `Christophe Combelles <http://ccomb.gorfou.fr/>`__ du livre
-  de `Baiju Muthukadan `<http://www.muthukadan.net/>`__ sur la Zope Component Architecture
+  de `Baiju Muthukadan <http://www.muthukadan.net/>`__ sur la Zope Component Architecture
 
 * Les travaux, les relectures et les très nombreuses contributions de `Gilles
   Lenfant` et `Thomas Desvenain`
