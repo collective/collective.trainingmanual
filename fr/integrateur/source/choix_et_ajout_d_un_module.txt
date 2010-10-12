@@ -1,6 +1,6 @@
 .. -*- coding: utf-8 -*-
 
-.. _choix_et_ajout_d_un_module
+.. _choix_et_ajout_d_un_module:
 
 ==========================
 Choix et ajout d'un module
@@ -9,7 +9,7 @@ Choix et ajout d'un module
 Définition
 ==========
 
-Plone est un Content Management Système, c'est à dire un portail collaboratif
+Plone est un Content Management System, c'est-à-dire un portail collaboratif
 qui permet de gérer des contenus tels que des documents, des images, des
 événements, des vidéos etc.
 
@@ -19,16 +19,16 @@ voir, ou changer les règles des contenus.
 
 Dans Plone, la gestion des droits est si fine que l'on peut donner des
 permissions d'accès aux champs des documents en fonction de l'état du document
-(brouillon, soumis, publié etc) et des rôles des membres.
+(brouillon, soumis, publié etc.) et des rôles des membres.
 
-Plone permet facilement la création de nouveaux types de contenus, de nouvelles
+Plone permet facilement la création de nouveaux types de contenu, de nouvelles
 règles de gestion, de nouveau rôles ou groupes.
 
 Cette finesse de la gestion des droits associée au fait que Plone est un logiciel
-libre à permit la création de nombreuses extensions permettant soit de
+libre a permis la création de nombreuses extensions permettant soit de
 spécialiser Plone soit de l'étendre.
 
-Ces extensions ont d'abord été appelées "Produits" mais à partir de la version
+Ces extensions ont d'abord été appelées "produits" mais à partir de la version
 4 de Plone nous parlons de "modules".
 
 La première étape consiste donc à identifier son besoin.
@@ -63,7 +63,7 @@ Il existe plusieurs sources de modules :
 
 Le dépôt Pypi est celui de la communauté Python qui est le langage de
 programmation de Plone. Pour y trouver un module spécifique à Plone il faut
-faire une recherche en utilisant le mot clé Plone et les mots que vous pensez
+faire une recherche en utilisant le mot-clé Plone et les mots que vous pensez
 être associés à votre besoin.
 
 Pypi affichera les "egg" liées à Plone, en effet depuis les versions 3 de Plone
@@ -85,20 +85,20 @@ maintenus et sont adaptés aux nouvelles version de Plone rapidement.
 
 Avant d'utiliser un module il faut se poser les questions suivantes :
 
-* Ce module est il compatible avec notre version de Plone ?
+* Ce module est-il compatible avec notre version de Plone ?
 * Depuis combien de temps existe le module ?
-* Est il encore utilisé ?
-* Est il maintenu ?
-* Y a t'il eu des remontées de bogues et est ce possible ?
-* Si oui y a t'il eu des corrections apportées et au bout de combien de temps ?
-* La société ou les développeurs derrières ce module, sont ils actifs dans la
+* Est-il encore utilisé ?
+* Est-il maintenu ?
+* Y a-t-il eu des remontées de bogues et est-ce possible ?
+* Si oui y a-t-il eu des corrections apportées et au bout de combien de temps ?
+* La société ou les développeurs derrières ce module, sont-ils actifs dans la
   communauté ?
-* A t'on accès au code source du module ?
-* Le code est il sur le dépôt de la communauté Python ou Plone ?
-* Le module respecte t'il les standards de programmation de la communauté ?
-* Le module est il sous forme de egg ?
-* Est il documenté ?
-* Modifie t il Plone ?
+* A-t-on accès au code source du module ?
+* Le code est-il sur le dépôt de la communauté Python ou Plone ?
+* Le module respecte-t-il les standards de programmation de la communauté ?
+* Le module est-il sous forme de egg ?
+* Est-il documenté ?
+* Modifie-t-il Plone ?
 
 Ensuite il faut absolument essayer le module sur une copie du site de production
 pour vérifier qu'il correspond à notre besoin et surtout qu'il ne casse pas nos
