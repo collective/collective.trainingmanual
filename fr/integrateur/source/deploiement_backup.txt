@@ -22,10 +22,9 @@ Savoir
 - Mettre en place un backup de la ZODB
 - Apache
 - Varnish
-- CacheFu
-- plone.app.caching
-
-.. todo:: configuration supervisord
+- HAproxy
+- CacheFu / plone.app.caching
+- Supervisor
 
 Profil de déploiement
 =====================
@@ -36,67 +35,57 @@ Profil de déploiement
    Vous pouvez réviser vos connaissances sur :term:`buildout` en relisant le
    chapitre :ref:`buildout_plone3`.
 
-
 Créez un fichier :file:`deployment.cfg` :
 
-.. code-block:: cfg
+.. centered:: :file:`deployment.cfg`
 
-   [buildout]
-   extends = buildout.cfg
-
-   parts +=
-        varnish-build
-        varnish
-
-    eggs +=
-        Products.CacheSetup
-
-    [varnish-build]
-    recipe = zc.recipe.cmmi
-    url = ${varnish:download-url}
-
-    [varnish]
-    recipe = plone.recipe.varnish
-    daemon = ${buildout:parts-directory}/varnish-build/sbin/varnishd
-    bind = 127.0.0.1:8000
-    backends = 127.0.0.1:${instance:http-address}
-    cache-size = 1G
-    user = zope
+.. literalinclude:: ./deploiement_buildout/deployment.cfg
+    :language: cfg
 
 Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
 
-Vous allez créer un utilisateur zope qui servira seulement pour le proxy cache
-varnish :
+Vous allez créer un utilisateur zope qui servira pour lancer le
+proxy cache varnish, le load balancer HAproxy et les instances zope.
 
 .. code-block:: sh
 
     $ sudo adduser zope
 
-Pour lancer varnish :
+Supervisor
+==========
+.. todo:: configuration supervisord
 
-.. code-block:: sh
+Le buildout génère le fichier :file:`etc/supervisord.conf`.
 
-    $ sudo -s
-    $ bin/varnish
+Tous les processus sont gérés par supervisor.
 
-Pour l'arrêter :
+Pour lancer supervisor, lancez le daemon en tant que super utilisateur
+qui lancera tous les processus ayant autostart=true (par defaut) : ::
 
-.. code-block:: sh
+    $ sudo bin/supervisord
 
-    $ pkill varnish
+(varnish et haproxy ont besoin d'être démarré en root pour activer
+certaines options. Les processus sont ensuite forker pour utiliser
+l'utilisateur zope)
+
+Pour redémarrer un processus par exemple instance1 : ::
+
+    $ bin/supervisorctl restart instance1
+
+Pour stopper : `stop`, pour démarrer : `start`.
+
+Pour tout redémarrer : ::
+    
+    $ bin/supervisorctl restart all
+
+Pour arrêter supervisor et donc tous les processus : ::
+
+    $ bin/supervisorctl shutdown
 
 Support des backups
 ===================
 
-Éditez :file:`buildout.cfg`, ajoutez ``backup`` dans parts :
-
-.. code-block:: cfg
-
-    parts =
-        ...
-        backup
-
-et ajoutez la section ``[backup]`` comme ceci :
+Pour les backups, c'est la section ``backup``.
 
 .. code-block:: cfg
 
@@ -142,7 +131,7 @@ qui créera une sauvegarde dans le dossier :file:`var/snapshotbackups/`, utile
 pour ne pas perturber les sauvegardes normales qui se font la nuit.  Vous
 récupérez ensuite la sauvegarde (les fichiers :file:`.fsz` et :file:`.dat`) via
 :command:`scp` et vous placez la sauvegarde dans votre dossier
-:file:`var/backups/` en local et exécutez :command:`bin/restore` en local.
+:file:`var/snapshotbackups/` en local et exécutez :command:`bin/snapshotrestore` en local.
 
 Cron job pour zeopack et backup
 ===============================
@@ -155,38 +144,10 @@ Il synchronise également les dossiers :file:`backup/` et :file:`log/` sur un au
 
 Tout cela est réalisé par un job cron à 3h du matin.
 
-.. centered:: :file:`serveur0.example.com`
+.. centered:: :file:`deployment-backup.cfg`
 
-.. code-block:: cfg
-
-  [buildout]
-  extends = deployment.cfg
-  versions = versions
-  parts +=
-      backup-template
-      backup-schedule
-
-  [versions]
-  collective.recipe.template = 1.6
-  z3c.recipe.usercrontab = 1.0
-
-  [backup-template]
-  recipe = collective.recipe.template
-  inline =
-      #!/bin/bash
-      ${buildout:bin-directory}/zeopack
-      ${buildout:bin-directory}/backup -q
-      rsync -a --delete ${backup:location}/ \
-      save@serveur1.example.com:/home/save/MyProject/backups/
-      rsync -a --delete ${buildout:directory}/var/log/ \
-      save@serveur1.example.com:/home/save/MyProject/log/
-  output = ${buildout:bin-directory}/backup.sh
-  mode = 755
-
-  [backup-schedule]
-  recipe = z3c.recipe.usercrontab
-  times = 0 3 * * *
-  command = ${backup-template:output}
+.. literalinclude:: ./deploiement_buildout/deployment-backup.cfg
+    :language: cfg
 
 Dans cet exemple, la synchronisation se fait sur le serveur de secours/backup
 *serveur1.example.com* avec le login *save*. Il vous faut préalablement partager
@@ -194,7 +155,7 @@ une clé publique entre ces deux serveurs pour que la commande :command:`rsync`
 ne demande aucun mot de passe.
 
 Pour utiliser cette configuration, exécutez :command:`bin/buildout -c
-serveur0.example.com`.  Le cron job sera automatiquement ajouté dans le crontab
+deployment-backup.cfg`.  Le cron job sera automatiquement ajouté dans le crontab
 de l'utilisateur.
 
 Configuration d'Apache
@@ -274,7 +235,7 @@ Activez les modules :
 Activation de la compression
 ----------------------------
 
-Activez le module deflate :
+Activez le module *deflate* :
 
 .. code-block:: sh
 
@@ -308,18 +269,33 @@ Configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
 Vous accéderez à votre site à partir de maintenant avec l'adresse
 **http://devagile**.
 
-Configuration de CacheFu (< Plone 4)
-====================================
+Installation et configuration de CacheFu (< Plone 4)
+====================================================
+
+CacheFu est un module pour gérer les règles de cache HTTP pour Plone < 4.
+
+Installation
+------------
+
+Pour installer CacheFu il suffit d'ajouter :mod:`Products.CacheSetup`
+soit dans la liste des eggs de votre buildout, soit en tant que dépendance à
+l'un de vos projets dans le :file:`setup.py`.
+Vous devez ensuite l'installer par la suite comme un module supplémentaire
+dans le panneau de configuration de Plone via l'utilitaire 
+:guilabel:`Ajout/Suppression de produits`.
+
+Configuration
+-------------
 
 Allez avec le navigateur en tant qu'administrateur dans
-:guilabel:`configuration du site`
+:guilabel:`Configuration du site`
 -> :guilabel:`Cache Configuration Tool` et configurez de la manière suivante :
 
 - Cocher Enable CacheFu
 - Active Cache Policy: With Caching Proxy
 - Proxy Cache Purge Configuration: Purge with VHM URLS
 - Site Domains: https://ssl.devagile:443
-- Proxy Cache Domains: http://127.0.0..1:8000
+- Proxy Cache Domains: http://127.0.0.1:8000
 - Compression: Never
 
 Installation et configuration de plone.app.caching (>= Plone 4)
@@ -345,10 +321,21 @@ suit :
 
     extends =
         # ...
-	http://good-py.appspot.com/release/plone.app.caching/1.0a1
+	http://good-py.appspot.com/release/plone.app.caching/1.0b1
 
 Vous pouvez avoir une vue des versions disponibles ici :
 http://good-py.appspot.com/release/plone.app.caching
+
+.. note::
+
+    http://good-py.appspot.com est une application Google App Engine créée par
+    Martin Aspeli pour gérer un ensemble de KGS (Know Good Set),
+    avec des contraintes de versions compatibles et incompatibles. Par exemple
+    pour récupérer le KGS de plone.app.caching et de five.grok, vous pouvez
+    utiliser l'url suivante :
+    http://good-py.appspot.com/release/plone.app.caching/1.0b1?five.grok=1.1.2
+    Pour récupérer un KGS de five.grok compatible avec Plone 3.3 qui utilise 
+    Zope 2.10.x : http://good-py.appspot.com/release/five.grok/1.1.2?zope=2.10.x
 
 Le panneau de configuration de la gestion de cache
 --------------------------------------------------
@@ -370,8 +357,38 @@ Cette interface graphique est constituée de quatre onglets :
 4. *RAM cache* : fournit des informations statistiques sur le cache en RAM
    et son éventuelle purge.
 
+Configuration
+-------------
+
+Dans notre exemple, nous avons un cache proxy varnish derrière Apache.
+Pour configurer cette chaine, faire ce qui suit :
+
+- Cliquer sur :guilabel:`Import settings`, sélectionner
+  :guilabel:`With caching proxy`, cliquer sur :guilabel:`Import`
+- Retourner dans :guilabel:`Change settings`, dans 
+  :guilabel:`Global settings`, cocher :guilabel:`Enable caching`
+- Dans l'onglet :guilabel:`Caching proxies`, cocher :guilabel:`Enable purging`
+- Ajouter http://127.0.0.1:8000 dans les `Caching proxies`.
+- Cocher `Virtual host rewriting takes place front of the caching proxy` car
+  les adresses sont réécritent par Apache avec le RewriteRule.
+- Dans `Externally facing domains`, mettre https://ssl.devagile:443
+- Cliquer sur `Save`
+
+Le mieux après est d'exporter cette configuration dans formation.policy.
+Pour cela aller dans portal_setup, export, registry.
+Ajouter le fichier registry.xml dans votre dossier :file:`profiles/default/`.
+Eventuellement nettoyer ce fichier, seules les clés commencant par
+plone.app.caching nous intéressent.
+
 Pour aller plus loin :
 http://dev.plone.org/plone/browser/plone.app.caching/trunk/README.txt
+
+Tester
+------
+
+Vous pouvez tester que votre configuration fonctionne bien en inspectant
+les requêtes HTTP avec l'extension Firebug de Firefox par exemple.
+
 
 Ressources
 ==========
