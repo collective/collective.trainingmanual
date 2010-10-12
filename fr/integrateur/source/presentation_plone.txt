@@ -76,7 +76,7 @@ type d'élément voulu dans le menu "Ajout d'un élément".
    Ajout d'un élément
 
 Une page sur l'édition du nouveau document s'ouvre et l'on peut saisir le
-contenu du document :
+contenu du document :
 
 .. figure:: presentation_plone_images/picture_10.png
 
@@ -135,7 +135,7 @@ L'onglet propriété permet de gérer les notions de droit d'auteur.
 
 .. figure:: presentation_plone_images/picture_7.png
 
-   Paramètres d'un document 
+   Paramètres d'un document
 
 L'onglet paramètres permet de préciser comment le document sera visible dans
 l'arborescence et si l'on autorise les commentaires.
@@ -247,7 +247,7 @@ Control List).
 
 .. figure:: presentation_plone_images/picture_4.png
 
-   Gestion des utilisateurs 
+   Gestion des utilisateurs
 
 La gestion des utilisateurs, des rôles, et des groupes se fait à travers une
 interface relativement simple.
@@ -259,7 +259,7 @@ Le portail offre des fonctions de recherche simple et complexe, sur le contenu
 des documents et les méta-informations.
 
 Le texte des documents saisis en ligne ou téléchargés (pour les formats les
-plus courants : Word, Excel, Power Point, pdf, etc.) est indexé.
+plus courants : Word, Excel, Power Point, pdf, etc.) est indexé.
 
 Le moteur de recherche rapide est constitué d'un champ présent en permanence
 sur toute les pages.
@@ -355,7 +355,7 @@ Références croisées
 ===================
 
 Le portail permet de "lier" des documents entre-eux.
-Exemples :
+Exemples :
 
 1. Fiche descriptive d'un produit et différentes photos d'applications de ce
    produit.
@@ -376,7 +376,7 @@ marché, mais il ne fige pas la chaîne de validation (Workflow), que l'on peut
 modifier.
 
 Par exemple nous avons défini le workflow des tâches de la gestion des projets
-comme suit :
+comme suit :
 
 .. figure:: presentation_plone_images/picture_8.png
 
@@ -477,7 +477,7 @@ ligne ou par fichier de configuration.
 
 .. figure:: presentation_plone_images/picture_13.png
 
-   Exemple de style basique 
+   Exemple de style basique
 
 Il est possible d'adapter des chartes existantes à vos besoins en changeant par
 exemple les couleurs, les icônes.
@@ -564,7 +564,7 @@ améliorations sous les même termes de licence.
 
 Des tutoriels en ligne peuvent être installés (produit Amberjack). Ces
 tutoriels permettent de réaliser sous forme d'exercices les étapes
-fondamentales à la création et à la publication de document. 
+fondamentales à la création et à la publication de document.
 
 Sécurisation
 ------------
@@ -591,4 +591,4 @@ navigateur chaque fois qu'une page du portail est affichée.
 
 .. figure:: presentation_plone_images/picture_2.png
 
-   Statistiques avec Piwik 
+   Statistiques avec Piwik
