@@ -1,6 +1,6 @@
 .. -*- coding: utf-8 -*-
 
-.. _presentation_plone
+.. _presentation_plone:
 
 =====================
 Présentation de Plone
