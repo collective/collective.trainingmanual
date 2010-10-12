@@ -9,17 +9,13 @@ Choix et ajout d'un module
 Définition
 ==========
 
-Plone est un Content Management System, c'est-à-dire un portail collaboratif
+Plone est un Content Management System, c'est à dire un portail collaboratif
 qui permet de gérer des contenus tels que des documents, des images, des
-événements, des vidéos etc.
+événements, des vidéos, etc.
 
-Plone permet de créer et de gérer les cycles de publications des contenus, ainsi
+Il permet de créer et de gérer les cycles de publications des contenus, ainsi
 on peut affecter des rôles aux membres leur permettant ou non de créer, modifier,
 voir, ou changer les règles des contenus.
-
-Dans Plone, la gestion des droits est si fine que l'on peut donner des
-permissions d'accès aux champs des documents en fonction de l'état du document
-(brouillon, soumis, publié etc.) et des rôles des membres.
 
 Plone permet facilement la création de nouveaux types de contenu, de nouvelles
 règles de gestion, de nouveau rôles ou groupes.

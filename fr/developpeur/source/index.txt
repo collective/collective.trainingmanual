@@ -49,6 +49,7 @@ California 94105, USA.
    nouvelles_fonctionnalites_archgenxml
    creation_theme
    internationalisation
+   plonepas/index
    environnement_de_dev
    gestion_des_sources
    migration_composants_plone25
