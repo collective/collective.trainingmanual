@@ -87,13 +87,10 @@ Support des backups
 
 Pour les backups, c'est la section ``backup``.
 
-.. code-block:: cfg
-
-    [backup]
-    recipe = collective.recipe.backup
-    keep = 15
-    full = true
-    gzip = true
+.. literalinclude:: ./deploiement_buildout/buildout.cfg
+    :language: cfg
+    :prepend: [backup]
+    :start-after: [backup]
 
 Vous avez par défaut les options suivantes :
 
