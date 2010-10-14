@@ -501,7 +501,7 @@ Une utilisation classique est d'assurer la fermeture d'un fichier :
        for line in f:
            print line
 
-L' <expression> retourne un **gestionnaire de contexte* associé à <variable>. un
+L' <expression> retourne un **gestionnaire de contexte** associé à <variable>. un
 gestionnaire de contexte est un objet quelconque fournissant les méthodes
 :meth:`__enter__` et :meth:`__exit__`.
 
