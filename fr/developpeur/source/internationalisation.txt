@@ -17,7 +17,35 @@ disponible en plusieurs langues.
    de la **localisation** (:term:`l10n`), qui consiste à fournir la traduction
    des labels produits lors de durant l'internationalisation.
 
-.. todo:: Placer des liens sur les grandes lignes de gettext (fichiers .pot, .po, .mo)
+Exemples de la formation
+========================
+
+Les exemples de cette formation sont dans le package collective.trainingmanual.i18nexamples.
+Pour l'installer, ajoutez à votre buildout :
+
+.. code-block:: cfg
+
+    [buildout]
+
+	eggs +=
+	    ...
+	    collective.trainingmanual.i18nexamples
+
+	auto-checkout +=
+	    ...
+	    collective.trainingmanual.i18nexamples
+
+    [instance]
+
+    zcml +=
+        ...
+        collective.trainingmanual.i18nexamples
+
+	[sources]
+	collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/collective.trainingmanual.i18nexamples
+
+Vous pourrez observer les exemples de cette formation en allant à l'addresse
+/i18nexamples depuis la racine de votre site.
 
 Internationaliser un composant
 ==============================
@@ -38,7 +66,7 @@ Notion de domaine
 Plone et plus généralement Zope (puisque nous parlons d'internationalisation
 Zope) sont des écosystèmes générant des centaines de composants d'extension sur
 l'utilité desquels nous ne reviendrons pas ici. Un intégrateur est susceptible
-de mixer nombre parmi ces composants.
+de mixer nombre de ces composants.
 
 Ceci risque donc d'amener nombre de conflits de labels, le même label pouvant
 être traduit différemment selon l'emploi qui en est fait.
@@ -58,7 +86,7 @@ ligne suivantes :
     <configure
         xmlns="http://namespaces.zope.org/zope"
         xmlns:i18n="http://namespaces.zope.org/i18n"
-        i18n_domain="AgileKnowledgeBase">
+        i18n_domain="i18nexamples">
         ...
         <i18n:registerTranslations directory="locales" />
         ...
@@ -73,7 +101,7 @@ lignes suivantes :
 .. code-block:: python
 
    from zope.i18nmessageid import MessageFactory
-   MyMessageFactory = MessageFactory('AgileKnowledgeBase')
+   MyMessageFactory = MessageFactory('i18nexamples')
 
 
 .. admonition::
@@ -87,9 +115,9 @@ vous devez procéder ainsi.
 
 .. code-block:: python
 
-   from Products.AgileKnowledgeBase import MyMessageFactory as _
+   from collective.trainingmanual.i18nexamples import MyMessageFactory as _
    # ...
-   def foo(bar):
+   def message(bar):
        message = _(u'my_message', default=u"Some words")
        # ...
 
@@ -102,11 +130,11 @@ vous devez procéder ainsi.
 
    .. code-block:: python
 
-     from Procucts.CMFPlone import PloneMessageFactory as p_
+     from Products.CMFPlone import PloneMessageFactory as PMF
      # ...
-     def foo(value):
+     def save(value):
          # ...
-         message = p_(u'Save') # Traduit en français par "Enregistrer"
+         message = PMF(u'Save') # Traduit en français par "Enregistrer"
 
    Dans ce cas particulier, il n'est pas utile de fournir le paramètre nommé
    ``default`` à la messagefactory.
@@ -119,7 +147,8 @@ Quelques explications :
   composant l'utilisation de cette fonction pour élaborer les modèles de
   dictionnaires (fichier :file:`*.pot`).
 
-- ``my_message`` est le label de traduction qui figurera, après traitement par :command:`i18ndude` dans le modèle de dictionnaire :file:`*.pot` de votre composant.
+- ``my_message`` est le label de traduction qui figurera, après traitement par :command:`i18ndude`,
+  dans le modèle de dictionnaire :file:`*.pot` de votre composant.
 
 - ``Some words`` est le texte par défaut, en anglais, du label ``my_message``
   qui sera fourni aux visiteurs du site en l'absence de traduction spécifique
@@ -138,7 +167,7 @@ variables sont marqués dans le message sous la forme ``${clé}``.
 
 .. code-block:: python
 
-   def bar(value):
+   def map(value):
        # ...
        msg_map = {'count': value}
        message = _(u'images_in_folder',
@@ -147,8 +176,6 @@ variables sont marqués dans le message sous la forme ``${clé}``.
 
 Templates ZPT
 -------------
-
-.. todo:: expliquer le marquage des templates
 
 De la même façon que le code Python, les templates ZPT peuvent être
 internationalisée.
@@ -233,9 +260,9 @@ valeurs (statique ou calculée)
 
 .. rubric:: i18n:name placer des données variables dans une traduction.
 
-Le problème consiste à traduire des constructions du type :
-
-.. todo:: exemple avec i18n:name
+Il existe un système permettant de faire le mapping de messages 'à trous' dans les templates.
+Reprenons notre exemple précédent : `This folder has ${count} images`.
+Si on ne veut pas générer le message dans le code mais dans la template, on écrira :
 
 .. code-block:: xml
 
@@ -252,6 +279,32 @@ Le problème consiste à traduire des constructions du type :
    ``_(`` dans votre code Python). Bien que la traduction marcherait sans le
    préciser avec le moteur de template d'origine, cela ne marcherait pas avec le
    moteur de template alternatif Chameleon qui peut être utilisé dans Plone 4.
+
+
+Traduire directement un message
+-------------------------------
+
+Vous pouvez avoir besoin de traduire un message directement dans le code python,
+si pour une raison ou une autre vous ne pouvez pas retourner un message à votre template.
+
+Dans ce cas, utilisez directement l'API de traduction de zope.i18n.
+Vous devez passer en paramètre la request, qui contient les informations
+permettant de retrouver la langue de l'utilisateur.
+
+.. code-block:: python
+
+    from zope.i18n import translate
+
+    def translated(value):
+        # ...
+        message = _(u'my_message', default=u"Some words")
+
+        translated = translate(message, context=REQUEST)
+        msg_map = {'count': value}
+        message = _(u'images_in_folder',
+                    default=u"This folder has ${count} images",
+                   mapping=msg_map)
+
 
 
 Localiser un composant
@@ -273,20 +326,14 @@ Créez un environnement avec i18ndude installé :
    l'environnement virtuel spécifique à un projet mais bien dans un environnement
    virtuel dédié.
 
-Dans :file:`Products/AgileKnowledgeBase` créez un script
+Dans :file:`collective/trainingmanual/i18nexamples/` créez un script
 :command:`update-l10n.sh` :
 
 .. code-block:: sh
 
-    $ i18ndude rebuild-pot --pot i18n/kb-plone.pot --create plone profiles
-    $ i18ndude filter i18n/kb-plone.pot \
-        ~/.buildout/eggs/plone.app.locales-3.3.1-py2.4.egg/plone/app/locales/i18n/plone.pot \
-         > i18n/kb-plone.pot_
-    $ mv i18n/kb-plone.pot_ i18n/kb-plone.pot
-    $ i18ndude sync --pot i18n/kb-plone.pot i18n/kb-plone-*.po
 
-    $ i18ndude rebuild-pot --pot locales/AgileKnowledgeBase.pot --create AgileKnowledgeBase .
-    $ i18ndude sync --pot locales/AgileKnowledgeBase.pot locales/*/LC_MESSAGES/AgileKnowledgeBase.po
+    $ i18ndude rebuild-pot --pot i18nexamples.pot --create i18nexamples ..
+    $ i18ndude sync --pot i18nexamples.pot */LC_MESSAGES/i18nexamples.po
 
 Exécutez ``i18ndude -h`` pour savoir à quoi servent les différentes commandes.
 
@@ -305,50 +352,23 @@ Exécutez le script *update-l10n.sh*, pour cela ajoutez le mode exécution :
 
 La première exécution du script échouera pour les commandes ``i18ndude sync`` car il n'y a encore aucune traduction.
 
-Vous allez donc maintenant initialiser la traduction française :
+Pour le domaine *collective.trainingmanual.i18nexamples*, il vous faut tout d'abord créer le dossier dans locales:
 
 .. code-block:: sh
 
-    $ msginit -i i18n/kb-plone.pot -o i18n/kb-plone-fr.po
+    $ mkdir -p fr/LC_MESSAGES
 
-La commande *msginit* fait une copie du fichier pot en fichier po et remplie certains headers comme la date et le traducteur.
-
-Ouvrez ensuite kb-plone-fr.po pour finir de remplir les headers.
-Remplacez notamment PACKAGE par AgileKnowledgeBase, supprimez VERSION et surtout modifiez ces headers :
-
-.. code-block:: po
-
-    "Language-Code: fr\n"
-    "Language-Name: French\n"
-
-Vous pouvez maintenant passer à la traduction :
-
-.. code-block:: sh
-
-    $ poedit i18n/kb-plone-fr.po
-
-Vous utiliserez le dossier i18n uniquement pour le domaine *plone*.
-
-
-Pour le domaine de votre produit, vous utiliserez le nouveau dossier *locales* qui est le standard gettext.
-
-Pour le domaine *AgileKnowledgeBase*, il vous faut tout d'abord créer le dossier :
-
-.. code-block:: sh
-
-    $ mkdir -p locales/fr/LC_MESSAGES
-
-Générez le fichier AgileKnowledgeBase.pot avec le script :
+Générez le fichier i18nexamples.pot avec le script :
 
 .. code-block:: sh
 
     $ ./update-l10n.sh
 
-Ensuite créez le fichier de traduction :
+Ensuite créez les fichiers de traduction :
 
 .. code-block:: sh
 
-    $ msginit -i locales/AgileKnowledgeBase.pot -o locales/fr/LC_MESSAGES/AgileKnowledgeBase.po
+    $ msginit -i i18nexamples.pot -o fr/LC_MESSAGES/i18nexamples.po
 
 éditez les headers du fichier po comme ceci :
 
@@ -356,7 +376,7 @@ Ensuite créez le fichier de traduction :
 
     "Language-Code: fr\n"
     "Language-Name: French\n"
-    "Domain: AgileKnowledgeBase\n"
+    "Domain: i18nexamples\n"
 
 Traduisez ensuite avec poedit.
 
@@ -370,13 +390,88 @@ Pour que vos traductions soient prises au démarrage de l'instance, vous devez
         xmlns="http://namespaces.zope.org/zope"
         xmlns:grok="http://namespaces.zope.org/grok"
         xmlns:i18n="http://namespaces.zope.org/i18n"
-        i18n_domain="AgileKnowledgeBase">
+        i18n_domain="i18nexamples">
 
         <i18n:registerTranslations directory="locales" />
 
         <grok:grok package="." />
 
     </configure>
+
+La syntaxe des po en quelques mots
+==================================
+
+.. code-block:: po
+
+    "Header: valeur du header\n"
+
+    #: src/name.c:36
+    msgid "identifiant_du_message"
+    msgstr "La traduction du message"
+
+
+
+
+
+Modifier les traductions de Plone
+=================================
+
+Créer un fichier de traduction du domaine plone
+-----------------------------------------------
+
+Si vous voulez modifier des traductions de Plone pour les remplacer par vos propres messages
+créez à la main dans `locales` un fichier i18nexamples-plone-manual.po, du domaine plone.
+
+Ajoutez cette ligne à update-l10n.sh :
+
+.. code-block:: sh
+
+    i18ndude sync --pot i18nexamples-plone-manual.pot */LC_MESSAGES/i18nexamples-plone-manual.po
+
+Ajoutez le fichier de traduction française avec la commande ::
+
+.. code-block:: sh
+
+    msginit -i i18nexamples-plone-manual.pot -o fr/LC_MESSAGES/i18nexamples-plone-manual.po
+
+Puis éditez ce fichier pour indiquer la langue, comme vu plus haut.
+
+Modifier une traduction du domaine plone
+----------------------------------------
+
+Si vous voulez modifier une traduction, recherchez d'abord le msgid,
+qui sera probablement dans plone.app.locales.
+
+Recopiez l'entrée concernée dans le fichier i18nexamples-plone-manual.pot.
+Le msgstr doit bien sûr être vide.
+
+.. code-block:: po
+
+    #. Default: "Log out"
+    #: CMFPlone/profiles/default/actions.xml
+    msgid "Log out"
+    msgstr ""
+
+Relancez le script de mise à jour.
+
+Vous pouvez maintenant éditer le .po de version française.
+Mettez "Me déconnecter" (au lieu de "Se..."), puis redémarrez le site.
+
+Mise à jour des traductions
+===========================
+
+Quand vous ajoutez des nouveaux messages dans votre composant,
+allez dans le répertoire locales et relancez le script ./update-l10n.sh.
+
+Les nouveaux messages du domaine i18nexample seront ajoutés dans votre pot,
+puis synchronisés dans fr/LC_MESSAGES/i18nexamples.po.
+
+Vous n'aurez plus qu'à compléter les traductions.
+
+Les fichiers .po sont compilés en fichiers .mo. À chaque redémarrage du serveur,
+zope détecte les .po qui ont été modifiés et les recompile.
+
+
 
 
 Ressources
@@ -389,7 +484,3 @@ Ressources
 - http://n2.nabble.com/Recipe-for-overriding-translations-td3045492ef221724.html
 
 Voir http://dev.plone.org/plone/ticket/9090 pour l'état de la fusion des documents ci-dessus.
-
-Exercice
-========
-Traduction du template de mail créé précédemment.
