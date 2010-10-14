@@ -1,0 +1,24 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="context/@@standard_macros/page"
+      i18n:domain="i18nexamples">
+
+  <div metal:fill-slot="body" id="content">
+
+    <p i18n:translate="">Some stuff</p>
+
+    <p i18n:translate="" tal:content="view/message"></p>
+
+    <input type="button"  i18n:attributes="value" tal:attributes="value view/save" />
+
+	<p i18n:translate="" tal:content="view/map"></p>
+
+    <p i18n:translate="images_in_folder">
+        This folder has <tal:block i18n:name="count" content="python:12" /> images
+    </p>
+
+    <p tal:content="view/translated"></p>
+
+  </div>
+
+</html>
