@@ -390,7 +390,7 @@ Le diagramme de collaboration
 C'est une représentation symétrique du diagramme de séquence.
 
 Le diagramme d'états transitions
-*******************************
+********************************
 
 Il est utilisé pour modéliser les changements d'états d'un élément.
 
