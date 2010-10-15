@@ -135,12 +135,12 @@ cet index que le package est recherché.
 
 En effet l'index par défaut est l'URL suivante : http://pypi.python.org/simple
 
-Exécutez :command:`easy_install PIL`, voici ce qui est exactement fait :
+Exécutez :command:`easy_install Fabric`, voici ce qui est exactement fait :
 
 - connexion à l'index http://pypi.python.org/simple
-- recherche de PIL dans la liste des liens, si un lien est trouvé, il est
+- recherche de Fabric dans la liste des liens, si un lien est trouvé, il est
   suivi
-- nous arrivons donc sur http://pypi.python.org/simple/PIL/ Cette page contient
+- nous arrivons donc sur http://pypi.python.org/simple/Fabric/ Cette page contient
   une liste d'urls où l'on peut télécharger directement l'egg, mais également
   toutes les urls contenues dans la description longue du egg.
 - la liste fournie sur cette page est ensuite filtrée de la manière suivante :
@@ -416,6 +416,14 @@ Le dossier PIL n'est plus là, comme l'atteste l'exception ``ImportError`` :
      File "<stdin>", line 1, in ?
    ImportError: No module named PIL
 
+Vous pouvez installer PIL dans cet environnement comme ceci :
+
+.. code-block:: sh
+
+    easy_install --find-links http://dist.plone.org/thirdparty/ PIL
+
+(L'archive PIL de pypi n'est pas easy installable.)
+
 Ici, nous avons installé virtualenv avec :command:`easy_install-2.4`, comment
 créer un environnement avec une autre version de Python ?  :command:`virtualenv`
 possède une option :option:`-p` pour préciser un exécutable python alternatif :
@@ -599,19 +607,11 @@ Installation de virtualenvwrapper
 
 `virtualenvwrapper`_ est un ensemble de fonctions bash pour gérer vos environnements.
 
-Pour l'installer, récupérez l'archive :
+Pour l'installer :
 
 .. code-block:: sh
 
-    $ cd /tmp
-    $ easy_install -b . -e virtualenvwrapper
-
-Installez le package :
-
-.. code-block:: sh
-
-    $ cd virtualenvwrapper
-    $ sudo python setup.py install
+    $ sudo easy_install virtualenvwrapper
 
 Éditez ensuite votre :file:`~/.bashrc` pour sourcer le fichier
 :file:`/usr/local/bin/virtualenvwrapper.sh`.
@@ -1159,10 +1159,9 @@ nous allons l'appeler ``devagile``, avec la résolution DNS dans
 
     10.56.8.47      devagile
 
-Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit `PloneSoftwareCenter <http://pypi.python.org/pypi/Products.PloneSoftwareCenter>`__.
+Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit `Products.PloneSoftwareCenter <http://pypi.python.org/pypi/Products.PloneSoftwareCenter>`__.
 
-Installez le produit et créez une instance de PloneSoftwareCenter nommé
-:guilabel:`products` à la racine de Plone.
+Créez un site Plone avec comme id *site*, installez le module et créez une instance de PloneSoftwareCenter nommé :guilabel:`products` à la racine de Plone.
 
 L'URL de ce Pypi sera donc http://devagile:8080/site/products
 
@@ -1214,9 +1213,17 @@ Enregistrement et upload
 
 Exécutez ensuite :
 
+Avec Python < 2.6
+
 .. code-block:: sh
 
-   $ python setup.py mregister sdist --formats=zip mupload -r mycompany
+   $ python setup.py mregister -r mycompany sdist --formats=zip mupload -r mycompany
+
+Avec Python >= 2.6 :
+
+.. code-block:: sh
+
+   $ python setup.py register -r mycompany sdist --formats=zip upload -r mycompany
 
 - :option:`mregister` permet d'enregistrer le egg sur le serveur
 - :option:`sdist` permet de créer une distribution source
@@ -1251,7 +1258,7 @@ ligne de commande comme ceci :
 
 .. code-block:: sh
 
-   $ python setup.py egg_info -RDb "" mregister sdist --formats=zip mupload -r mycompany
+   $ python setup.py egg_info -RDb "" mregister -r mycompany sdist --formats=zip mupload -r mycompany
 
 L'option :option:`--formats=zip` permet de générer une archive zip au lieu d'une
 archive tar.gz par défaut sous Linux.
@@ -1285,11 +1292,17 @@ seront compilées à l'installation.
 Broken release
 --------------
 
+Créez un nouvel environnement `testenv` :
+
+.. code-block:: sh
+
+    $ mkvirtualenv testenv
+
 Essayez maintenant d'installer :mod:`foo.bar` 1.0 à partir de votre pypi :
 
 .. code-block:: sh
 
-    $ easy_install -f http://devagile:8080/site/products/simple foo.bar
+    $ easy_install -i http://devagile:8080/site/products/simple foo.bar
 
 Il y a une erreur à l'installation disant qu'il ne trouve pas le fichier
 :file:`docs/HISTORY.txt`.
@@ -1305,6 +1318,16 @@ inclu dans l'archive.
 Pour régler le problème, il faut mettre le code source dans un dépôt subversion
 et grâce à l'option :data:`include_package_data=True` dans :file:`setup.py`,
 tous les fichiers subversionnés seront ajoutés à l'archive.
+
+.. note::
+
+    Vous pouvez créer facilement un dépôt subversion comme ceci : ::
+
+        svnadmin create Formation
+
+    Et pour faire un checkout : ::
+
+        svn co file:///home/vincentfretin/Formation
 
 Donc on va importer notre code dans le dépôt Formation :
 
