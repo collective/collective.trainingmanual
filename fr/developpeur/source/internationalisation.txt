@@ -352,7 +352,7 @@ Exécutez le script *update-l10n.sh*, pour cela ajoutez le mode exécution :
 
 La première exécution du script échouera pour les commandes ``i18ndude sync`` car il n'y a encore aucune traduction.
 
-Pour le domaine *collective.trainingmanual.i18nexamples*, il vous faut tout d'abord créer le dossier dans locales:
+Pour le domaine *i18nexamples*, il vous faut tout d'abord créer le dossier dans locales :
 
 .. code-block:: sh
 
@@ -410,9 +410,6 @@ La syntaxe des po en quelques mots
     msgstr "La traduction du message"
 
 
-
-
-
 Modifier les traductions de Plone
 =================================
 
@@ -420,19 +417,19 @@ Créer un fichier de traduction du domaine plone
 -----------------------------------------------
 
 Si vous voulez modifier des traductions de Plone pour les remplacer par vos propres messages
-créez à la main dans `locales` un fichier i18nexamples-plone-manual.po, du domaine plone.
+créez à la main dans :file:`locales` un fichier :file:`plone.pot`.
 
-Ajoutez cette ligne à update-l10n.sh :
+Ajoutez cette ligne à :file:`update-l10n.sh` :
 
 .. code-block:: sh
 
     i18ndude sync --pot i18nexamples-plone-manual.pot */LC_MESSAGES/i18nexamples-plone-manual.po
 
-Ajoutez le fichier de traduction française avec la commande ::
+Ajoutez le fichier de traduction française avec la commande :
 
 .. code-block:: sh
 
-    msginit -i i18nexamples-plone-manual.pot -o fr/LC_MESSAGES/i18nexamples-plone-manual.po
+    msginit -i plone.pot -o fr/LC_MESSAGES/plone.po
 
 Puis éditez ce fichier pour indiquer la langue, comme vu plus haut.
 
@@ -442,7 +439,7 @@ Modifier une traduction du domaine plone
 Si vous voulez modifier une traduction, recherchez d'abord le msgid,
 qui sera probablement dans plone.app.locales.
 
-Recopiez l'entrée concernée dans le fichier i18nexamples-plone-manual.pot.
+Recopiez l'entrée concernée dans le fichier plone.pot de votre package.
 Le msgstr doit bien sûr être vide.
 
 .. code-block:: po
@@ -463,8 +460,8 @@ Mise à jour des traductions
 Quand vous ajoutez des nouveaux messages dans votre composant,
 allez dans le répertoire locales et relancez le script ./update-l10n.sh.
 
-Les nouveaux messages du domaine i18nexample seront ajoutés dans votre pot,
-puis synchronisés dans fr/LC_MESSAGES/i18nexamples.po.
+Les nouveaux messages du domaine i18nexamples seront ajoutés dans votre pot,
+puis synchronisés dans :file:`fr/LC_MESSAGES/i18nexamples.po`.
 
 Vous n'aurez plus qu'à compléter les traductions.
 
