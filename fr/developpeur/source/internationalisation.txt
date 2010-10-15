@@ -26,23 +26,21 @@ Pour l'installer, ajoutez à votre buildout :
 .. code-block:: cfg
 
     [buildout]
-
-	eggs +=
-	    ...
-	    collective.trainingmanual.i18nexamples
-
-	auto-checkout +=
-	    ...
-	    collective.trainingmanual.i18nexamples
-
+    eggs +=
+        # ...
+        collective.trainingmanual.i18nexamples
+    
+    auto-checkout +=
+        # ...
+        collective.trainingmanual.i18nexamples
+    
     [instance]
-
     zcml +=
         ...
         collective.trainingmanual.i18nexamples
 
-	[sources]
-	collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/collective.trainingmanual.i18nexamples
+    [sources]
+    collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/collective.trainingmanual.i18nexamples
 
 Vous pourrez observer les exemples de cette formation en allant à l'addresse
 /i18nexamples depuis la racine de votre site.
@@ -280,7 +278,6 @@ Si on ne veut pas générer le message dans le code mais dans la template, on é
    préciser avec le moteur de template d'origine, cela ne marcherait pas avec le
    moteur de template alternatif Chameleon qui peut être utilisé dans Plone 4.
 
-
 Traduire directement un message
 -------------------------------
 
@@ -291,21 +288,9 @@ Dans ce cas, utilisez directement l'API de traduction de zope.i18n.
 Vous devez passer en paramètre la request, qui contient les informations
 permettant de retrouver la langue de l'utilisateur.
 
-.. code-block:: python
-
-    from zope.i18n import translate
-
-    def translated(value):
-        # ...
-        message = _(u'my_message', default=u"Some words")
-
-        translated = translate(message, context=REQUEST)
-        msg_map = {'count': value}
-        message = _(u'images_in_folder',
-                    default=u"This folder has ${count} images",
-                   mapping=msg_map)
-
-
+.. literalinclude:: ../../examples/collective.trainingmanual.i18nexamples/collective/trainingmanual/i18nexamples/views.py
+    :language: python
+    :pyobject: I18nExampleView.translated
 
 Localiser un composant
 ======================
@@ -409,7 +394,6 @@ La syntaxe des po en quelques mots
     msgid "identifiant_du_message"
     msgstr "La traduction du message"
 
-
 Modifier les traductions de Plone
 =================================
 
@@ -423,7 +407,7 @@ Ajoutez cette ligne à :file:`update-l10n.sh` :
 
 .. code-block:: sh
 
-    i18ndude sync --pot i18nexamples-plone-manual.pot */LC_MESSAGES/i18nexamples-plone-manual.po
+    i18ndude sync --pot plone.pot */LC_MESSAGES/plone.po
 
 Ajoutez le fichier de traduction française avec la commande :
 
@@ -467,9 +451,6 @@ Vous n'aurez plus qu'à compléter les traductions.
 
 Les fichiers .po sont compilés en fichiers .mo. À chaque redémarrage du serveur,
 zope détecte les .po qui ont été modifiés et les recompile.
-
-
-
 
 Ressources
 ==========
