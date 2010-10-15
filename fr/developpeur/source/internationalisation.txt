@@ -29,11 +29,11 @@ Pour l'installer, ajoutez à votre buildout :
     eggs +=
         # ...
         collective.trainingmanual.i18nexamples
-    
+
     auto-checkout +=
         # ...
         collective.trainingmanual.i18nexamples
-    
+
     [instance]
     zcml +=
         ...
@@ -316,9 +316,10 @@ Dans :file:`collective/trainingmanual/i18nexamples/` créez un script
 
 .. code-block:: sh
 
-
     $ i18ndude rebuild-pot --pot i18nexamples.pot --create i18nexamples ..
     $ i18ndude sync --pot i18nexamples.pot */LC_MESSAGES/i18nexamples.po
+
+**Le nom des fichiers po doit correspondre au domaine.**
 
 Exécutez ``i18ndude -h`` pour savoir à quoi servent les différentes commandes.
 
