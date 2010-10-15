@@ -4,7 +4,9 @@
     xmlns:browser="http://namespaces.zope.org/browser"
     i18n_domain="i18nexamples">
 
+<!--
   <i18n:registerTranslations directory="locales" />
+  -->
 
   <browser:page
      name="i18nexamples"
