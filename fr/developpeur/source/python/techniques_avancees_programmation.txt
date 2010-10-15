@@ -426,13 +426,19 @@ Examinons le code suivant :
 
 .. code-block:: python
 
-   class Point:
-       __slot__ = ("x", "y")
-       def __init__(self, x=0, y=0):
-           self.x = x
-           self.y = y
+   >>> class Point:
+   ...    __slots__ = ("x", "y")
+   ...    def __init__(self, x=0, y=0):
+   ...        self.x = x
+   ...        self.y = y
+   >>> p=Point()
+   >>> p.v = "Interdit"
+   Traceback (most recent call last):
+   File "<stdin>", line 1, in <module>
+   AttributeError: 'Point' object has no attribute 'v'
 
-Quand une classe est créée sans utiliser l'attribut :attr:`__slot__`, ce que
+
+Quand une classe est créée sans utiliser l'attribut :attr:`__slots__`, ce que
 nous avons fait jusqu'à maintenant, Python crée de manière transparente un
 dictionnaire privé appelé :attr:`__dict__` pour chaque instance de la classe, et
 ce dictionnaire contient les attributs de l'instance.
@@ -444,8 +450,12 @@ en ajouter ou en ôter, nous pouvons créer des classes sans dictionnaire privé
 ce qui économisera de la mémoire à chaque instanciation.
 
 C'est ce qui est réalisé dans l'exemple ci-dessus en définissant un attribut de
-classe :attr:`__slot__` dont la valeur est un tuple formé des noms des
+classe :attr:`__slots__` dont la valeur est un tuple formé des noms des
 attributs.
+
+.. warning::
+
+  Sous python 2 la classe utilisant slots doit être dérivée de object.
 
 Functor
 -------
