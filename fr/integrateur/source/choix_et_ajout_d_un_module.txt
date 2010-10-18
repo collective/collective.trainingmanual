@@ -27,7 +27,7 @@ spécialiser Plone soit de l'étendre.
 Ces extensions ont d'abord été appelées "produits" mais à partir de la version
 4 de Plone nous parlons de "modules".
 
-La première étape consiste donc à identifier son besoin.
+La première étape consiste à identifier son besoin.
 
 Ensuite, il faut vérifier que Plone ne propose pas déjà les fonctionnalités
 désirées.
