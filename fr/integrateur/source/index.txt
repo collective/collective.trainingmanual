@@ -35,6 +35,7 @@ California 94105, USA.
    presentation_plone
    presentation_nouveautes_plone3
    presentation_nouveautes_plone4
+   parametrage_plone
    choix_et_ajout_d_un_module
    presentation_http
    presentation_html_xml
