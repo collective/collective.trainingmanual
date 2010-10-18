@@ -6,8 +6,8 @@
 Choix et ajout d'un module
 ==========================
 
-Définition
-==========
+Introduction
+============
 
 Plone est un Content Management System, c'est à dire un portail collaboratif
 qui permet de gérer des contenus tels que des documents, des images, des
@@ -38,43 +38,24 @@ de contenu spécifique à ce besoin.
 S'il existe un contenu, il faut alors vérifier que le workflow, qui lui est
 associé, correspond à notre besoin et si nécessaire en développer un autre.
 
-Il est possible de créer des nouveaux types de contenu par simple duplication de
-ceux existants. On peut alors leurs affecter des comportements et des valeurs
-par défaut différents de ceux d'origine.
-
 S'il n'existe pas de contenu correspondant à notre besoin et que celui-ci est
 générique, alors il existe surement un module couvrant partiellement ou
 complètement notre besoin.
 
 On va donc chercher et sélectionner un module.
 
-Il existe plusieurs sources de modules :
+Rechercher et sélectionner un module
+====================================
 
-* Le dépôt des programmes open source de Python, appelé "pypi" et accessible sur
-  le lien http://pypi.python.org/pypi
-* Le dépôt des modules Plone hébergés par la fondation Plone et accessible sur
-  le lien http://plone.org/products
-* Les dépôts des projets et sociétés dont les adresses peuvent être trouvées sur
-  internet.
+Le site plone.org contient la vitrine des modules Plone disponibles.
 
-Le dépôt Pypi est celui de la communauté Python qui est le langage de
-programmation de Plone. Pour y trouver un module spécifique à Plone il faut
-faire une recherche en utilisant le mot-clé Plone et les mots que vous pensez
-être associés à votre besoin.
-
-Pypi affichera les "egg" liées à Plone, en effet depuis les versions 3 de Plone
-les modules sont fournis sous forme de paquets appelés "egg" dont on détaillera
-l'anatomie et comment les ajouter à Plone plus loin. Plone est désormais
-entièrement constitué de egg qui forment autant de bibliothèques.
+`<http://plone.org/products>`__
 
 Depuis la version 4 de Plone le site de la communauté Plone possède un nouveau
-classement des modules qui permet entre autre de les chercher par thème.
+classement des modules qui permet entre autres de les chercher par popularité.
 
 Un article sur cette nouvelle interface a été écrit sur le site de la communauté
 française http://plone.fr/news/nouveautes-plone-products
-
-Les modules hébergés exclusivement par les sites de leur développeurs sont plus
-dur à identifier et leur capital confiance est moins bon.
 
 Les modules suivent un cycle de vie de développement, les plus utilisés sont
 maintenus et sont adaptés aux nouvelles version de Plone rapidement.
@@ -92,9 +73,46 @@ Avant d'utiliser un module il faut se poser les questions suivantes :
 * A-t-on accès au code source du module ?
 * Le code est-il sur le dépôt de la communauté Python ou Plone ?
 * Le module respecte-t-il les standards de programmation de la communauté ?
-* Le module est-il sous forme de egg ?
 * Est-il documenté ?
 * Modifie-t-il Plone ?
+
+Suivez ensuite la méthode d'installation indiquée sur la documentation du produit.
+À défaut d'être précisée, c'est toujours la même, nous la présentons plus loin.
+
+Installer un module
+===================
+
+Les modules Plone proposés sur plone.org sont hébergés sur des dépôts.
+
+* Le dépôt des programmes open source de Python, appelé "pypi" et accessible sur
+  le lien http://pypi.python.org/pypi
+* Les dépôts des projets et sociétés dont les adresses peuvent être trouvées sur
+  internet.
+
+Le dépôt Pypi est celui de la communauté Python qui est le langage de
+programmation de Plone. Pour y trouver un module spécifique à Plone il faut
+faire une recherche en utilisant le mot-clé Plone et les mots que vous pensez
+être associés à votre besoin.
+
+Pypi affichera les "egg" liées à Plone, en effet depuis les versions 3 de Plone
+les modules sont fournis sous forme de paquets appelés "egg" dont on détaillera
+l'anatomie et comment les ajouter à Plone plus loin. Plone est désormais
+entièrement constitué de egg qui forment autant de bibliothèques.
+
+Les modules hébergés exclusivement par les sites de leurs développeurs sont plus
+durs à identifier et leur capital confiance est moins bon.
+
+Pour installer un module, il suffit en général d'ajouter le nom du module
+à la valeur `eggs` dans le fichier de configuration (buildout.cfg),
+et de relancer l'installation du site.
+(Pour plus d'information sur l'installation de Plone, consultez la documentation intégrateur).
+
+Il vous faut ensuite aller dans la configuration du site, section `Modules`,
+puis activer le module.
+De nombreux exemples d'installation de modules seront présentés dans cette documentation.
+
+Tester le module
+================
 
 Ensuite il faut absolument essayer le module sur une copie du site de production
 pour vérifier qu'il correspond à notre besoin et surtout qu'il ne casse pas nos
@@ -120,4 +138,3 @@ Cette attitude vertueuse permet :
 - d'améliorer la couverture fonctionnelle d'un module ce qui du coup augmente
   ses chances d'être réutilisé et donc maintenu.
 
-Nous verrons comment contribuer à un module par la suite.
