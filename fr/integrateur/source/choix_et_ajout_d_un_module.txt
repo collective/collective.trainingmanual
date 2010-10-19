@@ -6,6 +6,17 @@
 Choix et ajout d'un module
 ==========================
 
+:Author: Michael Launay
+:Version: 0.1.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/choix_et_ajout_d_un_module.txt>`_
+
+Copyright (C) 2010 Michael Launay <michaellaunay AT ecreall.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
 Introduction
 ============
 
@@ -107,8 +118,21 @@ Pour installer un module, il suffit en général d'ajouter le nom du module
 et de relancer l'installation du site.
 (Pour plus d'information sur l'installation de Plone, consultez la documentation intégrateur).
 
-Il vous faut ensuite aller dans la configuration du site, section `Modules`,
+Il vous faut ensuite aller dans la configuration du site,
+
+.. figure:: ./workflowslocaux_images/selectionneconfiguration.jpg
+    :align: center
+
+section `Modules`,
+
+.. figure:: ./parametrage/lien-conf-modules.png
+    :align: center
+
 puis activer le module.
+
+.. figure:: ./workflowslocaux_images/activemodule.jpg
+    :align: center
+
 De nombreux exemples d'installation de modules seront présentés dans cette documentation.
 
 Tester le module
