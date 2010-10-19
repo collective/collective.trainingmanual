@@ -9,17 +9,21 @@ from Products.CMFPlone import PloneMessageFactory as PMF
 class I18nExampleView(BrowserView):
 
     def message(self):
-        return _(u'my_message', default=u"Some words")
+        return "Some words"
+        #return _(u'my_message', default=u"Some words")
 
     def save(self):
-        return PMF(u'Save')
+        return "Save"
+        #return PMF(u'Save')
 
     def map(self):
         msg_map = {'count': 12}
-        return _(u'images_in_folder',
-                 default=u"This folder has ${count} images",
-                 mapping=msg_map)
+        return "This folder has %(count)s images" % msg_map
+        #return _(u'images_in_folder',
+        #         default=u"This folder has ${count} images",
+        #         mapping=msg_map)
 
     def translated(self):
-        message = _(u'my_message', default=u"Some words")
-        return translate(message, context=self.request)
+        return "Some words"
+        #message = _(u'my_message', default=u"Some words")
+        #return translate(message, context=self.request)

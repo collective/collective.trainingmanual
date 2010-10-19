@@ -7,17 +7,26 @@
 
     <p i18n:translate="">Some stuff</p>
 
+    <!-- 3 cas équivalents -->
+
+    <p i18n:translate="my_message">Some words</p>
+
     <p i18n:translate="" tal:content="view/message"></p>
 
-    <input type="button"  i18n:attributes="value" tal:attributes="value view/save" />
+    <p tal:content="view/translated"></p>
 
-	<p i18n:translate="" tal:content="view/map"></p>
+    <!--  -->
+
+    <input type="button"  i18n:attributes="value; title;" title="Some stuff"
+           tal:attributes="value view/save" />
+
+    <!--  2 cas équivalents (mapping) -->
 
     <p i18n:translate="images_in_folder">
-        This folder has <tal:block i18n:name="count" content="python:12" /> images
+        This folder contains <tal:block i18n:name="count" content="python:12" /> images
     </p>
 
-    <p tal:content="view/translated"></p>
+	<p i18n:translate="" tal:content="view/map"></p>
 
   </div>
 
