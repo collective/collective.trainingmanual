@@ -11,7 +11,7 @@ Le protocole HTTP et ses tests
 Définition
 ==========
 
-Connaitre le protocole HTTP permet d'anticiper certaine limitation de
+Connaître le protocole HTTP permet d'anticiper certaines limitations de
 déploiement.
 
 Le protocole HyperText Transfert Protocol est un ensemble de règles qui régit la
@@ -21,7 +21,7 @@ Le protocole HTTP délègue au protocole TCP (Transmission Control Protocole)
 l'envoi physique des données.
 
 Les clients sont généralement des navigateurs web qui se connectent via internet
-à des serveurs Web qui leurs retournent les pages demandées.
+à des serveurs Web qui leur retournent les pages demandées.
 
 Toutefois il existe des applications qui utilisent ce protocole pour communiquer
 entre elles.
@@ -41,7 +41,7 @@ navigateur une page web :
 4) Il se connectera alors au serveur via le protocole TCP/IP en se connectant
    au port 80 qui est celui du protocole http par défaut (il est possible de
    donner un autre numéro de port par exemple http://www.ecreall.com:8080/) ;
-5) Si la connexion réussie, le navigateur suivra les règles du protocole http
+5) Si la connexion réussit, le navigateur suivra les règles du protocole http
    pour demander la page "societe" en envoyant les requêtes appropriées au
    serveur ;
 6) Le serveur retournera alors cette page au format HTML ou XHTML en utilisant
@@ -162,7 +162,7 @@ Exemple de requête :
  Host: www.ecreall.com
  User-Agent: Telnet
 
-Nous allons voir ici tous les champs possibles.
+Nous allons voir ici les principaux champs.
 
 Host
 ++++
@@ -212,8 +212,6 @@ Accept-Language
 
 Spécifie les langages acceptés.
 
-D'autre champ existent.
-
 La réponse et ses champs
 ------------------------
 
@@ -229,7 +227,7 @@ Réponse :
  Content-Language: fr
  Via: 1.0 www.ecreall.com
  Connection: close
-  
+
  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
  ...
@@ -237,7 +235,7 @@ Réponse :
 La première ligne est le statut de la réponse :
 
 - 2xx (ici 200), pas de problème.
-- 3xx la ressource a été déplacé.
+- 3xx la ressource a été déplacée.
 - 4xx la ressource n'existe pas.
 - 5xx il y a un problème.
 
@@ -249,7 +247,7 @@ Date de création de la réponse.
 Server
 ++++++
 
-Annonce le logiciel et la version ayant créer la réponse.
+Annonce le logiciel et la version ayant crée la réponse.
 
 Content-Length
 ++++++++++++++
