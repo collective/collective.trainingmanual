@@ -26,7 +26,13 @@ Les plugins actifs sont des liens symboliques dans */etc/munin/plugins/*.
         address 127.0.0.1
         use_node_name yes
 
-Tous les fichiers dans */var/lib/munin* et */var/log/munin* doivent appartenir à l'utilisateur munin : ::
+Activer d'autres modules si vous le souhaitez : ::
+
+    cd /etc/munin/plugins
+    ln -s /usr/share/munin/plugins/fail2ban
+    ln -s /usr/share/munin/plugins/smart_ smart_sda
+
+Tous les fichiers dans */var/lib/munin* et */var/log/munin* doivent appartenir à l'utilisateur munin (à exécuter seulement si vous n'avez pas de stats) : ::
 
     chown -R munin:munin /var/lib/munin /var/log/munin
 
