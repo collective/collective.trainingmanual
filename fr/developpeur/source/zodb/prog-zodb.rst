@@ -1,0 +1,443 @@
+.. -*- coding: utf-8 -*-
+
+.. % Programmation ZODB
+.. % Installation de la ZODB
+.. % Comment fonctionne la ZODB
+.. % Règles d'écriture de classes persistantes
+
+
+Programmation ZODB
+==================
+
+Installation de la ZODB
+-----------------------
+
+La ZODB est empaqueté à l'aide des outils standards 'distutils'.
+
+Vous avez besoin au minimum d'une version de Python supérieure ou égale à 2.3.5.
+
+Installez la ZODB avec la commande :command:`easy_install ZODB3` sous Unix
+sinon installer les paquets pré-construits pour Windows.
+
+En effet, sous Unix vous aurez besoin d'un compilateur C pour construire le
+paquet car la ZODB possède de nombreux modules écrits en C pour des raisons de
+performance.
+
+Comment fonctionne la ZODB
+--------------------------
+
+La ZODB est conceptuellement. Les classes Python dérive une classe de base
+:class:`persistent.Persistent` pour être compatible avec la ZODB. Les instances
+des objets persistants sont construit à partir du média de stockage, qui peut
+être par exemple un fichier sur le disque, ceci lorsque le programme en a
+besoin, et sont mis en cache dans la mémoire. La ZODB est prévenue de la
+modification des objets, si bien que lorsque une instruction réalise une 
+modification comme ``obj.size = 1``, l'objet modifié est marqué 'dirty'. En une
+requête tous les objets marqués 'dirty' sont écrits sur le stockage permanent,
+cette opération s'appelle valider une transaction ("committing a transaction"
+ou "commiter" en langue de développeur).
+Une transaction peut aussi être abandonnée ou annulée, ce qui à pour
+conséquence d'annuler toutes les modifications, les objets marqués 'dirty' sont
+remis à leur état initial d'avant le début de transaction.
+
+Le terme "transaction" a une signification spécifique en informatique.
+Il est extrêmement important que le contenu d'une base de données ne soit pas
+corrompue par les crashs logiciels ou matériels, et la plus part des logiciels
+de base de données offre cette protection en ayant quatre caractéristiques,
+l'atomique, la consistante, l'isolée, et durable (ACID) :
+* atomique : les opérations sont indivisible, en cas d'échec la suite des
+  opérations est complètement annulée quel que soit le nombre d'opération
+  effectuées (rollback), inversement en cas de succès elles sont toutes
+  appliquées, en cas de crash cela garantie que la base ne sera pas dans un
+  état partiellement modifié.
+* cohérente : en fin de transaction la base est de nouveau dans un état
+  cohérent ce qui n'est pas obligée pendant la transaction. Un contenu final
+  incohérent provoque l'annulation de la transaction.
+* isolée : deux transaction simultanée n'ont pas connaissance de modification
+  apportée à la base par l'autre tant qu'elle n'a pas été validée (commitée).
+* durable : une transaction validée ne peut être annulée ou écrasée par une
+  transaction ayant démarré simultanément. Lorsque la seconde voudra écraser
+  les données de la première elle se verra annulée. Ce qui provoque l'émission
+  d'un message d'erreur prévenant l'auteur de la seconde transaction que sa
+  requête n'a put aboutir en raison d'un conflit de transaction.
+
+La ZODB fournie toutes les caractéristiques ACID.
+
+Créer une ZODB
+--------------
+
+Il y a trois interfaces principales fournie par la ZODB : les classes
+:class:`Storage`, :class:`DB`, et :class:`Connection`. Les interfaces
+:class:`DB` et :class:`Connection` ont toutes deux une implémentation unique,
+mais il y a plein de classes différentes qui implémentes l'interface
+:class:`Storage`.
+
+* Les classes de type :class:`Storage` sont les couches les plus basses,
+  manipulant, stockant et restituant les objets depuis les différents types de
+  stockage. Peu de type de stockage différents ont été écrits, telle la classe
+  :class:`FileStorage`, qui utilise un fichier de stockage classique, et
+  :class:`BDBFullStorage`, qui utilise le logiciel de la base de données
+  BerkeleyDB Sleepycat. Vous pouvez écrire votre propre classes Storage qui
+  stocke les objets dans une base de données relationnelle, par exemple, si
+  cela convient mieux à votre application. Deux autre exemples de stockage,
+  :class:`DemoStorage` et :class:`MappingStorage`, sont disponible et peuvent
+  servir de modèle si vous voulez écrire un nouveau système de stockage.
+
+* La classe :class:`DB` chapeaute le stockage, et réalise la médiation entre
+  les différentes connexions. Une seule instance de :class:`DB` est crée par
+  processus.
+
+* Enfin, la classe :class:`Connection` réalise la mise en cache des objets, et
+  les déplace depuis ou vers la solution de stockage. Un programme muti-threadé
+  doit ouvrir une instance de :class:`Connection` pour chaque flux d'exécution.
+  Les différents flux d'exécution peuvent alors modifier les objets et valider
+  leur modifications indépendamment.
+
+Projeter d'utiliser une ZODB demande trois étapes : vous avez à instancier la
+classe :class:`Storage`, et obtenir une connexion sous forme d'une instance de
+:class:`Connection` à partir de l'instance de :class:'DB'. Tout cela ne
+représente que très peu de ligne de code :::
+
+   >>> from ZODB import FileStorage, DB
+   >>> storage = FileStorage.FileStorage('/tmp/test-filestorage.fs')
+   >>> db = DB(storage)
+   >>> conn = db.open()
+
+Remarquer que vous pouvez utiliser un système de stockage complètement
+différent simplement en changeant la ligne qui instancie la classe du type
+:class:`Storage`, l'exemple précédent utilise :class:`FileStorage`. Dans la
+section :ref:`zeo`, "Comment fonctionne la ZEO", vous verrez comment la ZEO
+utilise cette possibilité avec de grands bénéfices.
+
+Utiliser un fichier de configuration pour la ZODB
+-------------------------------------------------
+
+La ZODB supporte également les fichiers de configuration écrit dans le format
+ZConfig. Un fichier de configuration peut être utilisé pour séparer la
+configuration de l'applicatif. Les classes de stockage et la classe :class:`DB`
+supporte une variété d'argument; Toutes ces options peuvent être spécifiées par
+le fichier de configuration.
+
+Le format du fichier est simple, L'exemple du chapitre précédent peut être
+réalisé comme suit :::
+
+   <zodb>
+     <filestorage>
+     path /tmp/test-filestorage.fs
+     </filestorage>
+   </zodb>
+
+Le module :mod:`ZODB.config` inclue plusieurs fonctions pour ouvrir une base de
+données et un stockage depuis un fichier de configuration. :python::
+
+   >>> import ZODB.config
+   >>> db = ZODB.config.databaseFromURL('/tmp/test.conf')
+   >>> conn = db.open()
+
+La documentation sur ZConfig est inclue dans la livraison de ZODB3, elle
+explique le format en détail. Chaque fichier de configuration est décrit par un
+schéma, qui par convention est stocké dans un fichier :file:`component.xml`.
+ZODB, ZEO, zLOG, et zdaemon ont tous un schéma.
+
+Écriture d'une classe persistante
+---------------------------------
+
+Faire une classe persistante est assez simple; il suffit de dériver de la
+classe :class:`Persistent`, comme montré dans l'exemple suivant :python::
+
+   >>> from persistent import Persistent
+   >>> class User(Persistent):
+   ...    pass
+
+La classe :class:`Persistent` est une classe de type 'new-style' c'est à dire
+qui dérive de `object` et qui est implémentée en C.
+
+Pour des raisons de simplicité, dans l'exemple la classe :class:`User` sera
+simplement utilisée comme un support à un ensemble d'attributs. Habituellement
+la classe devrait définir plusieurs méthode qui ajoute des fonctionnalités,
+mais cela n'a aucun impacte sur le traitement qu'en fait la ZODB.
+
+La ZODB utilise la persistance par accessibilité : À partir d'un ensemble
+d'objets racine tous les attributs de ces objets sont rendus persistants, qu'il
+s'agisse de type de données Python ou d'instance de classe. Il n'y a pas de
+méthode explicite pour stocker les objets dans la base ZODB : ajoutez les
+simplement comme attribut à un objet ou dans un dictionnaire qui soit déjà dans
+la base. Cette chaîne de contenance doit finir par rejoindre l'objet racine de
+la base de données.
+
+Comme exemple, nous allons créer une base de données d'utilisateurs simple qui
+permette de récupérer des instances de la classe :class:`User` pour un ID
+d'utilisateur donné. Premièrement, nous récupérons l'objet à la racine primaire
+de la ZODB en utilisant la méthode :meth:`root` de l'instance
+:class:`Connection`. L'objet racine se comporte comme un dictionnaire, en
+conséquence vous pouvez ajouter une nouvelle entrée clé/valeur pour la racine
+de votre application. Nous allons insérer un objet :class:`OOBTree` qui va
+contenir toute les objets :class:`User`. (Le module :class:`BTree` est
+également inclus comme faisant partie des éléments de Zope.) :python::
+
+    >>> dbroot = conn.root()
+    >>> # Ensure that a 'userdb' key is present 
+    ... 
+    >>> # in the root
+    ... 
+    >>> if not dbroot.has_key('userdb'):
+    ...     from BTrees.OOBTree import OOBTree
+    ...     dbroot['userdb'] = OOBTree()
+    ... 
+    >>> userdb = dbroot['userdb']
+
+Insérer un nouvel utilisateur est simple : créez un objet de la classe
+:class:`User`, remplissez le avec les données, insérer le dans l'instance du
+:class:`BTree`, et validez (commitez) la transaction.
+:python::
+
+    >>> newuser.id = 'amk' 
+    >>> newuser.first_name = 'Andrew' ; newuser.last_name = 'Kuchling'
+    >>> 
+    >>> # Add object to the BTree, keyed on the ID
+    ... 
+    >>> userdb[newuser.id] = newuser
+    >>>
+    >>> # Commit the change
+    ... 
+    >>> transaction.commit()
+
+Le module :mod:`transaction` définit quelque fonction de haut niveau pour
+travailler avec les transactions. La fonction :func:`commit` écrit tous les
+objets modifiés sur le disque, ce qui rend les modifications permanentes. La
+fonction :func:`abort` annule toues les modifications qui ont été réalisées
+depuis le dernier appel à :func:`commit`, restaurant l'état initial des objets.
+Si vous êtes familier avec la sémantique des bases de données relationnelles,
+vous n'êtes pas dépaysé. La fonction :func:`get` retourne une instance de la
+classe :class:`Transaction` qui ont des méthodes additionnelles comme la
+fonction :meth:`note` qui ajoute une note au métadata de la transaction.
+
+Plus précisément, le module :mod:`transaction` expose une instance de la classe
+de gestion des transactions :class:`ThreadTransactionManager` comme
+``transaction.manager``, et les fonctions du module :mod:`transaction` comme
+:func:`get` et :func:`begin` qui redirige vers des méthodes du même nom du
+``transaction.manager``. La fonction :func:`commit` et :func:`abort` appliquent
+les méthodes de même nom de l'instance de la classe :class:`Transaction`
+retourné par ``transaction.manager.get()``. Tout ceci pour des raisons de
+commodité. Il est également possible de créer votre propre gestionnaire de
+transaction, et de dire à ``DB.open()`` de l'utiliser à la place.
+
+Par ce que l'intégration avec Python est complète, c'est presque comme avoir
+une sémantique transactionnelle pour les variables de vos programme, vous
+pouvez expérimenter les transactions dans un interpréteur Python : :python::
+
+   >>> newuser
+   <User instance at 81b1f40>
+   >>> newuser.first_name           # Print initial value
+   'Andrew'         
+   >>> newuser.first_name = 'Bob'   # Change first name
+   >>> newuser.first_name           # Verify the change
+   'Bob'
+   >>> transaction.abort()          # Abort transaction
+   >>> newuser.first_name           # The value has changed back
+   'Andrew'
+
+Règles d'écriture de classes persistantes
+-----------------------------------------
+
+Pratiquement tout les langages persistants imposent des restrictions sur le
+style des programmes, avertissant des constructions qu'ils ne peuvent gérer ou
+y ajoutent de subtiles modifications sémantiques, et la ZODB ne fait pas
+exception. Heureusement, les restrictions de la ZODB sont assez simples à
+comprendre, et dans la pratique il n'est pas douloureux de les contourner.
+
+Le résumé des règles est le suivant :
+
+* Si vous modifiez un objet mutable qui est la valeur d'un attribut d'un autre
+  objet la ZODB ne peut le savoir, et ne marquera pas l'objet comme 'dirty'.
+  La solution consiste soit à positionner le drapeau 'dirty' vous même quand
+  vous modifiez l'objet, soit à utiliser un 'wrapper' (un objet enveloppe qui
+  fournit les services manquants) pour les listes et les dictionnaires Python
+  (:class:`PersistentList`, :class:`PersistentMapping`) qui positionne le
+  drapeau 'dirty' proprement.
+
+* Les versions récentes de la ZODB autorisent l'écriture de classe qui ont des
+  méthodes :meth:`__setattr__`, :meth:`__getattr__`, ou :meth:`__delattr__`. Ce
+  que ne permettaient pas du tout les anciennes versions. Si vous écrivez des
+  méthodes :meth:`__setattr__` ou :meth:`__delattr__`, leur code doit
+  positionner le drapeau 'dirty' manuellement.
+
+* Une classe persistante ne doit pas avoir de méthode :meth:`__del__`. La base
+  de données doit pouvoir déplacer librement les objets entre le système de
+  stockage et la mémoire. Si un objet n'est pas utilisé depuis un moment, il
+  peut être relâcher et son contenu chargé depuis le système de stockage à la
+  prochaine utilisation. Parce que l'interpréteur Python n'est pas conscient
+  des mécanismes de persistance, il pourrait appeler la méthode :meth:`__del__`
+  chaque fois que l'objet a été libéré.
+
+Nous allons regarder chaque règles en détail.
+
+Modification des objets modifiables
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+La ZODB utilisent différent hameçon Python pour attraper les accès aux
+attributs, et peut détourner la majorité des façons de modifier un objet, mais
+pas tous. Si vous modifiez un objet de la classe :class:`User` par affectation
+d'un de ses attributs, comme dans ``userobj.first_name = 'Andrew'``, la ZODB va
+marquer l'objet comme ayant changé, et il sera écrit dans le système de
+stockage lors du prochain :meth:`commit` (validation).
+
+Le cas le plus typique qui n'est pas pris en charge par la ZODB est la liste ou
+le dictionnaire. Si les objets de type :class:`User` ont un attribut nommé
+``friends`` contenant une liste, appelant ``userobj.friends.append(otherUser)``
+qui ne marque pas ``userobj`` comme étant modifié. Du point de vue de la ZODB,
+``userobj.friends`` n'a été que lu, et sa valeur, ce qui arrive à une liste
+Python ordinaire, a été retournée. La ZODB n'est pas consciente que l'objet
+retourné a été modifié après.
+
+C'est l'une des quelque bizarreries dont vous devez vous rappeler quand vous
+utiliser la ZODB : Si vous modifier un objet modifiable attribut d'un objet en
+place, vous devez marquer manuellement l'objet qui a été modifier pour que son
+drapeau 'dirty' soit à vrai. Ceci est fait par positionner l'attribut
+:attr:`_p_changed` de l'objet à vrai :python::
+
+    userobj.friends.append(otherUser)
+    userobj._p_changed = True
+
+Vous pouvez cacher les détails d'implémentation d'avoir à marquer un objet
+comme modifié 'dirty' en concevant l'API de vos classes pour qu'elles
+n'utilisent pas directement l'accès aux attributs : En lieu et place, vous
+pouvez utiliser l'approche Java des accesseurs pour tout, et positionner le
+drapeau de modification à l'intérieur des méthodes. Par exemple, vous pouvez
+interdire l'accès direct à l'attribut ``friends``, et ajouter une méthode
+:meth:`get_friend_list` et une méthode :meth:`add_friend` de modification.
+La méthode :meth:`add_friend` devrait ressembler à :python::
+
+    def add_friend(self, friend):
+        self.friends.append(otherUser)
+        self._p_changed = True
+
+Vous pouvez aussi utiliser le mécanisme des 'properties' pour cacher les
+accesseurs à l'usage (@property).
+
+Vous pouvez également utiliser une liste ou un dictionnaire compatible avec la
+ZODB qui gère pour vous le drapeau de modification. La ZODB est fournie avec la
+classe :class:`PersistentMapping` et :class:`PersistentList`
+
+Vous pouvez rendre silencieuse les modifications d'un objet en changeant la
+valeur du drapeau de modification (_p_changed ) à False.
+
+:meth:`__getattr__`, :meth:`__delattr__`, and :meth:`__setattr__`
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+La ZODB autorise la persistance des classes qui ont des méthodes crochets comme
+:meth:`__getattr__` et :meth:`__setattr__`. Il y a quatre méthodes spéciales
+qui contrôlent l'accès aux attributs : les règles de chacune diffèrent.
+
+La méthode :meth:`__getattr__` fonctionne presque de la même façon pour les
+classes persistantes que pour les autres classes. Pas besoin de manipuler quoi
+que ce soit. Si un objet est rendu silencieux, il devra être manipulé avant
+l'appel à :meth:`__getattr__`.
+
+Les autres méthodes sont plus délicates. Elles vont surcharger les crochets
+fournis par la :class:`Persistent`, si bien que l'utilisateur doit appeler des
+méthodes spéciales pour invoquer ces crochets.
+
+La méthode :meth:`__getattribute__` sera appelée pour les accès aux attributs :
+Elle surcharge l'accès au code fournie lors de la dérivation de la classe
+:class:`Persistent`. Une méthode :meth:`__getattribute__` surchargée par
+l'utilisateur doit toujours faire en sorte que la classe de base
+:class:`Persistent` ait une chance de manipuler les attributs spéciaux comme
+:attr:`__dict__` ou :attr:`__class__`. La surcharge doit appeler la méthode
+:meth:`_p_getattr`, et doit lui passer comme seul argument le nom de
+l'attribut. Si elle retourne True, le code de la fonction surchargée par
+l'utilisateur doit appeler la méthode :meth:`__getattribute__` de la classe
+:class:`Persistent` pour obtenir la valeur. Sinon le code peut continuer sont
+exécution.
+
+Un crochet de la méthode :meth:`__setattr__` va également surcharger la méthode
+:meth:`__setattr__` de la classe :class:`Persistent` et l'utilisateur doit la
+traiter un peu comme la précédente. Le code réalisé par l'utilisateur doit
+appeler la méthode :meth:`_p_setattr` de la classe :class:`Persistent` en lui
+passant le nom et la valeur de l'attribut. Si la méthode retourne True, la
+classe :class:`Persistent` gère l'attribut, sinon le code peut continuer sont
+exécution. Si le code de l'utilisateur modifie l'état de l'objet, le code doit
+positionner l'attribut :attr:`_p_changed`.
+
+Le crochet de la méthode meth:`__delattr__` doit être implémenter de la même
+façon. Le code de l'utilisateur doit appeler :meth:`_p_delattr`,  en passant le
+nom de l'attribut comme argument. Si l'appel renvoit True alors la classe
+:class:`Persistent` gère l'attribut sinon c'est au code de l'utilisateur de le
+faire.
+
+Méthode :meth:`__del__`
+^^^^^^^^^^^^^^^^^^^^^^^
+
+La méthode :meth:`__del__` est invoquée juste avant que la mémoire occupée par
+un objet Python non référencé soit libérée. Par ce que la ZODB peut
+matérialiser ou dématérialiser un objet persistant en mémoire un nombre
+quelconque de fois, il y a une relation très forte entre la persistance d'un
+objet et la méthode :meth:`__del__` qui est normalement invoquée durant le
+cycle de vie de l'objet. Par exemple, la méthode :meth:`__del__` d'un objet
+persistant n'est pas invoqué uniquement dans le cas d'un objet qui n'est plus
+référencé par d'autres objets de la base de donnée car la méthode
+:meth:`__del__` est aussi mise en jeu dans le cas de l'accessibilité des objets
+en mémoire.
+
+Pire, une méthode :meth:`__del__` peut interférer avec l'objectif de la
+machinerie de persistance. Par exemple, de nombreux objets reste dans le cache
+d'une class:`Connection`. À plusieurs reprises, pour réduire la charge du
+cache, les objets qui n'ont pas été référencés récemment sont enlevés du cache.
+Si un objet persistant est enlevé du cache et que le cache contenait la
+dernière référence en mémoire de cet objet la méthode :meth:`__del__` de
+l'objet sera appelée. Si la méthode :meth:`__del__` référence n'importe quel
+attribut de l'objet, la ZODB devra rechargé l'objet à partir de la base de
+données à nouveau, avant de pouvoir satisfaire la référence. Ce qui a pour
+conséquence de remettre l'objet dans le cache : Un tel objet est virtuellement
+immortel, occupant de l'espace en mémoire pour toujours, puisque chaque essai
+pour l'enlever du cache abouti à l'y remettre. Avec les ZODB antérieur à la
+version 3.2.2 cela causait le bouclage infini du code de réduction de la taille
+du cache. Cette boucle infinie ne se produit plus mais les objets continuent à
+vivre en cache pour toujours.
+
+Par ce que la méthode :meth:`__del__` n'a pas beaucoup de sens dans le cas
+d'objet persistant et peut créer des problèmes, les méthodes persistante ne
+devraient pas surcharger la méthode :meth:`__del__`.
+
+Écrire des classes persistantes
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Maintenant que nous connaissons les bases de la programmation de la ZODB, nous
+allons regarder quelques tâches plus subtiles qui sont nécessaire à tout les
+utilisateurs de la ZODB dans un système en production.
+
+Modifier les attributs d'une instance
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Idéalement avant de rendre des classes persistantes vous voulez définir leur
+interface correctement du premier coup, en conséquence de quoi il n'y aurait
+pas besoin d'ajouter de nouveaux attributs au cours du temps. C'est un objectif
+difficile et  pratiquement impossible à atteindre à moins de connaître
+exactement vos besoins futurs. De telles demandes peuvent être réclamée par
+d'autres personnes, si bien que vous devez vous préparer à recevoir de telles
+demandes impliquant des changement structurels. En terminologie de base de
+données orientées objets, cela s'appelle une mise à jour du schéma. La ZODB n'a
+pas besoin de spécification du schéma, si vous changez ce que le logiciel
+attend comme données de la base pour un objet, vous changez implicitement le
+schéma.
+
+Une façon de gérer de tels changements est de réaliser des programme qui vont
+chercher tous les objets de la base pour les mettre à jour selon le nouveau
+schéma. C'est facile si votre réseau d'objet est bien structuré, par exemple si
+toutes les instances de la classe :class:`User` se trouvent dans un unique
+dictionnaire ou BTree, il suffit alors de boucler sur chaque instance
+:class:`User`. C'est plus difficile si le graphe est moins structuré. Si vos
+objets :class:`User` ne peuvent être trouvé comme attributs d'un faible nombre
+d'objets, il vous faudra écrire un traverseur qui parcourera la base et qui
+vérifiera que chaque objet de la ZODB est du type :class:`User` ou non.
+
+Certaines OODBs supportent une fonctionnalité appelée "extends", qui peut
+rapidement trouver les objets d'un type données, quelque soit le graphe des
+objets, malheureusement ce n'est pas le cas de la ZODB.
+
+
+
+
+
+
+
