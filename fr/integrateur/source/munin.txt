@@ -8,9 +8,11 @@ Monitoring avec Munin
 
 .. contents:: :local:
 
-Installez le serveur et le client Munin : ::
+Installez le serveur et le client Munin :
 
-    apt-get install munin munin-node
+.. code-block:: sh
+
+    $ apt-get install munin munin-node
 
 À l'installation il active les plugins en fonction de ce qui installé : ::
 
@@ -19,30 +21,43 @@ Installez le serveur et le client Munin : ::
 Vous aurez les plugins mysql si vous avez mysql-server d'installé.
 Les plugins actifs sont des liens symboliques dans */etc/munin/plugins/*.
 
-Éditez */etc/munin/munin.conf* pour changer *host.domain.com* : ::
+Éditez */etc/munin/munin.conf* pour changer *host.domain.com* :
+
+.. code-block:: cfg
 
     # a simple host tree
     [host.domain.com]
         address 127.0.0.1
         use_node_name yes
 
-Activer d'autres modules si vous le souhaitez : ::
+Activer d'autres modules si vous le souhaitez :
 
-    cd /etc/munin/plugins
-    ln -s /usr/share/munin/plugins/fail2ban
-    ln -s /usr/share/munin/plugins/smart_ smart_sda
+.. code-block:: sh
 
-Tous les fichiers dans */var/lib/munin* et */var/log/munin* doivent appartenir à l'utilisateur munin (à exécuter seulement si vous n'avez pas de stats) : ::
+    $ cd /etc/munin/plugins
+    $ ln -s /usr/share/munin/plugins/fail2ban
+    $ ln -s /usr/share/munin/plugins/smart_ smart_sda
 
-    chown -R munin:munin /var/lib/munin /var/log/munin
+Tous les fichiers dans */var/lib/munin* et */var/log/munin* doivent appartenir à l'utilisateur munin (à exécuter seulement si vous n'avez pas de stats) :
+
+.. code-block:: sh
+
+    $ chown -R munin:munin /var/lib/munin /var/log/munin
 
 Reexécutez cette commande si vous n'avez toujours pas de stats après 15 minutes.
 
-Redémarrez munin-node pour reprendre en compte la configuration : ::
+Redémarrez munin-node pour reprendre en compte la configuration :
 
-    /etc/init.d/munin-node restart
+.. code-block:: sh
 
-Exemple de buildout de deploiement avec munin : ::
+    $ /etc/init.d/munin-node restart
+
+Plugins Zope
+============
+
+Exemple de buildout de deploiement avec munin :
+
+.. code-block:: cfg
 
     [buildout]
     extends = buildout.cfg
@@ -103,22 +118,36 @@ Exemple de buildout de deploiement avec munin : ::
     scripts = munin=munin2
     arguments = ip_address='${hosts:instance2}', http_address='${ports:instance2}', user="${instance2:user}"
 
-Installez les liens symboliques : ::
+Installez les liens symboliques :
 
-    >>> sudo ./bin/munin1 install /etc/munin/plugins instance1
+.. code-block:: sh
+
+    $ sudo ./bin/munin1 install /etc/munin/plugins instance1
     installed symlink /etc/munin/plugins/instance1_zopecache_plonesite
     installed symlink /etc/munin/plugins/instance1_zopememory_plonesite
     installed symlink /etc/munin/plugins/instance1_zodbactivity_plonesite
     installed symlink /etc/munin/plugins/instance1_zopethreads_plonesite
-    >>> sudo ./bin/munin2 install /etc/munin/plugins instance2
+    $ sudo ./bin/munin2 install /etc/munin/plugins instance2
     installed symlink /etc/munin/plugins/instance2_zopecache_plonesite
     installed symlink /etc/munin/plugins/instance2_zopememory_plonesite
     installed symlink /etc/munin/plugins/instance2_zodbactivity_plonesite
     installed symlink /etc/munin/plugins/instance2_zopethreads_plonesite
 
-Redémarrez munin-node pour reprendre en compte la configuration : ::
+Redémarrez munin-node pour reprendre en compte la configuration :
 
-    /etc/init.d/munin-node restart
+.. code-block:: sh
+
+    $ /etc/init.d/munin-node restart
+
+Plugins Varnish
+===============
+
+Il existe des plugins munin pour Varnish. Voyez la page sur pypi pour
+les instructions : http://pypi.python.org/pypi/munin.varnish
+
+Les plugins utilisent la commande :command:`varnishstat`.
+Cette commande est disponible si vous avez le package *libncurses5-dev*
+lors de la compilation de Varnish.
 
 Ressources
 ==========
@@ -127,4 +156,3 @@ Ressources
 - http://www.debianhelp.co.uk/munin.htm
 - http://www.debuntu.org/how-to-monitoring-a-server-with-munin
 - http://www.debuntu.org/how-to-monitoring-a-server-with-munin-p2
-
