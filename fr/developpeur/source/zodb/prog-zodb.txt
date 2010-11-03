@@ -26,19 +26,19 @@ performance.
 Comment fonctionne la ZODB
 --------------------------
 
-La ZODB est conceptuellement. Les classes Python dérive une classe de base
-:class:`persistent.Persistent` pour être compatible avec la ZODB. Les instances
-des objets persistants sont construit à partir du média de stockage, qui peut
-être par exemple un fichier sur le disque, ceci lorsque le programme en a
-besoin, et sont mis en cache dans la mémoire. La ZODB est prévenue de la
-modification des objets, si bien que lorsque une instruction réalise une 
+La ZODB est conceptuellement simple. Les classes Python dérivent une classe de
+base :class:`persistent.Persistent` pour être compatible avec la ZODB. Les
+instances des objets persistants sont construits à partir du média de stockage,
+qui peut être par exemple un fichier sur le disque, ceci lorsque le programme
+en a besoin, et sont mis en cache dans la mémoire. La ZODB est prévenue de la
+modification des objets, si bien que lorsque une instruction réalise une
 modification comme ``obj.size = 1``, l'objet modifié est marqué 'dirty'. En une
 requête tous les objets marqués 'dirty' sont écrits sur le stockage permanent,
 cette opération s'appelle valider une transaction ("committing a transaction"
-ou "commiter" en langue de développeur).
-Une transaction peut aussi être abandonnée ou annulée, ce qui à pour
-conséquence d'annuler toutes les modifications, les objets marqués 'dirty' sont
-remis à leur état initial d'avant le début de transaction.
+ou "commiter" en langue de développeur).  Une transaction peut aussi être
+abandonnée ou annulée, ce qui à pour conséquence d'annuler toutes les
+modifications, les objets marqués 'dirty' sont remis à leur état initial
+d'avant le début de transaction.
 
 Le terme "transaction" a une signification spécifique en informatique.
 Il est extrêmement important que le contenu d'une base de données ne soit pas

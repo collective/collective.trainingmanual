@@ -84,7 +84,7 @@ Communauté et contribution
 Les discussions ont lieux sur la mailing liste `ZODB developers' mailing list
 <http://mail.zope.org/mailman/listinfo/zodb-dev>`_.
 
-:doc:`Bug reporting<http://zodb.org/bugs.html>`_, :doc:`feature requests<http://zodb.org/features.html>`_, et le planning
+`Bug reporting<http://zodb.org/bugs.html>`_, `feature requests<http://zodb.org/features.html>`_, et le planning
 des version sont réalisés sur `Launchpad <http://launchpad.net/zodb>`_.
 
 Si vous voulez contribuer la communauté sera heureuse de recevoir de l'aide sur
