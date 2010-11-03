@@ -203,6 +203,12 @@ Création d'un certificat autosigné :
         RewriteEngine On
         RewriteRule ^/(.*) http://localhost:8000/VirtualHostBase/https/%{SERVER_NAME}:443/kb/VirtualHostRoot/$1 [L,P]
 
+        <IfModule mod_proxy.c>
+            <Proxy proxy:http://localhost:8000>
+                Order deny,allow
+                Allow from localhost
+            </Proxy>
+        </IfModule>
     </VirtualHost>
 
 Activez les sites :
@@ -222,13 +228,6 @@ Activez les modules :
    $ a2enmod proxy_http
    $ a2enmod rewrite
 
-Éditez :file:`/etc/apache2/mods-enabled/proxy.conf` comme ceci :
-
-.. code-block:: apache
-
-    #Deny from all
-    Allow from devagile
-
 Activation de la compression
 ----------------------------
 
@@ -239,14 +238,19 @@ Activez le module *deflate* :
    $ a2enmod deflate
 
 et éditez le fichier de configuration
-:file:`/etc/apache2/mods-enabled/deflate.conf` :
+:file:`/etc/apache2/mods-enabled/deflate.conf` (pas besoin avec Ubuntu 10.04) :
 
 .. code-block:: apache
 
-   <IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css \
-                          text/javascript application/x-javascript
-   </IfModule>
+    <IfModule mod_deflate.c>
+            # these are known to be safe with MSIE 6
+            AddOutputFilterByType DEFLATE text/html text/plain text/xml
+
+            # everything else may cause problems with MSIE 6
+            AddOutputFilterByType DEFLATE text/css
+            AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript
+            AddOutputFilterByType DEFLATE application/rss+xml
+    </IfModule>
 
 Redémarrez Apache :
 
