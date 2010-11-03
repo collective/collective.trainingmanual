@@ -44,6 +44,7 @@ California 94105, USA.
    installation_et_creation_d_une_instance_Plone
    buildout_plone3
    deploiement_backup
+   external_editor
    munin
    ploneformgen/index
    formation_tal_metal

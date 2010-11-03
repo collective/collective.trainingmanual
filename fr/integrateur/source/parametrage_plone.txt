@@ -493,9 +493,7 @@ de modifier des documents de Plone en les éditant directement avec son logiciel
 préféré, sans avoir besoin de passer par un formulaire.
 Ce qui est particulièrement utile pour les fichiers type tableur ou traitement de texte.
 
-Nous ajouterons un tutoriel pour indiquer comment utiliser cette fonctionnalité.
-
-.. todo:: écrire la doc de external editor
+Veuillez vous référer au chapitre :ref:`external_editor` pour de plus amples informations.
 
 Édition en ligne
 ----------------
