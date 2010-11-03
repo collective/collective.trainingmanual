@@ -1153,7 +1153,8 @@ En savoir plus : `Automatic Script Creation`_
 Mise en place d'un Pypi privé avec PloneSoftwareCenter
 ======================================================
 
-Créez une instance Plone avec l'id "site" sur une machine servant de serveur,
+Créez une instance Plone avec l'id "site" sur une machine servant de serveur
+(:ref:`installation_unified_installer`),
 nous allons l'appeler ``devagile``, avec la résolution DNS dans
 :file:`/etc/hosts` : ::
 

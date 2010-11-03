@@ -28,6 +28,8 @@ Note à propos des combinaisons de versions de Plone, Python et Zope :
 
 - Plone 4.1 utilise Zope 2.13, Python 2.7 est supporté.
 
+.. _installation_unified_installer:
+
 Installation via l'Unified Installer
 ------------------------------------
 
