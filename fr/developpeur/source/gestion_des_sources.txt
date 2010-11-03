@@ -6,12 +6,11 @@
 La gestion des sources avec subversion
 ======================================
 
-Définition
-==========
 Le but est d'acquérir les connaissances de gestionnaire de code source subversion utilisé par la communauté Plone.
 
 Savoir
 ======
+
 - Création d'un dépôt
 - Dump d'un dépôt
 - Utilisation de subversion en ligne de commande
@@ -55,9 +54,9 @@ Savoir
 .. _`Introduction à subversion`: http://dev.nozav.org/intro_svn.html
 .. _`Un livre de référence : svnbook Red Bean`: http://svnbook.red-bean.com
 
+Création d'un dépôt via Apache
+==============================
 
-Création d'un dépôt
-===================
 http://doc.ubuntu-fr.org/subversion
 
 Création et configuraton d'un dépôt à travers Apache :
@@ -90,6 +89,7 @@ Création et configuraton d'un dépôt à travers Apache :
 
 Installation du client subversion
 =================================
+
 Sous Linux :
 
 .. code-block:: sh
@@ -98,6 +98,31 @@ Sous Linux :
 
 Sous Windows, installez SlickSVN à partir du site http://subversion.tigris.org
 
-Exercice
-========
-L'outil sera utilisé tout au long de la formation.
+Administration d'un dépôt subversion
+====================================
+
+Faire un dump d'un dépôt existant
+---------------------------------
+
+Exécutez :
+
+.. code-block:: sh
+    
+    $ svnadmin dump /home/svn/Formation > /tmp/svn_agile.dump
+
+Importer les révisions dans un autre dépôt
+------------------------------------------
+
+Commandes :
+
+.. code-block:: sh
+
+    $ svnadmin create /home/svn/autre
+    $ svnadmin load /home/svn/autre < /tmp/svn_agile.dump
+
+On vérifie :
+
+.. code-block:: sh
+
+    $ svn co file:///home/svn/autre
+
