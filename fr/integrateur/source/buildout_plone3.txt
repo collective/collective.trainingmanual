@@ -700,7 +700,7 @@ Ajoutez aussi le lien vers le Pypi dans find-links :
     [buildout]
     find-links +=
         ...
-        http://ip:8080/site/products/simple
+        http://devagile:8080/site/products/simple
 
 Précisez la version ``formation.policy = 1.0`` dans ``versions.cfg``.
 
