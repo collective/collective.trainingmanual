@@ -39,16 +39,20 @@ Nous allons quand même l'installer car il associe le type mime
 *application/x-zope-edit* à /usr/bin/zopeedit
 Nous allons ensuite remplacer le script par une nouvelle version.
 
-Installez donc zopeedit via le système de packages : ::
+Installez donc zopeedit via le système de packages :
 
-    sudo apt-get install zopeedit
+.. code-block:: sh
+
+    $ sudo apt-get install zopeedit
 
 Ensuite récupérer la dernière version du script Python :file:`zopeedit.py` sur
 http://plone.org/products/zope-externaleditor-client
 
-et remplacez /usr/bin/zopeedit par celui-ci : ::
+et remplacez /usr/bin/zopeedit par celui-ci :
 
-    sudo cp zopeedit.py /usr/bin/zopeedit
+.. code-block:: sh
+
+    $ sudo cp zopeedit.py /usr/bin/zopeedit
 
 Supprimez éventuellement l'ancien fichier :file:`~/.zope-external-edit` et
 exécutez :command:`zopedit` dans un terminal pour recréer un fichier de configuration.
@@ -93,23 +97,31 @@ Voir http://support.microsoft.com/support/kb/articles/q316/4/31.asp
 Pour être sûr que le navigateur redemande toujours le fichier, il faut ajouter le header expires à la requête.
 Vous pouvez faire cela avec le module *expires* d'apache.
 
-Activez le module comme ceci : ::
+Activez le module comme ceci :
 
-    a2enmod expires
+.. code-block:: sh
+
+    $ a2enmod expires
 
 Et configurer apache pour que les fichiers avec le type mime *application/x-zope-edit*
-expirent au bout d'une seconde : ::
+expirent au bout d'une seconde :
 
-    sudo vi /etc/apache2/httpd.conf
+.. code-block:: sh
 
-Ajoutez les lignes : ::
+    $ sudo vi /etc/apache2/httpd.conf
+
+Ajoutez les lignes :
+
+.. code-block:: apache
 
     ExpiresActive On
     ExpiresByType application/x-zope-edit A1
 
-et rechargez apache : ::
+et rechargez apache :
 
-    sudo /etc/init.d/apache2 reload
+.. code-block:: sh
+
+    $ sudo /etc/init.d/apache2 reload
 
 Vous aurez les headers suivants de positionnés : ::
 
