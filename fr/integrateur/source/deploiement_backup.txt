@@ -39,7 +39,7 @@ Créez un fichier :file:`deployment.cfg` :
 
 .. centered:: :file:`deployment.cfg`
 
-.. literalinclude:: ./deploiement_buildout/deployment.cfg
+.. literalinclude:: ../../examples/buildout/deployment.cfg
     :language: cfg
 
 Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
@@ -87,7 +87,7 @@ Support des backups
 
 Pour les backups, c'est la section ``backup``.
 
-.. literalinclude:: ./deploiement_buildout/buildout.cfg
+.. literalinclude:: ../../examples/buildout/buildout.cfg
     :language: cfg
     :prepend: [backup]
     :start-after: [backup]
@@ -143,7 +143,7 @@ Tout cela est réalisé par un job cron à 3h du matin.
 
 .. centered:: :file:`deployment-backup.cfg`
 
-.. literalinclude:: ./deploiement_buildout/deployment-backup.cfg
+.. literalinclude:: ../../examples/buildout/deployment-backup.cfg
     :language: cfg
 
 Dans cet exemple, la synchronisation se fait sur le serveur de secours/backup
