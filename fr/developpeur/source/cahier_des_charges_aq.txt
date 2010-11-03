@@ -1,5 +1,7 @@
 .. -*- coding: utf-8 -*-
 
+.. _cahier_des_charges_aq:
+
 ====================================================
 Cahier des charges du besoin de la sociéte Stand'Art
 ====================================================
@@ -50,9 +52,9 @@ Ainsi, on supplée électroniquement au processus suivant :
 Volumes
 *******
 
-Nombre de documents gérés dans le système qualité : 1200
+Nombre de documents gérés dans le système qualité : 1000
 
-1000 mots-clés (500 obsolètes)
+100 mots-clés
 
 100 destinataires
 
@@ -60,28 +62,19 @@ Nombre de documents gérés dans le système qualité : 1200
 Les États
 *********
 
-Brouillon : créé par l'auteur ou par le SQ.
+Brouillon : créé par l'auteur.
 
 SoumisAuSQ : l'auteur attend le visa du SQ qui attribuera le numéro unique et
 changera l'état du document.
-
-SoumisALAuteur : l'auteur valide les saisies du SQ avant publication et réalise
-la transition d'état.
-
-En attente : document validé mais non publié.
 
 Publié : document validé et consultable par les destinataires.
 
 Archivé : document obsolète, seulement consultable par le SQ et l'auteur.
 
-Il peut être possible de déplacer le document dans un répertoire visible
-seulement par le SQ.
-
-
 Les autorisations
 *****************
 
-Il valide le document avant diffusion.
+Le service qualité valide le document avant diffusion.
 
 Les conteneurs possèdent une liste des services et personnes destinataires
 habilitées à consulter le document.
@@ -97,8 +90,10 @@ nom.
 
 Il est possible de rechercher un document par son titre.
 
-Le SQ crée le conteneur du document afin d'en saisir le numéro unique et autres
-informations.
+L'auteur du document crée le conteneur où sera stocké le fichier du document.
+
+Ce conteneur sera complété par le service qualité afin d'en saisir le numéro
+unique et autres informations.
 
 L'auteur du document y ajoute la pièce jointe.
 
@@ -297,51 +292,24 @@ Scénarios
 Dépôt d'un document sous assurance qualité
 ==========================================
 
-
-Scénario avec délégation
+Scénario sans délégation
 ------------------------
 
-1. Un membre du service qualité (SQ) se connecte au portail et s'authentifie.
+1. Un employé de Stand'Art devant créer le document se connecte au portail et
+   s'authentifie.
 
-2. Le portail identifie le membre comme faisant partie du service qualité.
+2. Le portail identifie le membre comme faisant partie du service Alpha de la
+   société Stand'Art.
 
-3. Le membre du SQ navigue jusqu'au répertoire des documents sous assurance
-   qualité.
+3. Le membre navigue jusqu'au répertoire des documents sous assurance qualité.
 
 4. Il crée un conteneur de document.
 
 5. Il remplit les champs d'informations.
 
-6. Et associe à ce conteneur un auteur du document.
+6. Le membre associe à ce conteneur un auteur du document si ce n'est lui.
 
-7. Puis, il associe un document au conteneur.
-
-8. Le SQ change l'état du conteneur et attend le visa de l'auteur.
-
-9. L'auteur est prévenu par mail et par liste de modération.
-
-10. Il vérifie alors l'adéquation du document avec sa version.
-
-11. Et valide le conteneur.
-
-12. Le document est publié.
-
-13. Le membre du SQ est notifié de la publication.
-
-
-Scénario sans délégation
-------------------------
-
-Ce scénario reprend les étapes du scénario précédent jusqu'à l'étape 6 comprise.
-
-6. Le membre associe à ce conteneur un auteur du document.
-
-7. Il change l'état du conteneur.
-
-8. L'auteur est averti par courriel et par liste de modération de la nécessité
-   de joindre le document.
-
-9. Il ajoute au conteneur en pièce jointe son document.
+9. Il ajoute au conteneur le fichier de son document.
 
 10. Et soumet le conteneur pour validation.
 
@@ -351,7 +319,7 @@ Ce scénario reprend les étapes du scénario précédent jusqu'à l'étape 6 co
 
 Remarques :
 
-Nous n'avons traité ici que deux scénarios, sans parler des cas alternatifs ou du traitement des erreurs.
+Nous n'avons pas parler des cas alternatifs ou du traitement des erreurs.
 Nous n'avons pas non plus précisé les pré-conditions et ressources liées.
 Ceci afin de ne pas alourdir la formation.
 
@@ -410,13 +378,11 @@ Les Vues et actions
 Nous allons retrouver ici les informations du conteneur présentées par des vues
 correspondant aux vues du cahier des charges.
 
-
 Vue « Consultation des documents »
 ==================================
 
 On y retrouve les champs « sociétés concernées », « Services destinataires », «
 Fonctions destinataires ».
-
 
 Vue « Consultation du Document »
 ================================
@@ -437,10 +403,6 @@ Les États
 Brouillon : créé par l'auteur ou par le SQ.
 
 SoumisAuSQ : l'auteur attend le visa du SQ qui attribuera le numéro unique.
-
-SoumisALAuteur : l'auteur valide les saisies du SQ avant publication.
-
-En attente : document validé mais non publié.
 
 Publié : document validé et consultable par les destinataires.
 

@@ -18,7 +18,7 @@ Licence
 =======
 
 Ce document et régie par la licence Creative Common BY SA, vous pouvez donc le
-partager, le modifier tant que vous citer votre source initiale et que vous
+partager, le modifier tant que vous citez votre source initiale et que vous
 conservez les termes de la licence initiale.
 
 Résumé
@@ -45,10 +45,10 @@ tutoriel pour voir au combien c'est facile à utiliser.
 Voici quelles que unes des fonctionnalités que la ZODB vous apporte :
 
 * Persistance transparente pour les objets Python.
-* Support des transactions complètement ACID (avec les point de sauvegardes).
+* Support des transactions complètement ACID (avec les points de sauvegardes).
 * Historique et capacité de défaire refaire (undo).
 * Support efficace pour les objets binaires volumineux (BLOBs).
-* Dépôts pluggable.
+* Dépôts pluggables.
 * Architecture adaptable.
 
 Documentation
@@ -58,15 +58,13 @@ Documentation
    :maxdepth: 1
 
    introduction
-   documentation/tutorial
-   documentation/guide/index
-   documentation/articles/index
-
+   tutorial
+   prog-zodb
 
 Téléchargements
 ===============
 
-ZODB est distribué sous forme d'un egg (paquet) Python accessible sur le dépôt
+ZODB est distribuée sous forme d'un egg (paquet) Python accessible sur le dépôt
 de la communauté Python `Python Package Index
 <http://pypi.python.org/pypi/ZODB3>`_.
 
@@ -86,13 +84,13 @@ Communauté et contribution
 Les discussions ont lieux sur la mailing liste `ZODB developers' mailing list
 <http://mail.zope.org/mailman/listinfo/zodb-dev>`_.
 
-:doc:`Bug reporting<bugs>`, :doc:`feature requests<features>`, et le planning
+:doc:`Bug reporting<http://zodb.org/bugs.html>`_, :doc:`feature requests<http://zodb.org/features.html>`_, et le planning
 des version sont réalisés sur `Launchpad <http://launchpad.net/zodb>`_.
 
 Si vous voulez contribuer la communauté sera heureuse de recevoir de l'aide sur
-la documentation, l'aide des autres développeurs et des utilisateurs sur la
-mailing liste, soumission de rapport de bogues, proposition d'amélioration et
-écriture de code.
+la documentation, l'aide aux autres développeurs et utilisateurs sur la mailing
+liste, soumission de rapport de bogues, proposition d'amélioration et écriture
+de code.
 
 ZOD est un projet géré par la fondation Zope où vous pouvez obtenir les droits
 pour contribuer directement sur le code - pour cela récupérer la documentation

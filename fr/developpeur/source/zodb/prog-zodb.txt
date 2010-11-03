@@ -45,16 +45,20 @@ Il est extrêmement important que le contenu d'une base de données ne soit pas
 corrompue par les crashs logiciels ou matériels, et la plus part des logiciels
 de base de données offre cette protection en ayant quatre caractéristiques,
 l'atomique, la consistante, l'isolée, et durable (ACID) :
+
 * atomique : les opérations sont indivisible, en cas d'échec la suite des
   opérations est complètement annulée quel que soit le nombre d'opération
   effectuées (rollback), inversement en cas de succès elles sont toutes
   appliquées, en cas de crash cela garantie que la base ne sera pas dans un
   état partiellement modifié.
+
 * cohérente : en fin de transaction la base est de nouveau dans un état
   cohérent ce qui n'est pas obligée pendant la transaction. Un contenu final
   incohérent provoque l'annulation de la transaction.
+
 * isolée : deux transaction simultanée n'ont pas connaissance de modification
   apportée à la base par l'autre tant qu'elle n'a pas été validée (commitée).
+
 * durable : une transaction validée ne peut être annulée ou écrasée par une
   transaction ayant démarré simultanément. Lorsque la seconde voudra écraser
   les données de la première elle se verra annulée. Ce qui provoque l'émission
