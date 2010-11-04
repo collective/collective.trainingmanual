@@ -6,6 +6,27 @@
 Déploiement et backup
 =====================
 
+:Author: Vincent Fretin
+:Contributors: Thomas Desvenain
+:Version: 1.0.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
+
+Copyright (C) 2010 Vincent Fretin <vincentfretin AT ecreall.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).
+
+THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+"AS IS" AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
 .. contents:: :local:
 
 Définition
@@ -75,7 +96,7 @@ Pour redémarrer un processus par exemple instance1 : ::
 Pour stopper : `stop`, pour démarrer : `start`.
 
 Pour tout redémarrer : ::
-    
+
     $ bin/supervisorctl restart all
 
 Pour arrêter supervisor et donc tous les processus : ::
@@ -134,7 +155,7 @@ Cron job pour zeopack et backup
 ===============================
 
 Voici un exemple de configuration qui étend :file:`deployment.cfg` pour
-réaliser un pack de la database avec la commande :command:`bin/zeopack` et 
+réaliser un pack de la database avec la commande :command:`bin/zeopack` et
 faire un backup avec la commande :command:`bin/backup` vue précédemment.
 
 Il synchronise également les dossiers :file:`backup/` et :file:`log/` sur un autre serveur.
@@ -282,7 +303,7 @@ Pour installer CacheFu il suffit d'ajouter :mod:`Products.CacheSetup`
 soit dans la liste des eggs de votre buildout, soit en tant que dépendance à
 l'un de vos projets dans le :file:`setup.py`.
 Vous devez ensuite l'installer par la suite comme un module supplémentaire
-dans le panneau de configuration de Plone via l'utilitaire 
+dans le panneau de configuration de Plone via l'utilitaire
 :guilabel:`Ajout/Suppression de produits`.
 
 Configuration
@@ -312,7 +333,7 @@ Installation
 Pour installer plone.app.caching il suffit de l'ajouter soit dans la liste
 des eggs de votre buildout, soit en tant que dépendance à l'un de vos projets
 dans le :file:`setup.py`.
-Vous devez ensuite l'installer par la suite comme un module supplémentaire
+Vous devez ensuite l'installer comme un module supplémentaire
 dans le panneau de configuration de Plone via l'utilitaire d'ajout de modules.
 Comme ce module dépend d'un certain nombre de modules qui ne sont pas fournis
 par Plone, il est plus sûr de geler les versions dans votre buildout comme
@@ -335,7 +356,7 @@ http://good-py.appspot.com/release/plone.app.caching
     pour récupérer le KGS de plone.app.caching et de five.grok, vous pouvez
     utiliser l'url suivante :
     http://good-py.appspot.com/release/plone.app.caching/1.0b1?five.grok=1.1.2
-    Pour récupérer un KGS de five.grok compatible avec Plone 3.3 qui utilise 
+    Pour récupérer un KGS de five.grok compatible avec Plone 3.3 qui utilise
     Zope 2.10.x : http://good-py.appspot.com/release/five.grok/1.1.2?zope=2.10.x
 
 Le panneau de configuration de la gestion de cache
@@ -344,7 +365,13 @@ Le panneau de configuration de la gestion de cache
 Une fois installé vous allez trouver au niveau de la configuration de votre
 site un lien pour configurer les règles de cache de votre site.
 
-Cette interface graphique est constituée de quatre onglets :
+.. figure:: ./deploiement_backup/8
+    :align: center
+
+Cette interface graphique est constituée de trois onglets :
+
+.. figure:: ./deploiement_backup/3onglets.png
+    :align: center
 
 1. *Changer la configuration* (Change settings) : pour gérer le comportement
    du cache HTTP
@@ -352,10 +379,7 @@ Cette interface graphique est constituée de quatre onglets :
 2. *Importer une configuration* (Import settings) : vous permet d'importer
    des politiques de cache prédéfinies
 
-3. *Purger le proxy cache* (Purge caching proxy) : vous permet de lancer des
-   purges manuelles sur les caches proxy
-
-4. *RAM cache* : fournit des informations statistiques sur le cache en RAM
+3. *RAM cache* : fournit des informations statistiques sur le cache en RAM
    et son éventuelle purge.
 
 Configuration
@@ -366,7 +390,7 @@ Pour configurer cette chaine, faire ce qui suit :
 
 - Cliquer sur :guilabel:`Import settings`, sélectionner
   :guilabel:`With caching proxy`, cliquer sur :guilabel:`Import`
-- Retourner dans :guilabel:`Change settings`, dans 
+- Retourner dans :guilabel:`Change settings`, dans
   :guilabel:`Global settings`, cocher :guilabel:`Enable caching`
 - Dans l'onglet :guilabel:`Caching proxies`, cocher :guilabel:`Enable purging`
 - Ajouter http://127.0.0.1:8000 dans les `Caching proxies`.

@@ -6,6 +6,27 @@
 Création d'un buildout Plone avec ZopeSkel
 ==========================================
 
+:Author: Vincent Fretin
+:Contributors:
+:Version: 1.0.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
+
+Copyright (C) 2010 Vincent Fretin <vincentfretin AT ecreall.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).
+
+THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+"AS IS" AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
 .. contents:: :local:
 
 .. note::
@@ -39,15 +60,15 @@ Commandes :
       project:  plone4
     Running:
     svn mkdir ...
-    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']: 
+    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
     Plone Version (Plone version # to install) ['3.3.5']: 4.0.1
-    Zope2 Install Path (Path to Zope2 installation; leave blank to fetch one!) ['']: 
-    Plone Products Directory (Path to Plone products; leave blank to fetch [Plone 3.0/3.1 only]) ['']: 
-    Initial Zope Username (Username for Zope root admin user) ['admin']: 
+    Zope2 Install Path (Path to Zope2 installation; leave blank to fetch one!) ['']:
+    Plone Products Directory (Path to Plone products; leave blank to fetch [Plone 3.0/3.1 only]) ['']:
+    Initial Zope Username (Username for Zope root admin user) ['admin']:
     Initial User Password (Password for Zope root admin user) ['']: admin
-    HTTP Port (Port that Zope will use for serving HTTP) ['8080']: 
-    Debug Mode (Should debug mode be "on" or "off"?) ['off']: 
-    Verbose Security? (Should verbose security be "on" or "off"?) ['off']: 
+    HTTP Port (Port that Zope will use for serving HTTP) ['8080']:
+    Debug Mode (Should debug mode be "on" or "off"?) ['off']:
+    Verbose Security? (Should verbose security be "on" or "off"?) ['off']:
     Creating template plone3_buildout
       Copying README.txt to ./plone4/README.txt
       Copying bootstrap.py to ./plone4/bootstrap.py
@@ -142,7 +163,7 @@ Le :file:`buildout.cfg` minimal que vous devez obtenir :
     parts =
         instance
         zopepy
-    extends = 
+    extends =
         http://dist.plone.org/release/4.0.1/versions.cfg
         versions.cfg
     versions = versions
@@ -178,7 +199,7 @@ Amorcez et lancez buildout :
     $ ls -F
     bin/          buildout.cfg   parts/ README.txt  var/
     bootstrap.py  develop-eggs/  products/  src/        versions.cfg
-    $ ls parts 
+    $ ls parts
     buildout  instance
     $ ls bin
     buildout  instance  zopepy
@@ -191,7 +212,7 @@ Démarrez l'instance avec ``bin/instance fg`` et connectez vous à http://localh
 pour créer votre site Plone.
 
 .. note::
- 
+
     Commitez votre buildout
 
     .. code-block:: sh
@@ -241,16 +262,19 @@ automatiquement les produits :mod:`Products.Collage` et
 Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les
 utilisateurs nouvellement créés.
 
-Création du policy product
+Création du policy package
 --------------------------
 
-Créez le policy product :
+Créez le policy package :
 
 .. code-block:: sh
 
     $ cd /tmp/
     $ paster create -t plone formation.policy \
       --svn-repository=http://devagile/Formation/packages
+    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
+    Version (Version number for project) ['1.0']:
+    Description (One-line description of the project) ['']: Projet exemple pour la formation integrateur
     Register Profile (Should this package register a GS Profile) [False]: True
     $ cd formation.policy
     $ svn rm --force formation.policy.egg-info
@@ -411,7 +435,7 @@ le ``name`` donné lors du ``genericsetup:registerProfile`` dans le fichier
 Déclaration de formation.policy comme plugin Plone
 --------------------------------------------------
 
-Plone 3.3 inclu un nouveau `système de plugin`_. Un produit peut être déclaré
+Plone 3.3 inclut un nouveau `système de plugin`_. Un produit peut être déclaré
 plugin Plone.
 
 Dans ce cas les fichiers :file:`meta.zcml`, :file:`configure.zcml` et

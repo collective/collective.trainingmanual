@@ -6,6 +6,26 @@
 Introduction à zc.buildout
 ==========================
 
+:Author: Vincent Fretin
+:Contributors:
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_buildout.txt>`_
+
+Copyright (C) 2010 Vincent Fretin <vincentfretin AT gmail.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).
+
+THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+"AS IS" AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
 .. contents:: :local:
 
 Définition
@@ -421,7 +441,7 @@ la commande suivante :
     $ bin/buildout -c development.cfg annotate
     ...
     [buildout]
-    parts= 
+    parts=
     archgenxml
     omelette
         /home/vincentfretin/archgenxml_buildout/buildout.cfg
@@ -499,7 +519,7 @@ et toutes ses dépendances directes ou indirectes :
         |-- security -> /home/vincentfretin/.buildout/eggs/zope.security-3.7.4-py2.6-linux-x86_64.egg/zope/security
         |-- structuredtext -> /home/vincentfretin/.buildout/eggs/zope.structuredtext-3.5.0-py2.6.egg/zope/structuredtext
         `-- tal -> /home/vincentfretin/.buildout/eggs/zope.tal-3.5.2-py2.6.egg/zope/tal
-    
+
     25 directories, 5 files
 
 Cela permet d'avoir les packages à plat, ce qui facilite la recherche, exemple :
@@ -566,7 +586,7 @@ Voici ce que donnent les deux fichiers une fois reécrits.
     zope.schema = 3.7.0
     zope.security = 3.7.4
     zope.structuredtext = 3.5.0
-    
+
     [archgenxml]
     recipe = zc.recipe.egg:scripts
     eggs = ${buildout:eggs}
