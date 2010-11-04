@@ -6,6 +6,26 @@
 Présentation de Plone
 =====================
 
+:Author: Michael Launay
+:Version: 0.1.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
+
+Copyright (C) 2010 Michael Launay <michaellaunay AT ecreall.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).
+
+THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+"AS IS" AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
 Les besoins
 ===========
 
