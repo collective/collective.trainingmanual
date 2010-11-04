@@ -2,25 +2,18 @@
 
 .. _creation_theme:
 
-===========================
-Création d'un thème Plone 3
-===========================
+=========================
+Création d'un thème Plone
+=========================
 
 Définition
 ==========
 Ajout de nouveaux composants visuels à Plone.
 
-Savoir
-======
-- Introspection d'une page avec Gloworm
-- Ajout d'une viewlet
-- Ajout d'une action / onglet / lien
-- Ajout d'une portlet modélisé avec ArchGenXML
-- Ressources Zope 3
-
 Installation de Gloworm
 =======================
-Gloworm est un outil pour introspecter une page Plone, très utile pour savoir comment customizer telle partie de la page.
+Gloworm est un outil pour introspecter les viewlets d'une page Plone,
+très utile pour savoir comment customizer telle partie de la page.
 
 Créez un fichier *development.cfg* :
 
@@ -34,10 +27,6 @@ Créez un fichier *development.cfg* :
         Products.Gloworm
 
 Reexécutez ``bin/buildout -c development.cfg``.
-
-Gérer les viewlets
-==================
-http://localhost:8080/site/@@manage-viewlets
 
 Création d'un theme
 ===================
@@ -71,7 +60,8 @@ et commitez :
 
     $ svn ci -m"Added z3c.autoinclude entry point"
 
-Retournez dans votre buildout, ajoutez formation.theme dans auto-checkout du fichier sources.cfg, ainsi que dans eggs de la section [instance] de buildout.cfg, commitez et relancez le buildout.
+Retournez dans votre buildout, ajoutez formation.theme dans auto-checkout du fichier sources.cfg,
+ainsi que dans eggs de la section [instance] de buildout.cfg, commitez et relancez le buildout.
 
 
 
@@ -88,9 +78,11 @@ Utilisez l'extension Firebug de firefox pour récupérer la règle css utilisé 
 
 Passez portal_css en mode debug comme ça vous ne devrez pas redémarrer l'instance à chaque fois que vous modifiez les css.
 
-Exercice 2
-==========
+Exercice 2 : Création d'une viewlet
+===================================
 Créez une viewlet affichant une image dans le footer.
+
+Référez-vous au chapitre :ref:`viewlets` pour consulter la documentation complète sur cette notion.
 
 Ajouter une image
 -----------------
@@ -108,7 +100,8 @@ Contenu du fichier logoviewlet.pt :
                      root_url portal_state/portal_url"
          tal:attributes="src string:$root_url/++resource++formation.theme.images/image.png" />
 
-Éditez le fichier *configure.zcml* pour déclarer votre viewlet. Vous avez un exemple en commentaire. Il suffit de le décommenter et d'ajuster le nom de la viewlet et la classe. Cela donne :
+Éditez le fichier *configure.zcml* pour déclarer votre viewlet. Vous avez un exemple en commentaire.
+Il suffit de le décommenter et d'ajuster le nom de la viewlet et la classe. Cela donne :
 
 .. code-block:: xml
 
@@ -120,7 +113,8 @@ Contenu du fichier logoviewlet.pt :
          permission="zope2.View"
          />
 
-Maintenant au lieu d'afficher votre LogoViewlet dans le PortalFooter, vous allez l'afficher dans portalheader en précisant que vous le voulez après le logo de plone. 
+Maintenant au lieu d'afficher votre LogoViewlet dans le PortalFooter,
+vous allez l'afficher dans portalheader en précisant que vous le voulez après le logo de plone.
 Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader :
 
 .. code-block:: xml
@@ -132,7 +126,7 @@ Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader :
          layer=".interfaces.IThemeSpecific"
          permission="zope2.View"
          />
-    
+
 Éditez ensuite *profiles/default/viewlets.xml* :
 
 .. code-block:: xml
@@ -152,7 +146,7 @@ Relancez l'instance et réinstallez votre produit pour prendre en compte le chan
 Portlets
 ========
 - http://plone.org/documentation/manual/portlets-developer-manual
-    
+
 Créez le portlet :
 
 .. code-block:: sh
@@ -211,13 +205,13 @@ Dans la template, afficher les informations qui ont été choisies via le formul
             <span class="portletTopRight"></span>
         </dt>
 
-        <dd class="portletItem odd" tal:define="informations view/data/informations; 
+        <dd class="portletItem odd" tal:define="informations view/data/informations;
                                                 plone_view context/@@plone;
                                                 mtool context/portal_membership" >
 
             <strong>Created by :</strong>
 
-            <span tal:condition="python:'Creator' in informations" 
+            <span tal:condition="python:'Creator' in informations"
                   tal:replace="python:mtool.getMemberById(context.Creator()).getProperty('fullname',context.Creator())" />
 
             <strong>Date of creation :</strong>

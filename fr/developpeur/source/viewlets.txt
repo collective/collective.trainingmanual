@@ -1,9 +1,12 @@
+.. -*- coding: utf-8 -*-
 
+.. _viewlets:
 
+============
 Les Viewlets
-************
+============
 
-« L'amour c'est un bouquet de viewlets » (adapté de « Violettes impériales » par Vincent Scotto)
+`« L'amour c'est un bouquet de viewlets »` (adapté de « Violettes impériales » par Vincent Scotto)
 
 :Author: Gilles Lenfant
 :Contributors: Thomas Desvenain
@@ -56,10 +59,10 @@ Dans le monde Zope 3, un provider est un multi adapter qui adapte le contexte et
 Les viewlets sont des content providers qui fournissent une portion de code HTML.
 Mais dans le monde de Plone, les viewlets ne sont généralement pas directement utilisées.
 
-Plone passe par des viewlets managers – une sorte d'aggrégateur de viewlets –
+Plone passe par des viewlet managers – une sorte d'aggrégateur de viewlets –
 qui permettent d'ordonnancer les viewlets avec un maximum de flexibilité.
 
-Cette souplesse permise par les viewlets managers
+Cette souplesse permise par les viewlet managers
 rend de moins en moins nécessaire la surcharge de la main_template lors de la réalisation de vos skins personnelles.
 
 
@@ -79,7 +82,7 @@ dont le « plone.portaltop » de l'extrait précédent.
 A l'intérieur de chaque viewlet manager, vous pouvez voir la liste des viewlets qu'il fournit.
 Chaque nom de viewlet est accompagné :
 
-    - de son rang – commençant par 0 – dans le viewlets manager entre parenthèses,
+    - de son rang – commençant par 0 – dans le viewlet manager entre parenthèses,
 
     - de deux flèches permettant de monter ou descendre l'ordre d'apparition de la viewlet dans le vewlets manager,
 
@@ -99,7 +102,7 @@ Celles-ci sont gérées dans un gestionnaire dédié, objet d'un autre chapitre.
 L'enregistrement en ZCML
 ========================
 
-Les viewlets managers standard de Plone, ainsi que la plupart des viewlets standard
+Les viewlet managers standard de Plone, ainsi que la plupart des viewlets standard
 sont enregistrés dans le « configure.zcml » du package « plone.app.layout.viewlets » dont voici un extrait :
 
 .. code-block:: xml
@@ -150,7 +153,7 @@ Vous remarquez les deux éléments « viewletManager » et « viewlet » qui enr
 
     - les viewlet managers utilisables dans une template comme la « main_template »,
 
-    - les viewlets pouvant être associées aux différents types de viewlets manager.
+    - les viewlets pouvant être associées aux différents types de viewlet manager.
 
 Les attributs d'un élément « viewletManager », les éléments obligatoires étant en gras :
 
@@ -161,15 +164,15 @@ Les attributs d'un élément « viewletManager », les éléments obligatoires �
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **permission**     | Permission nécessaire pour voir le viewlet manager.Généralement « zope2.View ».                                                                                                                                                                                                                                                                                                                                                |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| for                | Interface des contenus pour lesquels ce viewlet manager peut être utilisé.Défaut : « zope.interface.Interface » Exemple : « Products.ATContentTypes.interface.IATDocument »Vous pouvez utiliser « * » pour signaler que le viewlets manager peut être utlisé dans n'importe quel contexte, ce qui est le cas la plupart du temps.                                                                                              |
+| for                | Interface des contenus pour lesquels ce viewlet manager peut être utilisé.Défaut : « zope.interface.Interface » Exemple : « Products.ATContentTypes.interface.IATDocument ». Vous pouvez utiliser « * » pour signaler que le viewlet manager peut être utlisé dans n'importe quel contexte, ce qui est le cas la plupart du temps.                                                                                             |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | layer              | Interface de skin spécifique pour laquelle le viewlet manager peut être utilisé. Ce paramètre n'a d'intérêt que lors de la réalisation d'une skin, comme dans le cas du composant NuPloneDéfaut : « zope.publisher.interfaces.browser.IDefaultBrowserLayer »                                                                                                                                                                   |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| view               | Interface de view pour laquelle le viewlet manager peut être utilisé.Défaut : « zope.publisher.interfaces.browser.IBrowserView »Exemple : « plone.app.content.browser.interfaces.IFolderContentsView »La valeur par défaut convient dans l'immense majorité des cas.                                                                                                                                                           |
+| view               | Interface de view pour laquelle le viewlet manager peut être utilisé.Défaut : « zope.publisher.interfaces.browser.IBrowserView » Exemple : « plone.app.content.browser.interfaces.IFolderContentsView »La valeur par défaut convient dans l'immense majorité des cas.                                                                                                                                                          |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | provides           | Interface marker spécifique à ce viewlet manager.Bien que cet attribut soit facultatif, il est nécessaire, comme nous le verrons plus loin, de l'associer à une interface marker spécifique afin de pouvoir y associer des viewlets.Défaut : « zope.viewlets.interfaces.IViewletManager »                                                                                                                                      |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| class              | Éventuelle classe Python spécifique de ce viewlet manager. La classe par défaut est suffisante dans la majorité des cas.Si vous voulez donner à un Manager la possibilité d'ordonner les viewlets \- avec le panneau de contrôle vu plus haut \- inscrites dans ce viewlets manager, la classe devra être :« plone.app.viewletmanager.manager.OrderedViewletManager »Défaut : « zope.viewler.manager.ViewletManagerBase »      |
+| class              | Éventuelle classe Python spécifique de ce viewlet manager. La classe par défaut est suffisante dans la majorité des cas.Si vous voulez donner à un Manager la possibilité d'ordonner les viewlets \- avec le panneau de contrôle vu plus haut \- inscrites dans ce viewlet manager, la classe devra être :« plone.app.viewletmanager.manager.OrderedViewletManager » Défaut : « zope.viewler.manager.ViewletManagerBase »      |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | template           | Éventuelle template devant être utilisée pour ce viewlet manager. Ceci peut être utilisé dans certains cas en alternative à l'attribut « class » vu ci\-avant. Pour illustrer ceci, je vous invite à lire le code de « ResourceRegistries ».A noter que cette façon d'opérer est rarement utilisée.Défaut : « None »Attention, vous devez fournir l'attribut « class » ou l'attribut « template » mais en aucun cas les deux.  |
 +--------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -187,38 +190,43 @@ Les attributs d'un élément « viewlet », les éléments obligatoires étant e
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | **permission**     | Permission de vue de cette viewlet. Généralement « zope2.View »                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| for                | Interface de types de contenus pour lesquels cette viewlet sera affichée. Par exemple, pour n'afficher cette viewlet que dans les vues d'un ATDocument (ou type dérivé), vous placerez :« Products.ATContentTypes.interface.IATDocument »Défaut : « zope.interface.Interface ».Pour que la viewlet s'affiche dans tout contexte, vous placerez « * ».                                                                                                                                             |
+| for                | Interface de types de contenus pour lesquels cette viewlet sera affichée. Par exemple, pour n'afficher cette viewlet que dans les vues d'un ATDocument (ou type dérivé), vous placerez : « Products.ATContentTypes.interface.IATDocument ». Défaut : « zope.interface.Interface ».Pour que la viewlet s'affiche dans tout contexte, vous placerez « * ».                                                                                                                                          |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| layer              | L'utilisation de cet attribut est identique à celle prévue pour le viewlets manager                                                                                                                                                                                                                                                                                                                                                                                                               |
+| layer              | L'utilisation de cet attribut est identique à celle prévue pour le viewlet manager                                                                                                                                                                                                                                                                                                                                                                                                                |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| view               | L'utilisation de cet attribut est identique à celle prévue pour le viewlets manager                                                                                                                                                                                                                                                                                                                                                                                                               |
+| view               | L'utilisation de cet attribut est identique à celle prévue pour le viewlet manager                                                                                                                                                                                                                                                                                                                                                                                                                |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| manager            | L'interface de viewlets manager dans laquelle cette viewlet peut être inscrite. En d'autre termes, la valeur de cet attribut doit être identique à l'attribut « provides » de la déclaration ZCML du viewlets manager dans lequel vous voulez inscrire la présente viewlet.Défaut : « zope.viewlet.interfaces.IViewletManager », c'est à dire que par défaut, vous pourrez placer cette viewlet dans n'importe quel viewlets manager                                                              |
+| manager            | L'interface de viewlet manager dans laquelle cette viewlet peut être inscrite. En d'autre termes, la valeur de cet attribut doit être identique à l'attribut « provides » de la déclaration ZCML du viewlet manager dans lequel vous voulez inscrire la présente viewlet.Défaut : « zope.viewlet.interfaces.IViewletManager », c'est à dire que par défaut, vous pourrez placer cette viewlet dans n'importe quel viewlet manager                                                                 |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | class              | La classe qui réalise cette viewlet. Cette classe doit avoir une méthode « render » qui produit l'extrait de HTML.Défaut : « None ».Exemple : « .browser.maviewlet.MaViewlet »                                                                                                                                                                                                                                                                                                                    |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | attribute          | La méthode de rendu de votre classe de viewlet, si celle\-ci n'est pas « render ». Ceci n'a d'intérêt que pour avoir plusieurs méthodes de rendu pour une seule classe de viewlet.                                                                                                                                                                                                                                                                                                                |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| template           | Vous pouvez fournir une template pour fournir l'extrait HTML lorsque vous ne désirez pas, ou ne pouvez pas, faire réaliser ceci par la méthode « render » de la classe mentionnée plus haut.Dans ce cas, l'objet instancié depuis cette dite classe est accessible dans votre template personnelle à travers l'objet « view ».Cette approche est utilisée pour personnaliser des viewlets standard ou d'un composant tiers dans vos propres réalisations, sans avoir à faire une ligne de Python. |
+| template           | Vous pouvez fournir une template pour fournir l'extrait HTML lorsque vous ne désirez pas, ou ne pouvez pas, faire réaliser ceci par la méthode « render » de la classe mentionnée plus haut. Dans ce cas, l'objet instancié depuis cette dite classe est accessible dans votre template personnelle à travers l'objet « view ».Cette approche est utilisée pour personnaliser des viewlets standard ou d'un composant tiers dans vos propres réalisations, sans avoir à faire une ligne de Python.|
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| allowed_interface  | L'utilisation de cet attribut est identique à celle prévue pour le viewlets manager                                                                                                                                                                                                                                                                                                                                                                                                               |
+| allowed_interface  | L'utilisation de cet attribut est identique à celle prévue pour le viewlet manager                                                                                                                                                                                                                                                                                                                                                                                                                |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| allowed_attributes | L'utilisation de cet attribut est identique à celle prévue pour le viewlets manager                                                                                                                                                                                                                                                                                                                                                                                                               |
+| allowed_attributes | L'utilisation de cet attribut est identique à celle prévue pour le viewlet manager                                                                                                                                                                                                                                                                                                                                                                                                                |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 | foo                | « bar » Non, ce n'est pas un gag, vous pouvez fournir des attributs supplémentaires de cette façon à la viewlet.Ceux\-ci peuvent être exploités dans le code Python de la viewlet sous forme d'attributs simple « self.foo », ou dans la template dans l'expression TALES « view/foo ».                                                                                                                                                                                                           |
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Si vous avez bien lu ce qui précède,
-vous savez comment invoquer un viewlets manager depuis une template quelconque,
-et *déclarer la compatibilité* d'une viewlet avec un viewlets manager,
+vous savez comment invoquer un viewlet manager depuis une template quelconque,
+et *déclarer la compatibilité* d'une viewlet avec un viewlet manager,
 en faisant la liaison à l'aide de l'attribut « manager » d'une viewlet.
 
 
 Le step GenericSetup
 ====================
 
-Malheureusement ceci ne suffit pas à inscrire réellement la viewlet dans votre viewlets manager.
+Malheureusement ceci peut ne pas suffire !
+Les déclarations zcml permettent d'associer les viewlets à des viewlet managers,
+mais pas de définir l'ordre des viewlets au sein du manager...
 Ceci est réalisé par un step « GenericSetup » dédié, le bien nommé « viewlets.xml ».
+
+Ordre des viewlets
+------------------
 
 La mise en place d'un profil complet GenericSetup fait l'objet d'un chapitre de la documentation intégrateur ;
 nous ne nous attarderons que sur ce step spécifique :
@@ -229,6 +237,7 @@ nous ne nous attarderons que sur ce step spécifique :
     <object>
         <order manager="monproduit.monmanager" skinname="*">
             <viewlet name="monproduit.maviewlet" />
+            <viewlet name="monproduit.monautreviewlet" />
         </order>
     </object>
 
@@ -239,10 +248,10 @@ la création d'icelui étant faite dans le fichier ZCML vu dans le paragraphe pr
 La valeur de l'attribut « manager » doit correspondre à celle de l'attribut « name »
 du viewlet manager vu dans sa déclaration ZCML.
 
-De même, la valeur de l'attribut « name » de l'élément « viewlet »
-doit correspondre à l'attribut « name » de l'élément « viewlet » du fichier « configure.zcml ».
+De même, la valeur de l'attribut « name » des éléments « viewlet »
+doivent correspondre à l'attribut « name » des éléments « viewlet » du fichier « configure.zcml ».
 
-La valeur de l'attribut « skinname » permet de ne fournir les viewlets que pour une skin,
+La valeur de l'attribut « skinname » permet de ne fournir le paramétrage des viewlets que pour une skin,
 en donnant le nom de cette skin.
 Par exemple « Plone Default », ou « My Beautiful Skin ».
 Dans l'exemple ci-avant, la valeur « * » insère la viewlet pour toutes les skins.
@@ -266,7 +275,7 @@ Dans ce cas, on utilisera plutôt la notation suivante :
         </order>
     </object>
 
-Facile à comprendre : on ajoute pour toutes les skins, dans le viewlets manager « plone.portaltop »,
+Facile à comprendre : on ajoute pour toutes les skins, dans le viewlet manager « plone.portaltop »,
 la viewlet « monproduit.maviewlet » après la viewlet de nom « plone.header ».
 
 L'attribut « insert-after » peut également prendre la valeur « * » pour signifier que la viewlet est insérée en dernière position.
@@ -274,10 +283,67 @@ L'attribut « insert-after » peut également prendre la valeur « * » pour sig
 Il est également possible, dans le même ordre d'idées, d'insérer l'attribut « insert-before ».
 Je n'insulterai pas votre intelligence en décrivant les valeurs possibles de cet attribut.
 
+Viewlets cachées
+----------------
+
+De même, si vous désirez masquer certaines viewlets déclarées dans du code
+sur lequel vous n'avez pas la main, vous devez passer par la step viewlets.xml.
+
+Il vous suffira d'ajouter un élément hidden, dont la syntaxe est similaire à celle de order.
+Ici, nous masquons le path_bar, appelé aussi `breadcrum` ou navigation horizontale :
+
+
+.. code-block:: xml
+
+  <hidden manager="plone.portaltop" skinname="ExtranetPRIVR Theme" purge="true">
+    <viewlet name="plone.path_bar" />
+  </hidden>
+
 Exemple
 =======
 
-Vous trouverez un exemple de création de viewlet dans le chapitre :ref:`creation_theme`.
+Nous allons faire très simple, ici.
+Vous trouverez un exemple plus complet de création de viewlet dans le chapitre :ref:`creation_theme`.
+
+Imaginons que vous vouliez que la date d'expiration d'un document apparaisse
+pour les modérateurs du site, sous la ligne d'information de modification (Par xxx - Dernière modification le...) :
+c'est un cas spécifique qui n'est pas fourni par défaut dans Plone,
+mais qui est peut-être indispensable à l'application de vos méthodes de travail.
+
+Nul besoin de modifier la template principale ou quoi que ce soit d'autre.
+Vous pouvez ajouter un élément en ajoutant une viewlet sans intervenir sur le reste du code.
+
+Ajoutez un module viewlets dans formation.policy, dans lequel vous ajouterez cette classe :
+
+.. code-block:: python
+
+    class ExpirationDateViewlet(object):
+
+        def render(self):
+            expires = self.context.getExpirationDate()
+            return expires and '<div class="documentByLine">Expire le : %s</div>' % expires.Date() or None
+
+Éditez ainsi le fichier *configure.zcml* de votre produit formation.policy
+pour déclarer votre viewlet.
+
+.. code-block:: xml
+
+     <browser:viewlet
+         name="formation.expirationdate"
+         for="Products.ATContentTypes.interface.IATDocument"
+         manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
+         class=".viewlets.ExpirationDateViewlet"
+         permission="cmf.ReviewPortalContent"
+         />
+
+Vous n'auriez probablement pas su quoi mettre dans manager. Pour le savoir,
+il faut consulter la vue @@manage-viewlets, où vous pourrez trouver l'interface du ViewletManager
+que vous voulez compléter.
+
+Redémarrez votre site, vous observerez le nouvel élément sur votre
+page d'accueil (si vous lui avez donné une date d'expiration...).
+
+|picture_3|
 
 Pour aller plus loin
 ====================
@@ -297,3 +363,5 @@ Comme d'habitude, pour comprendre les détails de fonctionnement des mécanismes
 .. |picture_1| image:: viewlets/manageviewlets.png
 
 .. |picture_0| image:: viewlets/picture_0.png
+
+.. |picture_3| image:: viewlets/expirationdate.png
