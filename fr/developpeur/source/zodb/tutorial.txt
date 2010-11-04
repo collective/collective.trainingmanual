@@ -10,7 +10,7 @@ Ce tutoriel a pour objectif de guider les développeurs avec une introduction pa
 Introduction
 ============
 
-Commençons par un petit morceaux de code que nous allons rendre fonctionnel avec
+Commençons par un petit morceau de code que nous allons rendre fonctionnel avec
 la ZODB::
 
     class Account(object):
@@ -22,9 +22,9 @@ la ZODB::
 
         def cash(self, amount):
             assert amount < self.balance
-            self.balance -= amount 
+            self.balance -= amount
 
-Ce code définie une classe simple qui gère le solde d'un compte en banque et
+Ce code définit une classe simple qui gère le solde d'un compte en banque et
 fournit deux méthodes pour manipuler le solde : deposit et cash.
 
 Installation
@@ -63,10 +63,10 @@ connexion :::
     >>> connection = db.open()
     >>> root = connection.root()
 
-Nous créons un système de stockage appelé FileStorage, qui est en fait le
-système standard utilisé par pratiquement tout le monde. Il garde les traces de
+Nous créons un système de stockage appelé FileStorage, qui est le
+système par défaut utilisé par pratiquement tout le monde. Il garde les traces de
 toutes les données dans un fichier unique sur le disque nommé avec le premier paramètre
-fournit à l'instanciation. En fin, nous récupérons la racine de la base de
+fourni à l'instanciation. Enfin, nous récupérons la racine de la base de
 données à partir de la connexion que nous avons ouverte.
 
 Stocker des objets
@@ -83,9 +83,9 @@ pouvez commencer à y stocker directement vos objets de la façon suivante :
 
 .. note::
 
-  Les framework comme Zope ne crée qu'un seul objet à la racine qui représente
-  l'application elle même et qui laisse chaque sous objets être référencé à
-  partir de là. Ils choisissent un nom comme 'app' pour le premier objet qu'il
+  Les frameworks comme Zope ne créent qu'un seul objet à la racine, qui représente
+  l'application elle même, et sous lequel chaque sous-objet est référencé.
+  Ils choisissent un nom comme 'app' pour le premier objet qu'il
   place dans la ZODB.
 
 Transactions
@@ -103,10 +103,10 @@ permanentes vous devez terminer votre transaction : :python::
 
 Maintenant vous pouvez arrêter et redémarrer votre application et observer votre
 objet racine à nouveau, vous y trouverez les entrées 'account-1' et 'account-2'
-encore présentent ainsi que les objets que vous avez créés.
+encore présentes ainsi que les objets que vous avez créés.
 
-Si votre réalise des modifications pendant une transaction et se trouve dans un
-état non souhaité il est possible de ne pas livrer les modifications, et vous
+Si votre code réalise des modifications pendant une transaction et votre base se trouve dans un
+état non souhaité, il est possible de ne pas livrer les modifications. Vous
 pouvez annuler la transaction ce qui restituera les objets dans l'état d'avant
 le début de transaction : :python::
 
@@ -119,17 +119,17 @@ le début de transaction : :python::
 
 .. warning::
 
-   Les objets qui n'ont pas été stockés dans la ZODB ne seront pas restitué par
+   Les objets qui n'ont pas été stockés dans la ZODB ne seront pas restitués par
    la commande :command:`abort`.
 
 Objets persistants
 ==================
 
 Un des derniers aspects que nous devons couvrir est la persistance des objets
-par eux même.
-La ZODB peut stocker presque tout les objets que vous lui donnez (elle ne stocke
-pas les fichiers tel quel par exemple). Mais en fait pour savoir quel objet a
-été modifié la ZODB à besoin que ces objets collabore avec la base de données.
+par eux-mêmes.
+La ZODB peut stocker presque tous les objets que vous lui donnez (elle ne stocke
+pas les fichiers tels quels par exemple). Mais en fait pour savoir quel objet a
+été modifié la ZODB a besoin que ces objets collaborent avec la base de données.
 En général, vous vous contentez de dériver de la classe `persistent.Persistent`
 pour que cela fonctionne. Appliqué à notre classe d'exemple donne :python::
 
