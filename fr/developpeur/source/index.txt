@@ -49,6 +49,7 @@ California 94105, USA.
    archgenxml/index
    nouvelles_fonctionnalites_archgenxml
    creation_theme
+   viewlets
    internationalisation
    plonepas/index
    environnement_de_dev
