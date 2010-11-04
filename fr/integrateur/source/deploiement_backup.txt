@@ -403,7 +403,7 @@ Le panneau de configuration de la gestion de cache
 Une fois installé vous allez trouver au niveau de la configuration de votre
 site un lien pour configurer les règles de cache de votre site.
 
-.. figure:: ./deploiement_backup/8
+.. figure:: ./deploiement_backup/liencaching.png
     :align: center
 
 Cette interface graphique est constituée de trois onglets :
