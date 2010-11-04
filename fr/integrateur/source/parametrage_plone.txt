@@ -11,7 +11,7 @@ Paramétrer votre site Plone
 :Version: 0.1.0
 :Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
 
-Copyright (C) 2010 Michael Launay <michaellaunay AT ecreall.com>.
+Copyright (C) 2010 Thomas Desvenain <thomas.desvenain AT gmail.com>.
 
 Chacun est autorisé à copier, distribuer et/ou modifier ce document
 suivant les termes de la licence Paternité-Pas
@@ -817,7 +817,7 @@ Modifier ensuite un fichier.
 .. figure:: ./parametrage/version-manuelle-fichier.png
     :align: center
 
-Cocher la case `nouvelle version`
+Cocher la case `nouvelle version`.
 
 .. figure:: ./parametrage/historique-version-fichier.png
     :align: center
@@ -827,13 +827,21 @@ Autoriser les commentaires
 
 Si cette option est activée, le type de contenu est ouvert au système de commentaires.
 
-Ici nous avons activé les commentaires pour le type `Fichier`.
+Activez les commentaires pour le type `Fichier`.
+Allez sur un contenu fichier, vous voyez maintenant une section `Commentaires`
+avec un bouton `Ajouter un commentaire`.
 
 .. figure:: ./parametrage/commentable.png
     :align: center
 
+Si vous cliquez sur `Ajouter un commentaire`, une popup s'ouvre vous permettant
+de saisir votre texte.
+
 .. figure:: ./parametrage/commentaire.png
     :align: center
+
+Enregistrez-le, il apparaît au bas du document. Il est possible de le supprimer,
+ou d'y répondre.
 
 .. figure:: ./parametrage/commentaire-ajoute.png
     :align: center
@@ -841,8 +849,20 @@ Ici nous avons activé les commentaires pour le type `Fichier`.
 Portlets spécifiques du type de contenu
 ---------------------------------------
 
-.. figure:: ./parametrage/clique-nom-navigation.png
+Vous pouvez paramétrer des portlets qui s'afficheront suivant le type de contenu
+de la page affichée.
+
+Sélectionnez un type de contenu (ici Fichier) sur l'écran de configuration des types.
+Vous avez un lien `Gérer les portlets affectés à ce type de contenu`.
+
+.. figure:: ./parametrage/lien-portlets-types.png
     :align: center
+
+Cliquez ce lien, vous arrivez sur une page similaire à la page `Gérer les portlets`
+vue plus haut.
 
 .. figure:: ./parametrage/portlet-tdc.png
     :align: center
+
+Ajoutez une portlet, en naviguant sur le site, vous verrez que lorsque vous
+allez sur une page Fichier, cette portlet apparaît.
