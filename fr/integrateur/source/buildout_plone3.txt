@@ -217,7 +217,7 @@ pour créer votre site Plone.
 
     .. code-block:: sh
 
-        svn ci -m"Created initial buildout structure"
+        $ svn ci -m"Created initial buildout structure"
 
 Installation de produits tierces
 ================================
@@ -426,7 +426,7 @@ version.
 
 Dans la chaine ``profile-Products.Collage:default``, nous avons le préfixe
 ``profile-``, le package au sens Python :mod:`Products.Collage`, le
-caratère ``:`` et le nom du profil à charger ``default``.  Ici ``default`` est
+caractère ``:`` et le nom du profil à charger ``default``.  Ici ``default`` est
 le ``name`` donné lors du ``genericsetup:registerProfile`` dans le fichier
 :file:`configure.zcml` de :mod:`Products.Collage`.
 
@@ -574,13 +574,22 @@ Configuration de FCKeditor pour tous les nouveaux utilisateurs
 Vous allez configurer FCKeditor comme éditeur par défaut (seulement effectif
 pour les nouveaux utilisateurs).
 
-Allez dans la ZMI, dans :guilabel:`portal_memberdata`, cliquez sur l'onglet
-:guilabel:`Properties`.
+Allez dans :guilabel:`Configuration du site`, :guilabel:`ZMI`,
+:guilabel:`portal_setup`, :guilabel:`Snapshots`. Créez un snapshot.
+
+Retournez à la racine de la ZMI et cliquez sur :guilabel:`portal_memberdata`,
+cliquez sur l'onglet :guilabel:`Properties`.
 
 Éditez la propriété :guilabel:`wysiwyg_editor`, mettez la valeur ``FCKeditor``.
 
+Retournez dans :guilabel:`portal_setup`, :guilabel:`Snapshots`. Recréez un
+snapshot. Cliquez maintenant sur l'onglet :guilabel:`Comparison` et comparez
+vos deux snapshots. Vous voyez bien que la propriété *wysiwyg_editor*
+a été modifié dans le fichier :file:`memberdata_properties.xml`.
+
 Maintenant vous allez exporter cette configuration dans votre policy product.
-Allez dans la ZMI, :guilabel:`portal_setup`, onglet :guilabel:`Export`,
+Cliquez sur :guilabel:`portal_setup` dans le fil d'arianne, et cliquez
+sur l'onglet :guilabel:`Export`,
 sélectionnez le step :guilabel:`MemberData properties`, et cliquez sur
 :guilabel:`Export selected steps`.
 
@@ -588,8 +597,8 @@ Téléchargez l'archive tar.gz proposée, extrayez son contenu dans un dossier
 temporaire et copiez le fichier :file:`memberdata_properties.xml` dans le
 dossier :file:`profiles/default` de votre :term:`policy product`.
 
-Éditez le fichier pour ne laisser que la propriété qui vous intéresse.  Vous
-devez donc avoir au final un fichier
+Éditez le fichier pour ne laisser que la propriété qui vous intéresse.
+Vous devez donc avoir au final un fichier
 :file:`profiles/default/memberdata_properties.xml` avec ce contenu :
 
 .. code-block:: xml
@@ -626,13 +635,22 @@ Ajoutez dans :file:`configure.zcml` :
       profile="formation.policy:default"
       source="1000"
       destination="1001"
-      import_steps="memberdata-properties" />
+      import_steps="memberdata-properties"
+      />
 
 .. note::
 
-    Il y a un bogue dans Products.GenericSetup 1.6.1 fourni avec Plone 4.0.1.
+    Il y a des bogues dans Products.GenericSetup 1.6.1 fourni avec Plone 4.0.1.
     Ouvrez le fichier :file:`Products/GenericSetup/upgrade.py` et remplacez
-    ligne 220 ``if type(step) == UpgradeStep:`` par ``isinstance(step, UpgradeEntity):``
+    ligne 220 ``if type(step) == UpgradeStep:`` par ``if isinstance(step, UpgradeEntity):``
+
+    et ligne 159, ajoutez un *else* : ::
+
+        def doStep(self, tool):
+            if self.import_profile is None:
+                profile_id = 'profile-%s' % self.profile
+            else:
+                profile_id = self.import_profile
 
 Si vous redémarrez l'instance, vous aurez :
 
@@ -647,10 +665,46 @@ L'option :guilabel:`wysiwyg_editor` devrait maintenant être ``FCKeditor``.
     Liste des import steps :
 
     [u'typeinfo', u'tinymce_settings', u'atcttool', u'actions', u'skins', u'factorytool', u'placeful_workflow', u'componentregistry', u'controlpanel', u'placeful_marker', u'jsregistry', u'action-icons', u'cmfeditions_various', u'reference_catalog', u'viewlets', u'content', u'propertiestool', u'various', u'portlets', u'content_type_registry', u'plone-final', u'kssregistry', u'ploneopenid-various', u'update-workflow-rolemap', u'sharing', u'uid_catalog', u'workflow', u'cssregistry', u'contentrules', u'cookie_authentication', u'catalog', u'difftool', u'plone-content', u'toolset', u'properties', u'jquerytools-various', u'tinymce_various', u'browserlayer', u'plone-difftool', u'memberdata-properties', u'kss_mimetype', u'caching_policy_mgr', u'archetypetool', u'mailhost', u'rolemap', u'various-calendar', u'qiproducts', u'archetypes-various']
+    
+.. note::
 
+    Commitez vos changements :
+
+    .. code-block:: sh
+
+        $ svn add formation/policy/profiles/default/metadata.xml \
+          formation/policy/profiles/default/products.xml
+        $ svn ci -m"Added configuration"
 
 En exercice : installez :mod:`plone.app.discussion`, le nouveau système de
-commentaire qui sera intégré dans Plone 4.1
+commentaire qui sera intégré dans Plone 4.1.
+
+Ajoutez plone.app.discussion dans :file:`setup.py`.
+Incrémentez version dans :file:`metadata.xml`, ajouter la dépendance
+profile-plone.app.discussion:default. Géler la version 3.6.4 de zope.shema.
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <metadata>
+      <version>1002</version>
+      <dependencies>
+        <dependency>profile-Products.Collage:default</dependency>
+        <dependency>profile-plone.app.discussion:default</dependency>
+      </dependencies>
+    </metadata>
+
+.. code-block:: xml
+
+  <genericsetup:upgradeDepends
+      title="formation.policy 1001 to 1002"
+      description="Installs plone.app.discussion"
+      profile="formation.policy:default"
+      import_profile="profile-plone.app.discussion:default"
+      run_deps="True"
+      source="1001"
+      destination="1002"
+      />
 
 À propos des versions
 =====================
@@ -757,7 +811,35 @@ Et commitez :
 
     $ svn ci -m "Update version after release"
 
-Vous allez dorénavant utiliser cette version releasé plutôt que le egg en
+Pour plus d'informations sur comment faire une release, voyez les liens suivants
+:
+
+- http://grok.zope.org/documentation/how-to/releasing-software
+- http://plone.org/documentation/tutorial/how-to-upload-your-package-to-plone.org
+
+.. note::
+
+    Toutes ces étapes peuvent être faites avec une seule commande
+    :command:`fullrelease`. Pour cela installez le package
+    :mod:`zest.releaser` dans votre environnement :
+
+    .. code-block:: sh
+
+        $ workon myenv
+        (myenv)$ easy_install zest.releaser
+    
+    Démarrez votre instance Plone où vous avez installé votre pypi.
+    Pour releaser votre package :
+    
+    .. code-block:: sh
+
+        (myenv)$ cd src/formation.policy
+        (myenv)$ fullrelease
+
+    La commande :command:`fullrelease` exécute séquentiellement les commandes
+    :command:`prerelease`, :command:`release` et :command:`postrelease`.
+
+Vous allez dorénavant utiliser cette version releasée plutôt que le egg en
 développement.
 
 Supprimez ``formation.policy`` de l'option ``develop`` de la section ``[buildout]`` dans :file:`buildout.cfg`.
@@ -768,10 +850,10 @@ Ajoutez aussi le lien vers le Pypi dans find-links :
 
     [buildout]
     find-links +=
-        ...
+        # ...
         http://devagile:8080/site/products/simple
 
-Précisez la version ``formation.policy = 1.0`` dans ``versions.cfg``.
+Précisez la version ``formation.policy = 1.0`` dans :file:`versions.cfg`.
 
 L'external ne sera plus utilisé dans la suite, donc supprimez le également :
 
@@ -780,14 +862,6 @@ L'external ne sera plus utilisé dans la suite, donc supprimez le également :
     $ svn rm src/EXTERNALS.txt
     $ svn propdel svn:externals src/
     $ svn ci -m "Removed external"
-
-Pour plus d'informations sur comment faire une release, voyez les liens suivants
-:
-
-- http://grok.zope.org/documentation/how-to/releasing-software
-- http://plone.org/documentation/tutorial/how-to-upload-your-package-to-plone.org
-
-.. todo:: Evoquer l'utilisation de zest.releaser
 
 Vous pouvez maintenant mettre à jour votre serveur de production. Il est
 recommandé de créer une branche production de votre buildout trunk. De cette
@@ -864,10 +938,10 @@ Transformez le fichier buildout.cfg :
 .. code-block:: cfg
 
     extends =
-        ...
+        # ...
         sources.cfg
-    extensions +=
-        ...
+    extensions =
+        # ...
         mr.developer
 
 Créez le fichier :file:`sources.cfg` avec ce contenu :
@@ -875,6 +949,7 @@ Créez le fichier :file:`sources.cfg` avec ce contenu :
 .. code-block:: cfg
 
     [buildout]
+    always-checkout = force
     auto-checkout =
         formation.policy
 
@@ -988,7 +1063,7 @@ Créez un fichier :file:`fabfile.py` à la racine de votre buildout :
     from fabric.api import run, sudo, env, hosts
 
     env.user = "anthony"
-    env.hosts = ('devagile',)
+    env.hosts = ['devagile']
 
     def update():
         """Update the checkout of the buildout
