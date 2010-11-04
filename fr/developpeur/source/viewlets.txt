@@ -324,7 +324,7 @@ Ajoutez un module viewlets dans formation.policy, dans lequel vous ajouterez cet
             return expires and '<div class="documentByLine">Expire le : %s</div>' % expires.Date() or None
 
 Éditez ainsi le fichier *configure.zcml* de votre produit formation.policy
-pour déclarer votre viewlet.
+pour déclarer votre viewlet (vous devrez peut être ajouter le namespace xmlns:browser="http://namespaces.zope.org/browser").
 
 .. code-block:: xml
 
