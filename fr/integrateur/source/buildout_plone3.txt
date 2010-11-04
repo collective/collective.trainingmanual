@@ -949,12 +949,12 @@ Sur un serveur subversion >= 1.5 seulement :
 Fabric
 ======
 
-Créez un environnement isolé Python 2.5 ou 2.6 avec Fabric d'installé :
+Créez un environnement isolé Python >= 2.5 avec Fabric d'installé :
 
 .. code-block:: sh
 
-    $ mkvirtualenv -p /usr/bin/python2.5 --no-site-packages fab
-    (fab)$ easy_install http://git.fabfile.org/cgit.cgi/fabric/snapshot/fabric-0.9a3.tar.gz
+    $ mkvirtualenv -p /usr/bin/python2.6 --no-site-packages fab
+    (fab)$ easy_install Fabric
 
 Création d'un script Fabric pour la maintenance de l'instance Plone à distance.
 Créez un fichier :file:`fabfile.py` à la racine de votre buildout :
