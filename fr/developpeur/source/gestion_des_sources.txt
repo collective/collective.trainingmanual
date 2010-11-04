@@ -126,3 +126,51 @@ On vérifie :
 
     $ svn co file:///home/svn/autre
 
+Mettre à jour la branche de production
+======================================
+
+Vous avez commité un changement dans le trunk, il faut le backporter dans la branche production.
+
+Le commit sur le trunk est la révision 1023, pour merger ce commit sur la
+branche de production :
+
+.. code-block:: sh
+
+    $ cd path/to/trunk/workingcopy
+    $ svn info
+    URL : <url_to_repository>/trunk
+    trunk$ cd ../branches/production
+    branches/production$ svn merge -c 1023 <url_to_repository>/trunk .
+
+Puis il faut commiter le résultat en précisant dans le message les numéros de
+versions et leur origine :
+
+.. code-block:: sh
+
+    $ cd path/to/branches/production
+    $ svn info
+    ...
+    Révision : 1025
+    ...
+    branches/production$ svn ci -m"Merged -r1023:1025 from trunk"
+
+
+Connaitre les révisions mergées
+-------------------------------
+
+Sur un serveur subversion >= 1.5 seulement :
+
+.. code-block:: sh
+
+   $ cd path/to/branches/production
+   $ svn mergeinfo <url_to_repository>/trunk .
+
+Connaitre les révisions à merger
+--------------------------------
+
+Sur un serveur subversion >= 1.5 seulement :
+
+.. code-block:: sh
+
+   $ cd path/to/branches/production
+   $ svn mergeinfo --show-revs eligible <url_to_repository>/trunk .

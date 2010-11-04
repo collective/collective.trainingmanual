@@ -128,8 +128,8 @@ Plone, vous pouvez le télécharger comme ceci :
 .. code-block:: sh
 
     $ svn cat \
-    http://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0/versions.cfg \
-    > versions-plone.cfg
+      http://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0/versions.cfg \
+      > versions-plone.cfg
 
 et changez votre :file:`buildout.cfg` pour que l'option extends ressemeble à
 ceci :
@@ -171,6 +171,7 @@ Le :file:`buildout.cfg` minimal que vous devez obtenir :
         http://dist.plone.org/release/4.0.1
         http://dist.plone.org/thirdparty
     eggs = PIL
+    develop =
 
     [instance]
     recipe = plone.recipe.zope2instance
@@ -249,13 +250,13 @@ la suite. Dans ce cas-là les fichiers zcml seront inclus grâce à
 
 .. _`FCKeditor`: http://pypi.python.org/pypi/Products.FCKeditor
 
-Création d'un policy product contenant la configuration du site Plone
+Création d'un policy package contenant la configuration du site Plone
 =====================================================================
 
-Vous allez créer un :term:`policy product` contenant la configuration du site
+Vous allez créer un :term:`policy package` contenant la configuration du site
 Plone.
 
-Dans ce :term:`policy product`, nous allons aussi dire d'installer
+Dans ce :term:`policy package`, nous allons aussi dire d'installer
 automatiquement les produits :mod:`Products.Collage` et
 :mod:`Products.FCKeditor` lors de l'installation du produit.
 
@@ -283,11 +284,8 @@ Créez le policy package :
 Le template :option:`plone` hérite du template :option:`basic_namespace`, il
 ajoute en plus un fichier :file:`configure.zcml`.
 
-.. note::
-   utilisation de ``svn:externals``
-
-   utilisation de :option:`svn:externals` pour faire une sorte de checkout dans
-   le dossier src :
+Vous allez utiliser la propriété ``svn:externals`` pour faire une sorte de checkout
+de votre nouveau package dans le dossier src :
 
 .. code-block:: sh
 
@@ -520,7 +518,7 @@ Pour que cela marche, il faut que le fichier :file:`configure.zmcl` de
 démarrage.
 
 Ajoutez :mod:`genericsetup.quickinstaller` dans :file:`setup.py`
-``install_requires`` du :term:`policy product`.
+``install_requires`` du :term:`policy package`.
 
 Il faut donc lire le fichier :file:`configure.zmcl` du produit
 :mod:`genericsetup.quickinstaller`, vous pouvez ajouter dans
@@ -587,7 +585,7 @@ snapshot. Cliquez maintenant sur l'onglet :guilabel:`Comparison` et comparez
 vos deux snapshots. Vous voyez bien que la propriété *wysiwyg_editor*
 a été modifié dans le fichier :file:`memberdata_properties.xml`.
 
-Maintenant vous allez exporter cette configuration dans votre policy product.
+Maintenant vous allez exporter cette configuration dans votre policy package.
 Cliquez sur :guilabel:`portal_setup` dans le fil d'arianne, et cliquez
 sur l'onglet :guilabel:`Export`,
 sélectionnez le step :guilabel:`MemberData properties`, et cliquez sur
@@ -595,7 +593,7 @@ sélectionnez le step :guilabel:`MemberData properties`, et cliquez sur
 
 Téléchargez l'archive tar.gz proposée, extrayez son contenu dans un dossier
 temporaire et copiez le fichier :file:`memberdata_properties.xml` dans le
-dossier :file:`profiles/default` de votre :term:`policy product`.
+dossier :file:`profiles/default` de votre :term:`policy package`.
 
 Éditez le fichier pour ne laisser que la propriété qui vous intéresse.
 Vous devez donc avoir au final un fichier
@@ -625,6 +623,20 @@ Maintenant si vous redémarrez l'instance et que vous allez dans
 
 Il faut en effet écrire un procédure de migration de la version 1000 vers la version 1001.
 
+.. note::
+
+    Il y a des bogues dans Products.GenericSetup 1.6.1 fourni avec Plone 4.0.1.
+    Ouvrez le fichier :file:`Products/GenericSetup/upgrade.py` et remplacez
+    ligne 220 ``if type(step) == UpgradeStep:`` par ``if isinstance(step, UpgradeEntity):``
+
+    et ligne 159, ajoutez un *else* : ::
+
+        def doStep(self, tool):
+            if self.import_profile is None:
+                profile_id = 'profile-%s' % self.profile
+            else:
+                profile_id = self.import_profile
+
 Ajoutez dans :file:`configure.zcml` :
 
 .. code-block:: xml
@@ -640,17 +652,18 @@ Ajoutez dans :file:`configure.zcml` :
 
 .. note::
 
-    Il y a des bogues dans Products.GenericSetup 1.6.1 fourni avec Plone 4.0.1.
-    Ouvrez le fichier :file:`Products/GenericSetup/upgrade.py` et remplacez
-    ligne 220 ``if type(step) == UpgradeStep:`` par ``if isinstance(step, UpgradeEntity):``
+    Liste des import steps :
 
-    et ligne 159, ajoutez un *else* : ::
-
-        def doStep(self, tool):
-            if self.import_profile is None:
-                profile_id = 'profile-%s' % self.profile
-            else:
-                profile_id = self.import_profile
+    typeinfo, tinymce_settings, atcttool, actions, skins, factorytool,
+    placeful_workflow, componentregistry, controlpanel, placeful_marker,
+    jsregistry, action-icons, cmfeditions_various, reference_catalog, viewlets,
+    content, propertiestool, various, portlets, content_type_registry, plone-final,
+    kssregistry, ploneopenid-various, update-workflow-rolemap, sharing,
+    uid_catalog, workflow, cssregistry, contentrules, cookie_authentication,
+    catalog, difftool, plone-content, toolset, properties, jquerytools-various,
+    tinymce_various, browserlayer, plone-difftool, memberdata-properties,
+    kss_mimetype, caching_policy_mgr, archetypetool, mailhost, rolemap,
+    various-calendar, qiproducts, archetypes-various
 
 Si vous redémarrez l'instance, vous aurez :
 
@@ -660,12 +673,6 @@ Si vous redémarrez l'instance, vous aurez :
 Vous n'avez plus qu'à cliquer sur le bouton pour mettre à jour votre module.
 L'option :guilabel:`wysiwyg_editor` devrait maintenant être ``FCKeditor``.
 
-.. note::
-
-    Liste des import steps :
-
-    [u'typeinfo', u'tinymce_settings', u'atcttool', u'actions', u'skins', u'factorytool', u'placeful_workflow', u'componentregistry', u'controlpanel', u'placeful_marker', u'jsregistry', u'action-icons', u'cmfeditions_various', u'reference_catalog', u'viewlets', u'content', u'propertiestool', u'various', u'portlets', u'content_type_registry', u'plone-final', u'kssregistry', u'ploneopenid-various', u'update-workflow-rolemap', u'sharing', u'uid_catalog', u'workflow', u'cssregistry', u'contentrules', u'cookie_authentication', u'catalog', u'difftool', u'plone-content', u'toolset', u'properties', u'jquerytools-various', u'tinymce_various', u'browserlayer', u'plone-difftool', u'memberdata-properties', u'kss_mimetype', u'caching_policy_mgr', u'archetypetool', u'mailhost', u'rolemap', u'various-calendar', u'qiproducts', u'archetypes-various']
-    
 .. note::
 
     Commitez vos changements :
@@ -731,10 +738,10 @@ La version du profile est un simple entier qui est incrémenté à chaque fois
 qu'un fichier est modifié ou ajouté dans le dossier du profile. Vous
 incrémenterez généralement aussi la version du egg.
 
-Releaser le policy product
+Releaser le policy package
 ==========================
 
-Maintenant que vous avez un :term:`policy product` qui fait quelque chose, il
+Maintenant que vous avez un :term:`policy package` qui fait quelque chose, il
 est peut-être temps de réaliser une release pour pouvoir l'utiliser en
 production. En effet il n'est pas conseillé d'utiliser des produits en mode
 développement en production.
@@ -863,51 +870,6 @@ L'external ne sera plus utilisé dans la suite, donc supprimez le également :
     $ svn propdel svn:externals src/
     $ svn ci -m "Removed external"
 
-Vous pouvez maintenant mettre à jour votre serveur de production. Il est
-recommandé de créer une branche production de votre buildout trunk. De cette
-manière vous saurez à tout moment quelle version vous avez en production.
-
-Créez la branche :
-
-.. code-block:: sh
-
-    $ svn cp http://devagile/Formation/buildouts/plone4/trunk \
-      http://devagile/Formation/buildouts/plone4/branches/production \
-      -m "Created production branch"
-
-Sur le serveur, initialement vous avez réalisé un checkout de la branche
-production :
-
-.. code-block:: sh
-
-    $ svn co http://devagile/Formation/buildouts/plone4/branches/production \
-      plone4
-    $ cd plone4
-    $ python2.6 -S bootstrap.py
-    $ bin/buildout
-    $ bin/instance start
-
-Pour les prochaines mises à jour en production, seulement les commandes
-suivantes sont nécessaires :
-
-.. code-block:: sh
-
-    $ cd plone4
-    $ svn up
-    $ bin/buildout
-    $ bin/instance restart
-
-.. note::
-   Fichiers ``buildout.cfg`` multiples
-
-   Lorsque vous serez familier avec les configurations buildout, vous arriverez
-   à faire plusieurs fichiers buildout, un par environnement de déploiement
-   (développement, intégration, production, ...), chaque fichier principal
-   ``development.cfg``, ``deployment.cfg``, ``deployment-backup.cfg``, étant une extension d'une configuration de
-   base ``buildout.cfg`` intégrant tous les modules applicatifs.
-
-.. todo:: Evoquer également :mod:`collective.releaser` qui simplifie pas mal ce processus de release.
-
 Repasser au développement
 =========================
 
@@ -995,55 +957,6 @@ production, vous savez exactement quels sont les eggs dont vous devez faire une
 release.
 
 .. _`mr.developer`: http://pypi.python.org/pypi/mr.developer
-
-Mettre à jour la branche de production
-======================================
-
-Vous avez commité un changement dans le trunk, il faut le backporter dans la branche production.
-
-Le commit sur le trunk est la révision 1023, pour merger ce commit sur la
-branche de production :
-
-.. code-block:: sh
-
-    $ cd path/to/trunk/workingcopy
-    $ svn info
-    URL : <url_to_repository>/trunk
-    trunk$ cd ../branches/production
-    branches/production$ svn merge -c 1023 <url_to_repository>/trunk .
-
-Puis il faut commiter le résultat en précisant dans le message les numéros de
-versions et leur origine :
-
-.. code-block:: sh
-
-    $ cd path/to/branches/production
-    $ svn info
-    ...
-    Révision : 1025
-    ...
-    branches/production$ svn ci -m"Merged -r1023:1025 from trunk"
-
-
-Connaitre les révisions mergées
--------------------------------
-
-Sur un serveur subversion >= 1.5 seulement :
-
-.. code-block:: sh
-
-   $ cd path/to/branches/production
-   $ svn mergeinfo <url_to_repository>/trunk .
-
-Connaitre les révisions à merger
---------------------------------
-
-Sur un serveur subversion >= 1.5 seulement :
-
-.. code-block:: sh
-
-   $ cd path/to/branches/production
-   $ svn mergeinfo --show-revs eligible <url_to_repository>/trunk .
 
 Fabric
 ======

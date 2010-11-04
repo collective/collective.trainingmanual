@@ -220,10 +220,10 @@ Définition des termes et abréviations utilisés dans ce document.
     calendrier sont des exemples de portlets. Dans la grande majorité des cas,
     les portlets ne font pas strictement partie du contenu.
 
-  policy product
-    Un policy product est un composant pour Plone défininissant la politique
+  policy package
+    Un policy package est un composant pour Plone défininissant la politique
     éditoriale du site, et - éventuellement - sa logique métier spécifique. un
-    policy product a également pour rôle d'installer et paramétrer de façon
+    policy package a également pour rôle d'installer et paramétrer de façon
     spécifique Plone et les différents composants de tierce partie ajoutés.
 
   principal

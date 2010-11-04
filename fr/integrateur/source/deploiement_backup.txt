@@ -36,6 +36,12 @@ Le déploiement d'un site Plone requiert des options particulières. Par exemple
 nous voulons être sûr qu'une configuration d'un buildout produit la même chose
 aujourd'hui ou dans un an.
 
+Vous avez également des environnements différents, donc vous aurez un fichier
+de configuration par environnement (développement, intégration, production,
+...). Chaque fichier principal :file:`development.cfg`, :file:`deployment.cfg`,
+:file:`deployment-backup.cfg` étant une extension d'une configuration de
+base ``buildout.cfg`` intégrant tous les modules applicatifs.
+
 Savoir
 ======
 
@@ -56,6 +62,19 @@ Profil de déploiement
    Vous pouvez réviser vos connaissances sur :term:`buildout` en relisant le
    chapitre :ref:`buildout_plone3`.
 
+Vous pouvez récupérer l'exemple complet de buildout sur le collective :
+
+.. code-block:: sh
+
+    $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/buildout
+
+Le :file:`buildout.cfg` du chapitre précédent est légèrement modifié :
+
+.. centered:: :file:`buildout.cfg`
+
+.. literalinclude:: ../../examples/buildout/buildout.cfg
+    :language: cfg
+
 Créez un fichier :file:`deployment.cfg` :
 
 .. centered:: :file:`deployment.cfg`
@@ -63,14 +82,29 @@ Créez un fichier :file:`deployment.cfg` :
 .. literalinclude:: ../../examples/buildout/deployment.cfg
     :language: cfg
 
-Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
-
 Vous allez créer un utilisateur zope qui servira pour lancer le
 proxy cache varnish, le load balancer HAproxy et les instances zope.
 
 .. code-block:: sh
 
     $ sudo adduser zope
+
+.. note::
+
+    Si vous avez installé un Plone en root avec l'unified installer,
+    vous pouvez utiliser le compte *plone* au lieu de créer un compte
+    *zope*. Pour cela remplacer *zope* par *plone* dans la section *[users]*
+    du fichier :file:`deployment.cfg`.
+
+.. note::
+
+    Il faut que les fichiers appartiennent à l'utilisation zope ou plone où
+    vous aurez des problèmes pour démarrer le zeoserver par exemple. Donc
+    vérifiez que les fichiers ont bien le bon propriétaire : ::
+
+        $ chown -R zope votre_buildout
+
+Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
 
 Supervisor
 ==========
@@ -88,6 +122,10 @@ qui lancera tous les processus ayant autostart=true (par defaut) : ::
 (varnish et haproxy ont besoin d'être démarré en root pour activer
 certaines options. Les processus sont ensuite forker pour utiliser
 l'utilisateur zope)
+    
+Vous pouvez voir l'état des processus avec : ::
+
+    $ bin/supervisorctl status
 
 Pour redémarrer un processus par exemple instance1 : ::
 
