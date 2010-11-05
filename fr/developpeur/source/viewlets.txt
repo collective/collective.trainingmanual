@@ -290,12 +290,12 @@ De même, si vous désirez masquer certaines viewlets déclarées dans du code
 sur lequel vous n'avez pas la main, vous devez passer par la step viewlets.xml.
 
 Il vous suffira d'ajouter un élément hidden, dont la syntaxe est similaire à celle de order.
-Ici, nous masquons le path_bar, appelé aussi `breadcrum` ou navigation horizontale :
+Ici, nous masquons le path_bar, appelé aussi `breadcrumbs` ou navigation horizontale :
 
 
 .. code-block:: xml
 
-  <hidden manager="plone.portaltop" skinname="ExtranetPRIVR Theme" purge="true">
+  <hidden manager="plone.portaltop" skinname="Formation Theme" purge="true">
     <viewlet name="plone.path_bar" />
   </hidden>
 
@@ -313,11 +313,13 @@ mais qui est peut-être indispensable à l'application de vos méthodes de trava
 Nul besoin de modifier la template principale ou quoi que ce soit d'autre.
 Vous pouvez ajouter un élément en ajoutant une viewlet sans intervenir sur le reste du code.
 
-Ajoutez un module viewlets dans formation.policy, dans lequel vous ajouterez cette classe :
+Ajoutez un module :file:`viewlets.py` dans :mod:`formation.theme`,
+dans lequel vous ajouterez une classe ExpirationDateViewlet qui hérite de
+ViewletBase :
 
 .. code-block:: python
 
-    class ExpirationDateViewlet(object):
+    class ExpirationDateViewlet(ViewletBase):
 
         def render(self):
             expires = self.context.getExpirationDate()
@@ -330,7 +332,7 @@ pour déclarer votre viewlet (vous devrez peut être ajouter le namespace xmlns:
 
      <browser:viewlet
          name="formation.expirationdate"
-         for="Products.ATContentTypes.interface.IATDocument"
+         for="Products.ATContentTypes.interface.IATContentType"
          manager="plone.app.layout.viewlets.interfaces.IBelowContentTitle"
          class=".viewlets.ExpirationDateViewlet"
          permission="cmf.ReviewPortalContent"
