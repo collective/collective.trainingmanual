@@ -54,15 +54,15 @@ L'inclusion du HTML produit par un « content provider » dans la main_template 
     </div>
 
 Vous remarquez la présence de l'expression TAL « provider ».
-Dans le monde Zope 3, un provider est un multi adapter qui adapte le contexte et le request.
+Dans le monde Zope 3, un provider est un multi adapter qui adapte le context et la request.
 
-Les viewlets sont des content providers qui fournissent une portion de code HTML.
+Les viewlets sont des `content providers` qui fournissent une portion de code HTML.
 Mais dans le monde de Plone, les viewlets ne sont généralement pas directement utilisées.
 
-Plone passe par des viewlet managers – une sorte d'aggrégateur de viewlets –
+Plone passe par des `viewlet managers` – une sorte d'aggrégateur de viewlets –
 qui permettent d'ordonnancer les viewlets avec un maximum de flexibilité.
 
-Cette souplesse permise par les viewlet managers
+Cette souplesse permise par les `viewlet managers`
 rend de moins en moins nécessaire la surcharge de la main_template lors de la réalisation de vos skins personnelles.
 
 
@@ -79,12 +79,12 @@ et prolongez l'URL par « @@manage-viewlets ».
 Immédiatement, sous chaque cadre, vous trouvez le nom du viewlet manager,
 dont le « plone.portaltop » de l'extrait précédent.
 
-A l'intérieur de chaque viewlet manager, vous pouvez voir la liste des viewlets qu'il fournit.
+A l'intérieur de chaque `viewlet manager`, vous pouvez voir la liste des viewlets qu'il fournit.
 Chaque nom de viewlet est accompagné :
 
     - de son rang – commençant par 0 – dans le viewlet manager entre parenthèses,
 
-    - de deux flèches permettant de monter ou descendre l'ordre d'apparition de la viewlet dans le vewlets manager,
+    - de deux flèches permettant de monter ou descendre l'ordre d'apparition de la viewlet dans le `viewlet manager`,
 
     - du lien « hide » permettant de masquer la viewlet.
 
@@ -151,7 +151,7 @@ sont enregistrés dans le « configure.zcml » du package « plone.app.layout.vi
 
 Vous remarquez les deux éléments « viewletManager » et « viewlet » qui enregistrent – respectivement :
 
-    - les viewlet managers utilisables dans une template comme la « main_template »,
+    - les `viewlet managers` utilisables dans une template comme la « main_template »,
 
     - les viewlets pouvant être associées aux différents types de viewlet manager.
 
@@ -212,7 +212,7 @@ Les attributs d'un élément « viewlet », les éléments obligatoires étant e
 +--------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 Si vous avez bien lu ce qui précède,
-vous savez comment invoquer un viewlet manager depuis une template quelconque,
+vous savez comment invoquer un `viewlet manager` depuis une template quelconque,
 et *déclarer la compatibilité* d'une viewlet avec un viewlet manager,
 en faisant la liaison à l'aide de l'attribut « manager » d'une viewlet.
 
