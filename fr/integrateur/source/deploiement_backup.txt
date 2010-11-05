@@ -102,7 +102,7 @@ proxy cache varnish, le load balancer HAproxy et les instances zope.
     vous aurez des problèmes pour démarrer le zeoserver par exemple. Donc
     vérifiez que les fichiers ont bien le bon propriétaire : ::
 
-        $ chown -R zope votre_buildout
+        $ sudo chown -R zope votre_buildout
 
 Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
 
@@ -223,7 +223,7 @@ Création d'un certificat autosigné :
 
    $ sudo mkdir -p /etc/apache2/ssl/
    $ sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf \
-   > /etc/apache2/ssl/server.crt
+     /etc/apache2/ssl/server.crt
 
 :file:`/etc/apache2/sites-available/kb` :
 
@@ -325,6 +325,8 @@ Configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
 .. code-block:: text
 
     10.56.8.47 devagile ssl.devagile
+
+Redémarrez Firefox pour qu'il relise le fichier.
 
 Vous accéderez à votre site à partir de maintenant avec l'adresse
 **http://devagile**.
