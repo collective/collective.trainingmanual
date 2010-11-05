@@ -66,7 +66,7 @@ Vous pouvez récupérer l'exemple complet de buildout sur le collective :
 
 .. code-block:: sh
 
-    $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/buildout
+    svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/buildout
 
 Le :file:`buildout.cfg` du chapitre précédent est légèrement modifié :
 
@@ -87,7 +87,7 @@ proxy cache varnish, le load balancer HAproxy et les instances zope.
 
 .. code-block:: sh
 
-    $ sudo adduser zope
+    sudo adduser zope
 
 .. note::
 
@@ -102,13 +102,12 @@ proxy cache varnish, le load balancer HAproxy et les instances zope.
     vous aurez des problèmes pour démarrer le zeoserver par exemple. Donc
     vérifiez que les fichiers ont bien le bon propriétaire : ::
 
-        $ sudo chown -R zope votre_buildout
+        sudo chown -R zope votre_buildout
 
 Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
 
 Supervisor
 ==========
-.. todo:: configuration supervisord
 
 Le buildout génère le fichier :file:`etc/supervisord.conf`.
 
@@ -117,7 +116,7 @@ Tous les processus sont gérés par supervisor.
 Pour lancer supervisor, lancez le daemon en tant que super utilisateur
 qui lancera tous les processus ayant autostart=true (par defaut) : ::
 
-    $ sudo bin/supervisord
+    sudo bin/supervisord
 
 (varnish et haproxy ont besoin d'être démarré en root pour activer
 certaines options. Les processus sont ensuite forker pour utiliser
@@ -125,21 +124,21 @@ l'utilisateur zope)
     
 Vous pouvez voir l'état des processus avec : ::
 
-    $ bin/supervisorctl status
+    bin/supervisorctl status
 
 Pour redémarrer un processus par exemple instance1 : ::
 
-    $ bin/supervisorctl restart instance1
+    bin/supervisorctl restart instance1
 
 Pour stopper : `stop`, pour démarrer : `start`.
 
 Pour tout redémarrer : ::
 
-    $ bin/supervisorctl restart all
+    bin/supervisorctl restart all
 
 Pour arrêter supervisor et donc tous les processus : ::
 
-    $ bin/supervisorctl shutdown
+    bin/supervisorctl shutdown
 
 Support des backups
 ===================
@@ -175,13 +174,13 @@ Pour faire une restauration :
 
 .. code-block:: sh
 
-   $ bin/restore
+   bin/restore
 
 Si vous voulez faire un backup de la production pour travailler ensuite en local, utilisez plutôt la commande :
 
 .. code-block:: sh
 
-    $ bin/snapshotbackup
+    bin/snapshotbackup
 
 qui créera une sauvegarde dans le dossier :file:`var/snapshotbackups/`, utile
 pour ne pas perturber les sauvegardes normales qui se font la nuit.  Vous
@@ -221,38 +220,38 @@ Création d'un certificat autosigné :
 
 .. code-block:: sh
 
-   $ sudo mkdir -p /etc/apache2/ssl/
-   $ sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf \
+   sudo mkdir -p /etc/apache2/ssl/
+   sudo make-ssl-cert /usr/share/ssl-cert/ssleay.cnf \
      /etc/apache2/ssl/server.crt
 
-:file:`/etc/apache2/sites-available/kb` :
+:file:`/etc/apache2/sites-available/devagile` :
 
 .. code-block:: apache
 
-    NameVirtualHost 10.56.8.47:80
+    NameVirtualHost 127.0.0.1
 
-    <VirtualHost 10.56.8.47:80>
+    <VirtualHost 127.0.0.1:80>
         ServerName devagile
         ServerAdmin anthony.sombris@devagile.fr
-        ErrorLog /var/log/apache2/kb_error.log
-        TransferLog /var/log/apache2/kb_access.log
+        ErrorLog /var/log/apache2/devagile_error.log
+        TransferLog /var/log/apache2/devagile_access.log
         LogLevel warn
         RewriteEngine On
         RewriteRule ^/(.*) https://ssl.devagile/$1 [NC,R=301,L]
 
     </VirtualHost>
 
-:file:`/etc/apache2/sites-available/ssl.kb` :
+:file:`/etc/apache2/sites-available/ssl.devagile` :
 
 .. code-block:: apache
 
-    NameVirtualHost 10.56.8.47:443
+    NameVirtualHost 127.0.0.1:443
 
-    <VirtualHost 10.56.8.47:443>
+    <VirtualHost 127.0.0.1:443>
         ServerName ssl.devagile
         ServerAdmin anthony.sombris@devagile.fr
-        ErrorLog /var/log/apache2/kb_error.log
-        TransferLog /var/log/apache2/kb_access.log
+        ErrorLog /var/log/apache2/devagile_error.log
+        TransferLog /var/log/apache2/devagile_access.log
         LogLevel warn
 
         SSLEngine On
@@ -260,7 +259,7 @@ Création d'un certificat autosigné :
         #SSLCertificateKeyFile /etc/apache2/ssl/server.key
 
         RewriteEngine On
-        RewriteRule ^/(.*) http://localhost:8000/VirtualHostBase/https/%{SERVER_NAME}:443/kb/VirtualHostRoot/$1 [L,P]
+        RewriteRule ^/(.*) http://localhost:8000/VirtualHostBase/https/%{SERVER_NAME}:443/Plone/VirtualHostRoot/$1 [L,P]
 
         <IfModule mod_proxy.c>
             <Proxy proxy:http://localhost:8000>
@@ -274,18 +273,18 @@ Activez les sites :
 
 .. code-block:: sh
 
-   $ a2ensite kb
-   $ a2ensite ssl.kb
+   a2ensite devagile
+   a2ensite ssl.devagile
 
 Activez les modules :
 
 .. code-block:: sh
 
-   $ a2enmod ssl
-   $ a2enmod dav
-   $ a2enmod proxy
-   $ a2enmod proxy_http
-   $ a2enmod rewrite
+   a2enmod ssl
+   a2enmod dav
+   a2enmod proxy
+   a2enmod proxy_http
+   a2enmod rewrite
 
 Activation de la compression
 ----------------------------
@@ -294,7 +293,7 @@ Activez le module *deflate* :
 
 .. code-block:: sh
 
-   $ a2enmod deflate
+   a2enmod deflate
 
 et éditez le fichier de configuration
 :file:`/etc/apache2/mods-enabled/deflate.conf` (pas besoin avec Ubuntu 10.04) :
@@ -315,7 +314,7 @@ Redémarrez Apache :
 
 .. code-block:: sh
 
-    $ /etc/init.d/apache2 restart
+    /etc/init.d/apache2 restart
 
 Configuration des DNS
 =====================
@@ -324,7 +323,7 @@ Configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
 
 .. code-block:: text
 
-    10.56.8.47 devagile ssl.devagile
+    127.0.0.1 devagile ssl.devagile
 
 Redémarrez Firefox pour qu'il relise le fichier.
 
