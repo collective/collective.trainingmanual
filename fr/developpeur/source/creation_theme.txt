@@ -6,16 +6,21 @@
 Création d'un thème Plone
 =========================
 
-Définition
-==========
 Ajout de nouveaux composants visuels à Plone.
 
 Installation de Gloworm
 =======================
-Gloworm est un outil pour introspecter les viewlets d'une page Plone,
-très utile pour savoir comment customizer telle partie de la page.
 
-Créez un fichier *development.cfg* :
+Gloworm est un outil pour introspecter les viewlets d'une page Plone,
+très utile pour savoir comment customiser telle partie de la page.
+
+Gloworm est une interface alternative à portal_skins/custom et
+portal_view_customizations. On peut cliquer sur l'endroit que l'on veut
+customiser et cliquer sur customiser. Le produit ne fonctionne pas avec Plone
+4. Un produit qui le remplace sur Plone 4 est probablement
+*plone.app.themeeditor*. 
+
+Créez un fichier :file:`development.cfg` :
 
 .. code-block:: cfg
 
@@ -26,47 +31,55 @@ Créez un fichier *development.cfg* :
     eggs +=
         Products.Gloworm
 
-Reexécutez ``bin/buildout -c development.cfg``.
+Reexécutez :command:`bin/buildout -c development.cfg`.
 
 Création d'un theme
 ===================
-Dans le dossier src, créez un theme avec la commande :
+
+Dans le dossier :file:`src/`, créez un theme avec la commande :
 
 .. code-block:: sh
 
     $ cd /tmp
-    $ paster create -t plone3_theme formation.theme --svn-repository=http://devagile/Formation/packages
-    empty_styles False
-    include_doc True
-    zope2product True
-    $ svn rm --force formation.theme/formation.theme.egg-info
-    $ svn rm formation/theme/skins/formation_theme_styles/base.css.dtml
-    $ svn rm formation/theme/skins/formation_theme_styles/portlets.css.dtml
-    $ svn rm formation/theme/skins/formation_theme_styles/public.css.dtml
-    $ svn ci -m"First import"
-    $ svn rm formation/theme/version.txt
-    $ svn ci -m"Removed version.txt"
+    $ paster create -t plone3_theme formation.theme \
+      --svn-repository=http://devagile/Formation/packages
+    Skin Name : Formation Theme
+    Empty Styles? : False
+    Include Documentation? : True
+    $ svn rm --force formation.theme/formation.theme.egg-info \
+      formation.theme-configure.zcml
+      formation/theme/skins/formation_theme_styles/base.css.dtml \
+      formation/theme/skins/formation_theme_styles/portlets.css.dtml \
+      formation/theme/skins/formation_theme_styles/public.css.dtml \
+      formation/theme/version.txt
+      formation/theme/skins/formation_theme_styles/base_properties.props
 
-Ajoutez ensuite l'entry point z3c.autoinclude.plugin dans setup.py :
+:file:`base_properties.props` n'est plus utilisé dans Plone 4.
 
-.. code-block:: cfg
+Éditez :file:`setup.py` pour supprimer les deux lignes :
 
-    [z3c.autoinclude.plugin]
-    target = plone
+.. code-block:: py
 
-et commitez :
+    setup_requires=["PasteScript"],
+    paster_plugins=["ZopeSkel"]
+
+
+Éditez :file:`formation/theme/profiles/default/skins.xml` pour remplacer
+*based-on="Plone Default"* par *based-on="Sunburst Theme"*.
+
+Et commitez :
 
 .. code-block:: sh
 
-    $ svn ci -m"Added z3c.autoinclude entry point"
+    $ svn ci -m"Initial theme structure"
 
-Retournez dans votre buildout, ajoutez formation.theme dans auto-checkout du fichier sources.cfg,
-ainsi que dans eggs de la section [instance] de buildout.cfg, commitez et relancez le buildout.
-
-
+Retournez dans votre buildout, ajoutez :mod:`formation.theme` dans auto-checkout du
+fichier :file:`sources.cfg`, ainsi que dans *eggs* de la section *[instance]*
+de :file:`buildout.cfg`, commitez et relancez le buildout.
 
 Exercice 1
 ==========
+
 Changer la couleur des documents dans l'état "En attente de modération" (pending).
 Utilisez l'extension Firebug de firefox pour récupérer la règle css utilisé par défaut pour colorisé le lien en orange. Copiez ensuite cette règle dans browser/stylesheets/main.css et changez la couleur :
 
@@ -80,18 +93,24 @@ Passez portal_css en mode debug comme ça vous ne devrez pas redémarrer l'insta
 
 Exercice 2 : Création d'une viewlet
 ===================================
+
 Créez une viewlet affichant une image dans le footer.
 
 Référez-vous au chapitre :ref:`viewlets` pour consulter la documentation complète sur cette notion.
 
 Ajouter une image
 -----------------
-Ajoutez une image dans le dossier browser/images.
-Pour accéder ensuite à l'image, vous devez utiliser le nom de la resourceDirectory : *++resource++formation.theme.images*, suivit de */* et de le nom de votre image dans le dossier images.
+
+Ajoutez une image dans le dossier :file:`browser/images/`.
+Pour accéder ensuite à l'image, vous devez utiliser le nom de la
+resourceDirectory : *++resource++formation.theme.images*, suivit de */* et du
+nom de votre image dans le dossier images.
 Exemple : ++resource++formation.theme.images/monimage.png
 
-Éditez le fichier *browser/viewlets.py*, décommentez la classe, nommez la LogoViewlet.
-Copiez le fichier *viewlet.pt* en *logoviewlet.pt*
+Éditez le fichier :file:`browser/viewlets.py`, décommentez la classe, nommez
+la *LogoViewlet*. Copiez le fichier :file:`viewlet.pt` en
+:file:`logoviewlet.pt`.
+
 Contenu du fichier logoviewlet.pt :
 
 .. code-block:: html
@@ -100,8 +119,9 @@ Contenu du fichier logoviewlet.pt :
                      root_url portal_state/portal_url"
          tal:attributes="src string:$root_url/++resource++formation.theme.images/image.png" />
 
-Éditez le fichier *configure.zcml* pour déclarer votre viewlet. Vous avez un exemple en commentaire.
-Il suffit de le décommenter et d'ajuster le nom de la viewlet et la classe. Cela donne :
+Éditez le fichier :file:`configure.zcml` pour déclarer votre viewlet.
+Vous avez un exemple en commentaire. Il suffit de le décommenter et d'ajuster
+le nom de la viewlet et la classe. Cela donne :
 
 .. code-block:: xml
 
@@ -127,7 +147,7 @@ Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader :
          permission="zope2.View"
          />
 
-Éditez ensuite *profiles/default/viewlets.xml* :
+Éditez ensuite :file:`profiles/default/viewlets.xml` :
 
 .. code-block:: xml
 
@@ -145,6 +165,7 @@ Relancez l'instance et réinstallez votre produit pour prendre en compte le chan
 
 Portlets
 ========
+
 - http://plone.org/documentation/manual/portlets-developer-manual
 
 Créez le portlet :
@@ -152,7 +173,8 @@ Créez le portlet :
 .. code-block:: sh
 
     $ cd /tmp
-    $ paster create -t plone3_portlet formation.portlet.docinfo --svn-repository=http://devagile/Formation/packages
+    $ paster create -t plone3_portlet formation.portlet.docinfo \
+      --svn-repository=http://devagile/Formation/packages
 
 - Supprimez le répertoire egg-info, le fichier version.txt
 - Ajoutez ensuite l'entry point z3c.autoinclude.plugin dans setup.py
@@ -163,7 +185,7 @@ Créez le portlet :
 
 Démarrez l'instance, installez le produit et ajoutez le portlet.
 
-Éditez le fichier *docinfoportlet.py* et ajoutez un champ informations au schema IDocInfoPortlet :
+Éditez le fichier :file:`docinfoportlet.py` et ajoutez un champ informations au schema IDocInfoPortlet :
 
 .. code-block:: python
 
@@ -190,7 +212,6 @@ Modifiez également l'implémentation :
 
         def __init__(self, informations=()):
             self.informations = informations
-
 
 Dans la template, afficher les informations qui ont été choisies via le formulaire du portlet :
 
@@ -253,22 +274,8 @@ Ajoutez une property *available* dans la classe Renderer pour afficher le portle
 
         render = ViewPageTemplateFile('docinfoportlet.pt')
 
-
-Le futur de Plone
-=================
-Fusion des concepts de viewlets et portlets en tiles :
-http://groups.google.com/group/plone-deco/files
-
-Deliverance
-===========
-Demo de Deliverance et Banjo :
-
-.. code-block:: sh
-
-    svn co http://svn.plone.org/svn/collective/deliverancedemo
-
-
 GenericSetup
 ============
+
 - http://plone.org/documentation/tutorial/genericsetup
 - http://www.sixfeetup.com/swag/generic-setup-quick-reference-card
