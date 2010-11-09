@@ -1,6 +1,13 @@
+# -*- coding: utf-8 -*-
+# $Id$
+"""The formation.portlet.author package"""
+
+import logging
 from zope.i18nmessageid import MessageFactory
-AuthorPortletMessageFactory = MessageFactory('formation.portlet.author')
+import config
 
+# We use this object for logging anything
+logger = logging.getLogger(config.PRODUCTNAME)
 
-def initialize(context):
-    """Initializer called when used as a Zope 2 product."""
+# Localizing messages from Python
+AuthorPortletMessageFactory = MessageFactory(config.I18N_DOMAIN)

@@ -1,20 +1,57 @@
-<dl class="portlet portletAuthorPortlet"
-    i18n:domain="formation.portlet.author">
+<dl class="portlet AuthorPortlet">
 
-    <dt class="portletHeader">
-        <span class="portletTopLeft"></span>
-        Header
-        <span class="portletTopRight"></span>
-    </dt>
+  <tal:comment replace="nothing">
+    ###########################
+    The Author portlet template
+    ###########################
+  </tal:comment>
 
-    <dd class="portletItem odd">
-        Body text
+  <dt class="portletHeader">
+    <span class="portletTopLeft"></span>
+    <span i18n:translate="">About the author</span>
+    <span class="portletTopRight"></span>
+  </dt>
+
+  <dd class="portletItem"
+      tal:define="portrait_url view/portrait_url"
+      tal:condition="portrait_url">
+    <img src="#"
+     width="75"
+     class="portraitPhoto"
+     tal:attributes="src portrait_url" />
+  </dd>
+
+  <dd class="portletItem">
+    <a href="#"
+       tal:content="view/author_name"
+       tal:attributes="href view/member_page">
+      John Doe
+    </a>
+  </dd>
+
+  <tal:block condition="view/show_details">
+
+    <dd class="portletItem">
+      <span tal:replace="view/location">
+    Tokyo, Japan
+      </span>
     </dd>
 
-    <dd class="portletFooter">
-        <span class="portletBottomLeft"></span>
-        Footer
-        <span class="portletBottomRight"></span>
+    <dd class="portletItem">
+      <span tal:replace="view/description">
+    This is the author's memo
+      </span>
     </dd>
 
+  </tal:block>
+
+  <dd class="portletFooter"
+      tal:define="home_page view/home_page">
+    <span class="portletBottomLeft"></span>
+    <a href="#"
+       tal:attributes="href home_page"
+       tal:condition="home_page"
+       i18n:translate="">Home page</a>
+    <span class="portletBottomRight"></span>
+  </dd>
 </dl>

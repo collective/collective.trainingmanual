@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# $Id$
+"""Tests configuration and base resources"""
+
 from Products.Five import zcml
 from Products.Five import fiveconfigure
 

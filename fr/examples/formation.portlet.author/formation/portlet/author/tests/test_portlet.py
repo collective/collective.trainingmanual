@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# $Id$
+"""Testing the portlet"""
+
 from zope.component import getUtility, getMultiAdapter
 
 from plone.portlets.interfaces import IPortletType
@@ -27,7 +31,7 @@ class TestPortlet(TestCase):
 
     def test_interfaces(self):
         # TODO: Pass any keyword arguments to the Assignment constructor
-        portlet = authorportlet.Assignment()
+        portlet = authorportlet.Assignment(show_details=True)
         self.failUnless(IPortletAssignment.providedBy(portlet))
         self.failUnless(IPortletDataProvider.providedBy(portlet.data))
 
@@ -45,7 +49,7 @@ class TestPortlet(TestCase):
         # form.
         # Note: if the portlet has a NullAddForm, simply call
         # addview() instead of the next line.
-        addview.createAndAdd(data={})
+        addview.createAndAdd(data={'show_details':True})
 
         self.assertEquals(len(mapping), 1)
         self.failUnless(isinstance(mapping.values()[0],
@@ -68,7 +72,7 @@ class TestPortlet(TestCase):
                              context=self.portal)
 
         # TODO: Pass any keyword arguments to the Assignment constructor
-        assignment = authorportlet.Assignment()
+        assignment = authorportlet.Assignment(show_details=True)
 
         renderer = getMultiAdapter(
             (context, request, view, manager, assignment), IPortletRenderer)
@@ -90,14 +94,14 @@ class TestRenderer(TestCase):
 
         # TODO: Pass any default keyword arguments to the Assignment
         # constructor.
-        assignment = assignment or authorportlet.Assignment()
+        assignment = assignment or authorportlet.Assignment(show_details=True)
         return getMultiAdapter((context, request, view, manager, assignment),
                                IPortletRenderer)
 
     def test_render(self):
         # TODO: Pass any keyword arguments to the Assignment constructor.
         r = self.renderer(context=self.portal,
-                          assignment=authorportlet.Assignment())
+                          assignment=authorportlet.Assignment(show_details=True))
         r = r.__of__(self.folder)
         r.update()
         #output = r.render()
