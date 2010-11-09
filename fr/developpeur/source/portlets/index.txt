@@ -1,0 +1,517 @@
+.. -*- coding: utf-8 -*-
+
+.. _les_portlets
+
+============
+Les portlets
+============
+
+Les portlets sont les boites thématiques disposées dans les colonnes droite et
+gauche des pages d'un site Plone.
+
+Plone fournit en standard un quelques portlets, certaines quasi-indispensables
+tel que la portlet de navigation, d'autres fournissant des services dont
+l'utilité dépend de l'orientation donnée au site, tel que la portlet calendrier.
+
+Personnalisation
+================
+
+Les lecteurs connaissant les portlets des versions antérieures de Plone seront
+déroutés lors de leur prise de connaissances de Plone 3. En effet, les portlets
+de nouvelle génération s'apparentent à des contenus d'un nouveau genre qu'un
+administrateur peut disposer de façon distincte en association avec les divers
+types de contenus, ou en association avec les divers groupes, ou encore de façon
+distincte en association avec chaque contenu individuel.
+
+Portlets des types de contenus
+------------------------------
+
+En tant que Manager, vous pouvez associer tout type de contenu avec une ou
+plusieurs portlets qui seront affichées lors de chaque vue d'un contenu du type
+sélectionné.
+
+Rendez-vous en tout premier dans le panneau de configuration des types :
+
+Choisissez le type de contenu auquel vous voulez associer une (ou plusieurs)
+portlets, et cliquez le lien "Gérer les portlets affectés à ce type de contenu".
+
+Par exemple, pour les "documents", allez à l'URL
+:samp:`http://{votre-site}/@@manage-content-type-portlets?key=Document`
+
+Ceci vous amène à un tableau de bord depuis lequel vous pouvez disposer les
+portlets de votre choix, portlets qui seront affichées sur chaque vue d'un
+contenu du type sélectionné, le :guilabel:`Document` dans notre exemple.
+
+--------
+
+.. image:: gestion_portlets_types.png
+
+--------
+
+Depuis ce tableau de bord, vous pouvez, comme dans cet exemple, ajouter la
+portlet des événements récents dans la colonne gauche à tous les contenus de
+type "événement".
+
+
+Portlets des groupes
+--------------------
+
+Les portlets d'un groupe seront affichées lors de la visite de l'espace du
+groupe, et uniquement aux visiteurs authentifiés membre du groupe.
+
+Pour gérer les portlets d'un groupe, rendez-vous dans le panneau de
+configuration des groupes.  Sélectionnez l'un des groupes, puis cliquez l'onglet
+"Portlets de groupe".
+
+De la même façon que pour les types de contenu, un tableau de bord analogue vous
+invite à ajouter, supprimer ou déplacer des portlets dans les colonnes gauche et
+droite.
+
+
+Portlets des contenus ou portlets contextuels
+---------------------------------------------
+
+De la même façon que pour les portlets des types de contenus et les portlets des
+groupes, la gestion des portlets contextuelles est réservée aux administrateurs.
+
+Vous noterez que, lorsqu'en navigant dans votre site, figurent sous les deux
+colonnes de portlets un lien "Gérer les portlets". Ce lien permet d'agencer
+les portlets affichées dans le contexte du contenu courant.
+
+.. centered:: Gestion des portlets de contenus
+
+--------
+
+.. image:: gestion_portlets_contenus.png
+
+--------
+
+Vous trouvez dans chaque colonne, de haut en bas :
+
+- Un widget d'ajout de portlet dans le contenu courant.  En effet, chaque
+  contenu peut avoir sa propre collection de portlets.
+
+- La liste des portlets actuellement associées au contenu courant - la racine de
+  Plone dans notre cas.  Chaque portlet étant représentée dans un cadre bleu
+  ciel, dans la skin par défaut.  Chaque représentation de portlet étant
+  accompagnée des widgets de déplacement, et de suppression.Si la portlet est
+  paramétrable, le titre de la portlet est un lien hypertexte au formulaire ad
+  hoc.  Nous y reviendrons plus loin.
+
+- Les règles de blocage/déblocage des portlets, pour les différentes catégories,
+  portlets de groupe et portlets de types de contenu, vu précédemment, ainsi que
+  les portlets contextuelles du dossier parent.  Pour chaque catégorie et sur
+  chaque colonne, vous pouvez :
+
+  - Conserver les :guilabel:`paramètres du dossier parent` : les règles
+    d'affichage des portlets de la catégorie considérée sont identiques à celles
+    appliquées au dossier parent.
+
+  - :guilabel:`Bloquer` : les éventuelles portlets de la catégorie considérée ne
+     seront pas affichées dans ce contexte.
+
+  - :guilabel:`Toujours montrer` : les éventuelles portlets de la catégorie
+     considérée seront toujours affichées quelque soit le paramétrage concernant
+     cette catégorie de portlets dans le dossier parent.
+
+
+Portlets disponibles en standard
+================================
+
+Plone fournit en standard toute une liste de portlets. Essayez-les...
+
+
+.. list-table:: Portlets standard
+   :widths: 15 60
+   :header-rows: 1
+
+   * - Nom
+     - Description
+   * - :guilabel:`Login`
+     - La classique portlet d'authentification, montrée uniquement aux visiteurs
+       anonymes.
+   * - :guilabel:`Liste de modération`
+     - Fournit à un modérateur la liste des contenus en attente d'approbation
+       (voir le chapitre sur les workflows).
+   * - :guilabel:`RSS feed`
+     - Présentation des entrées d'un flux RSS. A noter que ceci permet de
+       présenter facilement les premiers élément d'une collection dans une
+       portlet.
+   * - :guilabel:`Classic portlet`
+     - Une "classic portlet" permet de présenter une portlet conçue pour Plone
+       2.1 ou Plone 2.5 dans un site Plone 3. Attention, ce type de portlet ne
+       peut pas bénéficier du paramétrage contextuel comme défini plus loin.
+   * - :guilabel:`Calendar portlet`
+     - Permet de présenter les événements dans une vue calendaire.
+   * - :guilabel:`Rechercher`
+     - Permet d'escamoter le widget de recherche du bandeau supérieur et de le
+       placer en portlet
+   * - :guilabel:`Éléments récents`
+     - Présente les publications les plus récente du site.
+   * - :guilabel:`Actualités`
+     - Présente les articles d'actualités les plus récents.
+   * - :guilabel:`Événements`
+     - Présente les prochains événements publiés sur le site.
+
+
+Retour sur le paramétrage d'une portlet
+=======================================
+
+Contrairement aux versions antérieures à Plone 3, *le paramétrage d'une portlet
+est local*, et s'applique à l'emplacement dans lequel la portlet est placée. On
+peut donc considérer ces portlets comme une sorte d'attribut attaché à un objet
+de contenu, pouvant être utilisé dans ses contenus descendants.
+
+Ce comportement peut être exploité de diverses manières.  Par exemple pour
+proposer une autre portlet de navigation lors de la visite de certaines
+rubriques d'un site.
+
+
+Habillage graphique
+===================
+
+Comme pour tout habillage graphique de Plone, l'habillage graphique des porlets
+doit – dans la mesure du possible - être effectué dans une feuille de styles
+CSS2.
+
+Une visite des colonnes de portlets avec Firebug vous indiquera mieux que ne le
+ferait ce livre – et j'ai aussi un peu la flemme – les sélecteurs et classes
+CSS2 qui s'appliquent aux différentes colonnes et portlets.
+
+
+Création d'une portlet personnelle
+==================================
+
+En contrepartie des nouvelles possibilités permises par l'infrastructure des
+portlets de Plone, la réalisation d'une portlet personnelle nécessite dorénavant
+des compétences de développeur.  La réalisation d'une portlet repose sur :
+
+- Un module Python fournissant les ressources d'édition des paramètres de la
+  portlet – ou plutôt d'une instance de la portlet comme nous l'avons vu plus
+  haut, ainsi que les données publiées par la portlet.
+
+- Une template représentant l'aspect graphique portlet.
+
+- Une déclaration ZCML pour inscrire la portlet dans l'outil de gestion et de
+  publication des portlets de Plone.
+
+- Un profil GenericSetup pour installer la portlet dans un site Plone.
+
+Pour illustrer ceci, l'auteur de ces lignes préfère vous proposer l'exploration
+complète d'une portlet simple, mais utile présentant l'auteur d'un contenu.
+
+
+Structure du composant
+----------------------
+
+Conformément aux conventions d'organisation des composants pour Plone, notre
+composant est construit selon la structure classique suivante à partir du niveau
+:file:`formation.portlet.author`. Je vous invite maintenant pour comprendre les explications qui suivent à installer le code de notre portlet de démo :
+
+.. code-block:: sh
+
+   $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/formation.portlet.author formation.portlet.author
+
+.. list-table:: Fichiers principaux du composant
+   :widths: 15 60
+
+   * - :file:`__init__.py`
+     - Classique création des ressources globales du module.
+   * - :file:`config.py`
+     - Constantes propres au produit.
+   * - :file:`configure.zcml`
+     - Les déclarations ZCML classiques du composant, incluant la directive
+       d'inscription de la portlet.
+   * - :file:`profiles/default/`
+     - Le profil GenericSetup d'installation de la portlet dan un site.
+   * - :file:`authorportlet.py`
+     - La définition Python de la portlet, c'est-à-dire l'essentiel de la
+       substance de notre composant.
+   * - :file:`authorportlet.pt`
+     - La template de mise en page de la portlet. Celle-ci est
+       intentionnellement simplifiée.
+
+Comme vous êtes un expert de Python et sans doute de Plone puisque vous avez
+parcouru le livre jusqu'ici, vous aurez remarqué que l'auteur de la portlet n'a
+fait aucun effort pour optimiser le code.  En effet, celui-ci est construit dans
+l'optique d'une lisibilité optimale.  Nous y reviendrons plus loin à propos des
+décorateurs de cache.
+
+Jetons maintenant un oeil sur les fichiers essentiels de :mod:`formation.portlet.author`.
+
+
+__init__.py
+-----------
+
+Peu de choses à dire.  Nous créons un "logger" utilisable globalement depuis
+l'ensemble du produit.  Non indispensable, mais utile lors de la mise au point
+de produit.
+
+Un autre classique des composants pour Plone 3 est la création d'un
+:class:`MessageFactory` nécessaire :
+
+- à la traduction des différents textes dans les modules Python,
+
+- au marquage des textes ou "msgid" à traduire, exploitables depuis
+  :program:`i18ndude`. Voir :ref:`internationalisation`.
+
+Consultez le chapitre sur l'internationalisation et la localisation de ce livre
+pour plus de détails à ce sujet.
+
+
+config.py
+---------
+
+Encore un grand classique des produits pour Plone. Les constantes globales au
+produit sont définies dans ce module.
+
+
+configure.zcml
+--------------
+
+Également un grand classique des composants pour Plone 3. Dans notre cas, seules
+deux directives sont inscrites :
+
+- L'inscription du profil "GenericSetup" sur laquelle nous ne nous attarderons
+  pas sachant qu'un chapitre de ce livre est consacré à GenericSetup.
+
+- L'inscription de la portlet dans l'infrastructure de Plone, qui est détaillée
+  ci-après.
+
+La directive :samp:`<plone:portlet...` est une directive spécifique à Plone.
+Celle-ci doit incorporer les attributs suivants :
+
+.. list-table:: Attributs de l'élément ``<plone:portlet ...>``.
+   :widths: 15 60
+   :header-rows: 1
+
+   * - Nom
+     - Description
+   * - ``name``
+     - Le nom unique de la portlet dans le registre global de Plone. Tant pis
+       pour vous si vous reprenez un nom déja utilisé ;) |
+   * - ``title``
+     - Le titre de la portlet tel qu'elle apparaitra – après éventuelle
+       traduction – dans l'interface de gestion des portlets vue plus haut.
+   * - ``interface``
+     - La classe d'interface incorporant le schéma (Zope 3) des données d'option
+       de la portlet. Il est rappellé que ces options s'appliquent au contexte
+       dans lequel la portet est définie, contrairement aux portlets pour Plone
+       1 et Plone 2.
+   * - ``assignment``
+     - Classe utilisée pour stocker les options de la portlet. Le ``renderer`` -
+       voir ci-après – de la portlet accède aux options de la portlet par son
+       attribut ``data``.
+   * - ``renderer``
+     - La classe utilisée pour générer le rendu HTML de la portlet.
+   * - ``addview``
+     - Une classe de vue (formulaire à la Zope 3) d'ajout de la portlet.
+   * - ``editview``
+     - Une classe de vue (formulaire à la Zope 3) d'édition des options de la
+       portlet.
+   * - ``view_permission``
+     - La permission dont le visiteur doit bénéficier dans le contexte courant
+       pour afficher la portlet. Dans le cadre de la notre, la permission
+       ``zope2.View`` est suffisante.
+   * - ``edit_permission``
+     - La permission dont le visiteur doit bénéficier pour modifier les options
+       de la portlet dans le contexte courant. Dans la plupart des cas – comme
+       dans le notre – la permission ``cmf.ManagePortal`` convient parfaitement.
+
+.. hint::
+   ``editview``
+
+   Cet attribut doit être bien entendu omi si votre portlet n'a pas d'option de
+   configuration.
+
+Comme nous le verrons plus loin, l'essentiel des ressources de cette portlet,
+référencées dans cette directive, sont définies dans le module "author.py".
+
+
+authorportlet.py
+----------------
+
+Ce module fournit l'essentiel du corps de la portlet, et contient les éléments suivants :
+
+.. list-table:: Éléments de :file:`authorportlet.py`
+   :widths: 15 60
+   :header-rows: 1
+
+   * - :class:`IAuthorPortlet`
+     - L'interface définissant le schéma (Zope 3) des options d'une portlet.
+   * - :class:`Assignment`
+     - La classe qui fournit les options de la portlet applicable dans le
+       contexte courant.A noter que les objets de type Assignment sont
+       construits par les objets :class:`AddForm` que nous verrons plus
+       loin.Dans notre cas, la classe est minimaliste, mais les objets
+       :class:`Assignment` à d'autres portlets peuvent comporter des méthodes
+       plus complexes.A noter qu'un objet Assignment est stocké de façon
+       persistante dans le contexte dans lequel la portlet a été créée (objet de
+       contenu, type de contenu, groupe ou dashboard)
+   * - :class:`AddForm`
+     - Un formulaire "Zope 3" permettant de créer un Assignment.Comme vous
+       pouvez le lire dans le code, la réalisation d'un AddForm est très simple
+       puisque s'appuyant sur le schéma de l'interface de la portlet
+       (:class:`IAuthorPortlet` dans notre cas). Seule la surcharge de la
+       méthode :meth:`create` responsable de la construction de l'objet
+       :class:`Assignment` est requise.
+   * - :class:`EditForm`
+     - Un formulaire "Zope 3" permettant de modifier l':class:`Assignment`.
+   * - :class:`Renderer`
+     - Une classe responsable de la réalisation du rendu HTML de la portlet.Ce
+       type de classe doit obligatoirement comporter une méthode :meth:`render`
+       produisant le HTML de rendu. Comme dans notre exemple, le rendu est
+       généralement délégué à un objet de type :class:`ViewPageTemplate`. À
+       noter qu'un objet de type :class:`Renderer` doit propager le constructeur
+       à sa classe mère (voir l'instruction "super(...)" au début du
+       constructeur) et dispose de ce fait des attributs suivants : À noter que
+       ces deux derniers attributs sont rarement utilisés.Vous noterez également
+       que cette classe propose un attribut booléen ``available``. Celui-ci est
+       facultatif et "True" par défaut. Si cet attribut est ``False``, la
+       portlet n'est pas affichée.
+
+Le lecteur est invité à lire le code des classes de base des différentes classes
+énumérées ci-avant pour plus de détails.
+
+Notez que les différentes classes énumérées ci-dessus sont référencées dans la
+déclaration de portlet du :file:`configure.zcml` vu ci-avant, déclaration qui
+fait la "glue" entre les différents composants de notre portlet.
+
+
+authorportlet.pt
+----------------
+
+Cette template met en page la portlet.
+
+Elle est volontairement minimaliste pour en faciliter la compréhension Je vous
+laisse le soin de fignoler son habillage graphique si vous voulez l'incorporer
+dans vos propres réalisations.
+
+Vous noterez que :
+
+- Les portlets, depuis Plone 2.5, sont définies dans une structure de type ``<dl
+  class="portlet">...</dl>``.
+
+- L'objet de classe :class:`Renderer` défini dans :file:`author.py` est
+  accessible dans les expressions TALES de cette portlet à travers la variable
+  ``view``. Les différentes données spécifiques à la portlet sont produites par
+  des expressions TALES :samp:`view/{xxx}` où xxx est une méthode ou un attribut
+  de la classe :class:`Renderer` vue plus haut.
+
+
+profiles/default/portlets.xml
+-----------------------------
+
+Fichier d'installation des portlets pour GenericSetup.
+
+Dans notre cas nous n'avons qu'une portlet à déclarer.  Il n'y a rien de
+particulier à dire sur les attributs ``title`` et ``description``.
+
+L'attribut "addview" doit ici avoir la même valeur que l'attribut ``name`` de la
+déclaration de portlet figurant dans notre :file:`configure.zcml`.
+
+
+Et le résultat...
+=================
+
+Le composant :mod:`formation.portlet.author` a été ajouté dans l'instance Zope,
+puis ajouté à un site Plone par le biais du QuickInstaller ou du panneau de
+configuration d'installation des produits.  Vous connaissez déjà ces étapes si
+vous êtes arrivé à ce point du livre.
+
+Le membre Albert Einstein a réalisé une étude scientifique très intéressante
+qu'il a publiée dans une page Plone...
+
+Comme tout membre d'un site Plone, Albert Einstein a rempli son formulaire de
+préférences personnelles, incluant son nom complet, sa ville, son mémo perso et
+sa photo au format requis.
+
+Le webmestre du site estime que les portlets classiques publiées par défaut à la
+droite ne rendent pas justice à l'auteur d'un contenu d'une telle valeur, et
+préfère remplacer celles-ci par notre portlet de présentation de l'auteur de
+façon spécifique à cette page.
+
+.. centered:: L'article tel que publié par Albert Einstein
+
+--------
+
+.. image:: affichage_sans_portlet.png
+
+--------
+
+Dans la gestion locale des portlets, on commence par bloquer toutes les portlets
+pouvant s'appliquer localement.
+
+.. centered:: On ajoute une "Author portlet" détaillée
+
+--------
+
+.. image:: addform.png
+
+--------
+
+.. centered:: Et voilà le résultat...
+
+--------
+
+.. image:: affichage_avec_portlet.png
+
+--------
+
+Si :guilabel:`show author details` était décoché dans le formulaire d'ajout /
+modification, la portlet n'afficherait pas "Berlin" ni "Je suis un savant..".
+
+Créer votre propre portlet
+==========================
+
+ZopeSkel est votre ami. Puisque vous l'avez installé comme indiqué dans votre environnement de développement, il suffit de taper ceci pour avoir le squelette de votre portlet personnelle :
+
+.. code-block:: sh
+
+   $ paster create -t plone3_portlet ma.belle.portlet
+
+Suivez les instructions de l'assistant de création et à vous de jouer.
+
+
+Pour aller plus loin
+====================
+
+Par souci de simplification, deux aspect du développement de portlets ont été
+passés sous silence dans l'exemple ci-avant :
+
+- Les *ressources d'internationalisation* et traduction de la portlet, les
+  informations relatives à l'internationalisation fournies ailleurs dans ce
+  livre étant applicables ici. Voir à ce sujet :ref:`internationalisation`
+
+- L'utilisation des *décorateurs de cache* permettant d'optimiser les méthodes
+  Python, ainsi que code HTML spécifique à la portlet.  Le cache des portlets
+  utilise les ressources du paquetage plone.memoize, qui s'utilise sous la forme
+  de décorateurs Python.  Dans le cas de cette portlet, les décorateurs de vue
+  (``from plone.memoize import view``...) auraient pu être utilisés.
+
+Pour réaliser des portlets plus complexes ou plus performantes, lisez le code
+des paquetages Python suivants :
+
+.. list-table:: Code source relatif
+   :widths: 15 60
+   :header-rows: 1
+
+   * - Module
+     - Description
+   * - :mod:`plone.app.portlets.portlets`
+     - Les portlets fournies en standard par Plone.
+   * - :mod:`zope.formlib`
+     - Le gestionnaire de formulaires de Zope 3.
+   * - :mod:`zope.schema`
+     - L'alter-ego d'Archetypes pour Zope 3.
+   * - :mod:`plone.memoize`
+     - Divers types de caches Python utilisables sous forme de décorateurs.
+
+.. hint::
+   Autres portlets
+
+   Vous pouvez également vous inspirer des nombreuses portlets à votre
+   disposition dans le référentiel Subversion "collective"
+   `<https://svn.plone.org/svn/collective>`_, la grande majorité des portlets
+   étant préfixées par :samp:`collective.portlet...`.
+
