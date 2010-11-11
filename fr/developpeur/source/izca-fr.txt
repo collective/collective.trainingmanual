@@ -1,3 +1,7 @@
+.. -*- coding: utf-8 -*-
+
+.. _guide_zca:
+
 ========================================================
 Le guide complet de l'Architecture de Composants de Zope
 ========================================================
