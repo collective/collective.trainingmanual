@@ -5,30 +5,30 @@
     xmlns:plone="http://namespaces.plone.org/plone"
     i18n_domain="formation.portlet.author">
 
-    <genericsetup:registerProfile
-       name="default"
-       title="Author Portlet"
-       directory="profiles/default"
-       description="Shows the context author summary in a portlet"
-       provides="Products.GenericSetup.interfaces.EXTENSION"
-       />
+  <genericsetup:registerProfile
+      name="default"
+      title="Author Portlet"
+      directory="profiles/default"
+      description="Shows the context author summary in a portlet"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
 
-     <!-- Register the portlet -->
+  <!-- Register the portlet -->
 
-     <!-- If the portlet has no configurable parameters, you can remove
-          the EditForm declaration in authorportlet.py and delete
-          the 'editview' attribute from this statement.
-       -->
+  <!-- If the portlet has no configurable parameters, you can remove
+       the EditForm declaration in authorportlet.py and delete
+       the 'editview' attribute from this statement.
+  -->
 
-     <plone:portlet
-         name="formation.portlet.author.AuthorPortlet"
-         interface=".authorportlet.IAuthorPortlet"
-         assignment=".authorportlet.Assignment"
-         view_permission="zope2.View"
-         edit_permission="cmf.ManagePortal"
-         renderer=".authorportlet.Renderer"
-         addview=".authorportlet.AddForm"
-         editview=".authorportlet.EditForm"
-         />
+  <plone:portlet
+      name="formation.portlet.author.AuthorPortlet"
+      interface=".authorportlet.IAuthorPortlet"
+      assignment=".authorportlet.Assignment"
+      view_permission="zope2.View"
+      edit_permission="cmf.ManagePortal"
+      renderer=".authorportlet.Renderer"
+      addview=".authorportlet.AddForm"
+      editview=".authorportlet.EditForm"
+      />
 
 </configure>

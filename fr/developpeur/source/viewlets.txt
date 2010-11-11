@@ -3,7 +3,7 @@
 .. _viewlets:
 
 ============
-Les Viewlets
+Les viewlets
 ============
 
 `« L'amour c'est un bouquet de viewlets »` (adapté de « Violettes impériales » par Vincent Scotto)

@@ -42,11 +42,10 @@ Ceci vous amène à un tableau de bord depuis lequel vous pouvez disposer les
 portlets de votre choix, portlets qui seront affichées sur chaque vue d'un
 contenu du type sélectionné, le :guilabel:`Document` dans notre exemple.
 
---------
+.. figure:: gestion_portlets_types.png
+   :align: center
 
-.. image:: gestion_portlets_types.png
-
---------
+   Gestion des portlets assignées à un type de contenus
 
 Depuis ce tableau de bord, vous pouvez, comme dans cet exemple, ajouter la
 portlet des événements récents dans la colonne gauche à tous les contenus de
@@ -78,13 +77,10 @@ Vous noterez que, lorsqu'en navigant dans votre site, figurent sous les deux
 colonnes de portlets un lien "Gérer les portlets". Ce lien permet d'agencer
 les portlets affichées dans le contexte du contenu courant.
 
-.. centered:: Gestion des portlets de contenus
+.. figure:: gestion_portlets_contenus.png
+   :align: center
 
---------
-
-.. image:: gestion_portlets_contenus.png
-
---------
+   Gestion des portlets de contenus
 
 Vous trouvez dans chaque colonne, de haut en bas :
 
@@ -269,11 +265,37 @@ produit sont définies dans ce module.
 configure.zcml
 --------------
 
+.. code-block:: xml
+
+   <configure
+       xmlns="http://namespaces.zope.org/zope"
+       xmlns:five="http://namespaces.zope.org/five"
+       xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+       xmlns:plone="http://namespaces.plone.org/plone"
+       i18n_domain="formation.portlet.author">
+
+     <!-- ... -->
+
+     <plone:portlet
+         name="formation.portlet.author.AuthorPortlet"
+         interface=".authorportlet.IAuthorPortlet"
+         assignment=".authorportlet.Assignment"
+         view_permission="zope2.View"
+         edit_permission="cmf.ManagePortal"
+         renderer=".authorportlet.Renderer"
+         addview=".authorportlet.AddForm"
+         editview=".authorportlet.EditForm"
+         />
+
+     <!-- ... -->
+   </configure>
+
 Également un grand classique des composants pour Plone 3. Dans notre cas, seules
 deux directives sont inscrites :
 
-- L'inscription du profil "GenericSetup" sur laquelle nous ne nous attarderons
-  pas sachant qu'un chapitre de ce livre est consacré à GenericSetup.
+- L'inscription du profil "GenericSetup" (supprimée de l'extrait ci-dessus) sur
+  laquelle nous ne nous attarderons pas sachant qu'un chapitre de ce livre est
+  consacré à GenericSetup.
 
 - L'inscription de la portlet dans l'infrastructure de Plone, qui est détaillée
   ci-après.
@@ -289,7 +311,7 @@ Celle-ci doit incorporer les attributs suivants :
      - Description
    * - ``name``
      - Le nom unique de la portlet dans le registre global de Plone. Tant pis
-       pour vous si vous reprenez un nom déja utilisé ;) |
+       pour vous si vous reprenez un nom déja utilisé ;)
    * - ``title``
      - Le titre de la portlet tel qu'elle apparaitra – après éventuelle
        traduction – dans l'interface de gestion des portlets vue plus haut.
@@ -337,6 +359,8 @@ Ce module fournit l'essentiel du corps de la portlet, et contient les éléments
    :widths: 15 60
    :header-rows: 1
 
+   * - Classe
+     - Description
    * - :class:`IAuthorPortlet`
      - L'interface définissant le schéma (Zope 3) des options d'une portlet.
    * - :class:`Assignment`
@@ -431,32 +455,23 @@ droite ne rendent pas justice à l'auteur d'un contenu d'une telle valeur, et
 préfère remplacer celles-ci par notre portlet de présentation de l'auteur de
 façon spécifique à cette page.
 
-.. centered:: L'article tel que publié par Albert Einstein
+.. figure:: affichage_sans_portlet.png
+   :align: center
 
---------
-
-.. image:: affichage_sans_portlet.png
-
---------
+   L'article tel que publié par Albert Einstein
 
 Dans la gestion locale des portlets, on commence par bloquer toutes les portlets
 pouvant s'appliquer localement.
 
-.. centered:: On ajoute une "Author portlet" détaillée
+.. figure:: addform.png
+   :align: center
 
---------
+   On ajoute une "Author portlet" détaillée
 
-.. image:: addform.png
+.. figure:: affichage_avec_portlet.png
+   :align: center
 
---------
-
-.. centered:: Et voilà le résultat...
-
---------
-
-.. image:: affichage_avec_portlet.png
-
---------
+   Et voilà le résultat...
 
 Si :guilabel:`show author details` était décoché dans le formulaire d'ajout /
 modification, la portlet n'afficherait pas "Berlin" ni "Je suis un savant..".
