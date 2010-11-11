@@ -50,14 +50,16 @@ les tags dont nous allons avoir besoin pour modéliser notre module.
 L'installation peut être faite à partir de pypi ou depuis le dépôt subversion
 (subversion est accessible à http://subversion.apache.org).
 
-L'intérêt du dépôt subversion est de disposer des dernières corrections ::
+L'intérêt du dépôt subversion est de disposer des dernières corrections :
 
-  C:\Program Files>cd C:\
-  C:\>svn export http://svn.plone.org/svn/archetypes/ArchGenXML/buildout ArchGenXML
-  C:\>cd ArchGenXML
-  C:\ArchGenXML>C:\python26\python.exe bootstrap.py
-  C:\ArchGenXML>bin\buildout.exe
-  C:\ArchGenXML>bin\test-archgenxml.exe
+.. code-block:: bat
+
+  C:\Program Files> cd C:\
+  C:\> svn export http://svn.plone.org/svn/archetypes/ArchGenXML/buildout ArchGenXML
+  C:\> cd ArchGenXML
+  C:\ArchGenXML> C:\python26\python.exe bootstrap.py
+  C:\ArchGenXML> bin\buildout.exe
+  C:\ArchGenXML> bin\test-archgenxml.exe
   Running zope.testing.testrunner.layer.UnitTests tests:
     Set up zope.testing.testrunner.layer.UnitTests in 0.000 seconds.
     Ran 82 tests with 0 failures and 0 errors in 0.211 seconds.
@@ -108,10 +110,12 @@ La première étape est de créer et ajouter la structure de notre nouveau modul
 (Product) à Plone.
 
 Pour cela plaçons nous dans le répertoire :file:`src` de notre Plone (le créer
-s'il n'existe pas) et lançons la commande :command:`paster` comme suit : ::
+s'il n'existe pas) et lançons la commande :command:`paster` comme suit :
 
-  c:\Plone4>cd src
-  C:\Plone4\src>paster create -t basic_namespace Products.StandArt_AQ
+.. code-block:: bat
+
+  c:\Plone4> cd src
+  C:\Plone4\src> paster create -t basic_namespace Products.StandArt_AQ
   Selected and implied templates:
     zopeskel#basic_namespace  A basic Python project with a namespace package
 
@@ -129,9 +133,11 @@ s'il n'existe pas) et lançons la commande :command:`paster` comme suit : ::
       Creating .\Products.StandArt_AQ\Products/
       Recursing into +package+
 
-L'arborescence créée est alors : ::
+L'arborescence créée est alors :
 
-  C:\Program Files\Plone4\src>tree Products.StandArt_AQ
+.. code-block:: bat
+
+  C:\Program Files\Plone4\src> tree Products.StandArt_AQ
   Structure du dossier
   Le numéro de série du volume est XXXXXXXX XXXX:XXXX
   C:\PROGRAM FILES\PLONE4\SRC\PRODUCTS.STANDART_AQ
@@ -140,7 +146,7 @@ L'arborescence créée est alors : ::
   |-- Products.StandArt_AQ.egg-info
   `-- docs
 
-Nous allons ajouter un répertoire :file:`model` dans Products.StandArt_AQ pour y
+Nous allons ajouter un répertoire :file:`model/` dans Products.StandArt_AQ pour y
 stocker le modèle UML que nous allons réaliser.
 
 Création du plan documentaire
@@ -248,7 +254,7 @@ soit même.
 
 Si l'on avait voulu qu'il y ait plusieurs roles pouvant créer des instances nous
 aurions alors donné au marqueur ``creation_roles`` la valeur
-:code:`python:("Manager", "Contributor")`.
+``python:("Manager", "Contributor")``.
 
 Nous allons remplir les informations concernant le champ documentation :
 
@@ -413,9 +419,11 @@ de paramétrer leur comportement :
  - vocabulary
  - storage
 
-Nous allons générer une première version de notre module : ::
+Nous allons générer une première version de notre module :
 
-  C:\Program Files\Plone4\src\Products.StandArt_AQ\Products>c:\ArchGenXML\bin\ar
+.. code-block:: bat
+
+  C:\Program Files\Plone4\src\Products.StandArt_AQ\Products> c:\ArchGenXML\bin\ar
   chgenxml.exe ..\model\Products.StandArt_AQ.zargo StandArt_AQ
   INFO  ArchGenXML Version 2.5.dev
   (c) 2003-2009 BlueDynamics Alliance, Austria, GPL 2.0 or later
@@ -444,7 +452,9 @@ répertoire :file:`src\\Products.StandArt_AQ\\Products`.
 Puis, nous pouvons ajouter ce nouveau module au :file:`buildout.cfg` de notre
 Plone pour le faire apparaitre dans la liste des modules disponibles.
 
-Pour cela, il suffit d'y ajouter : ::
+Pour cela, il suffit d'y ajouter :
+
+.. code-block:: ini
 
    eggs =
      Plone
@@ -464,7 +474,9 @@ Vous constaterez également en regardant l'onglet Security de la ZMI que nos
 nouvelles permissions ont été ajoutées.
 
 Si l'on regarde le code du module StandArt_DocumentAQ.py, on constate qu'il
-contient la définition d'un schéma Archetypes : ::
+contient la définition d'un schéma Archetypes :
+
+.. code-block:: python
 
   schema = Schema((
     FileField(
@@ -491,7 +503,9 @@ La variable :term:`schema` est une liste de champs, qui ici contient la
 déclaration du champ ``mDocument``. On peut voir comment sont implémentés les
 différents marqueurs du champ et comment lui est associé son `widget`.
 
-Suit la définition de la classe : ::
+Suit la définition de la classe :
+
+.. code-block:: python
 
   class StandArt_DocumentAQ(ATDocument, BrowserDefaultMixin):
     """
@@ -635,7 +649,7 @@ champ ``Expression``. Pour cela on dispose de trois possibilités :
 +---------------------+---------------------+--------------------------------+
 
 Les expressions peuvent être combinées, par exemple la transition avec le garde
-:code:`guard_roles:Reviewer|guard_permission:Modify Portal Content` ne sera
+``guard_roles:Reviewer|guard_permission:Modify Portal Content`` ne sera
 déclenchable que par les modérateurs ayant les droits de modification.
 
 En plus des gardes, il est possible d'exécuter des scripts avant et après
@@ -654,7 +668,9 @@ contenant un répertoire contenant la définition XML du workflow pour FolderAQ 
 un autre pour DocumentAQ.
 
 Il génère aussi un fichier :file:`wfsubscribers.py` contenant la définition des
-scripts appelés lors des transitions : ::
+scripts appelés lors des transitions :
+
+.. code-block:: python
 
   # -*- coding: utf-8 -*-
   #
@@ -690,22 +706,23 @@ scripts appelés lors des transitions : ::
   ##code-section module-footer #fill in your manual code here
   ##/code-section module-footer
 
-Pour ajouter du code spécifique tel que la notification par mail des
-principaux modérateurs, il suffit de le mettre entre la balise
-:code:`##code-section onSubmitDocumentAQ` et
-:code:`##/code-section onSubmitDocumentAQ`, mais si le code est volumineux ou
-doit être partagé nous pouvons le mettre dans un module qui sera importé dans la
-section :code:`##code-section module-header` et l'appel se fera dans la section
-:code:`##code-section onSubmitDocumentAQ`.
+Pour ajouter du code spécifique tel que la notification par mail des principaux
+modérateurs, il suffit de le mettre entre la balise ``##code-section
+onSubmitDocumentAQ`` et ``##/code-section onSubmitDocumentAQ``, mais si le code
+est volumineux ou doit être partagé nous pouvons le mettre dans un module qui
+sera importé dans la section ``##code-section module-header`` et l'appel se fera
+dans la section ``##code-section onSubmitDocumentAQ``.
 
 L'événement ``event`` contient l'objet qui subit la transition, ainsi que la
 requête.
 
 Si vous voulez faire de l'introspection et voir ce qui se passe vous pouvez
-mettre un :code:`pdb.set_trace ()` dans la section, relancer Zope en mode
+mettre un ``pdb.set_trace ()`` dans la section, relancer Zope en mode
 ``foreground`` :command:`bin/instance fg`, et déclencher la transition. Python
 s'arrêtera sur le point d'arrêt et en tapant la commande :command:`h` vous aurez la
-liste des commandes possibles : ::
+liste des commandes possibles :
+
+.. code-block:: python
 
    ##code-section onSubmitDocumentAQ #fill in your manual code here
    import pdb
