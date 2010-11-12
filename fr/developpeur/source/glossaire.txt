@@ -341,6 +341,12 @@ Définition des termes et abréviations utilisés dans ce document.
     partie :mod:`Products.PloneArticle` et :mod:`Products.Collage` fournissent
     des exemples de "non structural folder".
 
+  TAL
+    Template Attribute Language
+
+  TALES
+    Template Attribute Language Expression Syntax
+
   tool
     Dans un contexte CMF, donc Plone, un "tool" est un objet unique dans un site
     fournissant un ensemble de services et incorporant ses propres données
