@@ -1,0 +1,118 @@
+.. -*- coding: utf-8 -*-
+
+.. _vue_plone:
+
+==============
+La vue "plone"
+==============
+
+Cette vue fournit nombre d'informations particulièrement utiles dans la
+construction de vos templates.
+
+A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+cette vue est accessible par l'objet ``plone_view``.
+
+.. code-block:: xml
+
+   <html use-macro="context/@@standard_macros/page">
+     ...
+     <div>Cette URL est
+       <span tal:content="plone_view/getCurrentUrl">http://foo</span>
+     </div>
+     ...
+   </html>
+
+Détails dans :class:`Products.CMFPlone.browser.interfaces.IPlone`
+
+.. note::
+
+   Vous noterez à la lecture des méthodes proposées que nombre d'entre elles
+   sont reprises de :ref:`vue_plone_context_state` ou
+   :ref:`vue_portal_state`. Celles-ci sont des raccourcis facilitant la
+   compatibilité ascendante avec les versions antérieures de Plone. Pour
+   programmer un composant qu'il est inutile de rendre compatible avec ces
+   anciennes version, on préfèrera l'utilisations des méthodes équivalentes de
+   :ref:`vue_plone_context_state` ou :ref:`vue_plone_portal_state`.
+
+.. list-table:: plone
+   :widths: 20 60
+   :header-rows: 1
+
+   * - Attribut - Méthode
+     - Description
+   * - ``getCurrentUrl()``
+     - URL courante incluant la query string (paramètres CGI)
+   * - ``visibleIdsEnabled()``
+     - ``True`` si la modification des id des éléments de contenus sont permis
+       au niveau du portail comme au niveau de l'utilisateur.
+   * - ``uniqueItemIndex(pos=0)``
+     - Retourne un itérateur utilisable pour énumérer des éléments dans une
+       template avec la méthode :meth:`next()`. Exemple : ``tal:define="foo
+       plone_view/uniqueItemIndex; un foo/next; deux foo/next"``
+   * - ``toLocalizedTime(time, long_format=None, time_only=None)``
+     - Convertit un objet :class:`DateTime` ou une date sous forme de `chaîne
+       normalisée ISO 8601 <http://fr.wikipedia.org/wiki/ISO_8601>`_ en une date
+       et heure localisées sous forme de chaîne de caractères.
+   * - ``normalizeString(text)``
+     - Transforme un texte quelconque éventuellement unicode en une chaîne ASCII
+       compatible avec les identifiants Zope.
+   * - ``isDefaultPageInFolder()``
+     - Equivalent à la méthode :meth:`is_default_page()` de
+       :ref:`vue_plone_context_state`.
+   * - ``isStructuralFolder()``
+     - Equivalent à la méthode :meth:`is_structural_folder()` de
+       :ref:`vue_plone_context_state`.
+   * - ``hide_columns(self, column_left, column_right)``
+     - Fournit la classe CSS pour masquer les colonnes de portlets vides. Vous
+       aurez rarement à utiliser ce genre de méthode.
+   * - ``navigationRootPath``
+     - Equivalent de la méthode :meth:`navigation_root_path()` de
+       :ref:`vue_plone_portal_state`.
+   * - ``navigationRootUrl()``
+     - Equivalent de la méthode :meth:`navigation_root_url()` de
+       :ref:`vue_plone_portal_state`.
+   * - ``getParentObject()``
+     - Equivalent de la méthode :meth:`parent()` de
+       :ref:`vue_plone_context_state`.
+   * - ``getCurrentFolder()``
+     - Equivalent de la méthode :meth:`folder()` de
+       :ref:`vue_plone_context_state`.
+   * - ``getCurrentFolderUrl()``
+     - L'URL du dossier retourné par :meth:`getCurrentFolder()` ci-dessus.
+   * - ``getCurrentObjectUrl()``
+     - Equivalent de la méthode :meth:`canonical_object_url()` de
+       :ref:`vue_plone_context_state`.
+   * - ``isFolderOrFolderDefaultPage()``
+     - Equivalent de la méthode :meth:`is_default_page()` de
+       :ref:`vue_plone_context_state`.
+   * - ``isPortalOrPortalDefaultPage()``
+     - Equivalent de la méthode :meth:`is_portal_root()` de
+       :ref:`vue_plone_context_state`.
+   * - ``getViewTemplateId()``
+     - Equivalent de la méthode :meth:`view_template_id()` de
+       :ref:`vue_plone_context_state`.
+   * - ``showEditableBorder()``
+     - Détermine si le cadre d'édition (contenant les onglets "Contenu",
+       "Modifier", ...) doit être affiché.
+   * - ``displayContentsTab()``
+     - Détermine si les onglets d'édition doivent être affichés.
+   * - ``getIcon(item)``
+     - Returns an object which implements the IContentIcon interface and
+       provides the informations necessary to render an icon.  The item
+       parameter needs to be adaptable to IContentIcon.  Icons can be disabled
+       globally or just for anonymous users with the icon_visibility property in
+       site_properties."""
+   * - ``cropText(text, length, ellipsis)``
+     - Crop text on a word boundary
+   * - ``have_portlets(manager_name, view=None)``
+     - Determine whether a column should be shown.
+   * - ``mark_view(view)``
+     - Adds a marker interface to the view if it is "the" view for the context
+       May only be called from a template.
+   * - ``site_encoding()``
+     - returns site encoding.
+   * - ``bodyClass(template, view)``
+     - returns template or view name to mark body tag with
+       template-${template_id} CSS class
+
+.. todo:: Finir la traduction

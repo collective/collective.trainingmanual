@@ -1,0 +1,40 @@
+.. -*- coding: utf-8 -*-
+
+.. _vue_plone_layout:
+
+=====================
+La vue "plone_layout"
+=====================
+
+Cette vue fournit des méthodes relatives à la mise en page.
+
+Détails dans :class:`plone.app.layout.globals.interfaces.ILayoutPolicy`
+
+.. list-table:: plone_layout
+   :widths: 20 60
+   :header-rows: 1
+
+   * - Attribut - Méthode
+     - Description
+   * - ``mark_view(view)``
+     - Adds a marker interface to the view if it is "the" view for the context
+       May only be called from a template.
+   * - ``hide_columns(column_left, column_right)``
+     - Returns a CSS class matching the current column status.
+   * - ``have_portlets(manager_name, view=None)``
+     - Determine whether a column should be shown. The left column is called
+       plone.leftcolumn; the right column is called plone.rightcolumn.
+   * - ``icons_visible()``
+     - Returns True if icons should be shown or False otherwise.
+   * - ``getIcon(item)``
+     - Returns an object which implements the IContentIcon interface and
+       provides the informations necessary to render an icon. The item parameter
+       needs to be adaptable to IContentIcon. Icons can be disabled globally or
+       just for anonymous users with the icon_visibility property in
+       site_properties.
+   * - ``renderBase()``
+     - Returns the current URL to be used in the base tag.
+   * - ``bodyClass(template, view)``
+     - Returns the CSS class to be used on the body tag.
+
+.. todo:: A traduire

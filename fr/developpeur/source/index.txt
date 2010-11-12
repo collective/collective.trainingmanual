@@ -51,6 +51,7 @@ California 94105, USA.
    creation_theme
    viewlets
    portlets/index
+   vues_standard/index
    internationalisation
    plonepas/index
    environnement_de_dev
