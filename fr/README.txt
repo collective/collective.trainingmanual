@@ -37,10 +37,8 @@ Créez un environnement sphinx et installez Sphinx : ::
   $ mkvirtualenv sphinx
   (sphinx)$ easy_install Sphinx
 
-Si vous avez par la suite des soucis de génération, installez la version 0.6.4
-ou ultérieure. La génération du html et pdf fonctionne avec cette version : ::
-
-  (sphinx)$ easy_install Sphinx==0.6.4
+Le bas de la page http://docs.ecreall.com/developpeur/ vous indique quelle
+version minimum de Sphinx installer.
 
 .. admonition::
    ``sudo`` ?
@@ -233,9 +231,8 @@ rédacteurs de documentation sphinx et reStructuredText.
 FAQ
 ===
 
-**Q :** J'ai ajouté une entrée d'index ou un nouveau terme dans le glossaire ou
-fait des modifications de feuille de styles, et ce n'est pas suivi d'effet
-lorsque je compile la doc.
+**Q :** J'ai ajouté une entrée d'index ou un nouveau terme dans le glossaire et
+ce n'est pas suivi d'effet lorsque je compile la doc.
 
 **R :** L'index de sphinx est parfois paumée et la gestion des dépendances est
 parfois perfectible. Il faut donc tout réinitialiser avec la commande ``make

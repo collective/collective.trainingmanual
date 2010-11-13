@@ -110,7 +110,7 @@ Détails dans :class:`Products.CMFPlone.browser.interfaces.IPlone`
      - Adds a marker interface to the view if it is "the" view for the context
        May only be called from a template.
    * - ``site_encoding()``
-     - returns site encoding.
+     - L'encodage du texte de ce site. Typiquement ``utf-8``.
    * - ``bodyClass(template, view)``
      - returns template or view name to mark body tag with
        template-${template_id} CSS class
