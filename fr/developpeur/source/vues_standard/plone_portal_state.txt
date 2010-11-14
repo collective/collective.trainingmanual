@@ -9,7 +9,7 @@ La vue "plone_portal_state"
 Les informations globales sur le portail sont accessibles à travers les méthodes
 et attributs de cette vue.
 
-A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+À noter que dans vos templates utilisant la macro de gabarit de page par défaut,
 cette vue est accessible par l'objet ``portal_state``.
 
 .. code-block:: xml
@@ -43,7 +43,7 @@ Détails dans :class:`plone.app.layout.globals.interfaces.IPortalState`
      - L'URL de la page d'accueil du site (celle du lien du logo du site ou du
        lien "Accueil" du breadcrumb / fil d'Ariane)
    * - ``default_language()``
-     - L'abréviation IANA de la langue par défaut du site tel que ``fr`` pour le
+     - L'abréviation IANA de la langue par défaut du site, comme ``fr`` pour le
        Français.
    * - ``language()``
      - L'abréviation IANA de la langue utilisée pour la publication de la page
