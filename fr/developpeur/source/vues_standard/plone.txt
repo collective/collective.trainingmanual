@@ -27,12 +27,13 @@ Détails dans :class:`Products.CMFPlone.browser.interfaces.IPlone`
 .. note::
 
    Vous noterez à la lecture des méthodes proposées que nombre d'entre elles
-   sont reprises de :ref:`vue_plone_context_state` ou
-   :ref:`vue_portal_state`. Celles-ci sont des raccourcis facilitant la
-   compatibilité ascendante avec les versions antérieures de Plone. Pour
-   programmer un composant qu'il est inutile de rendre compatible avec ces
-   anciennes version, on préfèrera l'utilisations des méthodes équivalentes de
-   :ref:`vue_plone_context_state` ou :ref:`vue_plone_portal_state`.
+   sont reprises de :ref:`vue_plone_context_state`,
+   :ref:`vue_plone_portal_state` ou :ref:`vue_plone_layout`. Celles-ci sont des
+   raccourcis facilitant la compatibilité ascendante avec les versions
+   antérieures de Plone. Pour programmer un composant qu'il est inutile de
+   rendre compatible avec ces anciennes version, on préfèrera l'utilisations des
+   méthodes équivalentes de :ref:`vue_plone_context_state`,
+   :ref:`vue_plone_portal_state` ou :ref:`vue_plone_layout`.
 
 .. list-table:: plone
    :widths: 20 60
@@ -63,8 +64,8 @@ Détails dans :class:`Products.CMFPlone.browser.interfaces.IPlone`
      - Equivalent à la méthode :meth:`is_structural_folder()` de
        :ref:`vue_plone_context_state`.
    * - ``hide_columns(self, column_left, column_right)``
-     - Fournit la classe CSS pour masquer les colonnes de portlets vides. Vous
-       aurez rarement à utiliser ce genre de méthode.
+     - Equivalent de la méthode :meth:`hide_columns(self, column_left,
+       column_right)` de :ref:`vue_plone_layout`.
    * - ``navigationRootPath``
      - Equivalent de la méthode :meth:`navigation_root_path()` de
        :ref:`vue_plone_portal_state`.
@@ -97,22 +98,19 @@ Détails dans :class:`Products.CMFPlone.browser.interfaces.IPlone`
    * - ``displayContentsTab()``
      - Détermine si les onglets d'édition doivent être affichés.
    * - ``getIcon(item)``
-     - Returns an object which implements the IContentIcon interface and
-       provides the informations necessary to render an icon.  The item
-       parameter needs to be adaptable to IContentIcon.  Icons can be disabled
-       globally or just for anonymous users with the icon_visibility property in
-       site_properties."""
+     - Equivalent de la méthode :meth:`getIcon(item)` de
+       :ref:`vue_plone_layout`.
    * - ``cropText(text, length, ellipsis)``
-     - Crop text on a word boundary
+     - Tronque un texte brut jusqu'à ``length`` caractères tout en omettant
+       l'éventuel mot coupé.
    * - ``have_portlets(manager_name, view=None)``
-     - Determine whether a column should be shown.
+     - Equivalent de la méthode :meth:`have_portlets(manager_name, view=None)`
+       de :ref:`vue_plone_layout`.
    * - ``mark_view(view)``
-     - Adds a marker interface to the view if it is "the" view for the context
-       May only be called from a template.
+     - Equivalent de la méthode :meth:`mark_view(view)` de
+       :ref:`vue_plone_layout`.
    * - ``site_encoding()``
      - L'encodage du texte de ce site. Typiquement ``utf-8``.
    * - ``bodyClass(template, view)``
-     - returns template or view name to mark body tag with
-       template-${template_id} CSS class
-
-.. todo:: Finir la traduction
+     - Equivalent de la méthode :meth:`bodyClass(template, view)` de
+       :ref:`vue_plone_layout`.

@@ -17,24 +17,32 @@ Détails dans :class:`plone.app.layout.globals.interfaces.ILayoutPolicy`
    * - Attribut - Méthode
      - Description
    * - ``mark_view(view)``
-     - Adds a marker interface to the view if it is "the" view for the context
-       May only be called from a template.
+     - Ajoute une :term:`interface marqueur` à la vue si celle-ci est "la" vue
+       pour l'objet de contexte. Cette conction ne devrait être appellée que
+       depuis une template.
    * - ``hide_columns(column_left, column_right)``
-     - Returns a CSS class matching the current column status.
+     - Fournit la classe CSS pour masquer les colonnes de portlets vides. Vous
+       aurez rarement à utiliser ce genre de méthode.
    * - ``have_portlets(manager_name, view=None)``
-     - Determine whether a column should be shown. The left column is called
-       plone.leftcolumn; the right column is called plone.rightcolumn.
+     - Détermine si une colonne de portlets est affichée. La colonne de gauche
+       est appellée ``plone.leftcolumn``, celle de droite ``plone.rightcolumn``.
    * - ``icons_visible()``
-     - Returns True if icons should be shown or False otherwise.
+     - ``True`` si les icônes doivent être affichées. Voir ``getIcon(item)``
+       ci-dessous.
    * - ``getIcon(item)``
-     - Returns an object which implements the IContentIcon interface and
-       provides the informations necessary to render an icon. The item parameter
-       needs to be adaptable to IContentIcon. Icons can be disabled globally or
-       just for anonymous users with the icon_visibility property in
-       site_properties.
+     - Retourne un objet qui implémente l'interface :class:`IContentIcon` qui
+       fournit les informations et services nécessaires au rendu d'une
+       icône. L'élément de contexte doit être adaptable à
+       :class:`IContentIcon`. Les icônes peuvent être désactivés globalement ou
+       seulement aux anonymes avec la propriété ``icon_visibility`` de l'objet
+       ``portal_properties/site_properties``.
    * - ``renderBase()``
-     - Returns the current URL to be used in the base tag.
+     - L'URL devant figurer dans la balise ``<base...>`` du ``<head>``
+       HTML. Vous aurez rarement l'occasion d'utiliser cette méthode.
    * - ``bodyClass(template, view)``
-     - Returns the CSS class to be used on the body tag.
+     - Retourne la classe CSS à utiliser sur le tag ``<body>`` lors de la
+       publication de la page courante. Comme la plupart des templates de base
+       sont déjà fournies par Plone, vous n'aurez dans les faits que très
+       rarement l'occasion d'utiliser cette méthode.
 
 .. todo:: A traduire

@@ -179,6 +179,12 @@ Définition des termes et abréviations utilisés dans ce document.
     de toute autre classe l'implémentant. L'utilisation des interfaces est à la
     base de la :term:`ZCA`.
 
+  interface marqueur
+    une :term:`interface` vide (sans attribut ni méthode) permettant de placer
+    un tag sur un objet. A noter qu'une :term:`interface` est associée à un
+    classe alors qu'une :term:`interface marqueur` est attribuée objet par
+    objet.
+
   invite de commandes
     Logiciel vous invitant à contrôler votre système en fournissant des
     commandes et en lisant le compte-rendu des dites commandes. Jusque dans les
