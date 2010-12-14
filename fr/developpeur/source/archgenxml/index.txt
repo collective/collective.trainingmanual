@@ -729,7 +729,9 @@ liste des commandes possibles :
    pdb.set_trace ()
    ##/code-section onSubmitDocumentAQ
 
-@TODO: associer un workflow à un type de contenu avec use_workflow
+Il est possible d'associer un workflow créé pour un type de contenu donné à un
+autre type de contenu avec l'étiquette "use_workflow", il suffit alors de donner
+le nom du workflow comme valeur à l'étiquette.
 
 Ajout d'une worklist
 --------------------
@@ -749,11 +751,219 @@ modération aux rôles donnés en valeur au marqueur.
 
 Ajout d'un validator sur un champ
 ---------------------------------
-@TODO
+
+Les validators permettent de vérifier la cohérence des valeurs des champs
+saisis. Ils sont appelés à la saisie des champs en mode d'édition online ou à
+l'enregistrement des modifications réalisées sur le contenu en mode édition.
+
+Les champs de type Archetypes utilisent des objets implémentant l'interface
+IValidator ou son alias ivalidator.
+
+Lors de la saisi du champ, les validateurs associés à un champ sont appelés
+successivement. Dés que l'un deux retourne une valeur différente de True le
+champ est en erreur et le message positionné dans la variable error.
+
+Par défaut Plone propose plusieurs instances de validators en voici les plus
+utiles :
+
+  +-----------------------+------------------------+--------------------------+
+  | Nom                   | Usage                  | Détails                  |
+  +-----------------------+------------------------+--------------------------+
+  | isDecimal             | L'entrée est elle un   | Autorise la notation     |
+  |                       | un nombre décimal ?    | scientifique.            |
+  +-----------------------+------------------------+--------------------------+
+  | isInt                 | Est ce un entier ?     |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isPrintable           | Ne doit pas contenir   | r'[a-zA-Z0-9\s]+$'       |
+  |                       | de caractères non      |                          |
+  |                       | imprimable             |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isInternationalPhone  | Est un numéro de       | Vérifie le format et     |
+  | Number                | téléphone              | ignore les espaces,      |
+  |                       | international ?        | parenthèse et barres     |
+  |                       |                        | obliques.                |
+  +-----------------------+------------------------+--------------------------+
+  | isURL                 | Est ce une url ?       | Reconnait la plus part   |
+  |                       |                        | des protocoles.          |
+  +-----------------------+------------------------+--------------------------+
+  | isEmail               | Est ce une adresse mél | Vérifiée par une         |
+  |                       | ?                      | expression régulière.    |
+  +-----------------------+------------------------+--------------------------+
+  | isMailTo              | Est ce une adresse mél |                          |
+  |                       | précédée par "mailto:" |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isUnixLikeName        | Est ce un nom          | r"^[A-Za-z][\w\d\-\_]    |
+  |                       | respectant le style    | {0,7}$"                  |
+  |                       | Unix ?                 |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isMaxSize             | Vérifie si un fichier  | Vérifie à partir de la   |
+  |                       | uploadé ou un objet    | valeur maxsize définit   |
+  |                       | supportant l'opération | sur le champ.            |
+  |                       | len() est plus petit   |                          |
+  |                       | qu'une valeur donnée.  |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isValidDate           | Est ce que la chaîne   |                          |
+  |                       | de caractères peut     |                          |
+  |                       | être convertie en date |                          |
+  |                       | ?                      |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isEmpty               | La valeur doit être    |                          |
+  |                       | vide.                  |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isEmptyNoError        | La valeur doit être    | L'erreur ne sera pas     |
+  |                       | vide.                  | montrée.                 |
+  +-----------------------+------------------------+--------------------------+
+  | isValidId             | La valeur doit         |                          |
+  |                       | correspondre à         |                          |
+  |                       | l'identifiant d'un     |                          |
+  |                       | objet.                 |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isTidyHtml            | Utilise mx.Tidy pour   | Échoue sur les erreurs   |
+  |                       | valider l'entrée HTML. | et les alertes.          |
+  +-----------------------+------------------------+--------------------------+
+  | isTidyHtmlWithCleanup | Utilise mx.Tidy pour   | Échoue sur les erreurs   |
+  |                       | valider l'entrée HTML. | mais nettoie le code des |
+  |                       |                        | alertes.                 |
+  +-----------------------+------------------------+--------------------------+
+  | isNonEmptyFile        | Vérifie que le fichier |                          |
+  |                       | uploader n'est pas     |                          |
+  |                       | vide.                  |                          |
+  +-----------------------+------------------------+--------------------------+
+  | isTAL                 | Est ce une expression  |                          |
+  |                       | Template Attribute     |                          |
+  |                       | Language ?             |                          |
+  +-----------------------+------------------------+--------------------------+
+
+
+Pour les utiliser il suffit d'ajouter "validators" comme étiquette au champ avec
+pour valeur le nom du ou des validators à utiliser.
+
+Plone offre également la possibilité de paramétrer des validators en les
+instanciant avec des paramètres puis en utilisant comme validator ces instances.
+
+Par exemple ExpressionValidator qui permet de définir un validator utilisant une
+expression TALES pour dire si la valeur saisie est correcte ou non.
+
+L'instanciation de ce validator est supportée par ArchGenXML via les étiquettes 
+validation_expression pour l'expression et validation_expression_errormsg pour
+le message d'erreur associé.
+
+RegexValidator du paquet Products.validation.validators.RegexValidator permet
+d'utiliser une expression régulière pour la validation, il faut l'instancier et
+l'enregistrer dans le code généré dans les parties réservées au code manuel.
+
+RangeValidator permet quant à lui de vérifier qu'une valeur est comprise entre
+deux bornes. Il est dans Products.validation.validators.RangeValidator.
+
+Nous allons voir comment créer un validator qui rappelle une méthode de notre
+objet.
+
+Pour cela nous commençons par créer un fichier objectcallbackvalidation.py qui
+contiendra un validator appelant une méthode dont le nom sera dynamiquement
+calculée à partir du nom du champ validé. Par convention nous imposons que la
+méthode ait un nom de la forme is_a_valid_nomduchamp sur la classe du
+contenu :
+
+.. code-block:: python
+
+	from Products.validation.interfaces import ivalidator
+
+	class ObjectCallbackValidation:
+	    __implements__ = (ivalidator,)
+	    def __init__(self,name):
+		self.name = name
+	    def __call__(self, value, *args, **kwargs):
+		fieldname = kwargs['field'].getName()
+		instance = kwargs['instance']
+		method = "is_a_valid_"+fieldname
+		# appelle la methode de verification de l'objet courant associee au champ fieldname et lui passe en parametre fieldname et request
+		return getattr(instance, method)(value)
+
+	object_callback_validation = ObjectCallbackValidation("object_callback_validation")
+
+	# enregistrement du validateur
+	from Products.validation import validation
+	validation.register(object_callback_validation)
+
+Pour qu'au chargement de notre module ce code soit appelé il nous suffit d'en
+faire un import dans la fonction "initialize" du fichier __init__.py du
+produit.
+
+Ensuite il suffit de créer une méthode "is_a_valid_nomDeMonChamp" dans notre
+modèle sur notre classe pour chacun des champs à qui on a déclaré
+object_callback_validation pour validator.
 
 Ajout une méthode
 -----------------
-@TODO
+
+L'ajout d'une méthode est simple puisqu'il suffit de l'ajouter à l'une des classes de
+nos contenus.
+
+Par exemple si nous voulons écrire une méthode que l'on utilisera comme
+validator à l'aide du code écrit précédemment pour le champ mDocument du type de
+contenu StandArtDocumentAQ pour vérifier que le fichier uplaoder est un pdf.
+
+
+.. figure:: argouml_ajout_methode.jpg
+    :align: center
+
+    Ajout d'une méthode
+
+La génération du code produit la méthode suivante dans le code
+StandArt_DocumentAQ.py :
+
+.. code-block:: python
+
+    security.declarePublic('is_a_valid_mDocument')
+    def is_a_valid_mDocument(self):
+        """
+        """
+        pass
+
+.. important::
+
+    En l'abscence de précision, la méthode générée est accessible par toute
+    page template ou pythonscript quelque soit le rôle de l'utilisateur.
+
+    Pour la protéger, il faut ajouter l'étiquette "permission" avec pour valeur
+    le nom de la permission à avoir par exemple "Modify portal content".
+
+    Cette exposition est due à la présence de la documentation de la méthode qui
+    est interprétée par Plone comme la volonté à exposer la méthode.
+
+Ajoutons au modèle le pramètre "value" à la méthode de type None (les
+informations de types ne sont pas utilisés par ArchGenXML) et générons le code à
+nouveau.
+
+Nous pouvons maintenant remplacer l'instruction pass par notre code : 
+
+.. code-block:: python
+
+  ##code-section module-header #fill in your manual code here
+  import pyPdf
+  ##/code-section module-header
+
+  #...
+
+  class StandArt_DocumentAQ(ATDocument, BrowserDefaultMixin):
+    #...
+
+    security.declareProtected("Modify portal content", 'is_a_valid_mDocument')
+    def is_a_valid_mDocument(self,value):
+        """ Test if the file is a pdf ?
+        """
+        try:
+            tell = value.tell()
+            value.seek(0)
+            f = pyPdf.PdfFileReader(value) #imported at the top of the file
+            f.documentInfo #nothing is done yet
+            value.seek(tell)
+            return 1
+        except:
+            return self.translate('error_is_valid_mDocument_type', domain='StandArt_AQ')
+
+Maintenant nous pouvons ajouter l'étiquette "validators" à mDocument avec pour
+valeur "object_callback_validation".
 
 Ajout d'une validation sur l'ensemble de l'édition
 --------------------------------------------------
