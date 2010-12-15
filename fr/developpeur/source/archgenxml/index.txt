@@ -941,6 +941,7 @@ Nous pouvons maintenant remplacer l'instruction pass par notre code :
 
   ##code-section module-header #fill in your manual code here
   import pyPdf
+  from Products.StandArt_AQ  import StandArt_AQFactory as _
   ##/code-section module-header
 
   #...
@@ -960,17 +961,120 @@ Nous pouvons maintenant remplacer l'instruction pass par notre code :
             value.seek(tell)
             return 1
         except:
-            return self.translate('error_is_valid_mDocument_type', domain='StandArt_AQ')
+            return _(u'file must be a pdf')
+
+Pour la traduction il faut ajouter StandArt_AQFactory dans le :file:__init__.py
+
+.. code-block:: python
+
+    from zope.i18nmessageid import MessageFactory
+    StandArt_AQFactory = MessageFactory('StandArt')
+
 
 Maintenant nous pouvons ajouter l'étiquette "validators" à mDocument avec pour
 valeur "object_callback_validation".
 
 Ajout d'une validation sur l'ensemble de l'édition
 --------------------------------------------------
-@TODO
 
-Ajout d'un portlet d'affichage des Document soumis
---------------------------------------------------
+Lorsque plusieurs champs sont liés entres eux il n'est possible de tester leur
+validité qu'à l'enregistrement de l'instance du contenu.
+
+Il suffit d'ajouter la méthode post_validate(self, REQUEST, errrors) au type de
+contenu. Si l'on constate des erreurs, on les remonte en remplissant le
+dictionnaire "errors" :
+
+.. code-block:: python
+
+    security.declarePublic('post_validate')
+    def post_validate(self, REQUEST,errors):
+        """ Check if the pdf info version match the DocumentNumber
+        """
+        if not REQUEST or not REQUEST.has_key('mDocument') \
+	   and not REQUEST.has_key('mDocumentNumber')  :
+            return
+        pdf_file = REQUEST['mDocument']
+        tell = pdf_file.tell()
+        pdf_file.seek(0)
+        infos = pyPdf.PdfFile.Reader(pdf_file)
+        keywords = infos['/Keywords']
+        pdf_file.seek(tell)
+        str_version = u"Version : "
+        posv = keywords.find(str_version)
+        if posv != -1 :
+            version = keywords[posv + len(str_version):].split()[0]
+            if version != REQUEST.has_key('mDocumentNumber') :
+                errors['mDocumentNumber'] = _("Document numbers doesn't match")
+
+Il est possible aussi de surcharger la méthode pre_validate qui est appellée
+avant l'appel individuel des "validators" des champs.
+
+Ajout d'un action
+-----------------
+
+En stéréotypant une méthode par "Action" nous allons ajouter un onglet à la
+barre d'édition de l'instance d'action. Cet onglet renvoie allors sur une page
+template que l'on peut définir.
+
+Par exemple nous allons ajouter un onglet "Pdf Informations" à notre DocumentAQ
+:
+
+.. figure:: argouml_action.jpg
+    :align: center
+
+    Ajout d'une action
+
+Le nom de l'onglet, son identifiant, la permission d'accès, le nom de la
+template associée, et la condition d'affichage sont données comme valeurs des
+étiquettes correspondantes.
+
+L'action est alors ajoutée dans la déclaration xml du type
+StandArt_AQ/profiles/default/types/StandArt_DocumentAQ.xml :
+
+.. code-block:: xml
+
+     <action title="Pdf Informations" 
+         i18n:attributes="title"
+         action_id="pdf_informations"
+         category="object" 
+         condition_expr="python:object.getMDocument()"
+         url_expr="string:${object_url}/document_aq_pdf_informations" 
+         visible="True">
+     <permission value="View"/>
+
+Nous pouvons alors créer la template
+StandArt_AQ/skins/standart_aq_templates/document_aq_pdf_informations.pt
+qui contient :
+
+.. code-block:: xml
+
+  <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+        xmlns:tal="http://xml.zope.org/namespaces/tal"
+        xmlns:metal="http://xml.zope.org/namespaces/metal"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        lang="en"
+        metal:use-macro="here/main_template/macros/master"
+        i18n:domain="plone">
+    <body>
+      <div metal:fill-slot="main">
+        <table>
+         <tbody>
+          <tr tal:repeat="info context/getPdfInformations">
+            <td tal:content="python:info[0]">Title</td>
+            <td tal:content="python:info[1]">Value</td>
+          </tr>
+         </tbody>
+        </table>
+      </div>
+    </body>
+  </html>
+
+Cette template appèle une méthode du type de contenu appelée getPdfInformations
+qui retourne le dictionnaire des informations. Pour la définir il nous suffit
+d'ajouter cette méthode comme nous avons fait pour les méthodes précédentes.
+
+Ajout d'un portlet d'affichage des Documents soumis
+---------------------------------------------------
 @TODO
 
 Ajout d'une vue d'édition
