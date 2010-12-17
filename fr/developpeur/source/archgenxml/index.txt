@@ -757,7 +757,7 @@ saisis. Ils sont appelés à la saisie des champs en mode d'édition online ou �
 l'enregistrement des modifications réalisées sur le contenu en mode édition.
 
 Les champs de type Archetypes utilisent des objets implémentant l'interface
-IValidator ou son alias ivalidator.
+IValidator.
 
 Lors de la saisi du champ, les validateurs associés à un champ sont appelés
 successivement. Dés que l'un deux retourne une valeur différente de True le
@@ -866,24 +866,27 @@ contenu :
 
 .. code-block:: python
 
-	from Products.validation.interfaces import ivalidator
+    from Products.validation.interfaces.IValidator import IValidator
+    from zope.interface import implements
 
-	class ObjectCallbackValidation:
-	    __implements__ = (ivalidator,)
-	    def __init__(self,name):
-		self.name = name
-	    def __call__(self, value, *args, **kwargs):
-		fieldname = kwargs['field'].getName()
-		instance = kwargs['instance']
-		method = "is_a_valid_"+fieldname
-		# appelle la methode de verification de l'objet courant associee au champ fieldname et lui passe en parametre fieldname et request
-		return getattr(instance, method)(value)
 
-	object_callback_validation = ObjectCallbackValidation("object_callback_validation")
+    class ObjectCallbackValidation:
+        implements(IValidator)
+        def __init__(self,name):
+            self.name = name
+        def __call__(self, value, *args, **kwargs):
+            fieldname = kwargs['field'].getName()
+            instance = kwargs['instance']
+            method = "is_a_valid_"+fieldname
+            # callback the object vaildation methode for the field
+            return getattr(instance, method)(value)
+ 
+    object_callback_validation = ObjectCallbackValidation("object_callback_validation")
 
-	# enregistrement du validateur
-	from Products.validation import validation
-	validation.register(object_callback_validation)
+    # validator registration
+    from Products.validation import validation
+    validation.register(object_callback_validation)
+
 
 Pour qu'au chargement de notre module ce code soit appelé il nous suffit d'en
 faire un import dans la fonction "initialize" du fichier __init__.py du
@@ -893,8 +896,8 @@ Ensuite il suffit de créer une méthode "is_a_valid_nomDeMonChamp" dans notre
 modèle sur notre classe pour chacun des champs à qui on a déclaré
 object_callback_validation pour validator.
 
-Ajout une méthode
------------------
+Ajout d'une méthode
+-------------------
 
 L'ajout d'une méthode est simple puisqu'il suffit de l'ajouter à l'une des classes de
 nos contenus.
@@ -987,30 +990,46 @@ dictionnaire "errors" :
 .. code-block:: python
 
     security.declarePublic('post_validate')
-    def post_validate(self, REQUEST,errors):
+    def post_validate(self,REQUEST,errors):
         """ Check if the pdf info version match the DocumentNumber
         """
-        if not REQUEST or not REQUEST.has_key('mDocument') \
-	   and not REQUEST.has_key('mDocumentNumber')  :
-            return
-        pdf_file = REQUEST['mDocument']
+        if not REQUEST : return
+        pdf_file = REQUEST.has_key('mDocument_file') and \
+                        REQUEST.form['mDocument_file'] or None
+        version_number = REQUEST.has_key('mDocumentNumber') and \
+                        REQUEST.form['mDocumentNumber'] or None
+        m_document = self.getMDocument()
+        m_document_number = self.getMDocumentNumber()
+        if pdf_file is None and version_number is None or \
+            pdf_file is None and not m_document or \
+            version_number is None and m_document_number is None :
+                return
+        if pdf_file is None :
+            pdf_file = StringIO.StringIO(m_document)
+        if version_number is None :
+            version_number = m_document_number
         tell = pdf_file.tell()
         pdf_file.seek(0)
-        infos = pyPdf.PdfFile.Reader(pdf_file)
+        infos = pyPdf.PdfFileReader(pdf_file).documentInfo
         keywords = infos['/Keywords']
         pdf_file.seek(tell)
         str_version = u"Version : "
         posv = keywords.find(str_version)
         if posv != -1 :
             version = keywords[posv + len(str_version):].split()[0]
-            if version != REQUEST.has_key('mDocumentNumber') :
+            if version != version_number :
                 errors['mDocumentNumber'] = _("Document numbers doesn't match")
 
 Il est possible aussi de surcharger la méthode pre_validate qui est appellée
 avant l'appel individuel des "validators" des champs.
 
-Ajout d'un action
------------------
+..important::
+
+   Dans le cas d'une édition en ligne c'est à dire sans passer par l'onglet
+   Modifier la méthode post_validate n'est pas appelée.
+
+Ajout d'une action
+------------------
 
 En stéréotypant une méthode par "Action" nous allons ajouter un onglet à la
 barre d'édition de l'instance d'action. Cet onglet renvoie allors sur une page
@@ -1058,10 +1077,10 @@ qui contient :
     <body>
       <div metal:fill-slot="main">
         <table>
-         <tbody>
-          <tr tal:repeat="info context/getPdfInformations">
-            <td tal:content="python:info[0]">Title</td>
-            <td tal:content="python:info[1]">Value</td>
+         <tbody tal:define="pdf_informations python:context.getPdfInformations()">
+          <tr tal:repeat="keyword pdf_informations">
+            <td tal:content="keyword">Title</td>
+            <td tal:content="python:pdf_informations[keyword]">Value</td>
           </tr>
          </tbody>
         </table>
@@ -1072,6 +1091,21 @@ qui contient :
 Cette template appèle une méthode du type de contenu appelée getPdfInformations
 qui retourne le dictionnaire des informations. Pour la définir il nous suffit
 d'ajouter cette méthode comme nous avons fait pour les méthodes précédentes.
+
+.. code-block:: python
+
+    security.declareProtected("View", 'getPdfInformations')
+    def getPdfInformations(self):
+        """ Return the pdf document informations
+        """
+        document = self.getMDocument()
+        if not document :
+            return {}
+        strfile = StringIO.StringIO(document)
+        documentInfo = pyPdf.PdfFileReader(strfile).documentInfo
+        return documentInfo.copy() #The copy is needed by security check
+
+Il faut ajouter l'import 
 
 Ajout d'un portlet d'affichage des Documents soumis
 ---------------------------------------------------
