@@ -966,7 +966,8 @@ Nous pouvons maintenant remplacer l'instruction pass par notre code :
         except:
             return _(u'file must be a pdf')
 
-Pour la traduction il faut ajouter StandArt_AQFactory dans le :file:__init__.py
+Pour la traduction il faut ajouter StandArt_AQFactory dans le
+:file:`__init__.py`
 
 .. code-block:: python
 
@@ -1124,7 +1125,7 @@ stéréotype "portlet".
 
 La génération du module avec ArchGenXML produit deux fichiers.
 
-Le fichier :file:StandArt_AQ/profiles/default/portlets.xml contient la
+Le fichier :file:`StandArt_AQ/profiles/default/portlets.xml` contient la
 déclaration de la portlet :
 
 .. code-block:: xml
@@ -1144,7 +1145,7 @@ déclaration de la portlet :
 On y voit le nom de la portlet et la vue associée.
 
 Si l'on ouvre le fichier de la vue générée
-:file:StandArt_AQ/content/StandArt_WorkList.py on y voit principalement :
+:file:`StandArt_AQ/content/StandArt_WorkList.py` on y voit principalement :
 
 .. code-block:: python
 
@@ -1203,7 +1204,7 @@ Dans notre cas pour réaliser la worklist il faut faire :
                      review_state = review_states)
         ##/code-section renderer-body
 
-Et la page template :file:StandArt_AQ/content/templates/StandArt_WorkList.pt
+Et la page template :file:`StandArt_AQ/content/templates/StandArt_WorkList.pt`
 
 .. code-block:: xml
 
@@ -1259,7 +1260,7 @@ type donné.
 Il suffit de créer un fichier template dans le répertoire skins basé sur le nom
 du type mis en minucule et suivit du postfixe _edit par exemple pour modifier la
 vue d'édition de StandArt_DocumentAQ il suffit de créer le fichier 
-:file:StandArt_AQ/skins/standart_aq_templates/standart_documentaq_edit.pt
+:file:`StandArt_AQ/skins/standart_aq_templates/standart_documentaq_edit.pt`
 qui contient alors les slots de la template de base que l'on veut surcharger.
 
 Par exemple si l'on souhaite "Faire un truc super cool" juste avant l'affichage
