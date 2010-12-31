@@ -1169,10 +1169,8 @@ Si l'on ouvre le fichier de la vue générée
         ##code-section addform-body #fill in your manual code here
         ##/code-section addform-body
 
-Pour remplir et rendre fonctionnel ce code lisez le chapitre sur "Les portlets"
-écrit par Gilles Lenfant  accessible sur
-'http://www.plone.fr/documentation/documentation-developpeur/portlets/index.html'
- ou sur 'http://docs.ecreall.com/developpeur/portlets/index.html'
+Pour remplir et rendre fonctionnel ce code lisez le chapitre
+:ref:`les_portlets`.
 
 Dans notre cas pour réaliser la worklist il faut faire :
 

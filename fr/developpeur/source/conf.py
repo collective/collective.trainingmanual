@@ -25,6 +25,7 @@ import sys, os
 extensions = ['sphinx.ext.todo',
               'sphinx.ext.ifconfig',
               'sphinx.ext.intersphinx']
+intersphinx_mapping = {'integrateur': ('http://docs.ecreall.com/integrateur', None)}
 
 todo_include_todos = False
 
