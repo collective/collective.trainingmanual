@@ -22,7 +22,10 @@ import sys, os
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
-extensions = ['sphinx.ext.todo', 'sphinx.ext.ifconfig']
+extensions = ['sphinx.ext.todo',
+              'sphinx.ext.ifconfig',
+              'sphinx.ext.intersphinx']
+intersphinx_mapping = {'developpeur': ('http://docs.ecreall.com/developpeur', None)}
 
 todo_include_todos = False
 

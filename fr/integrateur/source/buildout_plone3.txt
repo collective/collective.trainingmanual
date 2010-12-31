@@ -32,8 +32,8 @@ PURPOSE.
 .. note::
 
     Ce chapitre utilise un dépôt subversion créé dans le chapitre
-    `La gestion des sources avec subversion
-    <http://docs.ecreall.com/developpeur/gestion_des_sources.html>`__
+    :ref:`La gestion des sources avec subversion
+    <developpeur:gestion_des_sources>`
     ainsi qu'un Pypi privé créé via :ref:`PloneSoftwareCenter`.
 
 Création du buildout
