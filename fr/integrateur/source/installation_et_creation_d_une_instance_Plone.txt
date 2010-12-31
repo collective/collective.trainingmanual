@@ -146,8 +146,8 @@ http://python.org, sélectionner "install for all users" qui créera le réperto
 Changer la variable d'environnement :term:`path` pour que Windows puisse
 automatiquement associer la commande :command:`python` à l'environnement :
 
-- Python 2.6. Pour cela ouvrez Le panneau de configuration ->
-  Les Propriétés système -> Variables d'environnement -> Path -> Modifier
+- Python 2.6. Pour cela ouvrez Le :menuselection:`panneau de configuration -->
+  Les Propriétés système --> Variables d'environnement --> Path --> Modifier`
 
 - Ajoutez y en fin ``;c:\Python26;c:\Python26\Scripts``.
 
