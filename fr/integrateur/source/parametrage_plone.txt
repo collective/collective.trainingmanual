@@ -846,6 +846,8 @@ ou d'y répondre.
 .. figure:: ./parametrage/commentaire-ajoute.png
     :align: center
 
+.. portlets-specifiques-du-type-de-contenu:
+
 Portlets spécifiques du type de contenu
 ---------------------------------------
 
