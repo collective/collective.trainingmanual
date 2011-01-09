@@ -1,10 +1,10 @@
 .. -*- coding: utf-8 -*-
 
-.. vues_standard
+.. _les_vues_standard:
 
-=============
-Vues standard
-=============
+=================
+Les vues standard
+=================
 
 Qu'est-ce que c'est ?
 =====================
