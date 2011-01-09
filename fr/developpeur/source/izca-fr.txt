@@ -33,18 +33,15 @@ PURPOSE.
 
 .. sidebar:: Remerciements
 
-  De nombreuses personnes m'ont aidé à écrire ce livre. Le brouillon initial a été
-  relu par mon collègue Brad Allen. Quand j'ai annoncé ce livre sur mon blog, j'ai
-  reçu de nombreux encouragements pour poursuivre ce travail. Kent Tenney a
-  modifié de nombreuses parties du livre et a également réécrit l'application
-  servant d'exemple. De nombreuses autres personnes m'ont envoyé des corrections
-  et des commentaires, dont Lorenzo Gil Sanchez, Michael Haubenwallner, Nando
-  Quintana, Stephane Klein, Tim Cook, Kamal Gill et Thomas Herve. Lorenzo a
-  traduit ce travail en espagnol et Stephane initié la traduction en français. Merci à
-  toutes ces personnes !
-
-.. contents::
-.. .. sectnum::
+  De nombreuses personnes m'ont aidé à écrire ce livre. Le brouillon initial a
+  été relu par mon collègue Brad Allen. Quand j'ai annoncé ce livre sur mon
+  blog, j'ai reçu de nombreux encouragements pour poursuivre ce travail. Kent
+  Tenney a modifié de nombreuses parties du livre et a également réécrit
+  l'application servant d'exemple. De nombreuses autres personnes m'ont envoyé
+  des corrections et des commentaires, dont Lorenzo Gil Sanchez, Michael
+  Haubenwallner, Nando Quintana, Stephane Klein, Tim Cook, Kamal Gill et Thomas
+  Herve. Lorenzo a traduit ce travail en espagnol et Stephane initié la
+  traduction en français. Merci à toutes ces personnes !
 
 
 Mise en route

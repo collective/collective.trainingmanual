@@ -438,7 +438,7 @@ Définition des termes et abréviations utilisés dans ce document.
     ne peut bien entendu être possible que si ces deux composants exposent les
     ressources ZCA (généralement des interfaces) permettant ceci. L'utilisation
     de la ZCA, entamée par Plone depuis sa version 2.5, se généralise depuis sa
-    version 3. Plus de détails dans :ref:`concepts_zope3`.
+    version 3. Plus de détails dans :ref:`guide_zca`.
 
   zc.buildout
     voir :term:`buildout`.
