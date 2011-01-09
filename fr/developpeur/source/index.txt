@@ -17,16 +17,18 @@ Ce document constitué à partir de contributions de la communauté Plone
 francophone, notamment :
 
 * Le manuel de formation intégrateur Plone par `Vincent Fretin
-  <http://vincentfretin.ecreall.com>`__ (`Ecréall <http://www.ecreall.com>`__)
+  <http://vincentfretin.ecreall.com>`_ (`Ecréall <http://www.ecreall.com>`_)
 
 * Le cours sur le développement pour Plone par `Michael Launay`
-  (`Ecréall <http://www.ecreall.com>`__)
+  (`Ecréall <http://www.ecreall.com>`_)
 
-* La traduction par `Christophe Combelles <http://ccomb.gorfou.fr/>`__ du livre
-  de `Baiju Muthukadan <http://www.muthukadan.net/>`__ sur la Zope Component Architecture
+* La traduction par `Christophe Combelles <http://ccomb.gorfou.fr/>`_ du livre
+  de `Baiju Muthukadan <http://www.muthukadan.net/>`_ sur la Zope Component
+  Architecture
 
 * Les travaux, les relectures et les très nombreuses contributions de `Gilles
-  Lenfant` et `Thomas Desvenain`
+  Lenfant <http://glenfant.wordpress.com>`_ et `Thomas Desvenain
+  <http://www.thomasdesvenain.fr>`_
 
 * Le cours sur Python 3 de `Robert Cordeau
   <http://www.afpy.org/Members/tarek/initiation-python-3>`__
@@ -67,7 +69,9 @@ Indexes et tables
 =================
 
 * :ref:`genindex`
-* :ref:`modindex`
+
+.. * :ref:`modindex`
+
 * :ref:`search`
 
 Contributeurs
@@ -78,6 +82,7 @@ Contributeurs
 * `Gilles Lenfant <http://glenfant.wordpress.com>`_
 * `Thomas Desvenain <http://www.thomasdesvenain.fr/>`_
 * `Michaël Launay <http://www.ecreall.com>`_
+* `Christophe Combelles <http://ccomb.gorfou.fr/>`_
 
 Evolutions planifiées de ce document
 ====================================
