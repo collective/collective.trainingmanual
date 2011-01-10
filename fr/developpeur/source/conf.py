@@ -11,7 +11,7 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys, os, time
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -43,7 +43,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'Plone pour les développeurs'
-copyright = u'2010, Communauté Plone francophone'
+copyright = u'2010-%d, Communauté Plone francophone' % time.localtime()[0]
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
