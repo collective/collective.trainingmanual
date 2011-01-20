@@ -6,6 +6,13 @@
 Internationalisation d'un composant
 ===================================
 
+:Author: Vincent Fretin
+:Version: 1.0.0
+:Contributors: Thomas Desvenain
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/internationalisation.txt>`_
+
+Copyright (C) 2010, Vincent Fretin <vincentfretin AT gmail.com>.
+
 Plone est multilingue. Cette partie explique comment rendre votre composant
 disponible en plusieurs langues.
 
