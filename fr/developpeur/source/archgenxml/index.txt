@@ -749,19 +749,19 @@ l'objet, mais la liste de modération de Plone regroupe tous les objets associé
 Le marqueur ``worklist:guard_roles`` permet de restreindre la notification de
 modération aux rôles donnés en valeur au marqueur.
 
-Ajout d'un validator sur un champ
----------------------------------
+Ajout d'un validateur sur un champ
+----------------------------------
 
-Les validators permettent de vérifier la cohérence des valeurs des champs
+Les #validators# permettent de vérifier la cohérence des valeurs des champs
 saisis. Ils sont appelés à la saisie des champs en mode d'édition online ou à
 l'enregistrement des modifications réalisées sur le contenu en mode édition.
 
 Les champs de type Archetypes utilisent des objets implémentant l'interface
 IValidator.
 
-Lors de la saisi du champ, les validateurs associés à un champ sont appelés
-successivement. Dés que l'un deux retourne une valeur différente de True le
-champ est en erreur et le message positionné dans la variable error.
+Lors de la saisie du champ, les validateurs associés à un champ sont appelés
+successivement. Dés que l'un deux retourne une valeur différente de True, le
+champ est en erreur et un message correspondant est positionné dans la variable error.
 
 Par défaut Plone propose plusieurs instances de validators en voici les plus
 utiles :
@@ -772,27 +772,27 @@ utiles :
   | isDecimal             | L'entrée est elle un   | Autorise la notation     |
   |                       | un nombre décimal ?    | scientifique.            |
   +-----------------------+------------------------+--------------------------+
-  | isInt                 | Est ce un entier ?     |                          |
+  | isInt                 | Est-ce un entier ?     |                          |
   +-----------------------+------------------------+--------------------------+
   | isPrintable           | Ne doit pas contenir   | r'[a-zA-Z0-9\s]+$'       |
   |                       | de caractères non      |                          |
-  |                       | imprimable             |                          |
+  |                       | imprimables            |                          |
   +-----------------------+------------------------+--------------------------+
   | isInternationalPhone  | Est un numéro de       | Vérifie le format et     |
   | Number                | téléphone              | ignore les espaces,      |
   |                       | international ?        | parenthèse et barres     |
   |                       |                        | obliques.                |
   +-----------------------+------------------------+--------------------------+
-  | isURL                 | Est ce une url ?       | Reconnait la plus part   |
+  | isURL                 | Est-ce une url ?       | Reconnait la plus part   |
   |                       |                        | des protocoles.          |
   +-----------------------+------------------------+--------------------------+
-  | isEmail               | Est ce une adresse mél | Vérifiée par une         |
+  | isEmail               | Est-ce une adresse mél | Vérifiée par une         |
   |                       | ?                      | expression régulière.    |
   +-----------------------+------------------------+--------------------------+
-  | isMailTo              | Est ce une adresse mél |                          |
+  | isMailTo              | Est-ce une adresse mél |                          |
   |                       | précédée par "mailto:" |                          |
   +-----------------------+------------------------+--------------------------+
-  | isUnixLikeName        | Est ce un nom          | r"^[A-Za-z][\w\d\-\_]    |
+  | isUnixLikeName        | Est-ce un nom          | r"^[A-Za-z][\w\d\-\_]    |
   |                       | respectant le style    | {0,7}$"                  |
   |                       | Unix ?                 |                          |
   +-----------------------+------------------------+--------------------------+
@@ -802,7 +802,7 @@ utiles :
   |                       | len() est plus petit   |                          |
   |                       | qu'une valeur donnée.  |                          |
   +-----------------------+------------------------+--------------------------+
-  | isValidDate           | Est ce que la chaîne   |                          |
+  | isValidDate           | Est-ce que la chaîne   |                          |
   |                       | de caractères peut     |                          |
   |                       | être convertie en date |                          |
   |                       | ?                      |                          |
@@ -829,7 +829,7 @@ utiles :
   |                       | uploader n'est pas     |                          |
   |                       | vide.                  |                          |
   +-----------------------+------------------------+--------------------------+
-  | isTAL                 | Est ce une expression  |                          |
+  | isTAL                 | Est-ce une expression  |                          |
   |                       | Template Attribute     |                          |
   |                       | Language ?             |                          |
   +-----------------------+------------------------+--------------------------+
@@ -844,7 +844,7 @@ instanciant avec des paramètres puis en utilisant comme validator ces instances
 Par exemple ExpressionValidator qui permet de définir un validator utilisant une
 expression TALES pour dire si la valeur saisie est correcte ou non.
 
-L'instanciation de ce validator est supportée par ArchGenXML via les étiquettes 
+L'instanciation de ce validator est supportée par ArchGenXML via les étiquettes
 validation_expression pour l'expression et validation_expression_errormsg pour
 le message d'erreur associé.
 
@@ -880,7 +880,7 @@ contenu :
             method = "is_a_valid_"+fieldname
             # callback the object vaildation methode for the field
             return getattr(instance, method)(value)
- 
+
     object_callback_validation = ObjectCallbackValidation("object_callback_validation")
 
     # validator registration
@@ -938,7 +938,7 @@ Ajoutons au modèle le pramètre "value" à la méthode de type None (les
 informations de types ne sont pas utilisés par ArchGenXML) et générons le code à
 nouveau.
 
-Nous pouvons maintenant remplacer l'instruction pass par notre code : 
+Nous pouvons maintenant remplacer l'instruction pass par notre code :
 
 .. code-block:: python
 
@@ -1053,12 +1053,12 @@ StandArt_AQ/profiles/default/types/StandArt_DocumentAQ.xml :
 
 .. code-block:: xml
 
-     <action title="Pdf Informations" 
+     <action title="Pdf Informations"
          i18n:attributes="title"
          action_id="pdf_informations"
-         category="object" 
+         category="object"
          condition_expr="python:object.getMDocument()"
-         url_expr="string:${object_url}/document_aq_pdf_informations" 
+         url_expr="string:${object_url}/document_aq_pdf_informations"
          visible="True">
      <permission value="View"/>
 
@@ -1106,7 +1106,7 @@ d'ajouter cette méthode comme nous avons fait pour les méthodes précédentes.
         documentInfo = pyPdf.PdfFileReader(strfile).documentInfo
         return documentInfo.copy() #The copy is needed by security check
 
-Il faut ajouter l'import 
+Il faut ajouter l'import
 
 Ajout d'un portlet d'affichage des Documents soumis
 ---------------------------------------------------
@@ -1259,7 +1259,7 @@ type donné.
 
 Il suffit de créer un fichier template dans le répertoire skins basé sur le nom
 du type mis en minucule et suivit du postfixe _edit par exemple pour modifier la
-vue d'édition de StandArt_DocumentAQ il suffit de créer le fichier 
+vue d'édition de StandArt_DocumentAQ il suffit de créer le fichier
 :file:`StandArt_AQ/skins/standart_aq_templates/standart_documentaq_edit.pt`
 qui contient alors les slots de la template de base que l'on veut surcharger.
 
