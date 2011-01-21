@@ -106,7 +106,7 @@ Vous allez éditer un peu le fichier :file:`buildout.cfg` avant d'amorcer
 le buildout.
 
 Créez un fichier :file:`versions.cfg` que vous utiliserez
-pour gelez les versions des modules, pour l'instant vide :
+pour geler les versions des modules, pour l'instant vide :
 
 .. code-block:: cfg
 
@@ -131,7 +131,7 @@ Plone, vous pouvez le télécharger comme ceci :
       http://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0/versions.cfg \
       > versions-plone.cfg
 
-et changez votre :file:`buildout.cfg` pour que l'option extends ressemeble à
+et changez votre :file:`buildout.cfg` pour que l'option extends ressemble à
 ceci :
 
 .. code-block:: cfg
@@ -150,10 +150,10 @@ Ajoutez :
        PIL
 
 PIL est téléchargé depuis http://dist.plone.org/thirdparty.
-L'archive PIL téléchable sur pypi.python.org n'est pas easy_installable.
+L'archive PIL téléchargeable sur pypi.python.org n'est pas easy_installable.
 
 La section ``[productdistros]`` est utilisée pour installer des produits Zope
-non encore eggifiés, rare de nos jours.
+non encore eggifiés, rares de nos jours.
 
 Le :file:`buildout.cfg` minimal que vous devez obtenir :
 
@@ -243,7 +243,7 @@ Démarrez l'instance :
 Pour les produits n'étant pas dans l'espace de nom (namespace en anglais)
 *Products*, il faut également l'ajouter dans l'option zcml.
 
-À moins que le produit se proclame plugin plone comme c'est le cas
+À moins que le produit se proclame plugin Plone comme c'est le cas
 des modules créés avec la commande :command:`paster` que vous verrez dans
 la suite. Dans ce cas-là les fichiers zcml seront inclus grâce à
 :mod:`z3c.autoinclude`.
@@ -302,10 +302,10 @@ de :mod:`formation.policy` dans le fichier :file:`src/formation.policy/setup.py`
 (option install_requires).
 
 Lorsque vous êtes dans le dossier src, la commande :command:`svn stat` vous
-renvoie les changements fait dans les externals, ici les changements de
+renvoie les changements faits dans les externals, ici les changements de
 :mod:`formation.policy` s'il y en a.
 
-La commande :command:`svn up` sera également fait dans les différents externals.
+La commande :command:`svn up` sera également faite dans les différents externals.
 La seule exception est la commade :command:`svn ci` exécutée à partir du dossier
 :file:`src` ou plus en amont, les fichiers modifiés ou ajoutés dans les
 externals ne seront pas commités.
@@ -445,7 +445,7 @@ section ``[instance]`` dans :file:`buildout.cfg`.
 
 .. _`système de plugin`: http://plone.org/products/plone/roadmap/247
 
-Pour cela vérifiez que le egg est déclaré comme plugin plone, avec dans :file:`src/formation.policy/setup.py` :
+Pour cela vérifiez que le egg est déclaré comme plugin Plone, avec dans :file:`src/formation.policy/setup.py` :
 
 .. code-block:: python
 
@@ -535,7 +535,7 @@ L'inconvénient de cette ligne est que vous avez l'information
 :mod:`genericsetup.quickinstaller` à deux endroits, une première fois dans le
 fichier :file:`setup.py` et une deuxième fois dans :file:`configure.zmcl`.
 
-Plone 3.3 inclu le package :mod:`z3c.autoinclude` qui permet de ne pas se
+Plone 3.3 inclut le package :mod:`z3c.autoinclude` qui permet de ne pas se
 répéter. En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci
 :
 
@@ -583,7 +583,7 @@ cliquez sur l'onglet :guilabel:`Properties`.
 Retournez dans :guilabel:`portal_setup`, :guilabel:`Snapshots`. Recréez un
 snapshot. Cliquez maintenant sur l'onglet :guilabel:`Comparison` et comparez
 vos deux snapshots. Vous voyez bien que la propriété *wysiwyg_editor*
-a été modifié dans le fichier :file:`memberdata_properties.xml`.
+a été modifiée dans le fichier :file:`memberdata_properties.xml`.
 
 Maintenant vous allez exporter cette configuration dans votre policy package.
 Cliquez sur :guilabel:`portal_setup` dans le fil d'arianne, et cliquez
@@ -688,7 +688,7 @@ commentaire qui sera intégré dans Plone 4.1.
 
 Ajoutez plone.app.discussion dans :file:`setup.py`.
 Incrémentez version dans :file:`metadata.xml`, ajouter la dépendance
-profile-plone.app.discussion:default. Géler la version 3.6.4 de zope.shema.
+profile-plone.app.discussion:default. Gelez la version 3.6.4 de zope.shema.
 
 .. code-block:: xml
 
@@ -750,7 +750,7 @@ La première chose à faire et d'éditer le changelog dans le fichier
 :file:`docs/HISTORY.txt`.
 
 Ce fichier texte est au format reST (`reStructuredText`_). Il faut respecter
-certaines convention d'écriture pour que ce fichier puisse être généré ensuite
+certaines conventions d'écriture pour que ce fichier puisse être généré ensuite
 en HTML sur :term:`Pypi`.
 
 - le soulignage d'un titre doit aller exactement jusqu'au bout du titre.
@@ -759,7 +759,7 @@ en HTML sur :term:`Pypi`.
 .. _`reStructuredText`: http://docutils.sourceforge.net/rst.html
 
 Pour cette première release, vous allez seulement spécifier la date de la release. Remplacez juste *unreleased* par *2009-06-11*.
-Remplacez également la puce de la liste, l'étoile par un tiret qui est la convention dans les produits plone.
+Remplacez également la puce de la liste, l'étoile par un tiret qui est la convention dans les produits Plone.
 
 Votre fichier doit ressembler à ceci :
 
@@ -818,7 +818,7 @@ Et commitez :
 
     $ svn ci -m "Update version after release"
 
-Pour plus d'informations sur comment faire une release, voyez les liens suivants
+Pour plus d'informations sur la manière de faire une release, voyez les liens suivants
 :
 
 - http://grok.zope.org/documentation/how-to/releasing-software
