@@ -22,7 +22,7 @@ disponible en plusieurs langues.
    Nous distinguerons l'**internationalisation** (:term:`i18n`), qui consiste à
    utiliser l'API de production de textes dans le code Python et les templates,
    de la **localisation** (:term:`l10n`), qui consiste à fournir la traduction
-   des labels produits lors de durant l'internationalisation.
+   des labels produits lors de l'internationalisation.
 
 Exemples de la formation
 ========================
@@ -49,7 +49,7 @@ Pour l'installer, ajoutez à votre buildout :
     [sources]
     collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/collective.trainingmanual.i18nexamples
 
-Vous pourrez observer les exemples de cette formation en allant à l'addresse
+Vous pourrez observer les exemples de cette formation en allant à l'adresse
 /i18nexamples depuis la racine de votre site.
 
 Internationaliser un composant
@@ -59,7 +59,7 @@ Connaissances requises
 ----------------------
 
 Nous recommandons aux lecteurs de prendre préalablement connaissance des
-mécanismes standard d'internationalisation des applications, basé sur le
+mécanismes standards d'internationalisation des applications, basé sur le
 standard "GNU-gettext" http://fr.wikipedia.org/wiki/Gettext
 
 Les amateurs de détails pourront se reporter à la documentation complète en
@@ -129,7 +129,7 @@ vous devez procéder ainsi.
 .. sidebar::
    Utiliser les labels du domaine "plone"
 
-   Pour raison de cohérence globale de votre site, il est recommandé, dans la
+   Pour des raisons de cohérence globale de votre site, il est recommandé, dans la
    mesure du possible de reprendre les traductions déjà fournies par Plone. Pour
    effectuer ceci dans du code Python :
 
