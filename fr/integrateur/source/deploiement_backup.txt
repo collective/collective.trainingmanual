@@ -118,8 +118,8 @@ qui lancera tous les processus ayant autostart=true (par defaut) : ::
 
     $ sudo bin/supervisord
 
-(varnish et haproxy ont besoin d'être démarré en root pour activer
-certaines options. Les processus sont ensuite forker pour utiliser
+(varnish et haproxy ont besoin d'être démarrés en root pour activer
+certaines options. Les processus sont ensuite forkés pour utiliser
 l'utilisateur zope)
     
 Vous pouvez voir l'état des processus avec : ::
@@ -160,7 +160,7 @@ Vous avez par défaut les options suivantes :
 `Plus d'informations sur les options de la recipe
 <http://pypi.python.org/pypi/collective.recipe.backup>`__
 
-Pour exécuter la sauvegarde toutes les nuits, vous pouvez ajoutez un cron job
+Pour exécuter la sauvegarde toutes les nuits, vous pouvez ajouter un cron job
 (:command:`crontab -e`), ici à 3h du matin :
 
 .. code-block:: cfg
@@ -319,7 +319,7 @@ Redémarrez Apache :
 Configuration des DNS
 =====================
 
-Configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
+Pour configurer vos DNS ou pour tester en local, éditez :file:`/etc/hosts` :
 
 .. code-block:: text
 
