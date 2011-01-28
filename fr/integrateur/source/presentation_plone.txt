@@ -590,7 +590,7 @@ Sécurisation
 ------------
 
 La sécurité de Plone passe par l'utilisation du protocole ssl et vous devez
-donc acheter un certificat X509 au prés d'une autorité reconnue par vos
+donc acheter un certificat X509 auprès d'une autorité reconnue par vos
 navigateurs internet ou en générer un autosigné.
 
 Statistiques
