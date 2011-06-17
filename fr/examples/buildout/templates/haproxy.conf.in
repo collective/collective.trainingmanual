@@ -47,7 +47,7 @@ backend zope
   # appsession __ac len 32 timeout 1d
   balance roundrobin
   cookie serverid insert nocache indirect
-  option httpchk
+  option httpchk GET /
 
   server  plone0101 ${instance1:http-address} cookie p0101 maxconn 2 check inter 2000 rise 2 fall 5
   server  plone0102 ${instance2:http-address} cookie p0102 maxconn 2 check inter 2000 rise 2 fall 5
