@@ -1,0 +1,120 @@
+.. -*- coding: utf-8 -*-
+
+.. _traitement-zcml:
+
+============================
+Traitement des fichiers ZCML
+============================
+
+
+Quand les fichiers ZCML sont-ils traîtés ?
+==========================================
+
+Les fichiers ZCML sont traîtés uniquement lors du démarrage de votre instance
+Zope, et le plus tard possible avant le traitement de la première requête par le
+publisher.
+
+Ce traitement commence par lire le fichier
+:file:`$INSTANCE_HOME/etc/site.zcml`. Comme les commentaires de ce fichier nous
+l'indique, celui-ci commence par traiter le package :mod:`Products.Five`, puis
+traite **dans cet ordre** :
+
+* Les fichiers :file:`meta.zcml`. Ces fichiers spéciaux, sur lesquels nous
+  reviendrons par la suite, sont dédiés aux définitions des vocabulaires ZCML
+  (namespaces, éléments et attributs) définis par certains composants de Zope et
+  Plone, voir certains composants de tierce partie tels `iw.fss
+  <http://plone.org/products/filesystemstorage>`_, `collective.monkeypatcher
+  <http://pypi.python.org/pypi/collective.monkeypatcher>`_.
+
+* Les fichiers :file:`configure.zcml`. Ces fichiers, les plus courants utilisent
+  les services et éléments définis dans les divers fichiers :file:`meta.zcml`
+  pour configurer et intégrer les éléments logiciels dans les composants dans
+  lesquels ils figurent.
+
+* Les fichier :file:`overrides.zcml`. Ces fichiers permettent de remplacer une
+  ou plusieurs directives figurant dans un fichier :file:`configure.zcml`. Par
+  exemple, si vous voulez dans votre :term:`policy product` changer la vue par
+  défaut d'un contenu définie dans un composant de tierce partie par une vie
+  personnalisée, ou modifier une viewlet standard, la façon la plus simple de
+  procéder est de fournir ceci dans un fichier :file:`overrides.zcml`.
+
+.. attention::
+
+   Pour ceux qui connaissent déjà Zope 3 / Bluebream, les fichiers
+   :file:`ftesting.zcml` ne sont pas pris en compte par Zope 2.
+
+Comment déclarer son ou ses fichiers ZCML ?
+===========================================
+
+Comme nous l'avons vu plus haut, Zope, lors du démarrage, ne s'intéresse qu'au
+seul fichier :file:`$INSTANCE_HOME/etc/site.zcml`. Le langage ZCML inclut dans
+son namespace standard l'élément ``<include>`` qui permet d'inclure - comme son
+nom l'indique - les directives ZCML d'un fichier ou d'un package [#include]_.
+
+.. [#include] Nous reviendrons plus en détail sur cette directive dans la
+              référence ZCML en fin de ce chapitre.
+
+Pour que les directives des fichiers :file:`configure.zcml`, et éventuellement
+:file:`overrides.zcml` ou plus rarement :file:`meta.zcml` soient traitées au
+démarrage de votre instance, encore faut-il que ces fichiers soient référencés
+dans ceux appellés depuis :file:`$INSTANCE_HOME/etc/site.zcml`.
+
+C'est fastidieux. Heureusement, les développeurs du `recipe
+plone.recipe.zope2instance
+<http://pypi.python.org/pypi/plone.recipe.zope2instance>`_ que vous utilisez
+forcément pour configurer votre déploiement avec :term:`buildout` vous
+permettent de créer automatiquement une jonction entre le fichier
+:file:`$INSTANCE_HOME/etc/site.zcml` et vos :file:`configure.zcml`,
+:file:`overrides.zcml` et :file:`meta.zcml`. Dans la mesure bien sûr et comme
+recommandé, où vous placez ces fichiers dans le répertoire principal de votre
+package.
+
+Exemple :
+
+.. code-block:: ini
+   :linenos:
+
+   ...
+   [instance]
+   recipe = plone.recipe.zope2instance
+   ...
+   zcml =
+       mon.composant
+       mon.composant-overrides
+       nom.composant-meta
+
+Comme vous l'aurez certainement compris, la ligne ``mon.composant`` va permettre
+de traiter le fichier :file:`configure.zcml` de ce package Python,
+``mon.composant-overrides`` va permettre de traiter son fichier
+:file:`overrides.zcml` et ``nom.composant-meta`` va permettre de traiter son
+fichier :file:`meta.zcml` lors du prochain démarrage de votre instance.
+
+.. attention::
+
+   Dans l'exemple ci-avant, ``mon.composant`` est le nom du package Python qui
+   inclut les fichiers ``*.zcml``. Et non le nom de l'egg qui peut être
+   différent dans certains cas, heureusement rares.
+
+Mieux, depuis Plone 3.2, plus aucune mentions aux éventuels fichiers
+:file:`*.zcml` de vos composants depuis l'adoption en standard du composant
+`z3C.autoinclude <http://pypi.python.org/pypi/z3c.autoinclude>`_. Sans entrer
+dans les détails de fonctionnement de ce composant, il vous suffit de placer les
+lignes suivantes dans le fichier :file:`setup.py` de celui-ci les lignes
+suivantes dans l'appel de la fonction :func:`setup` :
+
+.. code-block:: python
+
+   # ...
+   def setup(
+       # ...
+       entry_points="""
+       # -*- Entry points: -*-
+       [z3c.autoinclude.plugin]
+       target = plone
+       """
+       # ...
+       )
+
+A partir de ce moment, et dans la mesure où votre composant est une extension
+pour Plone, les intégrateurs de votre composant n'auront plus besoin de déclarer
+celui-ci dans la liste ``zcml`` du recipe :mod:`plone.recipe.zope2instance`.

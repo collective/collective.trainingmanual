@@ -1,0 +1,97 @@
+.. -*- coding: utf-8 -*-
+
+.. _intro-zcml:
+
+====================
+Introduction au ZCML
+====================
+
+Pourquoi le ZCML ?
+==================
+
+L'utilisation du ZCML comme écrit plus haut est une façon déclarative de
+configurer les services d'un composant que l'on pourrait faire en Python.
+
+Par exemple, la déclaration suivante :
+
+.. code-block:: xml
+
+   <class class="foo.FooClass">
+     <implements interface="bar.interfaces.ISomething" />
+   </class>
+
+Revient à faire la déclaration suivante en Python :
+
+.. code-block:: python
+
+   from zope.interface import classImplements
+   import foo
+   import bar.interfaces
+   classImplements(foo.FooClass, bar.interfaces.ISomething)
+
+Quasiment toutes les déclarations ZCML ont leur équivalent en pur Python. Alors,
+me direz-vous, pourquoi donc inventer un langage supplémentaire pour faire ce
+qu'on peut faire en Python ?
+
+Plusieurs raisons à cela :
+
+* La :term:`ZCA` a été conçue pour faciliter la collaboration entre les
+  composants qui n'ont pas forcément été conçus pour fonctionner de concert.
+
+* Il est fastidieux d'explorer le code Python d'une application complexe comme
+  Plone pour prendre connaissance des interfaces d'adaptation disponibles, les
+  vues de contenus. L'exploration des directives ZCML d'un composant de Plone ou
+  de tierce partie vous permet d'identifier plus rapidement les aspects que vous
+  pourrez personnaliser.
+
+* Il est plus facile à un intégrateur peu au fait des subtilités de la
+  programmation en Python de personnaliser une application en ajoutant ses
+  propres directives ZCML dans ses composants de type :term:`policy product`.
+
+
+Forme générale d'un fichier ZCML
+================================
+
+Comme dit plus haut, un fichier ZCML est un fichier XML du namespace
+``http://namespaces.zope.org/zope``
+
+Le plus petit fichier ZCML possible est :
+
+.. code-block:: xml
+   :linenos:
+
+   <configure
+       xmlns="http://namespaces.zope.org/zope"
+       i18n_domain="mon.composant"
+       />
+
+      <!-- Vos directives -->
+
+   </configure>
+
+Quelques commentaires :
+
+* Ligne 1 : l'élément principal est toujours l'élément ``<configure>``
+
+* Ligne 2 : représente le namespace par défaut s'un fichier ZCML. Nous verrons
+  par la suite qu'un fichier ZCML peut nécessiter plusieurs namespaces,
+  généralement autant de namespaces que de domaines de configuration.
+
+* Ligne 3 : indique le domaine de traduction utilisé. En effet, certains
+  attributs d'une directive ZCML peuvent être traduits, tel parfois l'attribut
+  ``title`` lorsqu'ils sont susceptibles de participer à l'interface
+  utilisateur. Voir à ce sujet le chapitre :ref:`internationalisation` pour plus
+  d'informations.
+
+* Au delà de la ligne 6, à vous de placer vos propres directives. Celles-ci
+  seront **enregistrées** lors de leur traitement dans l'ordre de leur
+  apparition.
+
+.. important::
+
+   L'ordre d'exécution effectif de l'effet produit par les directives ZCML n'est
+   pas forcément l'ordre d'apparition de la directive lors du traitement de
+   celles-ci. Certaines directives pour lesquelles l'ordre d'exécution peut
+   revêtir une importance disposent généralement d'un attribut permettant au
+   développeur de contrôler sa priorité ou ordre d'exécution.
+

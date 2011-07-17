@@ -46,6 +46,7 @@ California 94105, USA.
    python/index
    zodb/index
    izca-fr
+   zcml/index
    grok
    uml/index
    archgenxml/index

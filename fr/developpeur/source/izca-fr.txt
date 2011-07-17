@@ -208,6 +208,11 @@ jouer avec n'importe quel paquet Python, et également pour les déploiements.
 
 .. [#systempython] http://article.gmane.org/gmane.comp.web.zope.zope3/21045
 
+.. attention::
+
+   Cette installation n'est nécessaire que pour effectuer les exercices proposés
+   ci-après. Zope - donc Plone - intègre en standard les composants requis.
+
 
 Méthode pour expérimenter
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -857,6 +862,9 @@ effectuer la validation ::
 Vous constatez que l'ojet `jack` est validé sans erreur. Mais l'objet `jill` n'a
 pas pu valider la contrainte de l'invariant, il a donc levé une exception.
 
+.. index:: adaptateur
+
+.. _guide_zca_adaptateur:
 
 Adaptateurs
 -----------
@@ -1138,9 +1146,9 @@ Introduction
 
 Vous connaissez maintenant le principe des interfaces, des adaptateurs et du
 registre de composants. Parfois, il peut être utile d'inscrire un objet qui ne
-s'adapte à rien du tout, par exemple une connexion à une base de données, un analyseur XML
-ou un objet retournant des identifiants uniques. Ce type de composant
-fourni par la ZCA est appelé un « utilitaire » (*utility*).
+s'adapte à rien du tout, par exemple une connexion à une base de données, un
+analyseur XML ou un objet retournant des identifiants uniques. Ce type de
+composant fourni par la ZCA est appelé un « utilitaire » (*utility*).
 
 Les utilitaires sont simplement des objets qui fournissent une interface et qui sont
 récupérés à partir de cette interface et d'un nom. Cette approche permet de créer

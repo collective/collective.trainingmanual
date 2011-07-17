@@ -12,7 +12,7 @@ Introduction
 Grok est un composant qui permet de simplifier et d'accélérer considérablement
 l'écriture de code utilisant la Zope Component Architecture.
 C'est principalement un ensemble de directive permettant de diminuer l'utilisation
-du zcml et d'écrire davantage de choses directement dans le code python.
+du :term:`ZCML` et d'écrire davantage de choses directement dans le code python.
 
 
 Installation de five.grok

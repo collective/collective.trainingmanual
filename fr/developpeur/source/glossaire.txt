@@ -40,7 +40,7 @@ Définition des termes et abréviations utilisés dans ce document.
 
   bool
     Classe de base Python pour les objets booléens. Ces derniers ne pouvant être
-    que :code:`True` ou :code:`False`.
+    que :samp:`True` ou :samp:`False`.
 
   brain
     Toute requête au catalogue fournit une itération de brains. Chaque brain
@@ -334,6 +334,18 @@ Définition des termes et abréviations utilisés dans ce document.
     Un rôle regroupe un ensemble de :term:`permissions`. Tout visiteur dispose
     d'un ou plusieurs rôles, soit de façon globale, soit de façon contextuelle.
 
+  schéma
+
+    **zope.schema** : Classe héritant de :class:`zope.interface.Interface`, donc
+    une :term:`interface` dont les attributs sont définis par des objets exposés
+    par le module :mod:`zope.schema`. Ces schémas sont généralement utilisés
+    pour modéliser des formulaires (de type :mod:`zope.formlib` ou
+    :mod:`z3c.form`) .
+
+    **Archetypes** : Liste de champs représentant les données unitaires d'un
+    :term:`type de contenu` construit avec les ressources de
+    :mod:`Products.Archetypes`.
+
   SSO
     Single Sign On ou Authentification unique. Agent permettant de
     n'effectuer qu'une seule authentification pour accéder à plusieurs
@@ -375,6 +387,18 @@ Définition des termes et abréviations utilisés dans ce document.
     Bundle d'installation complète de Plone, incluant Python, Zope, Plone ainsi
     que tous les modules requis (PIL, elementtree, ...). L'unified installer est
     disponible pour Windows, Mac OSX et Linux.
+
+  utilitaire
+    Traduction française de :term:`utility`.
+
+  utility
+    Les utilitaires sont simplement des objets qui fournissent une interface et
+    qui sont récupérés à partir de cette interface et d'un nom. Cette approche
+    permet de créer un registre global dans lequel des instances peuvent être
+    inscrites et récupérées à différents endroits de votre application, sans
+    avoir besoin de transmettre les instances comme paramètres. Les utilities
+    détaillées dans :ref:`guide_zca`.
+
 
   variable
     Une variable est un **identifiant** associé à une valeur.
