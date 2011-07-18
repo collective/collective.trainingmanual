@@ -32,8 +32,8 @@ l'aide des commandes shell :command:`find` et :command:`grep` un fichier
 Si vous ne le trouvez pas, c'est que vous avez mal cherché, car il se trouve
 forcément quelque part dans l'un des packages de votre projet.
 
-Vous trouverez-donc (si, si!) un fichier :file:`meta.zcml` qui contiendra
-quelque-chose comme ceci :
+Vous trouverez donc (si, si !) un fichier :file:`meta.zcml` qui contiendra
+quelque chose comme ceci :
 
 .. code-block:: xml
 

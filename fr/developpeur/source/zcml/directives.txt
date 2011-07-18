@@ -30,7 +30,7 @@ Les namespaces disponibles en standard avec Plone 4.1 sont les suivants :
      - http://namespaces.zope.org/cache
      - Ce namespace fournit deux directives permettant d'associer des règles de
        cache avec des types de contenus. Ce namespace est fourni par
-       :mod:`plone.app.cache` qui est fourni en standard avec Plone 4.1
+       :mod:`plone.app.caching` qui est fourni en standard avec Plone 4.1
    * - ``cmf``
      - http://namespaces.zope.org/cmf
      - Une directive permet de déclarer un layer de skin CMF. Pour rappel, les
@@ -128,7 +128,7 @@ aws.zope2zcmldoc
 
 
 Je vous invite à installer sur vos instances de développement le composant
-`aws.zope2zcmldoc <http://pypi.python.org/pypi/aws.zope2zcmldoc>` et d'explorer
+`aws.zope2zcmldoc <http://pypi.python.org/pypi/aws.zope2zcmldoc>`_ et d'explorer
 depuis le tableau de bord la documentation au fur et à mesure de vos besoins.
 
 Autre avantage : comme :mod:`aws.zope2zcmldoc` utilise la "réflectivité" des

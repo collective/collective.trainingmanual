@@ -227,7 +227,7 @@ Définition des termes et abréviations utilisés dans ce document.
     voir :term:`permission`.
 
   PAS
-    Aréviation de PluggableAuthService, la base du service de gestion des
+    Abréviation de PluggableAuthService, la base du service de gestion des
     utilisateurs, rôles et groupes de Plone. Voir la documentation intégrateur.
 
   paster
@@ -396,8 +396,8 @@ Définition des termes et abréviations utilisés dans ce document.
     qui sont récupérés à partir de cette interface et d'un nom. Cette approche
     permet de créer un registre global dans lequel des instances peuvent être
     inscrites et récupérées à différents endroits de votre application, sans
-    avoir besoin de transmettre les instances comme paramètres. Les utilities
-    détaillées dans :ref:`guide_zca`.
+    avoir besoin de transmettre les instances comme paramètres. Les utilitaires
+    sont détaillées dans :ref:`guide_zca`.
 
 
   variable
