@@ -182,10 +182,9 @@ Comme pour tout habillage graphique de Plone, l'habillage graphique des porlets
 doit – dans la mesure du possible – être effectué dans une feuille de styles
 CSS.
 
-Une visite des colonnes de portlets avec Firebug
-vous indiquera mieux que je ne pourrais le faire ici
- – et j'ai aussi un peu la flemme – les sélecteurs et classes
-CSS qui s'appliquent aux différentes colonnes et portlets.
+Une visite des colonnes de portlets avec Firebug vous indiquera mieux que je ne
+pourrais le faire ici – et j'ai aussi un peu la flemme – les sélecteurs et
+classes CSS qui s'appliquent aux différentes colonnes et portlets.
 
 Export/Import Generic setup du paramétrage des portlets
 =======================================================
