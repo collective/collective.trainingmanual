@@ -20,6 +20,3 @@ Contenu
    transactions.rst
    modules.rst
    links.rst
-
-
-

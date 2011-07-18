@@ -81,7 +81,7 @@ Contributeurs
 * `Vincent Fretin <http://vincentfretin.ecreall.com>`_
 * `Robert Cordeau <robert.cordeau@u-psud.fr>`_
 * `Gilles Lenfant <http://glenfant.wordpress.com>`_
-* `Thomas Desvenain <http://www.thomasdesvenain.fr/>`_
+* `Thomas Desvenain <http://www.thomasdesvenain.fr>`_
 * `Michaël Launay <http://www.ecreall.com>`_
 * `Christophe Combelles <http://ccomb.gorfou.fr/>`_
 
