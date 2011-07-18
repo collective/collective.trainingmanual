@@ -352,16 +352,15 @@ Voici une liste des types des champs possibles.
 +--------------------+----------------+------------------------+--------------------------------+
 
 Certains de ces champs reposent sur des produits. Ainsi DataGridField repose sur
-le produit :term:`Products.DataGridField` qu'il faut alors ajouter au
+le produit :mod:`Products.DataGridField` qu'il faut alors ajouter au
 :term:`buildout`.
 
-Le type :term:`copy` est une astuce qui permet de surcharger les marqueurs d'un
+Le type ``copy`` est une astuce qui permet de surcharger les marqueurs d'un
 champ défini dans l'une des classes mères.
 
 Par exemple pour changer la description, le titre et la permission de lecture et
-d'écriture du champ ``title``, il suffit de créer un champ portant comme
-``Nom`` ``title`` et de lui associer les marqueurs suivants avec les valeurs
-voulues :
+d'écriture du champ ``title``, il suffit de créer un champ portant comme ``Nom``
+``title`` et de lui associer les marqueurs suivants avec les valeurs voulues :
 
 +--------------------------+------------------------------------------------+
 | **Marqueur**             | **Valeur**                                     |
