@@ -175,7 +175,7 @@ d'une chaine :
    >>> re.match(expression_rationnelle, phrase)
    <_sre.SRE_Match object at ...>
 
-La fonction :finditer:`finditer` permet de retourner un liste d'objet
+La fonction :func:`finditer` permet de retourner un liste d'objet
 :class:`Match`.
 
 Les objets :class:`Match` permettent de connaitre le début et la fin d'un motif,

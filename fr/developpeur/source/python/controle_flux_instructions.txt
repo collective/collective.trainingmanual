@@ -255,6 +255,7 @@ Le mécanisme s'effectue en deux phases :
  * le traitement approprié.
 
 .. rubric:: Syntaxe
+
 La séquence normale d'instructions est placée dans un bloc :command:`try`.
 
 Si une erreur est détectée (levée d'exception), elle est traitée dans le bloc

@@ -42,6 +42,7 @@ Définition, syntaxe et exemples
     Collection ordonnée et modifiable d'éléments éventuellement hétérogènes.
 
 .. rubric:: Syntaxe
+
 *Éléments séparés par des virgules, et entourés de crochets.*
 
 .. code-block:: pycon
@@ -120,6 +121,7 @@ Manipulation des "tranches"
 ---------------------------
 
 .. rubric:: Syntaxe
+
 *Si on veut supprimer, remplacer ou insérer plusieurs éléments d'une liste, il
 faut indiquer une tranche dans le membre de gauche d'une affectation et fournir
 une liste dans le membre de droite.*

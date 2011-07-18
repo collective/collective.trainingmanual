@@ -71,7 +71,10 @@ today_fmt = ' %d-%B-%Y'
 # for source files.
 exclude_trees = []
 exclude_patterns = [
-    'zodb/programming_guide.txt'
+    'zodb/programming_guide.txt',
+    'apropos.txt',
+    'cahier_des_charges_aq.txt',
+    'notions_avancees_formulaire.txt'
     ]
 
 # The reST default role (used for this markup: `text`) to use for all documents.
