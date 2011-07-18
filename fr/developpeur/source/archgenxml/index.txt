@@ -498,7 +498,7 @@ contient la définition d'un schéma Archetypes :
     getattr(ATDocument, 'schema', Schema(())).copy() + \
     schema.copy()
 
-La variable :term:`schema` est une liste de champs, qui ici contient la
+La variable ``schema`` est une liste de champs, qui ici contient la
 déclaration du champ ``mDocument``. On peut voir comment sont implémentés les
 différents marqueurs du champ et comment lui est associé son `widget`.
 

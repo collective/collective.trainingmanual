@@ -239,12 +239,11 @@ Les générateurs et les expressions génératrices
 
 Les générateurs fournissent un moyen de générer des exécutions paresseuses
 [#lazy]_, ce qui signifie qu'elles ne calculent que les valeurs réellement
-demandées. Les générateurs s'appuient sur le mot-clé :keyword:`yield`.
+demandées. Les générateurs s'appuient sur le mot-clé ``yield``.
 
 Cette instruction suspend l'exécution de la fonction qui l'exécute, à la façon
-de :keyword:`return` et retourne l'argument à sa droite. Lors de l'appel
-suivant, l'exécution reprend à la suite de la ligne contenant le
-:keyword:`yield`.
+de ``return`` et retourne l'argument à sa droite. Lors de l'appel suivant,
+l'exécution reprend à la suite de la ligne contenant le ``yield``.
 
 .. [#lazy] "Paresseux" est une traduction littérale du terme anglais "lazy".
 
@@ -461,7 +460,7 @@ Functor
 -------
 
 En Python un objet fonction ou fonctor est une référence à tout objet
-:term:`appelable` (callable) : fonction, fonction lambda, méthode, classe.
+**appelable** (callable) : fonction, fonction lambda, méthode, classe.
 
 La fonction prédéfinie :func:`callable()` permet de tester cette propriété :
 
@@ -498,7 +497,7 @@ opérations sont effectuées avant et après un bloc d'instruction donné.
 
 .. rubric:: Syntaxe
 
-On utilise l'instruction :keyword:`with`.
+On utilise l'instruction ``with``.
 
 .. productionlist::
    with_block: "with" `expression` "as" `symbol` ":" `suite`
@@ -511,20 +510,20 @@ Une utilisation classique est d'assurer la fermeture d'un fichier :
        for line in f:
            print line
 
-L' <expression> retourne un **gestionnaire de contexte** associé à <variable>. un
-gestionnaire de contexte est un objet quelconque fournissant les méthodes
-:meth:`__enter__` et :meth:`__exit__`.
+L' <expression> retourne un **gestionnaire de contexte** associé à
+<variable>. un gestionnaire de contexte est un objet quelconque fournissant les
+méthodes :meth:`__enter__` et :meth:`__exit__`.
 
 La méthode :meth:`__enter__` de l'objet retourné par l'expression est exécutée
-par le mot-clé :keyword:`with`. L'objet retourné par cette méthode est associé
-au symbole suivant le mot-clé :keyword:`as`. Généralement, il s'agit du
-gestionnaire de contexte lui-même (donc :samp:`return self`).
+par le mot-clé ``with``. L'objet retourné par cette méthode est associé au
+symbole suivant le mot-clé ``as``. Généralement, il s'agit du gestionnaire de
+contexte lui-même (donc :samp:`return self`).
 
-Lors de la cloture du bloc commencé par :keyword:`with`, la méthode
-:meth:`__exit__` du gestionnaire de ocontexte est appellée, avec les
-informations sur une éventuelle exception survenue dans le bloc. Le rôle de
-cette méthode est d'effectuer l'éventuel "nettoyage" associé à la fin
-d'utilisation du gestionnaire de contexte.
+Lors de la cloture du bloc commencé par ``with``, la méthode :meth:`__exit__` du
+gestionnaire de ocontexte est appellée, avec les informations sur une éventuelle
+exception survenue dans le bloc. Le rôle de cette méthode est d'effectuer
+l'éventuel "nettoyage" associé à la fin d'utilisation du gestionnaire de
+contexte.
 
 Techniques fonctionnelles
 =========================

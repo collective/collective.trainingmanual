@@ -363,7 +363,7 @@ Il possède les caractéristiques suivantes :
 - la fonction taille :command:`len()` donnant le nombre de couples stockés ;
 - il est itérable (on peut le parcourir) mais n'est pas ordonné.
 
-Python propose le type standard :term:`dict`.
+Python propose le type standard ``dict``.
 
 Les dictionnaires (dict)
 ------------------------

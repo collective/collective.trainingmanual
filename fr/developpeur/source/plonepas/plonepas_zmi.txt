@@ -27,7 +27,7 @@ Catégories de plugins
 =====================
 
 Ouvrons maintenant l'objet :guilabel:`acl_users/plugins` qui est le "chef
-d'orchestre" de l'utilisation des :term:`plugins`.
+d'orchestre" de l'utilisation des :term:`plugin`.
 
 --------
 

@@ -241,11 +241,11 @@ Exceptions
 Afin de rendre les applications plus robustes, il est nécessaire de gérer les
 erreurs d'exécution des parties sensibles du code.
 
-Le mécanisme des :term:`exceptions` sépare d'un côté la séquence d'instructions
+Le mécanisme des **exceptions** sépare d'un côté la séquence d'instructions
 à exécuter lorsque tout se passe bien, et d'un autre côté, une ou plusieurs
 séquences d'instructions à exécuter en cas d'erreur.
 
-Lorsqu'une erreur survient, un :term:`objet exception` est passé au mécanisme
+Lorsqu'une erreur survient, un **objet exception** est passé au mécanisme
 de propagation des exceptions, et l'exécution est transférée à la séquence de
 traitement ad doc.
 

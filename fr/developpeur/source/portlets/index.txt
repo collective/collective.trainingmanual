@@ -58,10 +58,10 @@ Depuis ce tableau de bord, vous pouvez, comme dans cet exemple, ajouter la
 portlet des événements récents dans la colonne gauche à tous les contenus de
 type "événement".
 
-Voir aussi la section
-:ref:`Portlets spécifiques du type de contenu
-<integrateur:portlets-specifiques-du-type-de-contenu>`
-dans la documentation intégrateur.
+.. FIXME - Il n'y a pas de telle section...
+.. Voir aussi la section :ref:`Portlets spécifiques du type de contenu
+   <integrateur:portlets-specifiques-du-type-de-contenu>` dans la documentation
+   intégrateur.
 
 Portlets des groupes
 --------------------

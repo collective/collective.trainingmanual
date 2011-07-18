@@ -42,7 +42,7 @@ Identifiants et mots clés
 Identifiants
 ------------
 
-Comme tout langage, Python utilise un :ref:`identifiant` pour nommer chaque
+Comme tout langage, Python utilise un :term:`identifiant` pour nommer chaque
 objet.
 
 Sachant que :
@@ -414,9 +414,8 @@ expression) :
 
 .. rubric:: Comparaison
 
-La :term:`comparaison` a une valeur utilisable dans une expression mais n'a pas
-d'effet (l'automate interne représentant l'évolution du programme n'est pas
-modifié) :
+La comparaison a une valeur utilisable dans une expression mais n'a pas d'effet
+(l'automate interne représentant l'évolution du programme n'est pas modifié) :
 
 .. code-block:: python
 
@@ -791,8 +790,8 @@ Les données binaires
 .. glossary::
 
   Les types binaires
-    Python 3 propose deux types de données binaires : :term:`byte` (non
-    modifiable) et :term:`bytearray` (modifiable).
+    Python 3 propose deux types de données binaires : ``byte`` (non
+    modifiable) et ``bytearray`` (modifiable).
 
 Une donnée binaire contient une suite de zéro ou plusieurs octets, c'est-à-dire
 d'entiers non-signés sur 8 bits (compris dans l'intervalle [0...255]). Ces
@@ -800,7 +799,7 @@ types *à la C* sont bien adaptés pour stocker de grandes quantités de donnée
 De plus Python fournit des moyens de manipulation efficaces de ces types.
 
 Les deux types sont assez semblables au type str et possèdent la plupart de ses
-méthodes. Le type modifiable bytearray possède des méthodes communes au type
+méthodes. Le type modifiable ``bytearray`` possède des méthodes communes au type
 list.
 
 Exemples de données binaires et de méthodes :

@@ -129,7 +129,7 @@ Bibliothèque standard
 La bibliothèque standard
 ------------------------
 
-On dit souvent que Python est livré :term:`piles comprises` (batteries included)
+On dit souvent que Python est livré **piles comprises** (batteries included)
 tant sa bibliothèque standard, riche de plus de 200 packages et modules, répond
 aux problèmes courants les plus variés.
 

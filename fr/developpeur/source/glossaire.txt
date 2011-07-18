@@ -20,7 +20,7 @@ Définition des termes et abréviations utilisés dans ce document.
     Traduction libre de :term:`adapter`.
 
   affectation
-    On **affecte** une variable par une valeur en utilisant le signe :term:`=`
+    On **affecte** une variable par une valeur en utilisant le signe ``=``
     (qui n'a rien à voir avec l'égalité en math !). Dans une affectation, le
     membre de gauche **reçoit** le membre de droite ce qui nécessite d'évaluer
     la valeur correspondant au membre de droite avant de l'affecter au membre
@@ -113,8 +113,8 @@ Définition des termes et abréviations utilisés dans ce document.
     ``dotted name`` permet - généralement dans un fichier :term:`ZCML` - de
     désigner un symbole Python quelconque (objet, classe, fonction, ...) sous la
     forme d'une chaîne de caractères proche de celle utilisée par le mot clé
-    Python :keyword:`import`. Par exemple, le dotted name ``foo.bar.stuff``
-    représente l'équivalent en python ``from foo.bar import stuff``.
+    Python ``import``. Par exemple, le dotted name ``foo.bar.stuff`` représente
+    l'équivalent en python ``from foo.bar import stuff``.
 
     En outre, la notation ``dotted name`` admet la notation de package relatif
     par l'utilisation du préfixe ``.``. Par exemple ``.foo.bar`` dans un fichier
