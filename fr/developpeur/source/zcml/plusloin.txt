@@ -12,7 +12,7 @@ Comprendre une directive ZCML
 
 L'une des explications sur une directive ci-dessus vous parait floue, ou bien
 une directive fournie par un composant de tierce partie n'est pas correctement
-documentée. Voici la méthode pour pister la définition d'une directive ZCML
+documentée ? Voici la méthode pour pister la définition d'une directive ZCML
 quelconque.
 
 La directive est exposée à partir d'un namespace, il vous faudra donc trouver un

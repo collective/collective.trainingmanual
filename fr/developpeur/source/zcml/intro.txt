@@ -9,8 +9,8 @@ Introduction au ZCML
 Pourquoi le ZCML ?
 ==================
 
-L'utilisation du ZCML comme écrit plus haut est une façon déclarative de
-configurer les services d'un composant que l'on pourrait faire en Python.
+L'utilisation du ZCML, comme indiqué plus haut, est une façon déclarative de
+configurer les services d'un composant que l'on pourrait écrire en Python.
 
 Par exemple, la déclaration suivante :
 
