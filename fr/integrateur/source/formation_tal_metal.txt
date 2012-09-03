@@ -9,7 +9,7 @@ TAL/Metal les templates de Zope et Plone
 Les Zope Page Templates sont un mécanisme permettant d'écrire des pages xhtml
 dynamiques.
 
-Ces ZPT utilise un langage de template XML TAL/METAL.  L'objectif est d'être
+Ces ZPT utilisent un langage de template XML TAL/METAL.  L'objectif est d'être
 capable de comprendre, créer et modifier les pages dynamiques.
 
 .. contents:: :local:

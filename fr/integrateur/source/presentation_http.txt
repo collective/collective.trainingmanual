@@ -62,7 +62,7 @@ Le protocole HTTP inventé par Tim Berners-Lee en 1989 devient un standard en
 Le protocole est décrit par la `Request For Comment RFC 1945
 <http://tools.ietf.org/html/rfc1945>`__.
 
-Cette version permet de gérer plusieurs serveur web sur une même machine et donc
+Cette version permet de gérer plusieurs serveurs web sur une même machine et donc
 de servir un contenu différent en fonction de la racine de l'URL.
 
 En 1997 sort la version HTTP/1.1 modifiée en 1999 et décrite par la `RFC 2616
@@ -104,7 +104,7 @@ POST
 ++++
 
 Cette méthode permet d'envoyer le résultat d'un formulaire ou de transmettre un
-fichier vers le serveur.  Les informations à envoyer se trouve dans les données
+fichier vers le serveur.  Les informations à envoyer se trouvent dans les données
 de la requête et non pas dans l'URL.
 
 OPTIONS

@@ -98,13 +98,13 @@ proxy cache varnish, le load balancer HAproxy et les instances zope.
 
 .. note::
 
-    Il faut que les fichiers appartiennent à l'utilisation zope ou plone où
+    Il faut que les fichiers appartiennent à l'utilisateur zope ou plone ou
     vous aurez des problèmes pour démarrer le zeoserver par exemple. Donc
     vérifiez que les fichiers ont bien le bon propriétaire : ::
 
-        $ sudo chown -R zope votre_buildout
+        $ sudo chown -R zope:zope votre_buildout
 
-Relancez le buildout avec :command:`bin/buildout -c deployment.cfg`.
+Relancez le buildout en tant qu'utilisateur zope avec :command:`bin/buildout -c deployment.cfg`.
 
 Supervisor
 ==========
@@ -143,7 +143,7 @@ Pour arrêter supervisor et donc tous les processus : ::
 Support des backups
 ===================
 
-Pour les backups, c'est la section ``backup``.
+Les backups sont configurés dans la section ``backup``.
 
 .. literalinclude:: ../../examples/buildout/buildout.cfg
     :language: cfg
@@ -197,7 +197,7 @@ faire un backup avec la commande :command:`bin/backup` vue précédemment.
 
 Il synchronise également les dossiers :file:`backup/` et :file:`log/` sur un autre serveur.
 
-Tout cela est réalisé par un job cron à 3h du matin.
+Tout cela est réalisé par un job cron à 4h du matin.
 
 .. centered:: :file:`deployment-backup.cfg`
 
@@ -241,7 +241,7 @@ Création d'un certificat autosigné :
 
     </VirtualHost>
 
-:file:`/etc/apache2/sites-available/ssl.devagile` :
+:file:`/etc/apache2/sites-available/ssl.devagile` (dans la RewriteRule, changez Plone par le nom de votre site plone) :
 
 .. code-block:: apache
 
@@ -274,7 +274,7 @@ Activez les sites :
 .. code-block:: sh
 
    $ a2ensite devagile
-   $ a2ensite ssl.kb
+   $ a2ensite ssl.devagile
 
 Activez les modules :
 
@@ -296,7 +296,7 @@ Activez le module *deflate* :
    $ a2enmod deflate
 
 et éditez le fichier de configuration
-:file:`/etc/apache2/mods-enabled/deflate.conf` (pas besoin avec Ubuntu 10.04) :
+:file:`/etc/apache2/mods-enabled/deflate.conf` (ce n'est plus nécessaire avec Ubuntu 10.04 et plus) :
 
 .. code-block:: apache
 
@@ -434,12 +434,12 @@ Pour configurer cette chaine, faire ce qui suit :
 - Dans l'onglet :guilabel:`Caching proxies`, cocher :guilabel:`Enable purging`
 - Ajouter http://127.0.0.1:8000 dans les `Caching proxies`.
 - Cocher `Virtual host rewriting takes place front of the caching proxy` car
-  les adresses sont réécritent par Apache avec le RewriteRule.
+  les adresses sont réécrites par Apache avec le RewriteRule.
 - Dans `Externally facing domains`, mettre https://ssl.devagile:443
 - Cliquer sur `Save`
 
 Le mieux après est d'exporter cette configuration dans formation.policy.
-Pour cela aller dans portal_setup, export, registry.
+Pour cela aller dans portal_setup, export, `Export the configuration registry schemata`.
 Ajouter le fichier registry.xml dans votre dossier :file:`profiles/default/`.
 Eventuellement nettoyer ce fichier, seules les clés commencant par
 plone.app.caching nous intéressent.

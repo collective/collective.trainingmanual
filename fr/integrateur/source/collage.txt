@@ -64,8 +64,8 @@ Cela ajoute une rangée, contenant par défaut une colonne.
 Ajouter les éléments du Collage
 ===============================
 
-Nous allons composer un collage en deux colonnes sur une ligne. L
-a première colonne contiendra une liste des actualités,
+Nous allons composer un collage en deux colonnes sur une ligne. La 
+première colonne contiendra une liste des actualités,
 la seconde contiendra une image statique et le rendu d'une actualité.
 
 Cliquez sur `créer une colonne`. Nous avons maintenant deux colonnes.

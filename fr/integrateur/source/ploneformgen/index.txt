@@ -35,7 +35,7 @@ saisies.
 Installation de PloneFormGen
 ----------------------------
 
-Pour installer PloneFormGen le plus simple et de l'ajouter à son buildout.
+Pour installer PloneFormGen le plus simple est de l'ajouter à son buildout.
 
 Si vous ne savez pas ce qu'est un buildout vous pouvez lire le chapitre
 :ref:`introduction_zc_buildout` et :ref:`buildout_plone3`.
@@ -56,9 +56,8 @@ Refaites votre buildout, démarrez, puis ajoutez le produit.
 Création d'un formulaire
 ------------------------
 
-La création d'un formulaire commence par la création d'un **Form Folder** ou
-**Formulaire personnalisé** en français dans la liste :guilabel:`Ajout d'un
-élément`.
+La création d'un formulaire commence par la création d'un **Formulaire** 
+dans la liste :guilabel:`Ajout d'un élément`.
 
 Vous obtenez alors :
 
@@ -67,7 +66,7 @@ Vous obtenez alors :
 
     Ajout d'un formulaire personnalisé.
 
-Le formulaire spécialisé est un répertoire qui permet de définir votre
+Le formulaire est un répertoire qui permet de définir votre
 formulaire et qui contiendra les éléments qui vont le constituer.
 
 Remarquez également la barre des propriétés qui va permettre d'accéder à la
@@ -86,7 +85,7 @@ Vous pourrez aussi définir une page de remerciement qui viendra remplacer celle
 par défaut qui se contente d'afficher les valeurs saisies dans le formulaire.
 
 Pour des raisons de confidentialité vous pourrez forcer la saisie des
-informations via une connexion chiffrée à condition d'avoir configurer votre
+informations via une connexion chiffrée à condition d'avoir configuré votre
 serveur pour qu'il gère le ssl et donc d'avoir un certificat X509.
 
 Vous pouvez ensuite saisir le prologue et l'épilogue du formulaire.
@@ -165,8 +164,7 @@ disponibles depuis le menu :guilabel:`Ajout d'un élément`.
 
 Nous allons détailler les éléments de formulaire ci-après.
 
-L'édition graphique et le placement se font après avoir cliqué sur l'icône
-d'accès à la vue de paramétrage.
+L'édition graphique et le placement se font après avoir cliqué sur l'onglet ``QuickEdit``.
 
 .. figure:: AccesVueParametrage.jpg
     :align: center

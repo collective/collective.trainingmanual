@@ -50,9 +50,9 @@ Commandes :
 
 .. code-block:: sh
 
-    $ paster create -t plone3_buildout plone4 --svn-repository=http://devagile/Formation/buildouts/
+    $ paster create -t basic_buildout plone4 --svn-repository=http://devagile/Formation/buildouts/
     Selected and implied templates:
-      ZopeSkel#plone3_buildout  A buildout for Plone 3 installation
+      templer.buildout#basic_buildout  A basic buildout skeleton
 
     Variables:
       egg:      plone4
@@ -60,37 +60,11 @@ Commandes :
       project:  plone4
     Running:
     svn mkdir ...
-    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
-    Plone Version (Plone version # to install) ['3.3.5']: 4.0.1
-    Zope2 Install Path (Path to Zope2 installation; leave blank to fetch one!) ['']:
-    Plone Products Directory (Path to Plone products; leave blank to fetch [Plone 3.0/3.1 only]) ['']:
-    Initial Zope Username (Username for Zope root admin user) ['admin']:
-    Initial User Password (Password for Zope root admin user) ['']: admin
-    HTTP Port (Port that Zope will use for serving HTTP) ['8080']:
-    Debug Mode (Should debug mode be "on" or "off"?) ['off']:
-    Verbose Security? (Should verbose security be "on" or "off"?) ['off']:
-    Creating template plone3_buildout
-      Copying README.txt to ./plone4/README.txt
-      Copying bootstrap.py to ./plone4/bootstrap.py
+
+    Running svn co ...
+    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']: 
+    Creating template basic_buildout
       Copying buildout.cfg_tmpl to ./plone4/buildout.cfg
-      Recursing into products
-        Creating ./plone4/products/
-        Copying README.txt to ./plone4/products/README.txt
-      Recursing into src
-        Creating ./plone4/src/
-        Copying README.txt to ./plone4/src/README.txt
-      Recursing into var
-        Creating ./plone4/var/
-        Copying README.txt to ./plone4/var/README.txt
-
-    **************************************************************************
-    **   Generation finished.
-
-    **  You probably want to run python bootstrap.py and then edit
-    **  buildout.cfg before running bin/buildout -v".
-
-    **  See README.txt for details.
-    **************************************************************************
 
 .. note::
 
@@ -102,60 +76,10 @@ Commandes :
 
 	Vous pouvez simplement l'ignorer.
 
-Vous allez éditer un peu le fichier :file:`buildout.cfg` avant d'amorcer
+Vous allez éditer le fichier :file:`buildout.cfg` avant d'amorcer
 le buildout.
 
-Créez un fichier :file:`versions.cfg` que vous utiliserez
-pour geler les versions des modules, pour l'instant vide :
-
-.. code-block:: cfg
-
-    [versions]
-
-Dans :file:`buildout.cfg`, modifiez la variable :data:`extends` en :
-
-.. code-block:: cfg
-
-   [buildout]
-   # ...
-   extends =
-       http://dist.plone.org/release/4.0.1/versions.cfg
-       versions.cfg
-
-Si vous voulez travailler sur la dernière version du fichier versions.cfg de
-Plone, vous pouvez le télécharger comme ceci :
-
-.. code-block:: sh
-
-    $ svn cat \
-      http://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.0/versions.cfg \
-      > versions-plone.cfg
-
-et changez votre :file:`buildout.cfg` pour que l'option extends ressemble à
-ceci :
-
-.. code-block:: cfg
-
-    extends =
-        versions-plone.cfg
-        versions.cfg
-
-Ajoutez :
-
-.. code-block:: cfg
-
-   [buildout]
-   # ...
-   eggs =
-       PIL
-
-PIL est téléchargé depuis http://dist.plone.org/thirdparty.
-L'archive PIL téléchargeable sur pypi.python.org n'est pas easy_installable.
-
-La section ``[productdistros]`` est utilisée pour installer des produits Zope
-non encore eggifiés, rares de nos jours.
-
-Le :file:`buildout.cfg` minimal que vous devez obtenir :
+Remplacez le fichier :file:`buildout.cfg` par :
 
 .. code-block:: cfg
 
@@ -164,13 +88,12 @@ Le :file:`buildout.cfg` minimal que vous devez obtenir :
         instance
         zopepy
     extends =
-        http://dist.plone.org/release/4.0.1/versions.cfg
+        http://dist.plone.org/release/4.2/versions.cfg
         versions.cfg
     versions = versions
     find-links =
-        http://dist.plone.org/release/4.0.1
-        http://dist.plone.org/thirdparty
-    eggs = PIL
+        http://dist.plone.org/release/4.2
+    eggs = Pillow
     develop =
 
     [instance]
@@ -190,16 +113,43 @@ Le :file:`buildout.cfg` minimal que vous devez obtenir :
     interpreter = zopepy
     scripts = zopepy
 
+Pillow est un fork de PIL (Python Imaging Library).
+
+Créez un fichier :file:`versions.cfg` que vous utiliserez
+pour geler les versions des modules, pour l'instant vide :
+
+.. code-block:: cfg
+
+    [versions]
+
+Si vous voulez travailler sur la dernière version du fichier versions.cfg de
+Plone, vous pouvez le télécharger comme ceci :
+
+.. code-block:: sh
+
+    $ svn cat \
+      http://svn.plone.org/svn/plone/buildouts/plone-coredev/branches/4.2/versions.cfg 
+      > versions-plone.cfg
+
+et changez votre :file:`buildout.cfg` pour que l'option extends ressemble à
+ceci :
+
+.. code-block:: cfg
+
+    extends =
+        versions-plone.cfg
+        versions.cfg
+
+
 Amorcez et lancez buildout :
 
 .. code-block:: sh
 
     $ cd plone4
-    $ python2.6 bootstrap.py -d
+    $ python bootstrap.py -d
     $ bin/buildout
     $ ls -F
-    bin/          buildout.cfg   parts/ README.txt  var/
-    bootstrap.py  develop-eggs/  products/  src/        versions.cfg
+    bin/  bootstrap.py  buildout.cfg  develop-eggs/  parts/  var/  versions.cfg
     $ ls parts
     buildout  instance
     $ ls bin
@@ -218,6 +168,7 @@ pour créer votre site Plone.
 
     .. code-block:: sh
 
+        $ svn add versions.cfg
         $ svn ci -m"Created initial buildout structure"
 
 Installation de produits tierces
@@ -271,8 +222,13 @@ Créez le policy package :
 .. code-block:: sh
 
     $ cd /tmp/
-    $ paster create -t plone formation.policy \
+    $ paster create -t plone_basic formation.policy \
       --svn-repository=http://devagile/Formation/packages
+
+    Selected and implied templates:
+      templer.core#basic_namespace  A basic Python project with a namespace package
+      templer.plone#plone_basic     A package for Plone add-ons
+
     Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']:
     Version (Version number for project) ['1.0']:
     Description (One-line description of the project) ['']: Projet exemple pour la formation integrateur
@@ -281,7 +237,7 @@ Créez le policy package :
     $ svn rm --force formation.policy.egg-info
     $ svn ci -m "Add initial structure for formation.policy"
 
-Le template :option:`plone` hérite du template :option:`basic_namespace`, il
+Le template :option:`plone_basic` hérite du template :option:`basic_namespace`, il
 ajoute en plus un fichier :file:`configure.zcml`.
 
 Vous allez utiliser la propriété ``svn:externals`` pour faire une sorte de checkout
@@ -289,13 +245,16 @@ de votre nouveau package dans le dossier src :
 
 .. code-block:: sh
 
-    $ cd ~/workspace/plone4/src/
+    $ cd ~/workspace/plone4/
+    $ mkdir src
+    $ svn add src
+    $ cd src
     $ vim EXTERNALS.txt
     formation.policy http://devagile/Formation/packages/formation.policy/trunk
     $ svn propset svn:externals -F EXTERNALS.txt .
     $ svn up
     $ svn add EXTERNALS.txt
-    $ svn ci -m"Set svn:externals on src directory to install formation.policy"
+    $ svn ci -m "Set svn:externals on src directory to install formation.policy"
 
 Ajoutez :mod:`Products.Collage` et :mod:`Products.FCKeditor` en dépendances
 de :mod:`formation.policy` dans le fichier :file:`src/formation.policy/setup.py`
@@ -352,7 +311,7 @@ La chaine de lecture est donc celle-ci :
 
 - :file:`parts/instance/etc/site.zcml`
 - :file:`parts/instance/etc/package-includes/001-formation.policy-configure.zcml`
-- :file:`src/formation.policy/formation/policy/configure.zcml`
+- :file:`src/formation.policy/src/formation/policy/configure.zcml`
 
 Ces fichiers ZCML sont les fichiers de configuration utilisés par la ZCA
 (Zope Component Architecture) pour enregistrer les composants au démarrage.
@@ -363,7 +322,7 @@ Installation de Products.Collage à l'installation de formation.policy
 Vous allez maintenant dire à Plone d'installer :mod:`Products.Collage`
 lorsque vous installez :mod:`formation.policy`.
 
-Ouvrez le fichier :file:`src/formation.policy/formation/policy/configure.zcml`,
+Ouvrez le fichier :file:`src/formation.policy/src/formation/policy/configure.zcml`,
 vous avez normalement ceci :
 
 .. code-block:: xml
@@ -471,7 +430,7 @@ est maintenant :
 
 - :file:`parts/instance/etc/site.zcml`
 - lecture des fichiers :file:`configure.zcml` de tous les produits dans l'espace de nom ``Products``
-- :file:`~/.buildout/eggs/Plone-4.0.1-py2.6.egg/Products/CMFPlone/configure.zcml`
+- :file:`~/.buildout/eggs/Products.CMFPlone-4.2.0.1-py2.7.egg/Products/CMFPlone/configure.zcml`
   qui contient les lignes :
 
 .. code-block:: xml
@@ -490,10 +449,10 @@ est maintenant :
    :mod:`z3c.autoinclude`. Ici tous les eggs ayant un entry point dans le
    groupe ``z3c.autoinclude.plugin`` sont recherchés.  Nous avons dans cette
    directive ``package="plone"`` donc seul les entry points avec ``target =
-   plone`` sont gardés. Pour chaque eggs, le fichier :file:`configure.zcml`
+   plone`` sont gardés. Pour chaque egg, le fichier :file:`configure.zcml`
    (option ``file`` de la directive) est lu.
 
-- :file:`src/formation.policy/formation/policy/configure.zcml`
+- :file:`src/formation.policy/src/formation/policy/configure.zcml`
 
 Vous avez le même principe pour les fichiers :file:`meta.zcml` et
 :file:`overrides.zcml`, jetez un œil dans :file:`Products/CMFPlone/meta.zcml` et
@@ -522,7 +481,7 @@ Ajoutez :mod:`genericsetup.quickinstaller` dans :file:`setup.py`
 
 Il faut donc lire le fichier :file:`configure.zmcl` du produit
 :mod:`genericsetup.quickinstaller`, vous pouvez ajouter dans
-:file:`src/formation.policy/formation/policy/configure.zcml`, cette directive :
+:file:`src/formation.policy/src/formation/policy/configure.zcml`, cette directive :
 
 .. code-block:: xml
 
@@ -543,9 +502,9 @@ répéter. En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci
 
     <includeDependencies package="." />
 
-Cette directive recupère la liste des dépendances du egg. Petit rappel, il le
+Cette directive recupère la liste des dépendances du egg. Petit rappel, elle le
 récupère à partir du fichier
-:file:`src/formation.policy/formation.policy.egg-info/requires.txt` qui lui a
+:file:`src/formation.policy/src/formation.policy.egg-info/requires.txt` qui lui a
 été généré à partir des informations de :file:`setup.py`.
 
 Pour chaque dépendance dans l'ordre déclaré, elle va inclure dans l'ordre les
@@ -571,6 +530,8 @@ Configuration de FCKeditor pour tous les nouveaux utilisateurs
 
 Vous allez configurer FCKeditor comme éditeur par défaut (seulement effectif
 pour les nouveaux utilisateurs).
+
+Tout d'abord, dans Configuration du site, Modules, activez :guilabel:`formation.policy`.
 
 Allez dans :guilabel:`Configuration du site`, :guilabel:`ZMI`,
 :guilabel:`portal_setup`, :guilabel:`Snapshots`. Créez un snapshot.
@@ -623,20 +584,6 @@ Maintenant si vous redémarrez l'instance et que vous allez dans
 
 Il faut en effet écrire un procédure de migration de la version 1000 vers la version 1001.
 
-.. note::
-
-    Il y a des bogues dans Products.GenericSetup 1.6.1 fourni avec Plone 4.0.1.
-    Ouvrez le fichier :file:`Products/GenericSetup/upgrade.py` et remplacez
-    ligne 220 ``if type(step) == UpgradeStep:`` par ``if isinstance(step, UpgradeEntity):``
-
-    et ligne 159, ajoutez un *else* : ::
-
-        def doStep(self, tool):
-            if self.import_profile is None:
-                profile_id = 'profile-%s' % self.profile
-            else:
-                profile_id = self.import_profile
-
 Ajoutez dans :file:`configure.zcml` :
 
 .. code-block:: xml
@@ -679,44 +626,15 @@ L'option :guilabel:`wysiwyg_editor` devrait maintenant être ``FCKeditor``.
 
     .. code-block:: sh
 
-        $ svn add formation/policy/profiles/default/metadata.xml \
+        $ svn add formation/policy/profiles/default/memberdata_properties.xml \
           formation/policy/profiles/default/products.xml
-        $ svn ci -m"Added configuration"
+        $ svn ci -m "Added configuration"
 
-En exercice : installez :mod:`plone.app.discussion`, le nouveau système de
-commentaire qui sera intégré dans Plone 4.1.
-
-Ajoutez plone.app.discussion dans :file:`setup.py`.
-Incrémentez version dans :file:`metadata.xml`, ajouter la dépendance
-profile-plone.app.discussion:default. Gelez la version 3.6.4 de zope.shema.
-
-.. code-block:: xml
-
-    <?xml version="1.0"?>
-    <metadata>
-      <version>1002</version>
-      <dependencies>
-        <dependency>profile-Products.Collage:default</dependency>
-        <dependency>profile-plone.app.discussion:default</dependency>
-      </dependencies>
-    </metadata>
-
-.. code-block:: xml
-
-  <genericsetup:upgradeDepends
-      title="formation.policy 1001 to 1002"
-      description="Installs plone.app.discussion"
-      profile="formation.policy:default"
-      import_profile="profile-plone.app.discussion:default"
-      run_deps="True"
-      source="1001"
-      destination="1002"
-      />
 
 À propos des versions
 =====================
 
-Le panneau de configuration :guilabel:`Produits d'extension` accessible via
+Le panneau de configuration :guilabel:`Modules` accessible via
 :guilabel:`Configuration du site` est une interface à
 :guilabel:`portal_quickinstaller` et :guilabel:`portal_setup`.
 
@@ -747,7 +665,7 @@ production. En effet il n'est pas conseillé d'utiliser des produits en mode
 développement en production.
 
 La première chose à faire et d'éditer le changelog dans le fichier
-:file:`docs/HISTORY.txt`.
+:file:`CHANGES.txt`.
 
 Ce fichier texte est au format reST (`reStructuredText`_). Il faut respecter
 certaines conventions d'écriture pour que ce fichier puisse être généré ensuite
@@ -786,18 +704,13 @@ sera gelée, faire un checkout de ce tag et pousser la release :
 
 ..  code-block:: sh
 
-    $ svn cp http://devagile/Formation/packages/formation.policy/trunk http://devagile/Formation/packages/formation.policy/tags/1.0 -m"Tagged"
+    $ svn cp http://devagile/Formation/packages/formation.policy/trunk http://devagile/Formation/packages/formation.policy/tags/1.0 -m "Tagged"
     $ cd /tmp
     $ svn co http://devagile/Formation/packages/formation.policy/tags/1.0
     $ cd 1.0/
-    $ python setup.py egg_info -RDb "" mregister sdist --formats=zip mupload -r mycompany
+    $ python setup.py register -r mycompany sdist --formats=zip upload -r mycompany
 
-Il y a aussi une autre manière de faire, au lieu de préciser ``egg_info -RDb
-""``, vous pouvez supprimer le fichier :file:`setup.cfg`, commiter et faire la
-release sans préciser ``egg_info -RDb ""``.
-
-Retournez ensuite dans le trunk (dossier :file:`src/formation.policy/`), incrémentez
-la version dans :file:`setup.py`, donc ici ``1.1``. Et éditez le fichier :file:`HISTORY.txt` comme ceci :
+Retournez ensuite dans le trunk, incrémentez la version dans :file:`setup.py`, donc ici ``1.1``. Et éditez le fichier :file:`CHANGES.txt` comme ceci :
 
 .. code-block:: rst
 
@@ -996,7 +909,7 @@ Créez un fichier :file:`fabfile.py` à la racine de votre buildout :
     def start():
         """Start the instance
         """
-        run("/home/anthony/workspace/plone4/bin/instance stop")
+        run("/home/anthony/workspace/plone4/bin/instance start")
 
     def buildout():
         """Run bin/buildout

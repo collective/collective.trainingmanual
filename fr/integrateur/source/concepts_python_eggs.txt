@@ -6,6 +6,12 @@
 Concept de Python eggs
 ======================
 
+.. note::
+
+    Ce chapitre utilise un dépôt subversion créé dans le chapitre
+    :ref:`La gestion des sources avec subversion
+    <developpeur:gestion_des_sources>`
+
 .. contents:: :local:
 
 Définition
@@ -59,7 +65,7 @@ vérifier la version comme ceci :
 .. code-block:: sh
 
     $ python --version
-    Python 2.6.4
+    Python 2.7.3
 
 Et savoir exactement où il se trouve comme ceci :
 
@@ -68,18 +74,18 @@ Et savoir exactement où il se trouve comme ceci :
     $ which python
     /usr/bin/python
 
-Ce python est en fait un lien symbolique ici vers python2.6, comme on peut le voir :
+Ce python est en fait un lien symbolique ici vers python2.7, comme on peut le voir :
 
 .. code-block:: sh
 
     $ ls -l /usr/bin/python
-    lrwxrwxrwx 1 root root 9 2009-11-07 17:08 /usr/bin/python -> python2.6
+    lrwxrwxrwx 1 root root 9 juil.  9 16:41 /usr/bin/python -> python2.7
 
 À tout moment, vous pouvez exécuter ces commandes pour savoir quel Python
 vous utilisez réellement.
 
 Après l'installation de `distribute`, la commande :command:`easy_install` 
-est disponible pour installer de nouveaux eggs pour Python 2.6.
+est disponible pour installer de nouveaux eggs pour Python 2.7.
 
 Packaging Python
 ================
@@ -87,7 +93,7 @@ Packaging Python
 Un package Python peut être distribué sous la forme d'une simple archive (zip ou
 tar.gz).
 
-Python inclu la librairie `distutils`_ afin de réaliser ces distributions source,
+Python inclut la librairie `distutils`_ afin de réaliser ces distributions source,
 mais celle-ci ne gère pas les dépendances entre packages.
 :mod:`distribute` est un fork de :mod:`setuptools`, une extension à
 :mod:`distutils` qui ajoute de nombreuses fonctionnalités :
@@ -197,7 +203,7 @@ fichier de configuration :file:`~/.pydistutils.cfg` :
 Dans ce cas, seul les packages téléchargeables sur myintranet.example.com
 pourront être installés.
 
-Il est possible de changer l'index par défaut par lequel les eggs sont recherché
+Il est possible de changer l'index par défaut par lequel les eggs sont recherchés
 via l'option :option:`-i/--index-url`.
 `Pypi possède des miroirs <http://pypi.python.org/mirrors>`_
 
@@ -231,7 +237,7 @@ Création d'un environnement isolé avec virtualenv
 
 Il est fréquent de vouloir tester plusieurs versions d'un framework. Admettons
 que vous ayez zope 3.4 installé globalement, comment pouvez-vous tester zope 3.5
-sans que votre installation de zope 3.4 interfère ? La solution est de créer une
+sans que votre installation de zope 3.4 interfère ? La solution est de créer un
 environnement isolé avec `virtualenv`_.
 
 Lisez le `tutoriel virtualenv sur grok.zope.org`_ pour savoir comment
@@ -362,7 +368,7 @@ utiliser la bibliothèque PIL qui est installé globalement :
 Sous Ubuntu 9.04, PIL n'est pas disponible sous Python 2.4. Ici ``import PIL``
 est seulement utilisé comme exemple d'import d'un package installé
 globalement. Le package :mod:`virtualenv` a aussi été installé globalement, donc
-vous pouvez utilisez ``import virtualenv`` à la place pour tester.
+vous pouvez utiliser ``import virtualenv`` à la place pour tester.
 
 En général vous voulez un environnement isolé des packages extérieurs, c'est le
 rôle de l'option :option:`--no-site-packages` de :command:`virtualenv`.  Nous
@@ -473,7 +479,7 @@ Tous les eggs ne sont pas installés zippés. C'est le mainteneur du package qui
 décide si son egg est "zip safe" ou non.  Un package n'est par exemple pas
 zip safe s'il utilise la variable spéciale :data:`__file__` dans son code.
 
-Vous vous demandez à quoi sert ces fichiers :file:`setuptools.pth` et
+Vous vous demandez à quoi servent ces fichiers :file:`setuptools.pth` et
 :file:`easy-install.pth` n'est-ce pas ? Un petit rappel Python va vous faire du
 bien alors.
 
@@ -499,12 +505,12 @@ fichier :file:`easy-install.pth` une liste des eggs qu'elle a installés.
 Au démarrage de Python, tous les packages python (dans le sens d'un dossier
 contenant un fichier :file:`__init__.py`) se trouvant dans
 :file:`lib/python2.5/site-packages/` sont ajoutés au :data:`sys.path`.  Ça c'est
-la première étape, et dans notre cas, il n'y a aucun packages.  La deuxième
-étape recherche des fichiers :file:`{xyz}.pth`, les lit et inclu les chemins
+la première étape, et dans notre cas, il n'y a aucun package.  La deuxième
+étape recherche des fichiers :file:`{xyz}.pth`, les lit et inclut les chemins
 inclus si un package s'y trouve.
 
 La première et dernière ligne du fichier :file:`easy-install.pth` sont utilisés
-pour ajouter les eggs au début de :data:`sys.path` pour prendre précédence aux
+pour ajouter les eggs au début de :data:`sys.path` pour prendre la précédence aux
 packages éventuellement installés.
 
 Suppression d'un egg
@@ -583,7 +589,7 @@ Pour faire une désintallation propre d'un egg, il faut :
 
 - supprimer le egg
 - supprimer l'entrée dans :file:`easy-install.pth`
-- supprimer les éventuels scripts qui ont été généré à l'installation, ici
+- supprimer les éventuels scripts qui ont été générés à l'installation, ici
   :file:`bin/fab`.
 
 Methode "originelle" pour installer un package
@@ -691,31 +697,23 @@ commande :
 
     $ paster create --list-templates
     Available templates:
-      archetype:          A Plone project that uses Archetypes
-      basic_namespace:    A project with a namespace package
-      basic_package:      A basic setuptools-enabled package
-      basic_zope:         A Zope project
-      kss_plugin:         A KSS plugin template
-      nested_namespace:   A project with two nested namespaces.
-      paste_deploy:       A web application deployed through paste.deploy
-      plone:              A Plone project
-      plone2.5_buildout:  A buildout for Plone 2.5 projects
-      plone2.5_theme:     A Theme for Plone 2.5
-      plone2_theme:       A Theme Product for Plone 2.1 & Plone 2.5
-      plone3_buildout:    A buildout for Plone 3 projects
-      plone3_portlet:     A Plone 3 portlet
-      plone3_theme:       A Theme for Plone 3.0
-      plone_app:          A Plone App project
-      plone_hosting:      Plone hosting: buildout with ZEO and any Plone version
-      plone_pas:          A Plone PAS project
-      recipe:             A recipe project for zc.buildout
-      silva_buildout:     A buildout for Silva projects
-      zope2_buildout:     A buildout to create a blank Zope 2 instance
+    Available templates:
+      archetype:         A Plone project that uses Archetypes content types
+      basic_buildout:    A basic buildout skeleton
+      basic_namespace:   A basic Python project with a namespace package
+      basic_package:     A basic setuptools-enabled package
+      nested_namespace:  A basic Python project with a nested namespace (2 dots in name)
+      paste_deploy:      A web application deployed through paste.deploy
+      plone_basic:       A package for Plone add-ons
+      plone_nested:      A package for Plone add-ons with a nested namespace
+      recipe:            A recipe project for zc.buildout
+      zope2_basic:       A Zope project
+      zope2_nested:      A nested-namespace Zope package
 
 Ah il y a déjà plus de choix !
 
 Ceux que nous utiliserons par la suite sont :option:`basic_namespace`,
-:option:`plone3_buildout`, :option:`plone3_theme`.
+:option:`plone_basic`, :option:`plone_nested`.
 
 En fait, vous auriez très bien pu installer uniquement :mod:`ZopeSkel` car
 :mod:`PasteScript` en est une dépendance.
@@ -735,67 +733,60 @@ Créez votre premier egg :
 
     $ paster create -t basic_namespace
     Selected and implied templates:
-      ZopeSkel#basic_namespace  A project with a namespace package
+      templer.core#basic_namespace  A basic Python project with a namespace package
 
     Enter project name: foo.bar
     Variables:
       egg:      foo.bar
       package:  foobar
       project:  foo.bar
-    Enter namespace_package (Namespace package (like plone)) ['plone']: foo
-    Enter package (The package contained namespace package (like example)) ['example']: bar
-    Enter version (Version) ['1.0']:
-    Enter description (One-line description of the package) ['']: My first package
-    Enter long_description (Multi-line description (in reST)) ['']:
-    Enter author (Author name) ['']: Vincent Fretin
-    Enter author_email (Author email) ['']: vincent.fretin@ecreall.com
-    Enter keywords (Space-separated keywords/tags) ['']:
-    Enter url (URL of homepage) ['']:
-    Enter license_name (License name) ['GPL']:
-    Enter zip_safe (True/False: if the package can be distributed as a .zip file) [False]:
+    Expert Mode? (What question mode would you like? (easy/expert/all)?) ['easy']: 
+    Version (Version number for project) ['1.0']: 
+    Description (One-line description of the project) ['']: 
     Creating template basic_namespace
     Creating directory ./foo.bar
-      Recursing into +namespace_package+
-        Creating ./foo.bar/foo/
-        Recursing into +package+
-          Creating ./foo.bar/foo/bar/
-          Copying __init__.py_tmpl to ./foo.bar/foo/bar/__init__.py
-        Copying __init__.py_tmpl to ./foo.bar/foo/__init__.py
-      Copying README.txt_tmpl to ./foo.bar/README.txt
-      Recursing into docs
-        Creating ./foo.bar/docs/
-        Copying HISTORY.txt_tmpl to ./foo.bar/docs/HISTORY.txt
-      Copying setup.cfg to ./foo.bar/setup.cfg
       Copying setup.py_tmpl to ./foo.bar/setup.py
-    Running /home/vincentfretin/myenv/bin/python2.4 setup.py egg_info
+      Recursing into src
+        Creating ./foo.bar/src/
+        Recursing into +namespace_package+
+          Creating ./foo.bar/src/foo/
+          Recursing into +package+
+            Creating ./foo.bar/src/foo/bar/
+            Copying __init__.py_tmpl to ./foo.bar/src/foo/bar/__init__.py
+          Copying __init__.py_tmpl to ./foo.bar/src/foo/__init__.py
+    Running /home/cedric/.virtualenvs/myenv/bin/python setup.py egg_info
 
 Voyons ce qu'il a généré :
 
 .. code-block:: sh
 
     $ tree foo.bar
-    foo.bar/ (un egg nommé foo.bar)
-    |-- README.txt
-    |-- docs
-    |   `-- HISTORY.txt
-    |-- foo (un package foo)
-    |   |-- __init__.py
-    |   `-- bar (un package bar imbriqué)
-    |       `-- __init__.py
-    |-- foo.bar.egg-info (les fichiers de ce dossier sont générés)
-    |   |-- PKG-INFO
-    |   |-- SOURCES.txt
-    |   |-- dependency_links.txt
-    |   |-- entry_points.txt
-    |   |-- namespace_packages.txt
-    |   |-- not-zip-safe
-    |   |-- requires.txt
-    |   `-- top_level.txt
-    |-- setup.cfg
-    `-- setup.py (le fichier le plus important)
+    foo.bar/
+    ├── CHANGES.txt
+    ├── CONTRIBUTORS.txt
+    ├── docs
+    │   ├── LICENSE.GPL
+    │   └── LICENSE.txt
+    ├── README.txt
+    ├── setup.py
+    └── src
+        ├── foo
+        │   ├── bar
+        │   │   └── __init__.py
+        │   └── __init__.py
+        └── foo.bar.egg-info
+            ├── dependency_links.txt
+            ├── entry_points.txt
+            ├── namespace_packages.txt
+            ├── not-zip-safe
+            ├── PKG-INFO
+            ├── requires.txt
+            ├── SOURCES.txt
+            └── top_level.txt
+
 
 Le dossier :file:`foo.bar.egg-info` est généré automatiquement avec la commande
-:command:`python2.4 setup.py egg_info` (dernière commande exécutée par
+:command:`python setup.py egg_info` (dernière commande exécutée par
 :command:`paster`).
 
 Ce dossier ne sera donc pas ajouté au gestionnaire de version comme nous le verrons plus loin.
@@ -970,9 +961,11 @@ Au lieu de ça, qu'avons-nous ?
 .. code-block:: pycon
 
     >>> import foo
-    Hello Bonjour
+    Bonjour
+    Hello
 
-Il se peut que vous ayez "Bonjour Hello" comme ordre, c'est assez mystérieux.
+
+Il se peut que vous ayez "Hello Bonjour" comme ordre, c'est assez mystérieux.
 L'essentiel est que vous ayez les deux.
 
 Ensuite :
@@ -1053,20 +1046,20 @@ Reprenons les eggs :mod:`PasteScript` et :mod:`ZopeSkel`. Comment
 :mod:`PasteScript` a fait pour découvrir les nouveaux templates installés par :
 mod:`ZopeSkel` ?
 
-ZopeSkel a défini des entry points pour le groupe
+:mod:`ZopeSkel` utilise le système templer pour générer ses templates. Templer définit des entry points pour le groupe
 ``paste.paster_create_template`` :
 
 .. code-block:: sh
 
     $ cdsitepackages
-    $ cat ZopeSkel-2.11.1-py2.4.egg/EGG-INFO/entry_points.txt
+    $ cat templer.plone-1.0b1-py2.7.egg-info/entry_points.txt
+    # -*- Entry points: -*-
     [paste.paster_create_template]
-    basic_namespace = zopeskel:BasicNamespace
-    plone3_theme = zopeskel:Plone3Theme
-    plone3_buildout = zopeskel:Plone3Buildout
+    plone_basic = templer.plone:Plone
+    plone_nested = templer.plone:NestedPlone
+    archetype = templer.plone:Archetype
 
-où :data:`basic_namespace` est un nom, :data:`zopeskel` est un module à la
-racine du egg :mod:`ZopeSkel` et :data:`BasicNamespace` un callable, ici une
+où :data:`plone_basic` est un nom, :data:`templer.plone` est un module et :data:`Plone` un callable, ici une
 classe.
 
 et :mod:`PasteScript` lui fait une recherche des eggs déclarant des entry points
@@ -1080,21 +1073,23 @@ pour ``paste.paster_create_template`` avec l'API pkg_resources :
 
     >>> import pkg_resources
     >>> list(pkg_resources.iter_entry_points('paste.paster_create_template'))
-    [EntryPoint.parse('basic_namespace = zopeskel:BasicNamespace'),
-    EntryPoint.parse('plone3_theme = zopeskel:Plone3Theme'),
-    EntryPoint.parse('plone3_buildout = zopeskel:Plone3Buildout'), ...]
+    [...,
+    EntryPoint.parse('plone_basic = templer.plone:Plone'), 
+    EntryPoint.parse('plone_nested = templer.plone:NestedPlone'), 
+    EntryPoint.parse('archetype = templer.plone:Archetype'), 
+    ...]
 
 On peut charger le callable d'un entry point, souvent une classe :
 
 .. code-block:: pycon
 
     >>> entry_points = list(pkg_resources.iter_entry_points('paste.paster_create_template'))
-    >>> ep = entry_points[0]
+    >>> ep = entry_points[4]
     >>> ep
-    EntryPoint.parse('basic_package = paste.script.templates:BasicPackage')
-    >>> BasicPackage = ep.load()
-    >>> BasicPackage
-    <class 'paste.script.templates.BasicPackage'>
+    EntryPoint.parse('plone_basic = templer.plone:Plone')
+    >>> PloneBasic = ep.load()
+    >>> PloneBasic
+    <class 'templer.plone.plone.Plone'>
 
 En savoir plus : `Dynamic Discovery of Services and Plugins`_
 
@@ -1162,7 +1157,7 @@ nous allons l'appeler ``devagile``, avec la résolution DNS dans
 
 Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit `Products.PloneSoftwareCenter <http://pypi.python.org/pypi/Products.PloneSoftwareCenter>`__.
 
-Créez un site Plone avec comme id *site*, installez le module et créez une instance de PloneSoftwareCenter nommé :guilabel:`products` à la racine de Plone.
+Créez un site Plone avec comme id *site*, installez le module et ajoutez un élément Software Center nommé :guilabel:`products` à la racine du site.
 
 L'URL de ce Pypi sera donc http://devagile:8080/site/products
 
@@ -1240,7 +1235,7 @@ La commande mregister exécute implicitement la commande
 :option:`egg_info`. Cette commande génère entre autres le numéro de version.
 
 Le fichier :file:`setup.cfg` est lu par cette commande, il configure quelques
-options liées à la génération du numéro de version :
+options liées à la génération du numéro de version. Créez un fichier :file:`setup.cfg` qui contient :
 
 .. code-block:: sh
 
@@ -1249,7 +1244,7 @@ options liées à la génération du numéro de version :
    tag_build = dev
    tag_svn_revision = true
 
-La version générée sera donc de la forme "1.0dev-r1".
+La version générée sera donc de la forme "1.0dev".
 
 Pour une release stable, on supprime généralement ce fichier pour que la version
 soit simplement "1.0".
@@ -1259,7 +1254,7 @@ ligne de commande comme ceci :
 
 .. code-block:: sh
 
-   $ python setup.py egg_info -RDb "" mregister -r mycompany sdist --formats=zip mupload -r mycompany
+   $ python setup.py egg_info -RDb "" register -r mycompany sdist --formats=zip upload -r mycompany
 
 L'option :option:`--formats=zip` permet de générer une archive zip au lieu d'une
 archive tar.gz par défaut sous Linux.
@@ -1287,7 +1282,7 @@ La convention est de générer un :option:`bdist_egg` pour chaque version de
 Python pour la plateforme Windows si le egg contient des librairies C à
 compiler.
 
-Pour les autres OS, la distribution source sera récupéré et les librairies C
+Pour les autres OS, la distribution source sera récupérée et les librairies C
 seront compilées à l'installation.
 
 Broken release
@@ -1306,12 +1301,11 @@ Essayez maintenant d'installer :mod:`foo.bar` 1.0 à partir de votre pypi :
     $ easy_install -i http://devagile:8080/site/products/simple foo.bar
 
 Il y a une erreur à l'installation disant qu'il ne trouve pas le fichier
-:file:`docs/HISTORY.txt`.
+:file:`CONTRIBUTORS.txt`.
 
-La release est cassée car elle ne contient pas le dossier docs. Et nous avons
-besoin du fichier :file:`docs/HISTORY.txt` pour la :data:`long_description`.
+La release est cassée car elle ne contient pas le fichier :file:`CONTRIBUTORS.txt`. Et nous avons de ce fichier pour la :data:`long_description`.
 
-Le dossier docs est manquant car dans setup.py nous avons
+Le dossier docs est également manquant car dans setup.py nous avons
 :data:`package=find_packages`, ça recherche seulement les dossiers contenant un
 fichier :file:`__init__.py`. :file:`docs` n'étant pas un package, il n'a pas été
 inclu dans l'archive.
@@ -1328,7 +1322,7 @@ tous les fichiers subversionnés seront ajoutés à l'archive.
 
     Et pour faire un checkout : ::
 
-        svn co file:///home/vincentfretin/Formation
+        svn co http://devagile/Formation
 
 Donc on va importer notre code dans le dépôt Formation :
 

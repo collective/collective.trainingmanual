@@ -48,9 +48,9 @@ Ergonomie
 
 L'interface utilisateur de Plone 4 a été améliorée.
 
-Il est plus facile de `créer une site Plone
+Il est plus facile de `créer un site Plone
 <http://plone.org/products/plone/features/improved-first-run-experience>`__
-, via une page dédié.
+, via une page dédiée.
 
 Plone 4 inclut par défaut un nouvel éditeur wysiwyg (TinyMCE),
 et offre de nouveaux paramètres de configuration. TinyMCE remplace kupu.
@@ -151,7 +151,7 @@ Totalement eggifié, il est plus facile à déployer.
 Gestion des pièces jointes avec les blobs
 -----------------------------------------
 
-La ZODB gère maintenant les pièces jointes (images et fichier) de Plone
+La ZODB gère maintenant les pièces jointes (images et fichiers) de Plone
 dans des fichiers à part de la Data.fs, appelés "blobs".
 
 Cela limite l'impact des modifications de pièces jointes sur la taille des transactions :
@@ -174,8 +174,8 @@ JQuery Tools de base
 --------------------
 
 La bibliothèque Javascript `JQuery Tools
-<http://flowplayer.org/tools/index.html>`_ est inclus de base.
-Cela permet d'avoir des popups améliorants l'expérience utilisateur.
+<http://flowplayer.org/tools/index.html>`_ est incluse de base.
+Cela permet d'avoir des popups améliorant l'expérience utilisateur.
 
 `En savoir plus (en)
 <http://plone.org/products/plone/features/popup-forms-framework-based-on-jquery-tools>`__

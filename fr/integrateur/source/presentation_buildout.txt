@@ -146,12 +146,10 @@ Amorcez le buildout (choisissez bien la version de l'exécutable python) :
     |-- buildout.cfg
     |-- develop-eggs
     |-- eggs
-    |   |-- distribute-0.6.14-py2.6.egg
-    |   `-- zc.buildout-1.5.2-py2.6.egg
+    |   |-- distribute-0.6.28-py2.7.egg
+    |   `-- zc.buildout-1.5.2-py2.7.egg
     `-- parts
         `-- buildout
-            |-- site.py
-            `-- sitecustomize.py
 
 L'amorçage (ou bootstrapping) installe :mod:`distribute` et :mod:`zc.buildout`.
 L'amorçage génère le script :file:`bin/buildout`.
@@ -165,7 +163,7 @@ Exécutez maintenant :
     Got zc.recipe.egg 1.3.2.
     Installing archgenxml.
     Getting distribution for 'archgenxml'.
-    Got archgenxml 2.5.
+    Got archgenxml 2.6.
     ...
     Generated script '/home/vincentfretin/archgenxml_buildout/bin/archgenxml'.
     Generated script '/home/vincentfretin/archgenxml_buildout/bin/agx_argouml_profile'.
@@ -212,7 +210,7 @@ ces lignes :
 L'entry point ``scripts`` pointe vers la classe :class:`Scripts` du package
 :mod:`zc.recipe.egg`.
 
-Cette classe, comme toute recipe, contient une méthode install et update. Voir
+Cette classe, comme toute recipe, contient des méthodes install et update. Voir
 l'`API des recettes`_
 
 .. _`API des recettes`: http://ccomb.gorfou.fr/2007/12/13/tutoriel-sur-buildout#criture-de-recettes
@@ -222,7 +220,7 @@ exécution de :term:`buildout`.
 
 Lorsqu'une section a été supprimée de la configuration, cette partie sera
 désinstallée lors de la relance de :command:`bin/buildout`. Si une section a
-été mis à jour, cette partie sera réinstallée. Pour les nouvelles sections avec
+été mise à jour, cette partie sera réinstallée. Pour les nouvelles sections avec
 :term:`recipe`, les parties seront installées.
 
 Notre algorithme de tout à l'heure est maintenant :
@@ -255,7 +253,7 @@ entry points dans le groupe ``console_scripts``.  :
 
     import sys
     sys.path[0:0] = [
-      '/home/vincentfretin/archgenxml_buildout/eggs/archgenxml-2.5-py2.6.egg',
+      '/home/vincentfretin/archgenxml_buildout/eggs/archgenxml-2.6-py2.7.egg',
       ...
       ]
 
@@ -297,7 +295,7 @@ Remplacez ici bien sûr ``vincentfretin`` par votre compte. Vous ne pouvez pas
 utiliser le caractère *~* ici.
 
 L'option :data:`zope-directory` permet de partager la même installation de
-Zope 2.10.x pour plusieurs buildouts Plone 3.
+Zope pour plusieurs buildouts Plone.
 
 À savoir que les valeurs par défaut de ces variables sont : ::
 
@@ -309,7 +307,7 @@ Zope 2.10.x pour plusieurs buildouts Plone 3.
 dossier ``eggs`` était créé dans le buildout.
 
 Vous pouvez supprimer le dossier :file:`eggs` de votre buildout, le réamorcer
-et reexécuté :command:`bin/buildout`
+et reexécuter :command:`bin/buildout`
 
 Pinning des versions
 ====================
@@ -342,7 +340,7 @@ buildout de cette manière :
     parts = archgenxml
 
     [versions]
-    archgenxml = 2.5
+    archgenxml = 2.6
     # ...
 
     [archgenxml]
@@ -463,7 +461,7 @@ Prenons l'exemple suivant :
 
 .. code-block:: cfg
 
-    extends = http://dist.plone.org/release/4.0.1/versions.cfg
+    extends = http://dist.plone.org/release/4.2/versions.cfg
 
 Le fichier :file:`versions.cfg` sera mis en cache dans le dossier :file:`~/.buildout/configs/`, le fichier créé étant la somme md5 de l'url.
 
@@ -693,7 +691,8 @@ Ajoutez à la section ``[buildout]`` de :file:`development.cfg` :
 .. code-block:: cfg
 
     [buildout]
-    # ...
+    # ...find-links += http://devagile:8080/site/products/simple
+
     develop = src/foo.bar
 
 Relancez ``bin/buildout -c development.cfg``.
@@ -724,7 +723,7 @@ exemple un pypi proxy avec :mod:`collective.eggproxy`.
 L'option ``find-links`` permet d'indiquer des liens supplémentaires où l'on peut
 trouver les eggs utilisés dans le buildout.
 
-Nous allons maintenant installer ``foo.bar = 1.0``, la release qu'il y a sur
+Nous allons maintenant installer ``foo.bar = 1.1``, la release qu'il y a sur
 notre pypi.
 
 Supprimez donc l'option ``develop`` et dans :file:`development.cfg`, ajoutez :
@@ -735,4 +734,14 @@ Supprimez donc l'option ``develop`` et dans :file:`development.cfg`, ajoutez :
     # ...
     find-links += http://devagile:8080/site/products/simple
 
-et dans :file:`versions.cfg`, ajoutez ``foo.bar = 1.0``.
+
+Dans :file:`buildout.cfg`, ajoutez ``foo.bar`` à la liste des eggs :
+
+.. code-block:: cfg
+
+    [buildout]
+    # ...
+    eggs = archgenxml
+           foo.bar
+
+Enfin, ajoutez ``foo.bar = 1.1`` dans :file:`versions.cfg`.

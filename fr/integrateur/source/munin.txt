@@ -21,7 +21,7 @@ Installez le serveur et le client Munin :
 Vous aurez les plugins mysql si vous avez mysql-server d'installé.
 Les plugins actifs sont des liens symboliques dans */etc/munin/plugins/*.
 
-Éditez */etc/munin/munin.conf* pour changer *host.domain.com* :
+Éditez */etc/munin/munin.conf* pour changer *host.domain.com* (ce n'est pas nécessaire dans Ubuntu 12.04) :
 
 .. code-block:: cfg
 
