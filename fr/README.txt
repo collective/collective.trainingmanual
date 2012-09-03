@@ -105,7 +105,7 @@ cette documentation : ::
 Vous pouvez maintenant générer cette documentation en HTML : ::
 
   $ workon sphinx
-  (sphinx)$ cd collective.trainingmanual/sphinx
+  (sphinx)$ cd collective.trainingmanual/integrateur
   (sphinx)$ make html
 
 Vous pouvez ouvrir maintenant
