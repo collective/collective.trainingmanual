@@ -762,27 +762,27 @@ Voyons ce qu'il a généré :
 
     $ tree foo.bar
     foo.bar/
-    ├── CHANGES.txt
-    ├── CONTRIBUTORS.txt
-    ├── docs
-    │   ├── LICENSE.GPL
-    │   └── LICENSE.txt
-    ├── README.txt
-    ├── setup.py
-    └── src
-        ├── foo
-        │   ├── bar
-        │   │   └── __init__.py
-        │   └── __init__.py
-        └── foo.bar.egg-info
-            ├── dependency_links.txt
-            ├── entry_points.txt
-            ├── namespace_packages.txt
-            ├── not-zip-safe
-            ├── PKG-INFO
-            ├── requires.txt
-            ├── SOURCES.txt
-            └── top_level.txt
+    |-- CHANGES.txt
+    |-- CONTRIBUTORS.txt
+    |-- docs
+    |   |-- LICENSE.GPL
+    |   `-- LICENSE.txt
+    |-- README.txt
+    |-- setup.py
+    `-- src
+        |-- foo
+        |   |-- bar
+        |   |   `-- __init__.py
+        |   `-- __init__.py
+        `-- foo.bar.egg-info
+            |-- dependency_links.txt
+            |-- entry_points.txt
+            |-- namespace_packages.txt
+            |-- not-zip-safe
+            |-- PKG-INFO
+            |-- requires.txt
+            |-- SOURCES.txt
+            `-- top_level.txt
 
 
 Le dossier :file:`foo.bar.egg-info` est généré automatiquement avec la commande
