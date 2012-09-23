@@ -46,7 +46,7 @@ Installez donc zopeedit via le système de packages :
     $ sudo apt-get install zopeedit
     TODO TODO TODO TODO
     http://www.atreal.net/solutions/atrealxnet/collective.zopeedit_1.0.0_all.deb/view
-    sudo dpkg -i collective.zopeedit_1.0.0_all.deb
+    $ sudo dpkg -i collective.zopeedit_1.0.0_all.deb
 
 Ensuite récupérer la dernière version du script Python :file:`zopeedit.py` sur
 http://plone.org/products/zope-externaleditor-client

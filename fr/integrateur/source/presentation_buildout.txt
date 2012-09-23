@@ -295,7 +295,7 @@ Remplacez ici bien sûr ``vincentfretin`` par votre compte. Vous ne pouvez pas
 utiliser le caractère *~* ici.
 
 L'option :data:`zope-directory` permet de partager la même installation de
-Zope pour plusieurs buildouts Plone.
+Zope 2.10.x pour plusieurs buildouts Plone 3.3.x.
 
 À savoir que les valeurs par défaut de ces variables sont : ::
 
@@ -691,7 +691,9 @@ Ajoutez à la section ``[buildout]`` de :file:`development.cfg` :
 .. code-block:: cfg
 
     [buildout]
-    # ...find-links += http://devagile:8080/site/products/simple
+    # ...
+    find-links +=
+        http://devagile:8080/site/products/simple
 
     develop = src/foo.bar
 
@@ -741,7 +743,8 @@ Dans :file:`buildout.cfg`, ajoutez ``foo.bar`` à la liste des eggs :
 
     [buildout]
     # ...
-    eggs = archgenxml
-           foo.bar
+    eggs =
+        archgenxml
+        foo.bar
 
 Enfin, ajoutez ``foo.bar = 1.1`` dans :file:`versions.cfg`.
