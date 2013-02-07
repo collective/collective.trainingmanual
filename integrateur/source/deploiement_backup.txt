@@ -330,78 +330,23 @@ Redémarrez Firefox pour qu'il relise le fichier.
 Vous accéderez à votre site à partir de maintenant avec l'adresse
 **http://devagile**.
 
-Installation et configuration de CacheFu (< Plone 4)
-====================================================
+Installation et configuration de plone.app.caching
+==================================================
 
-CacheFu est un module pour gérer les règles de cache HTTP pour Plone < 4.
-
-Installation
-------------
-
-Pour installer CacheFu il suffit d'ajouter :mod:`Products.CacheSetup`
-soit dans la liste des eggs de votre buildout, soit en tant que dépendance à
-l'un de vos projets dans le :file:`setup.py`.
-Vous devez ensuite l'installer par la suite comme un module supplémentaire
-dans le panneau de configuration de Plone via l'utilitaire
-:guilabel:`Ajout/Suppression de produits`.
-
-Configuration
--------------
-
-Allez avec le navigateur en tant qu'administrateur dans
-:guilabel:`Configuration du site`
--> :guilabel:`Cache Configuration Tool` et configurez de la manière suivante :
-
-- Cocher Enable CacheFu
-- Active Cache Policy: With Caching Proxy
-- Proxy Cache Purge Configuration: Purge with VHM URLS
-- Site Domains: https://ssl.devagile:443
-- Proxy Cache Domains: http://127.0.0.1:8000
-- Compression: Never
-
-Installation et configuration de plone.app.caching (>= Plone 4)
-===============================================================
-
-:mod:`plone.app.caching` propose comme CacheFu une interface graphique pour gérer
+:mod:`plone.app.caching` propose une interface graphique pour gérer
 les règles de cache HTTP pour Plone 4. Il est construit sur :mod:`z3c.caching`,
 :mod:`plone.caching` et :mod:`plone.cachepurging`.
 
 Installation
 ------------
 
-Pour installer plone.app.caching il suffit de l'ajouter soit dans la liste
-des eggs de votre buildout, soit en tant que dépendance à l'un de vos projets
-dans le :file:`setup.py`.
-Vous devez ensuite l'installer comme un module supplémentaire
-dans le panneau de configuration de Plone via l'utilitaire d'ajout de modules.
-Comme ce module dépend d'un certain nombre de modules qui ne sont pas fournis
-par Plone, il est plus sûr de geler les versions dans votre buildout comme
-suit :
-
-.. code-block:: cfg
-
-    extends =
-        # ...
-	http://good-py.appspot.com/release/plone.app.caching/1.0b1
-
-Vous pouvez avoir une vue des versions disponibles ici :
-http://good-py.appspot.com/release/plone.app.caching
-
-.. note::
-
-    http://good-py.appspot.com est une application Google App Engine créée par
-    Martin Aspeli pour gérer un ensemble de KGS (Know Good Set),
-    avec des contraintes de versions compatibles et incompatibles. Par exemple
-    pour récupérer le KGS de plone.app.caching et de five.grok, vous pouvez
-    utiliser l'url suivante :
-    http://good-py.appspot.com/release/plone.app.caching/1.0b1?five.grok=1.1.2
-    Pour récupérer un KGS de five.grok compatible avec Plone 3.3 qui utilise
-    Zope 2.10.x : http://good-py.appspot.com/release/five.grok/1.1.2?zope=2.10.x
+plone.app.caching est livré avec Plone mais n'est pas activé. Vous avez donc
+juste à activer le module dans la gestion des modules.
 
 Le panneau de configuration de la gestion de cache
 --------------------------------------------------
 
-Une fois installé vous allez trouver au niveau de la configuration de votre
+Une fois activé vous allez trouver au niveau de la configuration de votre
 site un lien pour configurer les règles de cache de votre site.
 
 .. figure:: ./deploiement_backup/liencaching.png
@@ -445,7 +390,7 @@ Eventuellement nettoyer ce fichier, seules les clés commencant par
 plone.app.caching nous intéressent.
 
 Pour aller plus loin :
-http://dev.plone.org/plone/browser/plone.app.caching/trunk/README.txt
+http://pypi.python.org/pypi/plone.app.caching
 
 Tester
 ------
