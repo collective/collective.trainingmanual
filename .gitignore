@@ -70,6 +70,8 @@ Thumbs.db
 #############################
 bin
 parts
+src
+develop-eggs
 
 developpeur/build
 integrateur/build
