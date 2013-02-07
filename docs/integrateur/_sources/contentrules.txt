@@ -1,0 +1,251 @@
+.. -*- coding: utf-8 -*-
+
+.. _content_rules:
+
+=====================================================
+Déclenchement d'événements avec les règles de contenu
+=====================================================
+
+Plone permet de gérer des déclenchements d'actions avec un très haut niveau de paramétrage, suivant :
+
+- un événement déclencheur (ajout d'un document, d'un utilisateur, passage d'une transition...),
+- une / des conditions (état du document, type de document, rôle de l'utilisateur...),
+- la localisation sur le site.
+
+Les événements peuvent lancer des actions diverses telles que :
+
+- envois d'emails,
+- ajout de log,
+- affichage d'un message,
+- etc.
+
+.. contents:: :local:
+
+Objectif de la formation
+========================
+
+Nous allons créer :
+
+- une règle qui affiche un message à l'utilisateur et envoie un mail au modérateur lorsqu'une actualité est soumise à validation dans la partie Intranet,
+- une règle qui ajoute une entrée dans les logs à chaque fois qu'un document est supprimé,
+- une règle qui déplace tous les événements ajoutés dans la partie Internet dans le dossier Événements.
+
+Préparation
+===========
+
+Il nous faudra un dossier `Intranet` et un dossier `Internet` à la racine de notre site (cf. chapitre précédent).
+
+Il faut créer un utilisateur `Modérateur Intranet` qui ait le rôle `Peut Modérer` sur le dossier `Intranet`.
+Le smtp et l'email par défaut du site doivent être correctement configurés.
+
+Créer une règle
+===============
+
+Créons la première règle citée ci-dessous.
+
+Pour cela, connectez vous en administrateur, puis allez sur `admin` > `Configuration du site`. Cliquez sur 'règles'.
+
+.. figure:: ./contentrules_images/menu-regles.jpg
+    :align: center
+
+.. figure:: ./contentrules_images/page-regles.jpg
+    :align: center
+
+
+Vérifiez tout d'abord que la case `Activer globalement` a bien été cochée. Elle a pour effet d'activer tout le système de règles.
+Lorsque vous avez besoin de désactiver provisoirement toutes les règles, le mieux est de décocher cette case.
+
+Cliquez ensuite sur `Ajouter une règle`.
+
+Choisissez comme titre : `Une actualité a été ajoutée`.
+
+Il faut vérifier si la règle s'applique à chaque fois qu'un utilisateur effectue une transition.
+Sélectionnez comme déclencheur `Workflow state changed`.
+
+.. figure:: ./contentrules_images/ajouter-regle.jpg
+    :align: center
+
+Puis enregistrez. La règle a été ajoutée. Elle apparaît maintenant dans la liste des règles.
+
+
+.. figure:: ./contentrules_images/regle-ajoutee.jpg
+    :align: center
+
+Mais pour l'instant, elle ne se déclenche jamais, et ne fait rien... Il faut la paramétrer.
+
+Paramétrer une règle
+====================
+
+Cliquez sur la règle, vous arrivez à la page de paramétrage de cette règle.
+
+.. figure:: ./contentrules_images/regle-ajoutee.jpg
+    :align: center
+
+Il nous faut maintenant ajouter les conditions de la règle, et ses résultats.
+
+Créer une condition
+===================
+
+La règle a deux conditions : il doit s'agir d'une actualité, et la transition doit être une soumission à la publication.
+
+Dans la partie `Si toutes les conditions suivantes sont remplies`, sélectionnez `Content type` (Type de contenu), et `Ajouter`
+
+Choisissez le type de contenu `Actualité`, puis enregistrez. La condition a été ajoutée.
+
+.. figure:: ./contentrules_images/ajouter-condition.jpg
+    :align: center
+
+.. figure:: ./contentrules_images/condition-ajoutee.jpg
+    :align: center
+
+De même, ajoutez la condition sur la transition : sélectionnez `Ajouter une transition` > `Workflow transition` puis `Ajouter`.
+Choisissez `Submit for publication` puis enregistrez.
+
+Créer une action
+================
+
+On veut que le modérateur reçoive un mail. Pour `Effectue les actions suivantes`, sélectionnez `Ajouter une action` > `Send email`, puis `Ajouter`.
+
+Vous arrivez sur la page de paramétrage de l'email. Vous définissez ici le sujet, le texte, les destinataires, etc, en utilisant un certain nombre de variables fournies de base par Plone.
+
+Indiquez le sujet de l'email : `L'actu ${title} est en attente de votre validation`. L'emplacement ${title} sera remplacé par le titre du document au moment de l'envoi.
+
+Comme source du courriel, ne mettez rien : ainsi, la source sera l'adresse du portail.
+
+Comme destinataires, utilisez la variable ${reviewer_emails} : le mail sera envoyé à la liste des modérateurs (Reviewers)
+
+Entrez enfin un message comme sur cette copie d'écran :
+
+.. figure:: ./contentrules_images/editer-action-courriel.jpg
+    :align: center
+
+Enregistrez ; votre action a été ajoutée.
+
+.. figure:: ./contentrules_images/editer-action-courriel.jpg
+    :align: center
+
+Imaginons que les contributeurs de l'intranet craignent que leur demande ne soit pas prise en compte. Nous allons ajouter un message leur indiquant que les modérateurs ont reçu un mail.
+
+Faites `Ajouter une action` > `Notify user`, puis `Ajouter`.
+
+Indiquez comme message : `Les modérateurs ont été notifiés par mail de votre demande.`, conservez `info` comme type de message, puis enregistrez.
+
+.. figure:: ./contentrules_images/action-ajoutee.jpg
+    :align: center
+
+Votre règle a été créée. Il reste maintenant à l'activer dans la partie Intranet du site.
+
+Activer la règle pour une partie du site
+========================================
+
+Allez dans la rubrique `Intranet`, sélectionnez l'onglet `Règles`.
+
+.. figure:: ./contentrules_images/regles-locales.jpg
+    :align: center
+
+Vous avez un champ `Affecter une règle ici` qui propose (uniquement, pour l'instant) la règle `Une actualité a été ajoutée`.
+Cliquez sur `Ajouter`.
+
+.. figure:: ./contentrules_images/ajouter-regle-locale.jpg
+    :align: center
+
+Ceci fait, la règle est maintenant activée pour ce dossier, et seulement celui-ci. Pour l'activer sur tous les sous-dossiers de l'intranet, cochez la règle dans le tableau et cliquez sur `Appliquer aux sous-dossiers`.
+
+.. figure:: ./contentrules_images/activer-sous-dossiers.jpg
+    :align: center
+
+Vous pouvez activer / désactiver la règle ici.
+Si vous l'avez associée à d'autres dossiers via d'autres onglets `règles`, seul celui-ci est impacté.
+
+Tester la règle
+===============
+
+Cliquez sur l'onglet `Voir`, puis sur une actualité du dossier. `Soumettez à la publication` le document.
+
+
+.. figure:: ./contentrules_images/exemple-1.jpg
+    :align: center
+
+Vous observerez que le message `Les modérateurs ont été notifiés par mail de votre demande.` apparaît bien.
+Et le modérateur a reçu un courriel.
+
+.. figure:: ./contentrules_images/email-notification.jpg
+    :align: center
+
+Exemple 2 : Logguer les suppressions de documents
+=================================================
+
+Dans `Configuration du site` > `Règles`, cliquez `Ajouter une règle`.
+
+Appelez-la `Un document a été supprimé`, choisissez le déclencheur `Object removed from this container` et enregistrez.
+
+.. figure:: ./contentrules_images/regle-2-ajoutee.jpg
+    :align: center
+
+Cliquez sur la règle pour paramétrer les actions.
+
+Nous ne spécifierons pas de conditions particulières ici. Sélectionnez `Ajouter une action` > `Logger` puis `Ajouter`.
+
+Remplacez le `Message` par `Suppression du document &c`.
+
+Allez à la racine du site et cliquez sur `Règles` ; ajoutez la règle `Un document a été supprimé`. Activez-la pour les sous-dossiers.
+
+.. figure:: ./contentrules_images/ajouter-regle-locale-2.jpg
+    :align: center
+
+Ajoutez un document sur le site, et supprimez-le. Si votre site est démarré en mode foreground, vous pouvez y voir le log.
+
+.. figure:: ./contentrules_images/exemple-2.jpg
+    :align: center
+
+Sinon, consultez vos logs avec la commande ``tail -f ./var/log/instance.log`` depuis la racine du buildout.
+
+Exemple 3 : Déplacer les événements dans un même dossier, où qu'ils soient ajoutés
+==================================================================================
+
+Imaginons que nous voulions regrouper tous les événements du site dans un seul dossier, sans contraindre l'utilisateur à être à un endroit particulier du site lorsqu'il ajoute un tel élément.
+
+Ajoutez une nouvelle règle, que vous appelerez `Un événement a été ajouté`, avec le déclencheur `Object added to this container`.
+
+Associez-lui la condition : `Type de contenu` : `Événement`.
+
+Ajoutez ensuite l'action `Move to folder`, et choisissez le dossier `Événements`.
+
+.. figure:: ./contentrules_images/ajouter-action-move.jpg
+    :align: center
+
+Au niveau du dossier `Internet`, activez cette règle, et rendez-la applicable à tous les dossiers.
+
+Dans ce même dossier, ajoutez un événement. Allez ensuite dans le dossier `Événements`, vous verrez qu'il y a été déplacé. Revenez dans le dossier `Internet` : il n'y est plus.
+
+Export Generic Setup
+====================
+
+Les règles de contenu peuvent être exportées en xml via l'outil Generic Setup.
+
+Dans `portal_setup` > `Export`, sélectionnez `Content rules` puis `Export selected steps`.
+Cela exporte à la fois vos définitions de règles et les activations des règles sur les rubriques.
+
+Attention : après l'export, vérifiez que l'indentation automatique du xml n'a pas ajouté des espaces non désirés dans vos messages.
+
+Extensibilité
+=============
+
+Les règles de contenu sont largement extensibles. Il est possible d'ajouter ou créer :
+
+- de nouveaux déclencheurs,
+- de nouvelles conditions,
+- de nouvelles actions.
+
+Si vous avez des besoins spécifiques,
+recherchez sur pypi le mot-clé `contentrules` pour vérifier si une extension existe pour votre cas d'utilisation : `<http://pypi.python.org/pypi?%3Aaction=search&term=contentrules&submit=search>`_.
+
+Vous pouvez également vous lancer dans le développement de conditions et actions (niveau avancé) avec l'aide de ce guide `<http://plone.org/documentation/kb/creating-content-rule-conditions-and-actions>`_.
+Ou contactez votre prestataire Plone favori.
+
+Conclusion
+==========
+
+Il est possible d'associer à un événement du site et suivant des conditions, sur des parties déterminées du site, des actions.
+Un certain nombre de déclencheurs, d'actions et de conditions sont disponibles par défaut. D'autres sont disponibles en tant qu'extensions.
+Il est aisé à un développeur d'en créer de nouveaux.

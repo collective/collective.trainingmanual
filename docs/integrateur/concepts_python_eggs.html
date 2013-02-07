@@ -1,0 +1,1225 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Concept de Python eggs &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Introduction à zc.buildout" href="presentation_buildout.html" />
+    <link rel="prev" title="Rappel HTML et XML" href="presentation_html_xml.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="presentation_buildout.html" title="Introduction à zc.buildout"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_html_xml.html" title="Rappel HTML et XML"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="concept-de-python-eggs">
+<span id="python-eggs"></span><h1>Concept de Python eggs<a class="headerlink" href="#concept-de-python-eggs" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ce chapitre utilise un dépôt subversion créé dans le chapitre
+<a class="reference external" href="http://docs.ecreall.com/developpeur/gestion_des_sources.html#gestion-des-sources" title="(in Plone pour les développeurs v1.0.0)"><em class="xref std std-ref">La gestion des sources avec subversion</em></a></p>
+</div>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#definition" id="id1">Définition</a></li>
+<li><a class="reference internal" href="#savoir" id="id2">Savoir</a></li>
+<li><a class="reference internal" href="#installation-de-python-et-distribute" id="id3">Installation de Python et Distribute</a></li>
+<li><a class="reference internal" href="#packaging-python" id="id4">Packaging Python</a><ul>
+<li><a class="reference internal" href="#installation-d-un-egg" id="id5">Installation d&#8217;un egg</a></li>
+<li><a class="reference internal" href="#telecharger-un-package-sans-l-installer" id="id6">Télécharger un package sans l&#8217;installer</a></li>
+<li><a class="reference internal" href="#creation-d-un-environnement-isole-avec-virtualenv" id="id7">Création d&#8217;un environnement isolé avec virtualenv</a></li>
+<li><a class="reference internal" href="#suppression-d-un-egg" id="id8">Suppression d&#8217;un egg</a></li>
+<li><a class="reference internal" href="#methode-originelle-pour-installer-un-package" id="id9">Methode &#8220;originelle&#8221; pour installer un package</a></li>
+<li><a class="reference internal" href="#installation-de-virtualenvwrapper" id="id10">Installation de virtualenvwrapper</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#passons-au-developpement" id="id11">Passons au développement</a><ul>
+<li><a class="reference internal" href="#installation-de-la-commande-paster" id="id12">Installation de la commande <tt class="docutils literal"><span class="pre">paster</span></tt></a></li>
+<li><a class="reference internal" href="#creation-de-votre-premier-egg" id="id13">Création de votre premier egg</a></li>
+<li><a class="reference internal" href="#declaration-des-dependances" id="id14">Déclaration des dépendances</a></li>
+<li><a class="reference internal" href="#egg-en-mode-developpement" id="id15">Egg en mode développement</a></li>
+<li><a class="reference internal" href="#le-hello-world-que-tout-le-monde-attend" id="id16">Le hello world que tout le monde attend</a></li>
+<li><a class="reference internal" href="#les-espaces-de-nom-ou-namespaces" id="id17">Les espaces de nom ou namespaces</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l-api-pkg-resources" id="id18">L&#8217;API pkg_resources</a></li>
+<li><a class="reference internal" href="#les-entry-points" id="id19">Les entry points</a><ul>
+<li><a class="reference internal" href="#groupe-console-scripts" id="id20">groupe console_scripts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mise-en-place-d-un-pypi-prive-avec-plonesoftwarecenter" id="id21">Mise en place d&#8217;un Pypi privé avec PloneSoftwareCenter</a><ul>
+<li><a class="reference internal" href="#installation-de-collective-dist-pour-python-2-4-et-2-5" id="id22">Installation de collective.dist pour Python 2.4 et 2.5</a></li>
+<li><a class="reference internal" href="#configuration-des-serveurs" id="id23">Configuration des serveurs</a></li>
+<li><a class="reference internal" href="#enregistrement-et-upload" id="id24">Enregistrement et upload</a></li>
+<li><a class="reference internal" href="#broken-release" id="id25">Broken release</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="definition">
+<h2><a class="toc-backref" href="#id1">Définition</a><a class="headerlink" href="#definition" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les Python eggs sont des packages distribuables. La notion de <a class="reference internal" href="glossaire.html#term-egg"><em class="xref std std-term">egg</em></a> doit
+être bien comprise pour comprendre la suite. C&#8217;est la base des outils
+d&#8217;aujourd&#8217;hui comme <tt class="xref py py-mod docutils literal"><span class="pre">zc.buildout</span></tt> qui sert au déploiement d&#8217;un site Plone
+et <strong class="command">paster</strong> pour la génération de squelette de projet.</p>
+</div>
+<div class="section" id="savoir">
+<h2><a class="toc-backref" href="#id2">Savoir</a><a class="headerlink" href="#savoir" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li><tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt>/<tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt></li>
+<li>environnement isolé avec <tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt></li>
+<li>création d&#8217;un <a class="reference internal" href="glossaire.html#term-egg"><em class="xref std std-term">egg</em></a> avec <strong class="command">paster</strong></li>
+<li>metadata (description au format ReST, dépendances, extras)</li>
+<li>installation via <strong class="command">easy_install</strong></li>
+<li>entry points et plugins (<strong class="command">paster</strong> utilise ce mécanisme de plugins)</li>
+</ul>
+</div>
+<div class="section" id="installation-de-python-et-distribute">
+<h2><a class="toc-backref" href="#id3">Installation de Python et Distribute</a><a class="headerlink" href="#installation-de-python-et-distribute" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Dans ce qui suit, je considère que vous êtes sous Ubuntu ou Debian et que vous
+souhaitez travailler sur Plone 4 qui requiert Python 2.6. Si vous voulez
+installer un Plone 3, il vous faudra Python 2.4, dans ce cas, remplacez 2.6
+par 2.4 dans les instructions suivantes.</p>
+<p>Installez les packages suivants :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install build-essential python2.6 python2.6-dev
+</pre></div>
+</div>
+<p>Le meta-paquet <em>build-essential</em> vous installera tout ce qu&#8217;il faut
+(compilateur gcc, make, etc.) pour compiler certains modules Python.
+Si par la suite vous avez une erreur disant que le fichier <tt class="file docutils literal"><span class="pre">Python.h</span></tt>
+ne peut être trouvé, c&#8217;est très probablement que vous n&#8217;avez
+pas le paquet <em>python2.6-dev</em> d&#8217;installé.</p>
+<p>Sous Ubuntu, installez le gestionnaire de paquets <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>wget http://python-distribute.org/distribute_setup.py
+<span class="nv">$ </span>sudo python distribute_setup.py
+</pre></div>
+</div>
+<p>Si vous voulez être sûr de la version de Python que vous utilisez, vous pouvez
+vérifier la version comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python --version
+Python 2.7.3
+</pre></div>
+</div>
+<p>Et savoir exactement où il se trouve comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>which python
+/usr/bin/python
+</pre></div>
+</div>
+<p>Ce python est en fait un lien symbolique ici vers python2.7, comme on peut le voir :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>ls -l /usr/bin/python
+lrwxrwxrwx 1 root root 9 juil.  9 16:41 /usr/bin/python -&gt; python2.7
+</pre></div>
+</div>
+<p>À tout moment, vous pouvez exécuter ces commandes pour savoir quel Python
+vous utilisez réellement.</p>
+<p>Après l&#8217;installation de <cite>distribute</cite>, la commande <strong class="command">easy_install</strong>
+est disponible pour installer de nouveaux eggs pour Python 2.7.</p>
+</div>
+<div class="section" id="packaging-python">
+<h2><a class="toc-backref" href="#id4">Packaging Python</a><a class="headerlink" href="#packaging-python" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Un package Python peut être distribué sous la forme d&#8217;une simple archive (zip ou
+tar.gz).</p>
+<p>Python inclut la librairie <a class="reference external" href="http://docs.python.org/library/distutils.html">distutils</a> afin de réaliser ces distributions source,
+mais celle-ci ne gère pas les dépendances entre packages.
+<tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> est un fork de <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>, une extension à
+<tt class="xref py py-mod docutils literal"><span class="pre">distutils</span></tt> qui ajoute de nombreuses fonctionnalités :</p>
+<ul class="simple">
+<li>dépendances (metadata install_requires)</li>
+<li>distribution binaire, egg</li>
+<li>entry points</li>
+</ul>
+<p>Le package <a class="reference external" href="http://pypi.python.org/pypi/distribute">distribute</a> fournit la commande <strong class="command">easy_intall</strong> qui permet
+d&#8217;installer un package donné :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install zope.interface
+</pre></div>
+</div>
+<p>Il y a également <a class="reference external" href="http://pypi.python.org/pypi/pip">pip</a> qui lui propose un moyen alternatif à
+<strong class="command">easy_install</strong> pour installer un package.</p>
+<p><a class="reference external" href="http://tarekziade.wordpress.com">Tarek Ziadé</a> et d&#8217;autres personnes travaillent sur l&#8217;amélioration de la gestion
+des packages Python avec le nouveau package <a class="reference external" href="http://pypi.python.org/pypi/Distutils2">distutils2</a>
+qui remplacera <tt class="xref py py-mod docutils literal"><span class="pre">distutils</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt>.</p>
+<ul class="simple">
+<li>implémentation d&#8217;une fonctionnalité de désinstallation d&#8217;un package</li>
+<li>ajout du metadata install_requires (entre autres) pour décrire les
+dépendances, mais la gestion des dépendances se fera toujours avec une
+commande tierce.</li>
+</ul>
+<p>Vous pouvez lire le <a class="reference external" href="http://tarekziade.wordpress.com/2009/05/10/distutils-state/">billet de Tarek</a>
+et les PEPs associés si vous êtes intéressé sur le sujet.</p>
+<div class="section" id="installation-d-un-egg">
+<h3><a class="toc-backref" href="#id5">Installation d&#8217;un egg</a><a class="headerlink" href="#installation-d-un-egg" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La communauté Python possède un dépôt central où sont stockés tous les packages
+Python, c&#8217;est le <a class="reference internal" href="glossaire.html#term-pypi"><em class="xref std std-term">Pypi</em></a> (Python Package Index), connu autrefois sous le
+nom de Cheese Shop. Son adresse : <a class="reference external" href="http://pypi.python.org/pypi">http://pypi.python.org/pypi</a></p>
+<p>Lorsque vous installez un package Python via <strong class="command">easy_install</strong>, c&#8217;est sur
+cet index que le package est recherché.</p>
+<p>En effet l&#8217;index par défaut est l&#8217;URL suivante : <a class="reference external" href="http://pypi.python.org/simple">http://pypi.python.org/simple</a></p>
+<p>Exécutez <strong class="command">easy_install Fabric</strong>, voici ce qui est exactement fait :</p>
+<ul class="simple">
+<li>connexion à l&#8217;index <a class="reference external" href="http://pypi.python.org/simple">http://pypi.python.org/simple</a></li>
+<li>recherche de Fabric dans la liste des liens, si un lien est trouvé, il est
+suivi</li>
+<li>nous arrivons donc sur <a class="reference external" href="http://pypi.python.org/simple/Fabric/">http://pypi.python.org/simple/Fabric/</a> Cette page contient
+une liste d&#8217;urls où l&#8217;on peut télécharger directement l&#8217;egg, mais également
+toutes les urls contenues dans la description longue du egg.</li>
+<li>la liste fournie sur cette page est ensuite filtrée de la manière suivante :<ul>
+<li>on donne priorité au egg binaire (bdist) qu&#8217;à la distribution source
+(sdist)</li>
+<li>on garde les packages liés à l&#8217;OS, donc si on est sous Windows, les eggs
+ayant win32 sont gardés</li>
+<li>seul les eggs utilisant la version de Python qu&#8217;on est en train d&#8217;utiliser
+sont gardés</li>
+<li>si aucun egg binaire n&#8217;est trouvé, alors on recherche une distribution
+source (tar.gz ou zip)</li>
+<li>il se peut qu&#8217;il n&#8217;y ait aucun lien direct vers un egg sur cette page, mais
+un lien vers une ou plusieurs urls où l&#8217;on peut les télécharger (liens
+contenus dans long_description ou via l&#8217;option <tt class="xref py py-data docutils literal"><span class="pre">download_url</span></tt> précisé
+lors de la création du egg). Dans ce cas-là, les liens sont suivis pour
+aller chercher une liste des versions.</li>
+</ul>
+</li>
+</ul>
+<p>Si le package n&#8217;a pas été trouvé sur l&#8217;index, alors on entame une nouvelle
+recherche, cette fois parmi tous les <tt class="xref py py-data docutils literal"><span class="pre">find-links</span></tt> (éventuellement filtré
+par l&#8217;option <em class="xref std std-option">-H/--allow-hosts</em>) :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install --find-links http://pkg.example.com/packages/ monpackage
+</pre></div>
+</div>
+<p>Vous pouvez par exemple autoriser seulement les connexions vers votre intranet
+et pypi :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install -H *.myintranet.example.com,*.python.org zope.interface
+</pre></div>
+</div>
+<p>L&#8217;option <em class="xref std std-option">-H/--allow-hosts</em> permet aussi par exemple d&#8217;installer un
+package sans le réseau, en interdissant toutes les URLs et en spécifiant un
+dossier <tt class="file docutils literal"><span class="pre">somedir</span></tt> où aller chercher le package <tt class="xref py py-mod docutils literal"><span class="pre">SomePackage</span></tt> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install -H None -f somedir SomePackage
+</pre></div>
+</div>
+<p>Au lieu de préciser l&#8217;option en ligne de commande, vous pouvez le mettre dans le
+fichier de configuration <tt class="file docutils literal"><span class="pre">~/.pydistutils.cfg</span></tt> :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[easy_install]</span>
+<span class="na">allow_hosts</span> <span class="o">=</span> <span class="s">*.myintranet.example.com</span>
+</pre></div>
+</div>
+<p>Dans ce cas, seul les packages téléchargeables sur myintranet.example.com
+pourront être installés.</p>
+<p>Il est possible de changer l&#8217;index par défaut par lequel les eggs sont recherchés
+via l&#8217;option <em class="xref std std-option">-i/--index-url</em>.
+<a class="reference external" href="http://pypi.python.org/mirrors">Pypi possède des miroirs</a></p>
+<p>Voir aussi le projet pour créer et/ou utiliser des <a class="reference external" href="http://coactivate.org/projects/pypi-mirroring/project-home">miroirs de pypi</a>.</p>
+<p>Si l&#8217;on veut utiliser un miroir ou un index privé par exemple. Nous traiterons
+le cas d&#8217;un index privé avec le produit <a class="reference internal" href="#plonesoftwarecenter">PloneSoftwareCenter</a> par la suite.</p>
+</div>
+<div class="section" id="telecharger-un-package-sans-l-installer">
+<h3><a class="toc-backref" href="#id6">Télécharger un package sans l&#8217;installer</a><a class="headerlink" href="#telecharger-un-package-sans-l-installer" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il est possible de télécharger le code source (sdist) d&#8217;un package sans pour
+autant l&#8217;installer :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install -b . -e zope.interface
+</pre></div>
+</div>
+<p>Exécutez <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">-h</span></tt> pour connaitre la signification des options.</p>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall">Documentation EasyInstall</a></p>
+</div>
+<div class="section" id="creation-d-un-environnement-isole-avec-virtualenv">
+<span id="environnement-virtuel"></span><h3><a class="toc-backref" href="#id7">Création d&#8217;un environnement isolé avec virtualenv</a><a class="headerlink" href="#creation-d-un-environnement-isole-avec-virtualenv" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il est fréquent de vouloir tester plusieurs versions d&#8217;un framework. Admettons
+que vous ayez zope 3.4 installé globalement, comment pouvez-vous tester zope 3.5
+sans que votre installation de zope 3.4 interfère ? La solution est de créer un
+environnement isolé avec <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">virtualenv</a>.</p>
+<p>Lisez le <a class="reference external" href="http://grok.zope.org/documentation/how-to/using-virtualenv-for-a-clean-grok-installation">tutoriel virtualenv sur grok.zope.org</a> pour savoir comment
+l&#8217;installer et l&#8217;utiliser. Revenez ici lorsque c&#8217;est fait.</p>
+<p>Si ce n&#8217;est déjà fait, installez <tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt> avec Python 2.4 :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install-2.4 virtualenv
+</pre></div>
+</div>
+<p>Bien, vous êtes revenu. Maintenant expliquons comment la magie opère.</p>
+<p>Dans Python, vous avez dans sys.path la liste des chemins dans lesquels on peut trouver des packages Python :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>which python2.4
+/usr/bin/python2.4
+<span class="nv">$ </span>python2.4
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+<span class="go">[&#39;&#39;, &#39;/usr/lib/python2.4&#39;, &#39;/usr/lib/python2.4/plat-linux2&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/lib-tk&#39;, &#39;/usr/lib/python2.4/lib-dynload&#39;,</span>
+<span class="go"> &#39;/usr/local/lib/python2.4/site-packages&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/site-packages&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/site-packages/Numeric&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/site-packages/PIL&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/site-packages/gst-0.10&#39;,</span>
+<span class="go"> &#39;/var/lib/python-support/python2.4&#39;,</span>
+<span class="go"> &#39;/usr/lib/python2.4/site-packages/gtk-2.0&#39;,</span>
+<span class="go"> &#39;/var/lib/python-support/python2.4/gtk-2.0&#39;]</span>
+</pre></div>
+</div>
+<p>Créons un environnement nommé <em>myenv</em> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>virtualenv myenv --distribute
+</pre></div>
+</div>
+<p>Ce que fait cette commande peut se résumer plus ou moins à ces commandes :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mkdir -p myenv/bin myenv/lib/python2.4/site-packages
+<span class="nv">$ </span>cp /usr/bin/python2.4 myenv/bin/python
+<span class="nv">$ </span>cp /usr/bin/python2.4 myenv/bin/python2.4
+</pre></div>
+</div>
+<p>création de liens symboliques vers les modules de la librairies standard
+installation de <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> (ou <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> à défaut du paramètre
+<em class="xref std std-option">--distribute</em>) dans cet environnement, ce qui génère les commandes
+command:<cite>bin/easy_install</cite> et <strong class="command">bin/easy_install-2.4</strong> (c&#8217;est le même
+exécutable) et la création d&#8217;un script <strong class="command">bin/activate</strong>.</p>
+<p>Notez que python (sans suffixe) est la version 2.5 sous Ubuntu 8.04 et 8.10 :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>which python
+/usr/bin/python
+<span class="nv">$ </span>python -V
+Python 2.5.2
+</pre></div>
+</div>
+<p>Entrons dans le dossier et activons l&#8217;environnement :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>myenv/
+<span class="nv">$ </span><span class="nb">source </span>bin/activate
+</pre></div>
+</div>
+<p>Le prompt indique que votre environnement est actif. Jetez un œil au source du
+fichier <tt class="file docutils literal"><span class="pre">bin/activate</span></tt>, il n&#8217;y a rien de magique là dedans, il change seulement la
+variable d&#8217;environnement <span class="target" id="index-0"></span><tt class="xref std std-envvar docutils literal"><span class="pre">PATH</span></tt> pour y inclure au début le dossier
+<tt class="file docutils literal"><span class="pre">myenv/bin</span></tt>. La partie essentielle de ce script est :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;/home/vincentfretin/myenv/bin:$PATH&quot;</span>
+</pre></div>
+</div>
+<p>Cela a son importance, précédement <tt class="docutils literal"><span class="pre">python</span></tt> était le binaire
+<tt class="file docutils literal"><span class="pre">/usr/bin/python</span></tt> qui est la version 2.5 de Python sous Ubuntu 8.04 et
+8.10. Maintenant c&#8217;est le python de l&#8217;environnement, qui est un Python 2.4 :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>which python
+.../myenv/bin/python
+<span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>python -V
+Python 2.4.5
+</pre></div>
+</div>
+<p>Maintenant regardons le sys.path :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+<span class="go">[&#39;&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/site-packages/setuptools-0.6c11-py2.4.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/plat-linux2&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/lib-tk&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/lib-dynload&#39;, &#39;/usr/lib/python2.4&#39;,</span>
+<span class="go">&#39;/usr/lib64/python2.4&#39;, &#39;/usr/lib/python2.4/plat-linux2&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/lib-tk&#39;, &#39;/usr/lib64/python2.4/lib-tk&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/site-packages&#39;,</span>
+<span class="go">&#39;/usr/local/lib/python2.4/site-packages&#39;, &#39;/usr/lib/python2.4/site-packages&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/site-packages/Numeric&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/site-packages/PIL&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/site-packages/gst-0.10&#39;,</span>
+<span class="go">&#39;/var/lib/python-support/python2.4&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/site-packages/gtk-2.0&#39;,</span>
+<span class="go">&#39;/var/lib/python-support/python2.4/gtk-2.0&#39;]</span>
+</pre></div>
+</div>
+<p>Vous voyez que les chemins vers les dossiers globaux sont toujours inclus mais
+que les premiers sont ceux de notre environnement. En effet vous pouvez
+utiliser la bibliothèque PIL qui est installé globalement :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">PIL</span>
+</pre></div>
+</div>
+<p>Sous Ubuntu 9.04, PIL n&#8217;est pas disponible sous Python 2.4. Ici <tt class="docutils literal"><span class="pre">import</span> <span class="pre">PIL</span></tt>
+est seulement utilisé comme exemple d&#8217;import d&#8217;un package installé
+globalement. Le package <tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt> a aussi été installé globalement, donc
+vous pouvez utiliser <tt class="docutils literal"><span class="pre">import</span> <span class="pre">virtualenv</span></tt> à la place pour tester.</p>
+<p>En général vous voulez un environnement isolé des packages extérieurs, c&#8217;est le
+rôle de l&#8217;option <em class="xref std std-option">--no-site-packages</em> de <strong class="command">virtualenv</strong>.  Nous
+allons recréer l&#8217;environnement avec cette option, tout d&#8217;abord désactivez
+l&#8217;environnement :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>deactivate
+</pre></div>
+</div>
+<p><strong class="command">deactivate</strong> est juste une fonction bash créée lorsque vous avez sourcé
+<strong class="command">bin/activate</strong>.</p>
+<p>Supprimez votre environnement et recréez le avec l&#8217;option
+<em class="xref std std-option">--no-site-packages</em> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ..
+<span class="nv">$ </span>rm -rf myenv
+<span class="nv">$ </span>virtualenv --no-site-packages myenv
+</pre></div>
+</div>
+<p>Maintenant voyez par vous même la différence :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>myenv/
+<span class="nv">$ </span>. bin/activate
+<span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+<span class="go">[&#39;&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/site-packages/setuptools-0.6c9-py2.4.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/plat-linux2&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/lib-tk&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/lib-dynload&#39;, &#39;/usr/lib/python2.4&#39;,</span>
+<span class="go">&#39;/usr/lib64/python2.4&#39;, &#39;/usr/lib/python2.4/plat-linux2&#39;,</span>
+<span class="go">&#39;/usr/lib/python2.4/lib-tk&#39;, &#39;/usr/lib64/python2.4/lib-tk&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv/lib/python2.4/site-packages&#39;]</span>
+</pre></div>
+</div>
+<p>Le dossier PIL n&#8217;est plus là, comme l&#8217;atteste l&#8217;exception <tt class="docutils literal"><span class="pre">ImportError</span></tt> :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">PIL</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">?</span>
+<span class="gr">ImportError</span>: <span class="n">No module named PIL</span>
+</pre></div>
+</div>
+<p>Vous pouvez installer PIL dans cet environnement comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre>easy_install --find-links http://dist.plone.org/thirdparty/ PIL
+</pre></div>
+</div>
+<p>(L&#8217;archive PIL de pypi n&#8217;est pas easy installable.)</p>
+<p>Ici, nous avons installé virtualenv avec <strong class="command">easy_install-2.4</strong>, comment
+créer un environnement avec une autre version de Python ?  <strong class="command">virtualenv</strong>
+possède une option <em class="xref std std-option">-p</em> pour préciser un exécutable python alternatif :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>virtualenv -p /usr/bin/python --no-site-packages --distribute myenv25
+<span class="nv">$ </span><span class="nb">cd </span>myenv25
+<span class="nv">$ </span>. bin/activate
+</pre></div>
+</div>
+<p>Nous allons utiliser ce nouvel environnement pour installer <a class="reference external" href="http://www.fabfile.org">Fabric</a> qui nécessite Python &gt;= 2.5.
+Vérifiez que vous avez la package Ubuntu python2.5-dev ou python2.6-dev d&#8217;installé, il est nécessaire pour compiler pycrypto, une dépendance de Fabric.
+Fabric est un outil pour scripter les deploiements. Nous n&#8217;allons pas
+utiliser <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">Fabric</span></tt> ici, mais récupérer l&#8217;archive pour l&#8217;installer.</p>
+<p>Nous téléchargons l&#8217;archive avec wget et exécutons ensuite
+<strong class="command">easy_install</strong> avec l&#8217;archive en paramètre pour installer le package :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>wget http://git.fabfile.org/cgit.cgi/fabric/snapshot/fabric-0.9a3.tar.gz
+<span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>easy_install fabric-0.9a3.tar.gz
+</pre></div>
+</div>
+<p>Nous aurions très bien pu faire directement <tt class="docutils literal"><span class="pre">easy_install</span>
+<span class="pre">http://git.fabfile.org/cgit.cgi/fabric/snapshot/fabric-0.9a3.tar.gz</span></tt>.</p>
+<p>Vous pouvez remarquer que <tt class="xref py py-mod docutils literal"><span class="pre">Fabric</span></tt> et ses dépendances ont été installées en
+eggs zippés :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>ls -l lib/python2.5/site-packages/
+total 1064
+-rw-r--r-- 1 vincentfretin vincentfretin    306 2009-05-25 11:35 easy-install.pth
+-rw-r--r-- 1 vincentfretin vincentfretin  71581 2009-05-25 11:35 Fabric-0.9a3-py2.5.egg
+-rw-r--r-- 1 vincentfretin vincentfretin 296831 2009-05-25 11:35 paramiko-1.7.4-py2.5.egg
+-rw-r--r-- 1 vincentfretin vincentfretin 358122 2009-05-25 11:35 pycrypto-2.0.1-py2.5-linux-x86_64.egg
+-rw-r--r-- 1 vincentfretin vincentfretin 328025 2009-05-25 11:34 distribute-0.6.8-py2.5.egg
+-rw-r--r-- 1 vincentfretin vincentfretin     29 2009-05-25 11:34 setuptools.pth
+</pre></div>
+</div>
+<p>Tous les eggs ne sont pas installés zippés. C&#8217;est le mainteneur du package qui
+décide si son egg est &#8220;zip safe&#8221; ou non.  Un package n&#8217;est par exemple pas
+zip safe s&#8217;il utilise la variable spéciale <tt class="xref py py-data docutils literal"><span class="pre">__file__</span></tt> dans son code.</p>
+<p>Vous vous demandez à quoi servent ces fichiers <tt class="file docutils literal"><span class="pre">setuptools.pth</span></tt> et
+<tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt> n&#8217;est-ce pas ? Un petit rappel Python va vous faire du
+bien alors.</p>
+<p>Que contient ces fichiers <tt class="file docutils literal"><em><span class="pre">xyz</span></em><span class="pre">.pth</span></tt> (pour path) ? Comme son extension le
+suggère, ces fichiers contiennent une liste de chemins où l&#8217;on peut trouver des
+packages :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>cat lib/python2.5/site-packages/setuptools.pth
+./distribute-0.6.8-py2.5.egg
+<span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>cat lib/python2.5/site-packages/easy-install.pth
+import sys; sys.__plen <span class="o">=</span> len<span class="o">(</span>sys.path<span class="o">)</span>
+./distribute-0.6.8-py2.5.egg
+./Fabric-0.9a3-py2.5.egg
+./paramiko-1.7.4-py2.5.egg
+./pycrypto-2.0.1-py2.5-linux-x86_64.egg
+import sys; <span class="nv">new</span><span class="o">=</span>sys.path<span class="o">[</span>sys.__plen:<span class="o">]</span>; del sys.path<span class="o">[</span>sys.__plen:<span class="o">]</span>; <span class="nv">p</span><span class="o">=</span>getattr<span class="o">(</span>sys,<span class="s1">&#39;__egginsert&#39;</span>,0<span class="o">)</span>; sys.path<span class="o">[</span>p:p<span class="o">]=</span>new; sys.__egginsert <span class="o">=</span> p+len<span class="o">(</span>new<span class="o">)</span>
+</pre></div>
+</div>
+<p>Comme vous le voyez, la commande <strong class="command">easy_install</strong> maintient dans le
+fichier <tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt> une liste des eggs qu&#8217;elle a installés.</p>
+<p>Au démarrage de Python, tous les packages python (dans le sens d&#8217;un dossier
+contenant un fichier <tt class="file docutils literal"><span class="pre">__init__.py</span></tt>) se trouvant dans
+<tt class="file docutils literal"><span class="pre">lib/python2.5/site-packages/</span></tt> sont ajoutés au <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt>.  Ça c&#8217;est
+la première étape, et dans notre cas, il n&#8217;y a aucun package.  La deuxième
+étape recherche des fichiers <tt class="file docutils literal"><em><span class="pre">xyz</span></em><span class="pre">.pth</span></tt>, les lit et inclut les chemins
+inclus si un package s&#8217;y trouve.</p>
+<p>La première et dernière ligne du fichier <tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt> sont utilisés
+pour ajouter les eggs au début de <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt> pour prendre la précédence aux
+packages éventuellement installés.</p>
+</div>
+<div class="section" id="suppression-d-un-egg">
+<h3><a class="toc-backref" href="#id8">Suppression d&#8217;un egg</a><a class="headerlink" href="#suppression-d-un-egg" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il n&#8217;y a pas de commande uninstall pour désinstaller un egg.
+Une implémentation est en cours dans distutils2.</p>
+<p>Pour le moment, il faut donc désinstaller manuellement et là il faut
+savoir ce que l&#8217;on fait.</p>
+<p>La première chose qui vient à l&#8217;esprit est de supprimer le egg du
+site-packages. C&#8217;est très bien mais cela ne suffit pas comme nous allons
+le voir.</p>
+<p>Nous allons désinstaller Fabric pour l&#8217;installer d&#8217;une autre manière.  Nous
+allons profiter de cette désintallation pour revenir sur le fichier
+<tt class="file docutils literal"><em><span class="pre">xyz</span></em><span class="pre">.pth</span></tt>.</p>
+<p>Notez bien que nous avons dans le <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt> <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>,
+Fabric et paramiko, dans le même ordre que listé dans
+<tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span>vincentfretin@lelouch:~/myenv25<span class="nv">$ </span>python
+Python 2.5.2 <span class="o">(</span>r252:60911, Oct  5 2008, 19:29:17<span class="o">)</span>
+<span class="o">[</span>GCC 4.3.2<span class="o">]</span> on linux2
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for </span>more information.
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+<span class="go">[&#39;&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/setuptools-0.6c11-py2.5.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/paramiko-1.7.4-py2.5.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/pycrypto-2.0.1-py2.5-linux-x86_64.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5&#39;, ...]</span>
+</pre></div>
+</div>
+<p>Maintenant supprimons le egg de Fabric :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span>vincentfretin@lelouch:~/myenv25<span class="nv">$ </span>rm lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg
+</pre></div>
+</div>
+<p>Mais nous n&#8217;avons pas supprimé l&#8217;entrée dans <tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt>.
+Allons nous encore avoir
+<tt class="file docutils literal"><span class="pre">/home/vincentfretin/myenv25/lib/python2.5/site-packages/Fabric-0.9a3-py2.5.egg</span></tt>
+dans le <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt> ? Voyons voir :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span>vincentfretin@lelouch:~/myenv25<span class="nv">$ </span>python
+Python 2.5.2 <span class="o">(</span>r252:60911, Oct  5 2008, 19:29:17<span class="o">)</span>
+<span class="o">[</span>GCC 4.3.2<span class="o">]</span> on linux2
+Type <span class="s2">&quot;help&quot;</span>, <span class="s2">&quot;copyright&quot;</span>, <span class="s2">&quot;credits&quot;</span> or <span class="s2">&quot;license&quot;</span> <span class="k">for </span>more information.
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+
+<span class="go">[&#39;&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/setuptools-0.6c9-py2.5.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/paramiko-1.7.4-py2.5.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5/site-packages/pycrypto-2.0.1-py2.5-linux-x86_64.egg&#39;,</span>
+<span class="go">&#39;/home/vincentfretin/myenv25/lib/python2.5&#39;, ...]</span>
+</pre></div>
+</div>
+<p>Et bien non, Python n&#8217;a trouvé aucun package Python
+<tt class="file docutils literal"><span class="pre">./Fabric-0.9a3-py2.5.egg</span></tt> qui n&#8217;existe plus, il ne l&#8217;a donc pas ajouté
+dans le sys.path.</p>
+<p>Pour faire une désintallation propre d&#8217;un egg, il faut :</p>
+<ul class="simple">
+<li>supprimer le egg</li>
+<li>supprimer l&#8217;entrée dans <tt class="file docutils literal"><span class="pre">easy-install.pth</span></tt></li>
+<li>supprimer les éventuels scripts qui ont été générés à l&#8217;installation, ici
+<tt class="file docutils literal"><span class="pre">bin/fab</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="methode-originelle-pour-installer-un-package">
+<h3><a class="toc-backref" href="#id9">Methode &#8220;originelle&#8221; pour installer un package</a><a class="headerlink" href="#methode-originelle-pour-installer-un-package" title="Lien permanent vers ce titre">¶</a></h3>
+<p><strong class="command">easy_install</strong> fait partie du package <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> /
+<tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>. Si <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> ou <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> n&#8217;est pas
+disponible dans votre environnement, on peut très bien installer un package en
+l&#8217;extrayant et exécutant la commande <strong class="command">python setup.py install</strong> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>tar xvf fabric-0.9a3.tar.gz
+<span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span><span class="nb">cd </span>fabric-0.9a3/
+<span class="o">(</span>myenv25<span class="o">)</span><span class="nv">$ </span>python setup.py install
+</pre></div>
+</div>
+<p>En fait, c&#8217;est exactement ce que fait la commande <strong class="command">easy_install</strong>.</p>
+</div>
+<div class="section" id="installation-de-virtualenvwrapper">
+<h3><a class="toc-backref" href="#id10">Installation de virtualenvwrapper</a><a class="headerlink" href="#installation-de-virtualenvwrapper" title="Lien permanent vers ce titre">¶</a></h3>
+<p><a class="reference external" href="http://pypi.python.org/pypi/virtualenvwrapper">virtualenvwrapper</a> est un ensemble de fonctions bash pour gérer vos environnements.</p>
+<p>Pour l&#8217;installer :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo easy_install virtualenvwrapper
+</pre></div>
+</div>
+<p>Éditez ensuite votre <tt class="file docutils literal"><span class="pre">~/.bashrc</span></tt> pour sourcer le fichier
+<tt class="file docutils literal"><span class="pre">/usr/local/bin/virtualenvwrapper.sh</span></tt>.</p>
+<p>Sur Ubuntu, j&#8217;ai l&#8217;habitude de décommenter dans <tt class="file docutils literal"><span class="pre">~/.bashrc</span></tt> les 3 lignes
+concernant l&#8217;inclusion de <tt class="file docutils literal"><span class="pre">~/.bash_aliases</span></tt>. Je met ensuite dans ce
+fichier tous les alias et autres variables d&#8217;environnement que je veux.  Ici
+nous voulons ces deux lignes :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">TMPDIR</span><span class="o">=</span>/tmp
+<span class="nb">source</span> /usr/local/bin/virtualenvwrapper.sh
+</pre></div>
+</div>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">virtualenvwrapper</span></tt> utilise le dossier <tt class="file docutils literal"><span class="pre">~/.virtualenvs</span></tt> par défaut
+pour créer et chercher les environnements :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mkdir ~/.virtualenvs
+</pre></div>
+</div>
+<p>Démarrez un nouveau terminal, vous avez maintenant à disposition les commandes
+suivantes :</p>
+<ul class="simple">
+<li><strong class="command">workon</strong> : affiche la liste des environnements contenu dans
+<tt class="file docutils literal"><span class="pre">~/.virtualenvs</span></tt></li>
+<li><strong class="command">workon myenv</strong> : active l&#8217;environnement <em>myenv</em></li>
+<li><strong class="command">mkvirtualenv myenv</strong> : crée l&#8217;environnement <em>myenv</em> avec la commande
+<strong class="command">virtualenv</strong> et l&#8217;active Tous les paramètres données à
+<strong class="command">mkvirtualenv</strong> serons donnés à la commande command:<cite>virtualenv</cite>.</li>
+<li><strong class="command">rmvirtualenv myenv</strong> : supprime l&#8217;environnement <em>myenv</em></li>
+<li><strong class="command">cdvirtualenv</strong> : va dans le dossier de l&#8217;environnement actif</li>
+<li><strong class="command">cdsitepackages</strong> : va dans le dossier site-packages de
+l&#8217;environnement actif</li>
+<li><strong class="command">lssitepackages</strong> : liste les eggs installés de l&#8217;environnement actif</li>
+<li><strong class="command">cpvirtualenv</strong> : copie un environnement existant</li>
+</ul>
+<p>Donc avant pour activer un environnement, vous faisiez :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>myenv
+<span class="nv">$ </span>. bin/activate
+</pre></div>
+</div>
+<p>Maintenant vous n&#8217;avez qu&#8217;à taper <strong class="command">workon myenv</strong> où que vous soyez.</p>
+</div>
+</div>
+<div class="section" id="passons-au-developpement">
+<h2><a class="toc-backref" href="#id11">Passons au développement</a><a class="headerlink" href="#passons-au-developpement" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="installation-de-la-commande-paster">
+<h3><a class="toc-backref" href="#id12">Installation de la commande <tt class="docutils literal"><span class="pre">paster</span></tt></a><a class="headerlink" href="#installation-de-la-commande-paster" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Dans ce qui suit je travaille dans mon environnement <em>myenv</em>, je n&#8217;indiquerai plus le &#8220;(myenv)&#8221; dans le prompt.</p>
+<p>Installez le egg <tt class="xref py py-mod docutils literal"><span class="pre">PasteScript</span></tt>.</p>
+<p>Le egg PasteScript fournit la commande <strong class="command">paster</strong> avec laquelle on peut créer des squelettes de code.</p>
+<p>Pour lister les templates disponibles :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create --list-templates
+Available templates:
+  basic_package:  A basic setuptools-enabled package
+  paste_deploy:   A web application deployed through paste.deploy
+</pre></div>
+</div>
+<p>Il n&#8217;y a pas beaucoup de templates par défaut.</p>
+<p>Installez le egg <tt class="xref py py-mod docutils literal"><span class="pre">ZopeSkel</span></tt> qui fournit divers templates et reexécutez la
+commande :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create --list-templates
+Available templates:
+Available templates:
+  archetype:         A Plone project that uses Archetypes content types
+  basic_buildout:    A basic buildout skeleton
+  basic_namespace:   A basic Python project with a namespace package
+  basic_package:     A basic setuptools-enabled package
+  nested_namespace:  A basic Python project with a nested namespace <span class="o">(</span>2 dots in name<span class="o">)</span>
+  paste_deploy:      A web application deployed through paste.deploy
+  plone_basic:       A package <span class="k">for </span>Plone add-ons
+  plone_nested:      A package <span class="k">for </span>Plone add-ons with a nested namespace
+  recipe:            A recipe project <span class="k">for </span>zc.buildout
+  zope2_basic:       A Zope project
+  zope2_nested:      A nested-namespace Zope package
+</pre></div>
+</div>
+<p>Ah il y a déjà plus de choix !</p>
+<p>Ceux que nous utiliserons par la suite sont <em class="xref std std-option">basic_namespace</em>,
+<em class="xref std std-option">plone_basic</em>, <em class="xref std std-option">plone_nested</em>.</p>
+<p>En fait, vous auriez très bien pu installer uniquement <tt class="xref py py-mod docutils literal"><span class="pre">ZopeSkel</span></tt> car
+<tt class="xref py py-mod docutils literal"><span class="pre">PasteScript</span></tt> en est une dépendance.</p>
+</div>
+<div class="section" id="creation-de-votre-premier-egg">
+<h3><a class="toc-backref" href="#id13">Création de votre premier egg</a><a class="headerlink" href="#creation-de-votre-premier-egg" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour créer un squelette, vous choisissez votre template et exécutez :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create -t nom_de_la_template
+</pre></div>
+</div>
+<p>Créez votre premier egg :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create -t basic_namespace
+Selected and implied templates:
+  templer.core#basic_namespace  A basic Python project with a namespace package
+
+Enter project name: foo.bar
+Variables:
+  egg:      foo.bar
+  package:  foobar
+  project:  foo.bar
+Expert Mode? <span class="o">(</span>What question mode would you like? <span class="o">(</span>easy/expert/all<span class="o">)</span>?<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;easy&#39;</span><span class="o">]</span>:
+Version <span class="o">(</span>Version number <span class="k">for </span>project<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;1.0&#39;</span><span class="o">]</span>:
+Description <span class="o">(</span>One-line description of the project<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;&#39;</span><span class="o">]</span>:
+Creating template basic_namespace
+Creating directory ./foo.bar
+  Copying setup.py_tmpl to ./foo.bar/setup.py
+  Recursing into src
+    Creating ./foo.bar/src/
+    Recursing into +namespace_package+
+      Creating ./foo.bar/src/foo/
+      Recursing into +package+
+        Creating ./foo.bar/src/foo/bar/
+        Copying __init__.py_tmpl to ./foo.bar/src/foo/bar/__init__.py
+      Copying __init__.py_tmpl to ./foo.bar/src/foo/__init__.py
+Running /home/cedric/.virtualenvs/myenv/bin/python setup.py egg_info
+</pre></div>
+</div>
+<p>Voyons ce qu&#8217;il a généré :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>tree foo.bar
+foo.bar/
+|-- CHANGES.txt
+|-- CONTRIBUTORS.txt
+|-- docs
+|   |-- LICENSE.GPL
+|   <span class="sb">`</span>-- LICENSE.txt
+|-- README.txt
+|-- setup.py
+<span class="sb">`</span>-- src
+    |-- foo
+    |   |-- bar
+    |   |   <span class="sb">`</span>-- __init__.py
+    |   <span class="sb">`</span>-- __init__.py
+    <span class="sb">`</span>-- foo.bar.egg-info
+        |-- dependency_links.txt
+        |-- entry_points.txt
+        |-- namespace_packages.txt
+        |-- not-zip-safe
+        |-- PKG-INFO
+        |-- requires.txt
+        |-- SOURCES.txt
+        <span class="sb">`</span>-- top_level.txt
+</pre></div>
+</div>
+<p>Le dossier <tt class="file docutils literal"><span class="pre">foo.bar.egg-info</span></tt> est généré automatiquement avec la commande
+<strong class="command">python setup.py egg_info</strong> (dernière commande exécutée par
+<strong class="command">paster</strong>).</p>
+<p>Ce dossier ne sera donc pas ajouté au gestionnaire de version comme nous le verrons plus loin.</p>
+<p>Le fichier <tt class="file docutils literal"><span class="pre">setup.py</span></tt> contient les données que vous avez entrées.</p>
+</div>
+<div class="section" id="declaration-des-dependances">
+<h3><a class="toc-backref" href="#id14">Déclaration des dépendances</a><a class="headerlink" href="#declaration-des-dependances" title="Lien permanent vers ce titre">¶</a></h3>
+<p>L&#8217;option <em class="xref std std-option">install_requires</em> dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt> permet d&#8217;indiquer des dépendances, ici notre egg dépend de setuptools.</p>
+<p>Les dépendances sont vérifiées à l&#8217;installation de l&#8217;egg.
+install_requires est une liste de Requirement.</p>
+<pre>
+<strong id="grammar-token-requirement">requirement</strong> ::=  <tt class="xref docutils literal"><span class="pre">nom_egg</span></tt>
+                 [(&quot;&gt;=&quot; | &quot;&gt;&quot; | &quot;&lt;&quot; | &quot;&lt;=&quot; | &quot;==&quot; | &quot;!=&quot;) <tt class="xref docutils literal"><span class="pre">version</span></tt>]
+</pre>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#declaring-dependencies">Declaring Dependencies</a> (concepts d&#8217;extras)</p>
+<p>L&#8217;option <em class="xref std std-option">entry_points</em> sera expliquée plus loin.</p>
+</div>
+<div class="section" id="egg-en-mode-developpement">
+<h3><a class="toc-backref" href="#id15">Egg en mode développement</a><a class="headerlink" href="#egg-en-mode-developpement" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Installons tout de suite ce nouvel egg pour pouvoir l&#8217;importer.</p>
+<p>La première chose a laquelle vous pensez est de faire <strong class="command">python setup.py
+install</strong> et vous avez raison !</p>
+<p>Mais l&#8217;inconvénient dans ce cas-là est qu&#8217;à chaque fois que vous allez changer
+quelque chose à votre package, vous devrez reexécuter cette commande.</p>
+<p>Nous avons une commande <em class="xref std std-option">develop</em>, qui est bien mieux pour installer un
+egg tout en le développant. Faites donc ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>foo.bar
+<span class="nv">$ </span>python setup.py develop
+</pre></div>
+</div>
+<p>Cette commande, au lieu de copier le dossier dans <tt class="file docutils literal"><span class="pre">site-packages</span></tt>, crée un
+fichier <tt class="file docutils literal"><span class="pre">foo.bar.egg-link</span></tt> qui n&#8217;est autre finalement qu&#8217;un lien
+symbolique multi-plateforme qui pointe vers le dossier de votre egg en
+développement.</p>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#development-mode">&#8220;Development Mode&#8221;</a></p>
+</div>
+<div class="section" id="le-hello-world-que-tout-le-monde-attend">
+<h3><a class="toc-backref" href="#id16">Le hello world que tout le monde attend</a><a class="headerlink" href="#le-hello-world-que-tout-le-monde-attend" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Allez-y maintenant, ouvrez un python et importez votre package :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.bar</span>
+</pre></div>
+</div>
+<p>Et le &#8220;hello world&#8221; me direz vous ? Bien je vois que vous avez l&#8217;habitude.</p>
+<p>Éditez le fichier <tt class="file docutils literal"><span class="pre">foo/__init__.py</span></tt> pour y ajouter :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;Hello&quot;</span>
+</pre></div>
+</div>
+<p>Réimportez votre module :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.bar</span>
+<span class="go">Hello</span>
+</pre></div>
+</div>
+<p>Éditez le fichier <tt class="file docutils literal"><span class="pre">foo/bar/__init__.py</span></tt> et ajoutez-y :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;world!&quot;</span>
+</pre></div>
+</div>
+<p>Réimportez le module :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.bar</span>
+<span class="go">Hello</span>
+<span class="go">world!</span>
+</pre></div>
+</div>
+<p>Et voilà !</p>
+<p>En plus l&#8217;exemple sert pour faire un petit rappel Python : Face à <tt class="docutils literal"><span class="pre">import</span>
+<span class="pre">foo.bar</span></tt> que fait l&#8217;interpréteur Python ?</p>
+<p>Eh bien il regarde dans le <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt> un package <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt> (dossier
+<tt class="file docutils literal"><span class="pre">foo</span></tt> avec un fichier <tt class="file docutils literal"><span class="pre">__init__.py</span></tt> dedans) ou un module <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt>
+(fichier <tt class="file docutils literal"><span class="pre">foo.py</span></tt>), dans cet ordre.</p>
+<p>Ici un package <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt> est trouvé, et le contenu du fichier
+<tt class="file docutils literal"><span class="pre">__init__.py</span></tt> est exécuté.</p>
+<p>On passe ensuite à <tt class="xref py py-mod docutils literal"><span class="pre">bar</span></tt>, un package ou un module est recherché à l&#8217;intérieur du package : mod:<cite>foo</cite>.</p>
+<p>Ici un package <tt class="xref py py-mod docutils literal"><span class="pre">bar</span></tt> est trouvé, le contenu de son fichier
+<tt class="file docutils literal"><span class="pre">__init__.py</span></tt> est exécuté.</p>
+</div>
+<div class="section" id="les-espaces-de-nom-ou-namespaces">
+<h3><a class="toc-backref" href="#id17">Les espaces de nom ou namespaces</a><a class="headerlink" href="#les-espaces-de-nom-ou-namespaces" title="Lien permanent vers ce titre">¶</a></h3>
+<p>À quoi sert le code dans <tt class="file docutils literal"><span class="pre">foo/__init__.py</span></tt> ? Très bonne question !</p>
+<p>Créez un egg comme précédemment nommé : file:<cite>foo.rab</cite> (pas très inspiré), et
+installez le en mode développé.</p>
+<p>Vous l&#8217;avez fait sans regarder le texte au dessus, c&#8217;est très bien !</p>
+<p>Vous avez usé de la flêche haute, avouez le. C&#8217;est encore mieux !</p>
+<p>Éditez <tt class="file docutils literal"><span class="pre">foo.rab/foo/__init__.py</span></tt> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;Bonjour&quot;</span>
+</pre></div>
+</div>
+<p>Éditez <tt class="file docutils literal"><span class="pre">foo.rab/foo/rab/__init__.py</span></tt> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&quot;le monde&quot;</span>
+</pre></div>
+</div>
+<p>On y est. Vérifions que <tt class="xref py py-mod docutils literal"><span class="pre">foo.bar</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">foo.rab</span></tt> sont dans notre <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt> et sont bien dans cette ordre :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">sys</span><span class="o">.</span><span class="n">path</span>
+<span class="go">[..., &#39;/home/vincentfretin/src/foo.bar&#39;, &#39;/home/vincentfretin/src/foo.rab&#39;,</span>
+<span class="go">...]</span>
+</pre></div>
+</div>
+<p>Comme dit plus haut, Python recherche un package nommé <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt>, il en trouve
+un, exécute le contenu de <tt class="file docutils literal"><span class="pre">__init__.py</span></tt> et normalement devrait s&#8217;arrêter
+là.</p>
+<p>Donc cela devrait donner ceci :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo</span>
+<span class="go">Hello</span>
+</pre></div>
+</div>
+<p>car <tt class="xref py py-mod docutils literal"><span class="pre">foo.bar</span></tt> étant en premier dans le <tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt>.</p>
+<p>Au lieu de ça, qu&#8217;avons-nous ?</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo</span>
+<span class="go">Bonjour</span>
+<span class="go">Hello</span>
+</pre></div>
+</div>
+<p>Il se peut que vous ayez &#8220;Hello Bonjour&#8221; comme ordre, c&#8217;est assez mystérieux.
+L&#8217;essentiel est que vous ayez les deux.</p>
+<p>Ensuite :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.rab</span>
+<span class="go">le monde</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.bar</span>
+<span class="go">world!</span>
+</pre></div>
+</div>
+<p>Le code de <tt class="file docutils literal"><span class="pre">foo.bar/foo/__init__.py</span></tt> indique que : mod:<cite>foo</cite> est un espace de nom.
+Et cela change le comportement de l&#8217;import.</p>
+<p>Au lieu de s&#8217;arrêter au premier package <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt> trouvé, la recherche continue
+et tous les packages <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt> trouvés sont exécutés.</p>
+<p>Si <tt class="xref py py-mod docutils literal"><span class="pre">foo</span></tt> n&#8217;était pas déclaré comme espace de nom dans l&#8217;egg <tt class="xref py py-mod docutils literal"><span class="pre">foo.bar</span></tt>,
+alors vous auriez eu ceci :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">foo.rab</span>
+<span class="go">Traceback (most recent call last)</span>
+<span class="go"> File &quot;&lt;stdin&gt;&quot;, line 1, in ?</span>
+<span class="go"> ImportError: No module named rab</span>
+</pre></div>
+</div>
+<p>Vous pouvez faire le test en commentant <tt class="docutils literal"><span class="pre">namespace_packages=['foo']</span></tt> du <tt class="file docutils literal"><span class="pre">setup.py</span></tt> de <tt class="xref py py-mod docutils literal"><span class="pre">foo.bar</span></tt>.</p>
+<p>Il faut réexécuter <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">egg_info</span></tt> (la commande <em class="xref std std-option">egg_info</em>
+est également exécutée lors d&#8217;un <em class="xref std std-option">install</em> ou d&#8217;un <em class="xref std std-option">develop</em>)</p>
+<p>pour mettre à jour les metadonnées du egg situées dans le dossier
+<tt class="file docutils literal"><span class="pre">foo.bar.egg-info</span></tt>.  Commentez également les lignes dans
+<tt class="file docutils literal"><span class="pre">foo.bar/foo/__init__.py</span></tt>.</p>
+<p>En temps normal, ne mettez pas de code dans les fichiers <tt class="file docutils literal"><span class="pre">__init__.py</span></tt> des
+packages servant d&#8217;espace de nom comme le dit la documentation de
+<tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>.</p>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#namespace-packages">Namespace Packages</a></p>
+</div>
+</div>
+<div class="section" id="l-api-pkg-resources">
+<h2><a class="toc-backref" href="#id18">L&#8217;API pkg_resources</a><a class="headerlink" href="#l-api-pkg-resources" title="Lien permanent vers ce titre">¶</a></h2>
+<p>setuptools fournit un module <tt class="xref py py-mod docutils literal"><span class="pre">pkg_resources</span></tt> avec lequel on peut par
+exemple récupérer la version d&#8217;un egg.</p>
+<p>Cet API sert à lire les différents fichiers du dossier <tt class="file docutils literal"><span class="pre">.egg-info</span></tt>.</p>
+<p>Exemple pour récupérer la version du egg foo.bar installé :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+&gt;&gt;&gt; import pkg_resources
+&gt;&gt;&gt; <span class="nv">d</span> <span class="o">=</span> pkg_resources.get_distribution<span class="o">(</span><span class="s2">&quot;foo.bar&quot;</span><span class="o">)</span>
+&gt;&gt;&gt; d.version
+<span class="s1">&#39;1.0dev&#39;</span>
+&gt;&gt;&gt; d.location
+<span class="s1">&#39;/home/vincentfretin/src/foo.bar&#39;</span>
+</pre></div>
+</div>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/PkgResources">Documentation PkgResources</a></p>
+</div>
+<div class="section" id="les-entry-points">
+<h2><a class="toc-backref" href="#id19">Les entry points</a><a class="headerlink" href="#les-entry-points" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Revenons sur l&#8217;option <tt class="xref py py-data docutils literal"><span class="pre">entry_points</span></tt> dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>.</p>
+<p>Cette option sert à définir des points d&#8217;entrées pour le egg. On peut utiliser
+cette notion pour réaliser des plugins.</p>
+<p>Reprenons les eggs <tt class="xref py py-mod docutils literal"><span class="pre">PasteScript</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">ZopeSkel</span></tt>. Comment
+<tt class="xref py py-mod docutils literal"><span class="pre">PasteScript</span></tt> a fait pour découvrir les nouveaux templates installés par :
+mod:<cite>ZopeSkel</cite> ?</p>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">ZopeSkel</span></tt> utilise le système templer pour générer ses templates. Templer définit des entry points pour le groupe
+<tt class="docutils literal"><span class="pre">paste.paster_create_template</span></tt> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cdsitepackages
+<span class="nv">$ </span>cat templer.plone-1.0b1-py2.7.egg-info/entry_points.txt
+<span class="c"># -*- Entry points: -*-</span>
+<span class="o">[</span>paste.paster_create_template<span class="o">]</span>
+<span class="nv">plone_basic</span> <span class="o">=</span> templer.plone:Plone
+<span class="nv">plone_nested</span> <span class="o">=</span> templer.plone:NestedPlone
+<span class="nv">archetype</span> <span class="o">=</span> templer.plone:Archetype
+</pre></div>
+</div>
+<p>où <tt class="xref py py-data docutils literal"><span class="pre">plone_basic</span></tt> est un nom, <tt class="xref py py-data docutils literal"><span class="pre">templer.plone</span></tt> est un module et <tt class="xref py py-data docutils literal"><span class="pre">Plone</span></tt> un callable, ici une
+classe.</p>
+<p>et <tt class="xref py py-mod docutils literal"><span class="pre">PasteScript</span></tt> lui fait une recherche des eggs déclarant des entry points
+pour <tt class="docutils literal"><span class="pre">paste.paster_create_template</span></tt> avec l&#8217;API pkg_resources :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">pkg_resources</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">iter_entry_points</span><span class="p">(</span><span class="s">&#39;paste.paster_create_template&#39;</span><span class="p">))</span>
+<span class="go">[...,</span>
+<span class="go">EntryPoint.parse(&#39;plone_basic = templer.plone:Plone&#39;),</span>
+<span class="go">EntryPoint.parse(&#39;plone_nested = templer.plone:NestedPlone&#39;),</span>
+<span class="go">EntryPoint.parse(&#39;archetype = templer.plone:Archetype&#39;),</span>
+<span class="go">...]</span>
+</pre></div>
+</div>
+<p>On peut charger le callable d&#8217;un entry point, souvent une classe :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">entry_points</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">pkg_resources</span><span class="o">.</span><span class="n">iter_entry_points</span><span class="p">(</span><span class="s">&#39;paste.paster_create_template&#39;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span> <span class="o">=</span> <span class="n">entry_points</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ep</span>
+<span class="go">EntryPoint.parse(&#39;plone_basic = templer.plone:Plone&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PloneBasic</span> <span class="o">=</span> <span class="n">ep</span><span class="o">.</span><span class="n">load</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">PloneBasic</span>
+<span class="go">&lt;class &#39;templer.plone.plone.Plone&#39;&gt;</span>
+</pre></div>
+</div>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#dynamic-discovery-of-services-and-plugins">Dynamic Discovery of Services and Plugins</a></p>
+<div class="section" id="groupe-console-scripts">
+<h3><a class="toc-backref" href="#id20">groupe console_scripts</a><a class="headerlink" href="#groupe-console-scripts" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le groupe <tt class="docutils literal"><span class="pre">console_scripts</span></tt> est spécial. Il est utilisé lors de l&#8217;installation du egg pour générer les scripts dans le dossier bin.</p>
+<p>Pour générer un script <tt class="file docutils literal"><span class="pre">bin/fab</span></tt>, le egg Fabric définit dans son <tt class="file docutils literal"><span class="pre">setup.py</span></tt> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">entry_points</span><span class="o">=</span><span class="p">{</span>
+    <span class="s">&#39;console_scripts&#39;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s">&#39;fab = fabric.main:main&#39;</span><span class="p">,</span>
+    <span class="p">]</span>
+<span class="p">},</span>
+</pre></div>
+</div>
+<p>On peut également l&#8217;écrire de la manière suivante directement :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">entry_points</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">[console_scripts]</span>
+<span class="s">fab = fabric.main:main</span>
+<span class="s">&quot;&quot;&quot;</span><span class="p">,</span>
+</pre></div>
+</div>
+<p>Dans les deux cas, le fichier <tt class="file docutils literal"><span class="pre">entry_points.txt</span></tt> généré sera normalisé
+comme ceci :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[console_scripts]</span>
+<span class="na">fab</span> <span class="o">=</span> <span class="s">fabric.main:main</span>
+</pre></div>
+</div>
+<p>Concrétement, exécuter la commande <em>fab</em> revient à faire :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python
+</pre></div>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">fabric.main</span> <span class="kn">import</span> <span class="n">main</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>En savoir plus : <a class="reference external" href="http://peak.telecommunity.com/DevCenter/setuptools#automatic-script-creation">Automatic Script Creation</a></p>
+</div>
+</div>
+<div class="section" id="mise-en-place-d-un-pypi-prive-avec-plonesoftwarecenter">
+<span id="plonesoftwarecenter"></span><h2><a class="toc-backref" href="#id21">Mise en place d&#8217;un Pypi privé avec PloneSoftwareCenter</a><a class="headerlink" href="#mise-en-place-d-un-pypi-prive-avec-plonesoftwarecenter" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Créez une instance Plone avec l&#8217;id &#8220;site&#8221; sur une machine servant de serveur
+(<a class="reference internal" href="installation_et_creation_d_une_instance_Plone.html#installation-unified-installer"><em>Installation via l&#8217;Unified Installer</em></a>),
+nous allons l&#8217;appeler <tt class="docutils literal"><span class="pre">devagile</span></tt>, avec la résolution DNS dans
+<tt class="file docutils literal"><span class="pre">/etc/hosts</span></tt> :</p>
+<div class="highlight-python"><pre>10.56.8.47      devagile</pre>
+</div>
+<p>Il est très facile de transformer une instance Plone en un Pypi pour votre entreprise en installant le produit <a class="reference external" href="http://pypi.python.org/pypi/Products.PloneSoftwareCenter">Products.PloneSoftwareCenter</a>.</p>
+<p>Créez un site Plone avec comme id <em>site</em>, installez le module et ajoutez un élément Software Center nommé <em class="guilabel">products</em> à la racine du site.</p>
+<p>L&#8217;URL de ce Pypi sera donc <a class="reference external" href="http://devagile:8080/site/products">http://devagile:8080/site/products</a></p>
+<div class="section" id="installation-de-collective-dist-pour-python-2-4-et-2-5">
+<h3><a class="toc-backref" href="#id22">Installation de collective.dist pour Python 2.4 et 2.5</a><a class="headerlink" href="#installation-de-collective-dist-pour-python-2-4-et-2-5" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Si vous utilisez Python 2.4 ou 2.5, il vous faut installer <a class="reference external" href="http://pypi.python.org/pypi/collective.dist">collective.dist</a>
+qui introduit deux nouvelles commandes <em class="xref std std-option">mregister</em> et <em class="xref std std-option">mupload</em>
+pour pouvoir enregister votre egg sur plusieurs serveurs.</p>
+<p>Si vous utilisez Python 2.6, remplacez <em class="xref std std-option">mregister</em> par <em class="xref std std-option">register</em>, et <em class="xref std std-option">mupload</em> par <em class="xref std std-option">upload</em> dans ce qui suit.</p>
+<p>En effet le support de serveurs multiples n&#8217;a été introduit qu&#8217;à partir de la
+version 2.6 de Python.</p>
+</div>
+<div class="section" id="configuration-des-serveurs">
+<h3><a class="toc-backref" href="#id23">Configuration des serveurs</a><a class="headerlink" href="#configuration-des-serveurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il faut tout d&#8217;abord configurer votre fichier <tt class="file docutils literal"><span class="pre">~/.pypirc</span></tt> :</p>
+<div class="highlight-cfg"><pre>[distutils]
+index-servers =
+    pypi
+    mycompany
+
+[pypi]
+username:user
+password:password
+
+[mycompany]
+repository:http://devagile:8080/site/products
+username:ploneuser
+password:password</pre>
+</div>
+<p>Sous Windows vous ne pouvez pas créer ce fichier <tt class="file docutils literal"><span class="pre">.pypirc</span></tt> avec le
+gestionnaire de fichiers, mais dans un shell, vous pouvez.</p>
+<p>Dans un shell dos, allez dans <tt class="docutils literal"><span class="pre">C:\Profiles\User</span></tt>, et créez le fichier avec la
+commande :</p>
+<div class="highlight-sh"><div class="highlight"><pre>edit .pypirc
+</pre></div>
+</div>
+</div>
+<div class="section" id="enregistrement-et-upload">
+<h3><a class="toc-backref" href="#id24">Enregistrement et upload</a><a class="headerlink" href="#enregistrement-et-upload" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Exécutez ensuite :</p>
+<p>Avec Python &lt; 2.6</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python setup.py mregister -r mycompany sdist --formats<span class="o">=</span>zip mupload -r mycompany
+</pre></div>
+</div>
+<p>Avec Python &gt;= 2.6 :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python setup.py register -r mycompany sdist --formats<span class="o">=</span>zip upload -r mycompany
+</pre></div>
+</div>
+<ul class="simple">
+<li><em class="xref std std-option">mregister</em> permet d&#8217;enregistrer le egg sur le serveur</li>
+<li><em class="xref std std-option">sdist</em> permet de créer une distribution source</li>
+<li><em class="xref std std-option">mupload</em> transfère sur la distribution source vers le serveur</li>
+<li><em class="xref std std-option">-r mycompany</em> précise d&#8217;enregistrer et de transfèrer sur le serveur
+mycompany (r pour repository dans doute).  Si cette option n&#8217;est pas précisée,
+c&#8217;est le serveur Pypi d&#8217;origine.</li>
+<li><em class="xref std std-option">--formats=zip</em>, génère une archive au format zip. Par défaut sous
+Linux, une archive tar.gz est générée, le module tarfile dans Python &lt; 2.6
+semble avoir certains problèmes de lecture de ces archives.</li>
+</ul>
+<p>La commande mregister exécute implicitement la commande
+<em class="xref std std-option">egg_info</em>. Cette commande génère entre autres le numéro de version.</p>
+<p>Le fichier <tt class="file docutils literal"><span class="pre">setup.cfg</span></tt> est lu par cette commande, il configure quelques
+options liées à la génération du numéro de version. Créez un fichier <tt class="file docutils literal"><span class="pre">setup.cfg</span></tt> qui contient :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>cat setup.cfg
+<span class="o">[</span>egg_info<span class="o">]</span>
+<span class="nv">tag_build</span> <span class="o">=</span> dev
+<span class="nv">tag_svn_revision</span> <span class="o">=</span> <span class="nb">true</span>
+</pre></div>
+</div>
+<p>La version générée sera donc de la forme &#8220;1.0dev&#8221;.</p>
+<p>Pour une release stable, on supprime généralement ce fichier pour que la version
+soit simplement &#8220;1.0&#8221;.</p>
+<p>On peut également laisser le fichier en place et écraser la configuration en
+ligne de commande comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python setup.py egg_info -RDb <span class="s2">&quot;&quot;</span> register -r mycompany sdist --formats<span class="o">=</span>zip upload -r mycompany
+</pre></div>
+</div>
+<p>L&#8217;option <em class="xref std std-option">--formats=zip</em> permet de générer une archive zip au lieu d&#8217;une
+archive tar.gz par défaut sous Linux.</p>
+<p>Avec <tt class="docutils literal"><span class="pre">python</span> <span class="pre">setup.py</span> <span class="pre">sdist</span> <span class="pre">--help-formats</span></tt>, vous pouvez voir la liste des formats possibles d&#8217;archives.</p>
+<p>Si vous voulez par exemple créer une archive zip et tar.gz, vous pouvez spécifier l&#8217;option <em class="xref std std-option">--formats=zip,gztar</em>.</p>
+<p>Regardez la signification des options avec :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>python setup.py egg_info -h
+--tag-build <span class="o">(</span>-b<span class="o">)</span>         Specify explicit tag to add to version number
+--no-svn-revision <span class="o">(</span>-R<span class="o">)</span>   Don<span class="s1">&#39;t add subversion revision ID [default]</span>
+<span class="s1">--no-date (-D)           Don&#39;</span>t include date stamp <span class="o">[</span>default<span class="o">]</span>
+</pre></div>
+</div>
+<p>Nous verrons par la suite comment faire une release en bonne et due forme avec
+le gestionnaire de version subversion.</p>
+<p>On peut remplacer <em class="xref std std-option">sdist</em> par <em class="xref std std-option">bdist_egg</em> pour générer un egg,
+une distribution binaire.</p>
+<p>La convention est de générer un <em class="xref std std-option">bdist_egg</em> pour chaque version de
+Python pour la plateforme Windows si le egg contient des librairies C à
+compiler.</p>
+<p>Pour les autres OS, la distribution source sera récupérée et les librairies C
+seront compilées à l&#8217;installation.</p>
+</div>
+<div class="section" id="broken-release">
+<h3><a class="toc-backref" href="#id25">Broken release</a><a class="headerlink" href="#broken-release" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Créez un nouvel environnement <cite>testenv</cite> :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mkvirtualenv testenv
+</pre></div>
+</div>
+<p>Essayez maintenant d&#8217;installer <tt class="xref py py-mod docutils literal"><span class="pre">foo.bar</span></tt> 1.0 à partir de votre pypi :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>easy_install -i http://devagile:8080/site/products/simple foo.bar
+</pre></div>
+</div>
+<p>Il y a une erreur à l&#8217;installation disant qu&#8217;il ne trouve pas le fichier
+<tt class="file docutils literal"><span class="pre">CONTRIBUTORS.txt</span></tt>.</p>
+<p>La release est cassée car elle ne contient pas le fichier <tt class="file docutils literal"><span class="pre">CONTRIBUTORS.txt</span></tt>. Et nous avons de ce fichier pour la <tt class="xref py py-data docutils literal"><span class="pre">long_description</span></tt>.</p>
+<p>Le dossier docs est également manquant car dans setup.py nous avons
+<tt class="xref py py-data docutils literal"><span class="pre">package=find_packages</span></tt>, ça recherche seulement les dossiers contenant un
+fichier <tt class="file docutils literal"><span class="pre">__init__.py</span></tt>. <tt class="file docutils literal"><span class="pre">docs</span></tt> n&#8217;étant pas un package, il n&#8217;a pas été
+inclu dans l&#8217;archive.</p>
+<p>Pour régler le problème, il faut mettre le code source dans un dépôt subversion
+et grâce à l&#8217;option <tt class="xref py py-data docutils literal"><span class="pre">include_package_data=True</span></tt> dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>,
+tous les fichiers subversionnés seront ajoutés à l&#8217;archive.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Vous pouvez créer facilement un dépôt subversion comme ceci :</p>
+<div class="highlight-python"><pre>svnadmin create Formation</pre>
+</div>
+<p>Et pour faire un checkout :</p>
+<div class="last highlight-python"><pre>svn co http://devagile/Formation</pre>
+</div>
+</div>
+<p>Donc on va importer notre code dans le dépôt Formation :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn import foo.bar/ http://devagile/Formation/foo.bar -m <span class="s2">&quot;First import of foo.bar&quot;</span>
+</pre></div>
+</div>
+<p>Attention, le dossier .egg-info a été commité ! Nous allons le supprimer de subversion :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn co http://devagile/Formation
+<span class="nv">$ </span><span class="nb">cd </span>Formation/foo.bar
+<span class="nv">$ </span>svn rm foo.bar.egg-info dist
+<span class="nv">$ </span>svn ci -m <span class="s2">&quot;Delete egg-info and dist directories&quot;</span>
+</pre></div>
+</div>
+<p>Nous allons donc maintenant faire une nouvelle release de foo.bar, pour cela
+incrémentez la version dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>, mettez <tt class="docutils literal"><span class="pre">1.1</span></tt>, éditez le fichier
+<tt class="file docutils literal"><span class="pre">docs/HISTORY.txt</span></tt> pour ajouter une information au changelog, commitez et
+refaites la release.</p>
+<p>Nous allons faire pareil pour <tt class="file docutils literal"><span class="pre">foo.rab</span></tt>, mais nous allons tout d&#8217;abord
+configurer l&#8217;option <tt class="xref py py-data docutils literal"><span class="pre">global-ignores</span></tt> dans <tt class="file docutils literal"><span class="pre">~/.subversion/config</span></tt>
+pour ignorer le dossier <tt class="file docutils literal"><span class="pre">.egg-info</span></tt> lors de l&#8217;import.</p>
+<p>Ouvrez le fichier <tt class="file docutils literal"><span class="pre">~/.subversion/config</span></tt> et configurez
+<tt class="xref py py-data docutils literal"><span class="pre">global-ignores</span></tt> comme suit :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="na">global-ignores</span> <span class="o">=</span> <span class="s">*.o *.lo *.la #*# .*.rej *.rej .*~ *~ .#* .DS_Store *.pyc *.pyo .installed.cfg bin var parts downloads *.swp develop-eggs fake-eggs eggs archgenxml.log *.egg-info *.mo build dist .mr.developer.cfg</span>
+</pre></div>
+</div>
+<p>Vous pouvez maintenant importer le code source dans subversion et faire la
+release.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Concept de Python eggs</a><ul>
+<li><a class="reference internal" href="#definition">Définition</a></li>
+<li><a class="reference internal" href="#savoir">Savoir</a></li>
+<li><a class="reference internal" href="#installation-de-python-et-distribute">Installation de Python et Distribute</a></li>
+<li><a class="reference internal" href="#packaging-python">Packaging Python</a><ul>
+<li><a class="reference internal" href="#installation-d-un-egg">Installation d&#8217;un egg</a></li>
+<li><a class="reference internal" href="#telecharger-un-package-sans-l-installer">Télécharger un package sans l&#8217;installer</a></li>
+<li><a class="reference internal" href="#creation-d-un-environnement-isole-avec-virtualenv">Création d&#8217;un environnement isolé avec virtualenv</a></li>
+<li><a class="reference internal" href="#suppression-d-un-egg">Suppression d&#8217;un egg</a></li>
+<li><a class="reference internal" href="#methode-originelle-pour-installer-un-package">Methode &#8220;originelle&#8221; pour installer un package</a></li>
+<li><a class="reference internal" href="#installation-de-virtualenvwrapper">Installation de virtualenvwrapper</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#passons-au-developpement">Passons au développement</a><ul>
+<li><a class="reference internal" href="#installation-de-la-commande-paster">Installation de la commande <tt class="docutils literal"><span class="pre">paster</span></tt></a></li>
+<li><a class="reference internal" href="#creation-de-votre-premier-egg">Création de votre premier egg</a></li>
+<li><a class="reference internal" href="#declaration-des-dependances">Déclaration des dépendances</a></li>
+<li><a class="reference internal" href="#egg-en-mode-developpement">Egg en mode développement</a></li>
+<li><a class="reference internal" href="#le-hello-world-que-tout-le-monde-attend">Le hello world que tout le monde attend</a></li>
+<li><a class="reference internal" href="#les-espaces-de-nom-ou-namespaces">Les espaces de nom ou namespaces</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#l-api-pkg-resources">L&#8217;API pkg_resources</a></li>
+<li><a class="reference internal" href="#les-entry-points">Les entry points</a><ul>
+<li><a class="reference internal" href="#groupe-console-scripts">groupe console_scripts</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#mise-en-place-d-un-pypi-prive-avec-plonesoftwarecenter">Mise en place d&#8217;un Pypi privé avec PloneSoftwareCenter</a><ul>
+<li><a class="reference internal" href="#installation-de-collective-dist-pour-python-2-4-et-2-5">Installation de collective.dist pour Python 2.4 et 2.5</a></li>
+<li><a class="reference internal" href="#configuration-des-serveurs">Configuration des serveurs</a></li>
+<li><a class="reference internal" href="#enregistrement-et-upload">Enregistrement et upload</a></li>
+<li><a class="reference internal" href="#broken-release">Broken release</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="presentation_html_xml.html"
+                        title="Chapitre précédent">Rappel HTML et XML</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="presentation_buildout.html"
+                        title="Chapitre suivant">Introduction à zc.buildout</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/concepts_python_eggs.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="presentation_buildout.html" title="Introduction à zc.buildout"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_html_xml.html" title="Rappel HTML et XML"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

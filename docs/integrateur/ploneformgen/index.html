@@ -1,0 +1,487 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PloneFormGen &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="TAL/Metal les templates de Zope et Plone" href="../formation_tal_metal.html" />
+    <link rel="prev" title="Monitoring avec Munin" href="../munin.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../formation_tal_metal.html" title="TAL/Metal les templates de Zope et Plone"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="../munin.html" title="Monitoring avec Munin"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ploneformgen">
+<span id="id1"></span><h1>PloneFormGen<a class="headerlink" href="#ploneformgen" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#presentation-de-ploneformgen" id="id2">Présentation de PloneFormGen</a><ul>
+<li><a class="reference internal" href="#qu-est-ce-que-ploneformgen" id="id3">Qu&#8217;est ce que PloneFormGen ?</a></li>
+<li><a class="reference internal" href="#qu-est-ce-que-l-on-peut-faire-avec-ploneformgen" id="id4">Qu&#8217;est-ce que l&#8217;on peut faire avec PloneFormGen ?</a></li>
+<li><a class="reference internal" href="#installation-de-ploneformgen" id="id5">Installation de PloneFormGen</a></li>
+<li><a class="reference internal" href="#creation-d-un-formulaire" id="id6">Création d&#8217;un formulaire</a></li>
+<li><a class="reference internal" href="#les-differents-composants-d-un-formulaire" id="id7">Les différents composants d&#8217;un formulaire</a></li>
+<li><a class="reference internal" href="#les-differents-types-de-champs" id="id8">Les différents types de champs</a><ul>
+<li><a class="reference internal" href="#champ-de-type-checkbox" id="id9">Champ de type Checkbox</a></li>
+<li><a class="reference internal" href="#champ-de-type-date-et-heure" id="id10">Champ de type date et heure</a></li>
+<li><a class="reference internal" href="#champ-de-type-decimal-number" id="id11">Champ de type decimal Number</a></li>
+<li><a class="reference internal" href="#champ-de-type-conteneur-pour-groupe-de-champs" id="id12">Champ de type conteneur pour groupe de champs</a></li>
+<li><a class="reference internal" href="#champ-de-type-saisie-multiple" id="id13">Champ de type saisie multiple</a></li>
+<li><a class="reference internal" href="#champ-de-type-selection-multiple" id="id14">Champ de type sélection multiple</a></li>
+<li><a class="reference internal" href="#champ-de-type-mot-de-passe" id="id15">Champ de type mot de passe</a></li>
+<li><a class="reference internal" href="#champ-de-type-rating-scale-field" id="id16">Champ de type Rating-Scale Field</a></li>
+<li><a class="reference internal" href="#champ-de-type-rich-label-field" id="id17">Champ de type Rich Label Field</a></li>
+<li><a class="reference internal" href="#champ-de-type-texte-mis-en-forme" id="id18">Champ de type texte mis en forme</a></li>
+<li><a class="reference internal" href="#champ-de-type-selection" id="id19">Champ de type sélection</a></li>
+<li><a class="reference internal" href="#champ-de-type-texte-court" id="id20">Champ de type texte court</a></li>
+<li><a class="reference internal" href="#champ-de-type-zone-de-texte" id="id21">Champ de type zone de texte</a></li>
+<li><a class="reference internal" href="#champ-de-type-whole-number-field" id="id22">Champ de type Whole Number Field</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#les-adaptateurs-pour-scripts" id="id23">Les adaptateurs pour scripts</a></li>
+<li><a class="reference internal" href="#les-expediteurs-de-mels" id="id24">Les expéditeurs de méls</a></li>
+<li><a class="reference internal" href="#les-enregistreurs-de-donnees" id="id25">Les enregistreurs de données</a></li>
+<li><a class="reference internal" href="#la-page-de-remerciement" id="id26">La page de remerciement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercice-realisation-d-un-formulaire-de-sondage" id="id27">Exercice : Réalisation d&#8217;un formulaire de sondage</a><ul>
+<li><a class="reference internal" href="#composition-du-formulaire" id="id28">Composition du formulaire</a></li>
+<li><a class="reference internal" href="#creation-de-l-enregistreur-pour-recuperer-les-donnees-au-format-csv" id="id29">Création de l&#8217;enregistreur pour récupérer les données au format CSV</a></li>
+<li><a class="reference internal" href="#creation-d-un-script-remplissant-une-base-de-donnees" id="id30">Création d&#8217;un script remplissant une base de données.</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="presentation-de-ploneformgen">
+<h2><a class="toc-backref" href="#id2">Présentation de PloneFormGen</a><a class="headerlink" href="#presentation-de-ploneformgen" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="qu-est-ce-que-ploneformgen">
+<h3><a class="toc-backref" href="#id3">Qu&#8217;est ce que PloneFormGen ?</a><a class="headerlink" href="#qu-est-ce-que-ploneformgen" title="Lien permanent vers ce titre">¶</a></h3>
+<p>PloneFormGen est un produit permettant la création en ligne de formulaire pour
+Plone.</p>
+<p>On trouvera de la documentation sur
+<a class="reference external" href="http://plone.org/products/ploneformgen/documentation">http://plone.org/products/ploneformgen/documentation</a></p>
+</div>
+<div class="section" id="qu-est-ce-que-l-on-peut-faire-avec-ploneformgen">
+<h3><a class="toc-backref" href="#id4">Qu&#8217;est-ce que l&#8217;on peut faire avec PloneFormGen ?</a><a class="headerlink" href="#qu-est-ce-que-l-on-peut-faire-avec-ploneformgen" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Outre la création à travers le web des formulaires, on pourra stocker les
+informations qui y seront saisies en vue de les réutiliser et de les exporter
+au format csv.</p>
+<p>De plus la possibilité de créer des adaptateurs appelant des scripts Python en
+fin de saisie permettent par exemple de créer des instances de n&#8217;importe quel
+type de contenu et de les remplir à partir des informations préalablement
+saisies.</p>
+</div>
+<div class="section" id="installation-de-ploneformgen">
+<h3><a class="toc-backref" href="#id5">Installation de PloneFormGen</a><a class="headerlink" href="#installation-de-ploneformgen" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour installer PloneFormGen le plus simple est de l&#8217;ajouter à son buildout.</p>
+<p>Si vous ne savez pas ce qu&#8217;est un buildout vous pouvez lire le chapitre
+<a class="reference internal" href="../presentation_buildout.html#introduction-zc-buildout"><em>Introduction à zc.buildout</em></a> et <a class="reference internal" href="../buildout_plone3.html#buildout-plone3"><em>Création d&#8217;un buildout Plone avec ZopeSkel</em></a>.</p>
+<p>Pour cela ajouter <em>Products.PloneFormGen</em> à la section egg
+de la partie instance :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[instance]</span>
+<span class="c1"># ...</span>
+<span class="na">eggs</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    # ...</span>
+<span class="s">    Products.PloneFormGen</span>
+</pre></div>
+</div>
+<p>Refaites votre buildout, démarrez, puis ajoutez le produit.</p>
+</div>
+<div class="section" id="creation-d-un-formulaire">
+<h3><a class="toc-backref" href="#id6">Création d&#8217;un formulaire</a><a class="headerlink" href="#creation-d-un-formulaire" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La création d&#8217;un formulaire commence par la création d&#8217;un <strong>Formulaire</strong>
+dans la liste <em class="guilabel">Ajout d&#8217;un élément</em>.</p>
+<p>Vous obtenez alors :</p>
+<div class="figure align-center">
+<img alt="../_images/AjouterFormulairePersonnalise.jpg" src="../_images/AjouterFormulairePersonnalise.jpg" />
+<p class="caption">Ajout d&#8217;un formulaire personnalisé.</p>
+</div>
+<p>Le formulaire est un répertoire qui permet de définir votre
+formulaire et qui contiendra les éléments qui vont le constituer.</p>
+<p>Remarquez également la barre des propriétés qui va permettre d&#8217;accéder à la
+définition du comportement du formulaire (onglet <em class="guilabel">Overrides</em>).</p>
+<p>Saisissez un titre et une description.</p>
+<p>Vous pouvez changer le nom des boutons de soumission ou d&#8217;annulation.</p>
+<p>Par défaut le comportement d&#8217;un formulaire personnalisé est d&#8217;envoyer un mail
+avec les informations saisies par les utilisateurs. Ce comportement est réalisé
+par un &#8220;adaptateur d&#8217;action&#8221; nommé &#8220;Gestionnaire de mél&#8221;. Par la suite nous
+verrons comment remplacer cet adaptateur par celui que nous aurons créé.</p>
+<p>Vous pourrez aussi définir une page de remerciement qui viendra remplacer celle
+par défaut qui se contente d&#8217;afficher les valeurs saisies dans le formulaire.</p>
+<p>Pour des raisons de confidentialité vous pourrez forcer la saisie des
+informations via une connexion chiffrée à condition d&#8217;avoir configuré votre
+serveur pour qu&#8217;il gère le ssl et donc d&#8217;avoir un certificat X509.</p>
+<p>Vous pouvez ensuite saisir le prologue et l&#8217;épilogue du formulaire.</p>
+<p>Enregistrez.</p>
+<p>Vous êtes alors redirigé vers votre formulaire qui affiche le titre, la
+description, le prologue, les champs de saisie &#8220;Votre adresse mél&#8221;, &#8220;Sujet&#8221;, et
+&#8220;Commentaires&#8221;, le bouton &#8220;Envoyer&#8221; et pour finir votre épilogue.</p>
+<div class="figure align-center">
+<img alt="../_images/VueFormulaireParDefaut.jpg" src="../_images/VueFormulaireParDefaut.jpg" />
+<p class="caption">Vue d&#8217;un formulaire.</p>
+</div>
+<p>Nous verrons comment ajouter d&#8217;autres champs et supprimer ceux existants par
+défaut.</p>
+<p>Si vous avez correctement configuré le mailhost de votre instance Plone, le
+résultat des formulaires sera envoyé par mél à destination du contact &#8220;Adresse
+d&#8217;expéditeur des courriels pour le site&#8221; (modifiable en cliquant sur
+<em class="guilabel">Configuration du site</em> puis <em class="guilabel">Envoi de courriels</em>).</p>
+<p>Après avoir appuyé sur <em class="guilabel">Envoyer</em> l&#8217;utilisateur est redirigé sur
+la page de remerciement qui récapitule les valeurs entrées.</p>
+</div>
+<div class="section" id="les-differents-composants-d-un-formulaire">
+<h3><a class="toc-backref" href="#id7">Les différents composants d&#8217;un formulaire</a><a class="headerlink" href="#les-differents-composants-d-un-formulaire" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Cliquez sur l&#8217;onglet édition de votre formulaire puis cliquez sur l&#8217;onglet
+<em class="guilabel">Overrides</em> des propriétés.</p>
+<div class="figure align-center">
+<img alt="../_images/OngletDeProprietes.jpg" src="../_images/OngletDeProprietes.jpg" />
+<p class="caption">Onglets d&#8217;accès aux propriétés d&#8217;un formulaire</p>
+</div>
+<p>Vous accédez alors à la page suivante :</p>
+<div class="figure align-center">
+<img alt="../_images/ProprieteOverrides.jpg" src="../_images/ProprieteOverrides.jpg" />
+<p class="caption">Paramétrage du comportement d&#8217;un formulaire</p>
+</div>
+<p>Le champ &#8220;Action de validation personnalisée&#8221; permet d&#8217;exécuter un script
+personnalisé qui sera appelé après l&#8217;action associée au formulaire (par défaut
+l&#8217;envoi de mél).</p>
+<p>Le champ &#8220;Action personnalisée du formulaire&#8221; permet d&#8217;exécuter un script
+personnalisé en lieu et place de l&#8217;envoi de mél.</p>
+<p>Le champ &#8220;Script de configuration du formulaire&#8221; permet d&#8217;exécuter un script
+avant l&#8217;affichage du formulaire pour par exemple remplir les champs avec des
+valeurs calculées.</p>
+<p>Le champ &#8220;Script post-validation&#8221; permet d&#8217;exécuter un script ayant pour
+objectif de valider la cohérence des valeurs saisies les une vis-à-vis des
+autres ou vis à vis de données extérieures.</p>
+<p>Le champ &#8220;Injection de contenu d&#8217;entête&#8221; permet de compléter la page html avec
+par exemple des liens vers des ressources css ou javascripts.</p>
+<p>La case à cocher &#8220;CSRF Protection&#8221; permet d&#8217;éviter les liens html ou
+l&#8217;insertion de javascript lors de la saisie des valeurs du formulaire.</p>
+<p>Plus d&#8217;informations sur l&#8217;overrides :
+<a class="reference external" href="http://plone.org/products/ploneformgen/documentation/tutorial/customizing-ploneformgen">http://plone.org/products/ploneformgen/documentation/tutorial/customizing-ploneformgen</a></p>
+<p>Pour ajouter des champs ou des actions il suffit de cliquer sur l&#8217;un des types
+disponibles depuis le menu <em class="guilabel">Ajout d&#8217;un élément</em>.</p>
+<div class="figure align-center">
+<img alt="../_images/AjoutDUnElement.jpg" src="../_images/AjoutDUnElement.jpg" />
+<p class="caption">Ajout d&#8217;un champ ou d&#8217;une action</p>
+</div>
+<p>Nous allons détailler les éléments de formulaire ci-après.</p>
+<p>L&#8217;édition graphique et le placement se font après avoir cliqué sur l&#8217;onglet <tt class="docutils literal"><span class="pre">QuickEdit</span></tt>.</p>
+<div class="figure align-center">
+<img alt="../_images/AccesVueParametrage.jpg" src="../_images/AccesVueParametrage.jpg" />
+<p class="caption">Icône d&#8217;accès à la vue de paramétrage</p>
+</div>
+<p>On obtient alors une vue ressemblant à :</p>
+<div class="figure align-center">
+<img alt="../_images/ParametrageGraphique.jpg" src="../_images/ParametrageGraphique.jpg" />
+<p class="caption">Paramétrage des éléments du formulaire</p>
+</div>
+<p>Les colonnes &#8220;Delete&#8221; permettent de supprimer les composants, les colonnes
+&#8220;Edit&#8221; permettent d&#8217;éditer le composant désigné par la ligne où nous avons
+cliqué. La colonne &#8220;Order&#8221; permet par drag and drop de déplacer les champs pour
+en changer l&#8217;ordre alors que la colonne &#8220;Enable&#8221; permet d&#8217;activer ou non une
+action ou un page de remerciement.</p>
+</div>
+<div class="section" id="les-differents-types-de-champs">
+<h3><a class="toc-backref" href="#id8">Les différents types de champs</a><a class="headerlink" href="#les-differents-types-de-champs" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="section" id="champ-de-type-checkbox">
+<h4><a class="toc-backref" href="#id9">Champ de type Checkbox</a><a class="headerlink" href="#champ-de-type-checkbox" title="Lien permanent vers ce titre">¶</a></h4>
+<p>L&#8217;ajout d&#8217;une checkbox permet de créer une checkbox.</p>
+<div class="figure align-center">
+<img alt="../_images/CheckboxField.jpg" src="../_images/CheckboxField.jpg" />
+<p class="caption">Formulaire de paramétrage d&#8217;un champ de type checkbox</p>
+</div>
+<p>Signification des champs :</p>
+<ul class="simple">
+<li>Le label du champ correspond au nom du champ il doit être explicite,</li>
+<li>l&#8217;aide doit permettre à l&#8217;utilisateur de savoir à quoi sert ce checkbox,</li>
+<li>le champ obligatoire s&#8217;il est coché oblige l&#8217;utilisateur à se prononcer,</li>
+<li>la valeur par défaut (cochée ou non)</li>
+<li>la chaîne de caractères affichée si la checkbox est cochée,</li>
+<li>la chaîne de caractères affichée si la checkbox n&#8217;est pas cochée.</li>
+</ul>
+<p>Comme pour le formulaire les champs possèdent une propriété &#8220;Overrides&#8221;.</p>
+<div class="figure align-center">
+<img alt="../_images/CheckboxFieldOverrides.jpg" src="../_images/CheckboxFieldOverrides.jpg" />
+<p class="caption">Propriétés overrides des champs de type checkbox</p>
+</div>
+<p>&#8220;Expression par défaut&#8221; permet de remplir le champ à partir d&#8217;une expression
+TALES évaluée lors du rendu du formulaire, dans le cas du checkbox le résultat
+doit être &#8220;checked&#8221; ou la chaine vide &#8220;&#8221;.</p>
+<p>&#8220;Validateur personnalisé&#8221; permet de saisir une expression TALES validant la
+saisie, attention généralement le test ne concerne que la valeur du champ et
+non la cohérence du formulaire qui est réalisé dans le test de post validation.</p>
+<p>&#8220;Enabling Expression&#8221; permet de griser ou non le champ à l&#8217;affichage en
+fonction du résultat de l&#8217;expression TALES saisie.</p>
+</div>
+<div class="section" id="champ-de-type-date-et-heure">
+<h4><a class="toc-backref" href="#id10">Champ de type date et heure</a><a class="headerlink" href="#champ-de-type-date-et-heure" title="Lien permanent vers ce titre">¶</a></h4>
+<p>L&#8217;ajout d&#8217;un champ date et heure permet de créer une zone de saisie année,
+mois, jour, heure, minute pouvant être saisie par calendrier.</p>
+<p>La valeur par défaut est saisie sous la forme AAAA MM JJ HH mm où les
+séparateurs peuvent être &#8216; &#8216;, &#8216;/&#8217;, &#8216;-&#8216;, &#8216;.&#8217;.</p>
+</div>
+<div class="section" id="champ-de-type-decimal-number">
+<h4><a class="toc-backref" href="#id11">Champ de type decimal Number</a><a class="headerlink" href="#champ-de-type-decimal-number" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Il permet de créer des champs de saisie de nombre flottant.</p>
+</div>
+<div class="section" id="champ-de-type-conteneur-pour-groupe-de-champs">
+<h4><a class="toc-backref" href="#id12">Champ de type conteneur pour groupe de champs</a><a class="headerlink" href="#champ-de-type-conteneur-pour-groupe-de-champs" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Il permet de créer un dossier qui contiendra des champs et les groupera
+visuellement à l&#8217;écran.</p>
+<p>Remarquer que l&#8217;édition des champs contenus par le groupe nécessite de passer
+par la vue Contenus.</p>
+</div>
+<div class="section" id="champ-de-type-saisie-multiple">
+<h4><a class="toc-backref" href="#id13">Champ de type saisie multiple</a><a class="headerlink" href="#champ-de-type-saisie-multiple" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Il permet de créer une zone de saisie de lignes de texte.</p>
+<p>Les propriétés Overrides offre en plus un champ &#8220;Server-Side Variable&#8221; qui
+permet d&#8217;utiliser le contenu du champ pour passer des valeurs aux adaptateurs
+d&#8217;actions.</p>
+</div>
+<div class="section" id="champ-de-type-selection-multiple">
+<h4><a class="toc-backref" href="#id14">Champ de type sélection multiple</a><a class="headerlink" href="#champ-de-type-selection-multiple" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Overrides permet via le champ &#8220;Vocabulaire des options&#8221; de définir une
+expression TALES permettant de définir le dictionnaire.</p>
+</div>
+<div class="section" id="champ-de-type-mot-de-passe">
+<h4><a class="toc-backref" href="#id15">Champ de type mot de passe</a><a class="headerlink" href="#champ-de-type-mot-de-passe" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Lors de la saisie les lettres seront remplacés par des &#8216;*&#8217;.</p>
+</div>
+<div class="section" id="champ-de-type-rating-scale-field">
+<h4><a class="toc-backref" href="#id16">Champ de type Rating-Scale Field</a><a class="headerlink" href="#champ-de-type-rating-scale-field" title="Lien permanent vers ce titre">¶</a></h4>
+</div>
+<div class="section" id="champ-de-type-rich-label-field">
+<h4><a class="toc-backref" href="#id17">Champ de type Rich Label Field</a><a class="headerlink" href="#champ-de-type-rich-label-field" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Ce champ permet de faire de la mise en forme.</p>
+</div>
+<div class="section" id="champ-de-type-texte-mis-en-forme">
+<h4><a class="toc-backref" href="#id18">Champ de type texte mis en forme</a><a class="headerlink" href="#champ-de-type-texte-mis-en-forme" title="Lien permanent vers ce titre">¶</a></h4>
+</div>
+<div class="section" id="champ-de-type-selection">
+<h4><a class="toc-backref" href="#id19">Champ de type sélection</a><a class="headerlink" href="#champ-de-type-selection" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Overrides permet via le champ &#8220;Vocabulaire des options&#8221; de définir une
+expression TALES permettant de définir le dictionnaire.</p>
+</div>
+<div class="section" id="champ-de-type-texte-court">
+<h4><a class="toc-backref" href="#id20">Champ de type texte court</a><a class="headerlink" href="#champ-de-type-texte-court" title="Lien permanent vers ce titre">¶</a></h4>
+</div>
+<div class="section" id="champ-de-type-zone-de-texte">
+<h4><a class="toc-backref" href="#id21">Champ de type zone de texte</a><a class="headerlink" href="#champ-de-type-zone-de-texte" title="Lien permanent vers ce titre">¶</a></h4>
+</div>
+<div class="section" id="champ-de-type-whole-number-field">
+<h4><a class="toc-backref" href="#id22">Champ de type Whole Number Field</a><a class="headerlink" href="#champ-de-type-whole-number-field" title="Lien permanent vers ce titre">¶</a></h4>
+</div>
+</div>
+<div class="section" id="les-adaptateurs-pour-scripts">
+<h3><a class="toc-backref" href="#id23">Les adaptateurs pour scripts</a><a class="headerlink" href="#les-adaptateurs-pour-scripts" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les adaptateurs de scripts permettent de réaliser des actions sous forme de
+code Python.</p>
+<p>Certaines restrictions de sécurité sont présentes, il n&#8217;est donc pas possible
+d&#8217;importer toutes les bibliothèques du langages.</p>
+<div class="figure align-center">
+<img alt="../_images/AdaptateurPourScript.jpg" src="../_images/AdaptateurPourScript.jpg" />
+<p class="caption">Édition de l&#8217;adaptateur de script</p>
+</div>
+<p>Le champ &#8220;proxy role&#8221; permet d&#8217;exécuter le script avec le rôle Administrateur.</p>
+<p>Le champ &#8220;corps du script&#8221; permet de saisir le code Python.</p>
+<p>La propriété Overrides permet de définir une &#8220;Condition d&#8217;exécution&#8221; qui si
+elle n&#8217;est pas vérifiée empêche l&#8217;exécution du script.</p>
+<p>Exemple d&#8217;adaptateur créant un document à partir des données saisies :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Available parameters:</span>
+<span class="c">#  fields  = HTTP request form fields as key value pairs</span>
+<span class="c">#  request = The current HTTP request.</span>
+<span class="c">#            Access fields by request.form[&quot;myfieldname&quot;]</span>
+<span class="c">#  ploneformgen = PloneFormGen object</span>
+<span class="c">#</span>
+<span class="c"># Return value is not processed -- unless you</span>
+<span class="c"># return a dictionary with contents. That&#39;s regarded</span>
+<span class="c"># as an error and will stop processing of actions</span>
+<span class="c"># and return the user to the form. Error dictionaries</span>
+<span class="c"># should be of the form {&#39;field_id&#39;:&#39;Error message&#39;}</span>
+
+<span class="kn">from</span> <span class="nn">Products.CMFCore.utils</span> <span class="kn">import</span> <span class="n">getToolByName</span>
+<span class="n">portal</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">ploneformgen</span><span class="p">,</span> <span class="s">&#39;portal_url&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">getPortalObject</span><span class="p">()</span>
+<span class="n">putils</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">ploneformgen</span><span class="p">,</span> <span class="s">&#39;plone_utils&#39;</span><span class="p">)</span>
+<span class="n">title</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="s">&#39;topic&#39;</span><span class="p">]</span>
+<span class="n">masaisie</span> <span class="o">=</span> <span class="n">fields</span><span class="p">[</span><span class="s">&#39;ma-saisie&#39;</span><span class="p">]</span>
+<span class="nb">id</span><span class="o">=</span><span class="n">putils</span><span class="o">.</span><span class="n">normalizeString</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+<span class="n">portal</span><span class="o">.</span><span class="n">invokeFactory</span><span class="p">(</span><span class="s">&#39;Document&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="o">=</span><span class="nb">id</span> <span class="p">,</span><span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                      <span class="n">text</span><span class="o">=</span><span class="s">u&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">masaisie</span><span class="p">))</span>
+<span class="n">link</span><span class="o">=</span><span class="n">portal</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span><span class="o">.</span><span class="n">absolute_url</span><span class="p">()</span>
+<span class="n">request</span><span class="o">.</span><span class="n">RESPONSE</span><span class="o">.</span><span class="n">redirect</span><span class="p">(</span><span class="n">link</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="les-expediteurs-de-mels">
+<h3><a class="toc-backref" href="#id24">Les expéditeurs de méls</a><a class="headerlink" href="#les-expediteurs-de-mels" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+<div class="section" id="les-enregistreurs-de-donnees">
+<h3><a class="toc-backref" href="#id25">Les enregistreurs de données</a><a class="headerlink" href="#les-enregistreurs-de-donnees" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+<div class="section" id="la-page-de-remerciement">
+<h3><a class="toc-backref" href="#id26">La page de remerciement</a><a class="headerlink" href="#la-page-de-remerciement" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+</div>
+<div class="section" id="exercice-realisation-d-un-formulaire-de-sondage">
+<h2><a class="toc-backref" href="#id27">Exercice : Réalisation d&#8217;un formulaire de sondage</a><a class="headerlink" href="#exercice-realisation-d-un-formulaire-de-sondage" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="composition-du-formulaire">
+<h3><a class="toc-backref" href="#id28">Composition du formulaire</a><a class="headerlink" href="#composition-du-formulaire" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+<div class="section" id="creation-de-l-enregistreur-pour-recuperer-les-donnees-au-format-csv">
+<h3><a class="toc-backref" href="#id29">Création de l&#8217;enregistreur pour récupérer les données au format CSV</a><a class="headerlink" href="#creation-de-l-enregistreur-pour-recuperer-les-donnees-au-format-csv" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+<div class="section" id="creation-d-un-script-remplissant-une-base-de-donnees">
+<h3><a class="toc-backref" href="#id30">Création d&#8217;un script remplissant une base de données.</a><a class="headerlink" href="#creation-d-un-script-remplissant-une-base-de-donnees" title="Lien permanent vers ce titre">¶</a></h3>
+<p>&#64;TODO</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PloneFormGen</a><ul>
+<li><a class="reference internal" href="#presentation-de-ploneformgen">Présentation de PloneFormGen</a><ul>
+<li><a class="reference internal" href="#qu-est-ce-que-ploneformgen">Qu&#8217;est ce que PloneFormGen ?</a></li>
+<li><a class="reference internal" href="#qu-est-ce-que-l-on-peut-faire-avec-ploneformgen">Qu&#8217;est-ce que l&#8217;on peut faire avec PloneFormGen ?</a></li>
+<li><a class="reference internal" href="#installation-de-ploneformgen">Installation de PloneFormGen</a></li>
+<li><a class="reference internal" href="#creation-d-un-formulaire">Création d&#8217;un formulaire</a></li>
+<li><a class="reference internal" href="#les-differents-composants-d-un-formulaire">Les différents composants d&#8217;un formulaire</a></li>
+<li><a class="reference internal" href="#les-differents-types-de-champs">Les différents types de champs</a><ul>
+<li><a class="reference internal" href="#champ-de-type-checkbox">Champ de type Checkbox</a></li>
+<li><a class="reference internal" href="#champ-de-type-date-et-heure">Champ de type date et heure</a></li>
+<li><a class="reference internal" href="#champ-de-type-decimal-number">Champ de type decimal Number</a></li>
+<li><a class="reference internal" href="#champ-de-type-conteneur-pour-groupe-de-champs">Champ de type conteneur pour groupe de champs</a></li>
+<li><a class="reference internal" href="#champ-de-type-saisie-multiple">Champ de type saisie multiple</a></li>
+<li><a class="reference internal" href="#champ-de-type-selection-multiple">Champ de type sélection multiple</a></li>
+<li><a class="reference internal" href="#champ-de-type-mot-de-passe">Champ de type mot de passe</a></li>
+<li><a class="reference internal" href="#champ-de-type-rating-scale-field">Champ de type Rating-Scale Field</a></li>
+<li><a class="reference internal" href="#champ-de-type-rich-label-field">Champ de type Rich Label Field</a></li>
+<li><a class="reference internal" href="#champ-de-type-texte-mis-en-forme">Champ de type texte mis en forme</a></li>
+<li><a class="reference internal" href="#champ-de-type-selection">Champ de type sélection</a></li>
+<li><a class="reference internal" href="#champ-de-type-texte-court">Champ de type texte court</a></li>
+<li><a class="reference internal" href="#champ-de-type-zone-de-texte">Champ de type zone de texte</a></li>
+<li><a class="reference internal" href="#champ-de-type-whole-number-field">Champ de type Whole Number Field</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#les-adaptateurs-pour-scripts">Les adaptateurs pour scripts</a></li>
+<li><a class="reference internal" href="#les-expediteurs-de-mels">Les expéditeurs de méls</a></li>
+<li><a class="reference internal" href="#les-enregistreurs-de-donnees">Les enregistreurs de données</a></li>
+<li><a class="reference internal" href="#la-page-de-remerciement">La page de remerciement</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercice-realisation-d-un-formulaire-de-sondage">Exercice : Réalisation d&#8217;un formulaire de sondage</a><ul>
+<li><a class="reference internal" href="#composition-du-formulaire">Composition du formulaire</a></li>
+<li><a class="reference internal" href="#creation-de-l-enregistreur-pour-recuperer-les-donnees-au-format-csv">Création de l&#8217;enregistreur pour récupérer les données au format CSV</a></li>
+<li><a class="reference internal" href="#creation-d-un-script-remplissant-une-base-de-donnees">Création d&#8217;un script remplissant une base de données.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="../munin.html"
+                        title="Chapitre précédent">Monitoring avec Munin</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="../formation_tal_metal.html"
+                        title="Chapitre suivant">TAL/Metal les templates de Zope et Plone</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/ploneformgen/index.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="../formation_tal_metal.html" title="TAL/Metal les templates de Zope et Plone"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="../munin.html" title="Monitoring avec Munin"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

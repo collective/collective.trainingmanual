@@ -1,0 +1,591 @@
+.. -*- coding: utf-8 -*-
+
+.. _tal_metal:
+
+========================================
+TAL/Metal les templates de Zope et Plone
+========================================
+
+Les Zope Page Templates sont un mécanisme permettant d'écrire des pages xhtml
+dynamiques.
+
+Ces ZPT utilisent un langage de template XML TAL/METAL.  L'objectif est d'être
+capable de comprendre, créer et modifier les pages dynamiques.
+
+.. contents:: :local:
+
+Le langage TAL
+==============
+
+Savoir
+------
+
+- Liste des commandes
+- Ordre d'évaluation
+- Content et Replace
+- Condition
+- Define
+- Repeat
+- On-error
+- Omit-tag
+
+TALES
+=====
+
+Savoir
+------
+- Exemples
+- Path
+- Path alternatif et nothing
+- Not
+- String
+- Nocall
+- Python
+
+METAL
+=====
+
+Savoir
+------
+
+- ``metal:define-macro``
+- ``metal:define-slot``
+- ``metal:use-macro``
+- ``metal:fill-slot``
+
+Ressources
+==========
+
+Lire la documentation `ZPT - Zope Page Templates`_ sur plone.org.
+
+À noter que certains exemples avec ``tal:repeat`` sont faux.
+
+Un ``tal:repeat`` sur une balise ``<ul ..>`` ou ``<tbody ...>`` répètera la
+balise à chaque tour de boucle. Le ``tal:repeat`` devrait donc se situer sur un
+``<li ...>`` ou un ``<tr ...>``.
+
+Petit rappel sur les tableaux : vous pouvez mettre un ``<tr>`` dans un
+``<thead>`` pour avoir une ligne d'en-tête sur chaque page lors de l'impression
+d'un tableau. Il va de même pour un pied de page avec la balise ``<tfoot>``.
+
+Dans le document ci-dessus, il manque les commandes ``tal:omit-tag`` et
+``tal:on-error``, cela est expliqué dans le ZopeBook :
+
+- `Using Zope Page Templates`_
+- `Advanced Page Templates`_
+- `Appendix C: Zope Page Templates Reference`_
+
+La documentation sur plone.org et celle dans le ZopeBook se ressemble beaucoup.
+Les pages dans le ZopeBook sont complémentaires à la documentation sur
+plone.org.
+
+.. _`ZPT - Zope Page Templates`: http://plone.org/documentation/tutorial/zpt
+.. _`Using Zope Page Templates`: http://docs.zope.org/zope2/zope2book/ZPT.html
+.. _`Advanced Page Templates`: http://docs.zope.org/zope2/zope2book/AdvZPT.html
+.. _`Appendix C: Zope Page Templates Reference`: http://docs.zope.org/zope2/zope2book/AppendixC.html
+
+Namespaces
+==========
+
+Prenez l'habitude de toujours inclure les namespaces dans vos templates.  Ils
+seront nécessaires pour le nouveau moteur de template Chameleon qui parse la
+page de manière stricte.
+
+La structure minimale est donc :
+
+.. code-block:: xml
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+          xmlns:tal="http://xml.zope.org/namespaces/tal"
+          xmlns:metal="http://xml.zope.org/namespaces/metal"
+          xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+          xml:lang="en" lang="en"
+          metal:use-macro="context/main_template/macros/master"
+          i18n:domain="mydomain">
+      ...
+    </html>
+
+Vous pouvez vérifier si vos templates sont bien valides XML avec la commande ``xmllint matemplate.pt``.
+
+
+Variables globales
+==================
+
+Dans Plone 3.3, vous avez accès à des variables et fonctions globalement dans
+vos pages templates. Vous n'y avez pas accès via une vue zope3.
+
+Vous pouvez récupérer une liste des fonctions disponibles dans le module
+:mod:`Products.CMFPlone.browser.ploneview`.
+
+Toutefois étant donné que dans Plone 4, vous n'y aurez plus accès, prenez
+l'habitude d'appeler ces fonctions spéciales par l'intermédiaire d'une vue. Par
+exemple au lieu d'utiliser :
+
+.. code-block:: xml
+
+    <span tal:content="python:toLocalizedTime(context.ModificationDate())">
+      modification date
+    </span>
+
+utilisez plutôt :
+
+.. code-block:: xml
+
+    <span tal:define="plone_view context/@@plone"
+          tal:content="python:plone_view.toLocalizedTime(context.ModificationDate())">
+      modification date
+    </span>
+
+Les variables globales vont être supprimées dans Plone 4 pour des raisons de
+performances. En effet de nombreuses variables sont accessibles depuis la
+template mais ne sont pas forcément utilisées, et donc il y a un traitement
+inutile au rendu de la page.
+
+Vous avez quatre vues intéressantes pour récupérer des informations :
+
+- ``@@plone`` (toLocalizedTime...)
+- ``@@plone_tools`` (properties pour récupérer portal_properties)
+- ``@@plone_portal_state`` (navigation_root_url, is_locked, language,
+  is_editable, object_url...)
+- ``@@plone_context_state`` (portal_url...)
+
+Présentation des ZPT
+====================
+
+Objectif
+
+Être capable de comprendre, créer et modifier les pages dynamiques.
+
+Les Zope Page Template sont un mécanisme permettant d'écrire des pages XHTML
+dynamiques.
+
+Elles sont constituées de page XHTML dans lesquelles sont inclus des balises et
+attributs TAL/METAL.
+
+Exemple :
+
+.. code-block:: xml
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xml:lang="en"
+        lang="en"
+        xmlns:tal="http://xml.zope.org/namespaces/tal"
+        xmlns:metal="http://xml.zope.org/namespaces/metal"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        metal:use-macro="here/main_template/macros/master"
+        i18n:domain="plone">
+        <head><title></title></head>
+        <body>
+            <metal:fill fill-slot="main">
+                <metal:main_macro define-macro="main">
+                    <div tal:content="python:1+3*7" />
+                </metal:main_macro>
+            </metal:fill>
+        </body>
+    </html>
+
+
+Le langage TAL
+==============
+
+Le texte d'origine est accessible à
+http://www.sebastien-verbois.be/plone/zpt/zpt-am
+
+Template Attribute Language (commandes possibles)
+
+
+Liste des commandes
+-------------------
+
+- ``tal:content`` pour remplacer le contenu d'une balise ;
+
+- ``tal:replace`` pour remplacer toute la balise ;
+
+- ``tal:condition`` condition d'exécution du bloc ;
+
+- ``tal:attributes`` pour manipuler les attributs de la balise ;
+
+- ``tal:define`` pour définir des variables ;
+
+- ``tal:repeat`` pour faire une boucle ;
+
+- ``tal:omit-tag`` pour ne pas produire la balise elle-même ;
+
+- ``tal:on-error`` pour définir le comportement en cas d'erreur.
+
+``tal:content`` et ``tal:replace`` sont mutuellement exclusives.
+
+Une commande ne peut apparaître qu'une seule fois dans une balise.
+
+
+Ordre d'évaluation
+------------------
+
+define -> condition -> repeat -> (content | replace) -> attributes -> omit-tag
+
+``on-error`` est évalué si une exception est levée lors d'un traitement
+d'une des opérations ci-dessus.
+
+
+Content et Replace
+------------------
+
+.. code-block:: xml
+
+  tal:content="[structure] Tales"
+
+  tal:replace="[structure] Tales"
+
+Le contenu est automatiquement transformé à l'aide de la fonction html_quote.
+Pour ne pas subir cette transformation, il faut utiliser le préfixe structure.
+
+Il est possible d'accéder aux informations portées par les itérations en utilisant la variable repeat.
+
+
+Condition
+---------
+
+.. code-block:: xml
+
+  tal:condition="Tales"
+
+Tales est évalée à True ou False.
+Le nombre zéro, la chaîne vide, une liste vide et la variable ``nothing`` sont
+évaluées à ``False``.
+
+Attributes
+----------
+
+.. code-block:: xml
+
+  tal:attributes="NomAttribut1 Tales1; NomAttribut2 Tales2; ...; NomAttributN TalesN"
+
+
+Define
+------
+
+.. code-block:: xml
+
+  tal:define="[global] NomVariable1 Tales1; [global] NomVariable2 Tales2; ...; [global] NomVariableN TalesN;"
+
+
+Repeat
+------
+
+.. code-block:: xml
+
+  tal:repeat="NomVariable Tales"
+
+Les itérations imbriquées sont possibles.
+
+Les tales suivantes sont accessibles dans le bloc ``repeat`` :
+
+- repeat/NomVariable/index : 0,1,...
+
+- repeat/NomVariable/number : 1,2,...
+
+- repeat/NomVariable/letter : a,b,...
+
+- repeat/NomVariable/Letter : A,B,...
+
+- repeat/NomVariable/roman : i,ii,...
+
+- repeat/NomVariable/Roman : I,II,...
+
+- repeat/NomVariable/even
+
+- repeat/NomVariable/odd
+
+- repeat/NomVariable/start
+
+- repeat/NomVariable/end
+
+- repeat/NomVariable/first
+
+- repeat/NomVariable/last
+
+
+On-error
+--------
+
+.. code-block:: xml
+
+  tal:on-error="Tales"
+
+La valeur de Tales est utilisée pour remplacer l'expression qui a levé une exception dans une autre TAL.
+
+
+Omit-tag
+--------
+
+.. code-block:: xml
+
+  tal:omit-tag=""
+
+
+TALES
+=====
+
+Définition
+----------
+
+TAL Expression Syntax (language d'expression des opérations possibles)
+
+.. code-block:: xml
+
+  Tales ::= [Type:]Suite
+
+  Type ::= path|string|python|not|exists|nocall
+
+Si Type n'est pas donné, le type path est utilisé (type par défaut).
+
+- ``path`` permet d'accéder au rendu d'un objet ou attribut disponible
+  dans la pile d'acquisition de la template ;
+
+- ``string`` permet de combiner une expression simple avec du texte ;
+
+- ``python`` permet d'évaluer du code python ;
+
+- ``not`` permet d'effectuer une négation sur une expression path, string ou
+  python ;
+
+- ``nocall`` permet d'accéder à l'objet évalué plutôt qu'à son rendu ;
+
+- ``exists`` permet de tester l'existence d'un attribut ou d'une méthode (même
+  formalisme que path).
+
+``path``, ``nocall`` et ``exists`` sont des expressions "path".
+
+Variables implicites :
+
+- attrs
+
+- container
+
+- default
+
+- context/here
+
+- modules
+
+- nothing
+
+- options
+
+- request
+
+- root
+
+- template
+
+- user
+
+Voir http://plone.org/documentation/tutorial/zpt/ pour une description.
+
+L'utilisation de here est dépréciée au profit de context.
+
+
+Exemples
+--------
+
+Path
+^^^^
+
+- path:context/title_or_id
+
+- path:context/bobobase_modification_time
+
+- path:container/objectValues
+
+- path:container/objectIds
+
+- path:user/getUserName
+
+- path:request/AUTHENTICATED_USER
+
+- path:request/URL
+
+
+Path alternatif et nothing
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- path:request/form/custname | context/custname | nothing
+
+
+Not
+^^^
+
+- not:request/maVariable
+
+
+String
+^^^^^^
+
+.. code-block:: xml
+
+  string:Quelques mots !
+
+On peut utilise une expression path dans une expression string en l'encadrant
+par ${}.
+
+- string:Bienvenue ${user/getUserName} !
+
+- string:$$ 30
+
+
+Nocall
+^^^^^^
+
+.. code-block:: xml
+
+  tal:define="doc nocall:here/monDocument" tal:content="string:${doc/id}: ${doc/title}"
+
+
+Python
+^^^^^^
+
+.. code-block:: xml
+
+  python:len(container.objectValues(['File','Image']))
+
+  python:context.bobobase_modification_time.strftime('%d/%m/%Y')
+
+  python:test(nombre/2,'Nombre pair','Nombre impair')
+
+  python:context.monScript(arg1,arg2)
+
+Possibilité d'utiliser les autres types d'expressions au sein d'une expression
+python à l'aide des fonctions path(), string(), exists(), nocall().
+
+.. code-block:: xml
+
+  python:path('here/%s/title_or_id' % currentfolder)
+
+  python:path(string('here/$foldername/thing'))
+
+  python:path('request/form/x') or default
+
+Accéder à des objets zope
+
+.. code-block:: xml
+
+  python:getattr(here,'penguin.gif') (== path:here/penguin.gif)
+
+  python:request['URL'] (== path:request/URL)
+
+  python:request.form['x'] (== path:request/form/x)
+
+  python:modules['math']
+
+
+METAL
+=====
+
+Macro Expansion Template Attribute Language (système de macros)
+
+.. code-block:: xml
+
+  metal:define-macro
+
+  metal:define-slot
+
+  metal:use-macro
+
+  metal:fill-slot
+
+
+metal:define-macro
+------------------
+
+Permet de définir une macro que l'on pourra appeler par ``metal=use-macro``.
+
+
+metal:define-slot
+-----------------
+
+Permet de définir un connecteur dans une macro qui permettra d'insérer du code
+lors de l'expansion de la macro.
+
+
+metal:use-macro
+---------------
+
+Permet d'indiquer que l'on souhaite utiliser une macro définie dans une ZPT.
+
+Ainsi ``<div metal:use-macro="here/main_template/macros/master">`` va
+chercher la macro master définie dans la ZPT main_template.
+
+
+metal:fill-slot
+---------------
+
+Permet d'insérer du XHTML dans l'espace prévue pour cela dans une macro.
+
+Ainsi ``<metal:fill fill-slot="main">Mon contenu</metal:fill>`` permet d'insérer
+"Mon contenu" dans la partie ``metal:define-slot="main"`` de la zpt appelée par
+metal-use-macro.
+
+
+Tips
+^^^^
+
+Utiliser default
+
+.. code-block:: xml
+
+  <p tal:content="request/form/info | default">Pas de variable "info" dans la requête.</p>
+
+Afficher du texte dans la template qui ne sera pas rendu par la suite
+
+.. code-block:: xml
+
+  tal:replace="nothing"
+
+Choisir la classe d'une entité
+
+.. code-block:: xml
+
+  tal:attributes="class python:test(...,'selected','plain')"
+
+Utilisation d'un dictionnaire dans les expressions path
+
+``getPerson`` est une fonction python qui renvoie le dictionnaire
+``{'name': 'Toto', 'age': 8}``.
+
+Accéder à des modules python
+
+.. code-block:: xml
+
+  tal:define="global mstring modules/string" tal:replace="python:mstring.join(slist, ':')"
+
+Module "PythonScripts" de Zope
+
+.. code-block:: xml
+
+  tal:define="pps modules/Products.PythonScripts.standard"
+
+Gérer une exception
+
+.. code-block:: xml
+
+  <p>Le prix de l'article est <b tal:content="context/prix" tal:on-error="string:N/A">0.00</b> Euros.</p>
+
+
+Exercice
+========
+
+- Customisation de la template model9 de PloneArticle pour supprimer "ajouter
+  images" et "ajouter liens".
+
+From Raphael Ritz at 
+http://n2.nabble.com/where-do-I-find-the-view-template-to-edit-a-page-%28plone-3.2%29-tp2975276p2979777.html :
+
+``atct_edit`` is just a wrapper around ``base_edit`` (or whatever gets called
+from ``base_edit``) to allow for atct specific form controller settings without
+interfering with Archetypes proper.  ``base_edit`` in turn pulls in the macros
+from ``edit_macros`` (in the ``archetypes`` skin layer) unless you (or someone)
+provides any of those macros specifically (like via a ``<type_name>_view/edit``
+template).
+
+http://www.llakomy.com/articles/new-submit-button-for-archetypes-edit-template
+

@@ -1,0 +1,1441 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Génerer un composant Plone avec ArgoUML et ArchgenXML &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Nouvelles fonctionnalités de ArchGenXML" href="../nouvelles_fonctionnalites_archgenxml.html" />
+    <link rel="prev" title="Modélisation UML" href="../uml/index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../nouvelles_fonctionnalites_archgenxml.html" title="Nouvelles fonctionnalités de ArchGenXML"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="../uml/index.html" title="Modélisation UML"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="generer-un-composant-plone-avec-argouml-et-archgenxml">
+<h1>Génerer un composant Plone avec ArgoUML et ArchgenXML<a class="headerlink" href="#generer-un-composant-plone-avec-argouml-et-archgenxml" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="definition">
+<h2>Définition<a class="headerlink" href="#definition" title="Lien permanent vers ce titre">¶</a></h2>
+<p>ArgoUML est un outil de modélisation d'application basé sur le formalisme UML.</p>
+<p>Dans le cas de création d'application Plone/Zope, il est utilisé pour avoir une
+vue synthétique de l'architecture d'un produit.</p>
+</div>
+<div class="section" id="savoir">
+<h2>Savoir<a class="headerlink" href="#savoir" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li>Création des diagrammes de classes correspondant à la structure du produit,</li>
+<li>Création des diagrammes d'états correspondant aux workflows,</li>
+<li>Création des étiquettes permettant de gérer les noms, les permissions et les
+worklists,</li>
+<li>Dérivation des classes du système.</li>
+</ul>
+</div>
+<div class="section" id="installation-d-argouml">
+<h2>Installation d'ArgoUML<a class="headerlink" href="#installation-d-argouml" title="Lien permanent vers ce titre">¶</a></h2>
+<p>ArgoUML est un outil de modélisation UML open source qui gère la version 1.4
+d'UML.</p>
+<p>Bien que sommaire, il suffit à modéliser notre besoin. Son format de sauvegarde
+sera interprété par l'outil de génération ArchGenXML pour produire le code du
+module de Plone qui satisfera le besoin de notre cahier des charges.</p>
+<p>ArgoUML est accessible à <a class="reference external" href="http://argouml.tigris.org">http://argouml.tigris.org</a> nous téléchargeons la
+version 0.30 et l'installons.</p>
+<p>Cette installation requière Java. Si aucune machine virtuelle java n'est
+présente sur votre poste, le logiciel d'installation correspondant à votre OS
+vous proposera d'installer celle de SUN.</p>
+</div>
+<div class="section" id="installation-de-archgenxml">
+<h2>Installation de ArchGenXML<a class="headerlink" href="#installation-de-archgenxml" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous utiliserons ArchGenXML pour générer le code Python à partir du modèle créé
+avec ArgoUML.</p>
+<p>De plus, ArchGenXML fournit un profil permettant d'ajouter à ArgoUML les types et
+les tags dont nous allons avoir besoin pour modéliser notre module.</p>
+<p>L'installation peut être faite à partir de pypi ou depuis le dépôt subversion
+(subversion est accessible à <a class="reference external" href="http://subversion.apache.org">http://subversion.apache.org</a>).</p>
+<p>L'intérêt du dépôt subversion est de disposer des dernières corrections :</p>
+<div class="highlight-bat"><div class="highlight"><pre>C:\Program Files<span class="p">&gt;</span> <span class="n">cd</span> C:\
+C:\<span class="p">&gt;</span> <span class="n">svn</span> export http:<span class="n">//svn.plone.org/svn/archetypes/ArchGenXML/buildout</span> ArchGenXML
+C:\<span class="p">&gt;</span> <span class="n">cd</span> ArchGenXML
+C:\ArchGenXML<span class="p">&gt;</span> <span class="n">C</span>:\python<span class="m">26</span>\python.exe bootstrap.py
+C:\ArchGenXML<span class="p">&gt;</span> <span class="n">bin</span>\buildout.exe
+C:\ArchGenXML<span class="p">&gt;</span> <span class="n">bin</span>\test-archgenxml.exe
+Running zope.testing.testrunner.layer.UnitTests tests:
+  <span class="k">Set</span> <span class="nv">up</span> zope.testing.testrunner.layer.UnitTests in <span class="m">0</span>.<span class="m">000</span> seconds.
+  Ran <span class="m">82</span> tests with <span class="m">0</span> failures and <span class="m">0</span> errors in <span class="m">0</span>.<span class="m">211</span> seconds.
+Tearing down left over layers:
+  Tear down zope.testing.testrunner.layer.UnitTests in <span class="m">0</span>.<span class="m">000</span> seconds.
+</pre></div>
+</div>
+<p>La dernière commande permet d'exécuter les tests unitaires et donc de vérifier
+qu'ArchGenXML fonctionne, l'affichage montre qu'il a eu 82 tests exécutés sans
+erreurs.</p>
+</div>
+<div class="section" id="configuration-d-argouml-pour-utiliser-le-profil-d-archgenxml">
+<h2>Configuration d'ArgoUML pour utiliser le profil d'ArchGenXML<a class="headerlink" href="#configuration-d-argouml-pour-utiliser-le-profil-d-archgenxml" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour ajouter le profil, allez dans le menu <em class="guilabel">Édition</em> -&gt;
+<em class="guilabel">Préférences...</em> -&gt; <em class="guilabel">Profiles</em> -&gt; <em class="guilabel">Add</em>
+et saisissez le chemin vers le dossier contenant le profil ArchGenXML
+<tt class="file docutils literal"><span class="pre">C:\ArchGenXML\src\archgenxml\umltools\argouml</span></tt>.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_ajout_profile.jpg" src="../_images/argouml_ajout_profile.jpg" />
+<p class="caption">Ajout du dossier contenant le profil ArchGenXML</p>
+</div>
+<p>Vous devez voir normalement <cite>AGXProfile</cite> dans <em class="guilabel">Available Profiles</em>.
+Sur certaine version d'ArgoUML il fallait le relancer pour que soit pris en
+compte le nouveau répertoire des profils.</p>
+<p>On ouvre (à nouveau) la gestion des profils et l'on ajoute dans
+<em class="guilabel">Default Profiles</em> le profil ArchGenXML et on retire tous les autres
+excepté UML 1.4 qu'on ne peut pas retirer à partir d'ici.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_configuration_profile.jpg" src="../_images/argouml_configuration_profile.jpg" />
+<p class="caption">Ajout du profil ArchGenXML</p>
+</div>
+<p>Maintenant dans le panneau qui s'ouvre lorsqu'on clique sur le
+lien <em class="guilabel">Configure project specific settings...</em> de la fenêtre précédente,
+retirez le profil UML 1.4. Vous ne devez avoir que le profil ArchGenXML
+d'activé.</p>
+<p>Voilà ArgoUML est prêt à être utilisé pour modéliser notre module.</p>
+</div>
+<div class="section" id="creation-du-buildout-de-notre-module">
+<h2>Création du buildout de notre module<a class="headerlink" href="#creation-du-buildout-de-notre-module" title="Lien permanent vers ce titre">¶</a></h2>
+<p>La première étape est de créer et ajouter la structure de notre nouveau module
+(Product) à Plone.</p>
+<p>Pour cela plaçons nous dans le répertoire <tt class="file docutils literal"><span class="pre">src</span></tt> de notre Plone (le créer
+s'il n'existe pas) et lançons la commande <strong class="command">paster</strong> comme suit :</p>
+<div class="highlight-bat"><div class="highlight"><pre>c:\Plone<span class="m">4</span><span class="p">&gt;</span> <span class="n">cd</span> src
+C:\Plone<span class="m">4</span>\src<span class="p">&gt;</span> <span class="n">paster</span> create -t basic_namespace Products.StandArt_AQ
+Selected and implied templates:
+  zopeskel#basic_namespace  A basic Python project with a namespace package
+
+Variables:
+  egg:      Products.StandArt_AQ
+  package:  productsstandart_aq
+  project:  Products.StandArt_AQ
+Expert Mode? (What question mode would you like? (easy<span class="n">/expert/all)?)</span> [<span class="s1">&#39;easy&#39;</span>]:
+Version (Version number <span class="k">for</span> project) [<span class="s1">&#39;1.0&#39;</span>]: <span class="m">0</span>.<span class="m">1</span>
+Description (One-line description of the project) [<span class="s1">&#39;&#39;</span>]: The Stand&#39;Art company
+  Qualite Assurance
+Creating template basic_namespace
+Creating directory .\Products.StandArt_AQ
+  Recursing into +namespace_package+
+    Creating .\Products.StandArt_AQ\Products/
+    Recursing into +package+
+</pre></div>
+</div>
+<p>L'arborescence créée est alors :</p>
+<div class="highlight-bat"><div class="highlight"><pre>C:\Program Files\Plone<span class="m">4</span>\src<span class="p">&gt;</span> <span class="n">tree</span> Products.StandArt_AQ
+Structure du dossier
+Le numéro de série du volume est XXXXXXXX XXXX:XXXX
+C:\PROGRAM FILES\PLONE<span class="m">4</span>\SRC\PRODUCTS.STANDART_AQ
+|-- Products
+|   `-- StandArt_AQ
+|-- Products.StandArt_AQ.egg-info
+`-- docs
+</pre></div>
+</div>
+<p>Nous allons ajouter un répertoire <tt class="file docutils literal"><span class="pre">model/</span></tt> dans Products.StandArt_AQ pour y
+stocker le modèle UML que nous allons réaliser.</p>
+</div>
+<div class="section" id="creation-du-plan-documentaire">
+<h2>Création du plan documentaire<a class="headerlink" href="#creation-du-plan-documentaire" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Notre modélisation reposera en partie sur le mécanisme des Archetypes proposé
+par Plone et sur celui des vues Zope 3. Il est donc possible de consulter la
+documentation dédiée à ces deux technologies pour compléter ce cours.</p>
+<p>Dans le cahier des charges nous avons vu que l'ensemble des documents sous
+assurance qualité allait être stocké dans un répertoire dédié et que les
+documents seront stockés dans un conteneur spécial possédant plusieurs champs.</p>
+<p>Modifier le nom du paquetage &quot;untitledModel&quot; en &quot;Products.StandArt_AQ&quot;. Pour
+cela mettez vous en vue &quot;Orienté Paquetage&quot;, cliquer sur &quot;untitledModel&quot; dans la
+navigation puis sur l'onglet &quot;Propriété&quot; et dans le champ &quot;nom&quot; saisissez
+&quot;StandArt_AQ&quot;.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_nommer_paquetage.jpg" src="../_images/argouml_nommer_paquetage.jpg" />
+<p class="caption">Nommer le paquetage en Products.StandArt_AQ</p>
+</div>
+<p>Puis enregistrez le modèle sous le nom StandArt_AQ dans le répertoire
+<tt class="file docutils literal"><span class="pre">model</span></tt></p>
+<p>Cliquez sur &quot;Diagramme de classe&quot; dans la barre de navigation, vous pouvez alors
+ajouter les éléments symbolisés par les icônes de la zone de dessin.</p>
+<p>Ajoutez y un paquetage nommé &quot;content&quot;, par convention nous mettons tous les
+types de contenu dans ce répertoire, les classes utilitaires seront mises dans
+un paquetage nommé &quot;tools&quot;.</p>
+<p>De même, puisque généralement nos paquets ont vocation à être partagés avec la
+communauté Plone nous réalisons la modélisation en Anglais.</p>
+<p>Dans le paquetage &quot;content&quot;, créez un diagramme de classes &quot;Content diagram&quot;</p>
+<p>Éditez le diagramme pour ajouter les classes de bases <tt class="docutils literal"><span class="pre">ATFolder</span></tt> et
+<tt class="docutils literal"><span class="pre">ATDocument</span></tt> qui sont les types des répertoires et des documents de Plone.</p>
+<p>Nous les utiliserons comme classes de bases pour nos types de façon à réutiliser
+leur comportement.</p>
+<p>Ajoutez y le stéréotype <tt class="docutils literal"><span class="pre">stub</span></tt> qui permettra d'indiquer à ArchGenXML
+qu'il ne doit pas générer ces classes car elles existent déjà.</p>
+<p>Pour <tt class="docutils literal"><span class="pre">ATFolder</span></tt> allez dans l'onglet <em class="guilabel">Étiquettes</em> et ajoutez le marqueur
+(tag) <tt class="docutils literal"><span class="pre">import_from</span></tt> ayant pour valeur <tt class="docutils literal"><span class="pre">Products.ATContentTypes.content.folder</span></tt>.</p>
+<p>Pour <tt class="docutils literal"><span class="pre">ATDocument</span></tt> ajoutez le marqueur (tag) <tt class="docutils literal"><span class="pre">import_from</span></tt> avec pour
+valeur <tt class="docutils literal"><span class="pre">Products.ATContentTypes.content.document</span></tt>.</p>
+<p>On peut aussi utiliser le stéréotype &lt;&lt;ATFolder&gt;&gt; et &lt;&lt;ATDocument&gt;&gt; dans les
+classes dérivées au lieu de modéliser la généralisation, mais il arrive
+qu'ArchGenXML ne réussisse pas à générer le code.</p>
+<p>Nous créons le répertoire qui contiendra tous les documents sous assurance
+qualité en dérivant <tt class="docutils literal"><span class="pre">ATFolder</span></tt> et en nommant cette nouvelle classe
+StandArt_FolderAQ.</p>
+<p>Il est conseillé de préfixer ses types de contenu afin d'éviter toute collision
+avec d'autres modules Plone.</p>
+<p>De même pour les attributs, préfixez les d'un <cite>m</cite> pour &quot;membre&quot; par exemple pour
+éviter de surcharger par accident tout attribut ou méthode existant dans la
+classe de base (et avec le mécanisme de wrapper c'est près d'une centaine de
+membres).</p>
+<p>Toutefois, si vous souhaitez redéfinir un attribut déjà existant gardez le nom
+d'origine (exemple : title, description).</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_plan_documentaire_01.jpg" src="../_images/argouml_plan_documentaire_01.jpg" />
+<p class="caption">Création du plan documentaire</p>
+</div>
+<p>Pour les classes, la signification des marqueurs est la suivante :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="72%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>label</td>
+<td>Le nom du type tel qu'il apparaitra dans le menu
+d'ajout de contenu.</td>
+</tr>
+<tr class="row-even"><td>creation_permission</td>
+<td>Permission qu'il faut avoir pour créer une instance.</td>
+</tr>
+<tr class="row-odd"><td>creation_roles</td>
+<td>Rôles qui ont la permission par défaut (à la racine).</td>
+</tr>
+<tr class="row-even"><td>use_portal_factory</td>
+<td>1 signifie que l'on travaille dans une instance
+temporaire tant que l'enregistrement n'est pas fait.</td>
+</tr>
+<tr class="row-odd"><td>content_icon</td>
+<td>Permet d'associer un fichier d'icône aux instances.</td>
+</tr>
+<tr class="row-even"><td>base_class</td>
+<td>0 signifie qu'ArchGenXML ne doit pas associer par lui
+même de classe de base car elle est précisée dans le
+modèle par l'héritage.</td>
+</tr>
+<tr class="row-odd"><td>description</td>
+<td>Donne la description du type d'objet.</td>
+</tr>
+</tbody>
+</table>
+<p>Nous avons dérivé nos types de ceux contenus dans Plone, mais nous aurions très
+bien pu sur cet exemple partir d'un type défini dans un module. De cette façon
+il est possible d'étendre et particulariser des produits que l'on n'a pas fait
+soit même.</p>
+<p>Si l'on avait voulu qu'il y ait plusieurs roles pouvant créer des instances nous
+aurions alors donné au marqueur <tt class="docutils literal"><span class="pre">creation_roles</span></tt> la valeur
+<tt class="docutils literal"><span class="pre">python:(&quot;Manager&quot;,</span> <span class="pre">&quot;Contributor&quot;)</span></tt>.</p>
+<p>Nous allons remplir les informations concernant le champ documentation :</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_champ_document.jpg" src="../_images/argouml_champ_document.jpg" />
+<p class="caption">Information concernant le champ mDocument</p>
+</div>
+<p>La signification des marqueurs du champs mDocument est :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="66%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>widget:label</td>
+<td>Le nom du champ.</td>
+</tr>
+<tr class="row-even"><td>widget:label_msgid</td>
+<td>L'identifiant de traduction associé au nom.</td>
+</tr>
+<tr class="row-odd"><td>widget:description</td>
+<td>La description du champ.</td>
+</tr>
+<tr class="row-even"><td>widget:description_msgid</td>
+<td>L'identifiant de traduction associé à la
+description.</td>
+</tr>
+<tr class="row-odd"><td>read_permission</td>
+<td>Le nom de la permission à avoir pour voir le
+champ. On peut ainsi en créer de nouvelle.</td>
+</tr>
+<tr class="row-even"><td>write_permission</td>
+<td>Le nom de la permission à avoir pour modifier le
+champ.</td>
+</tr>
+<tr class="row-odd"><td>storage</td>
+<td>Comment le contenu du champ doit être stocké.</td>
+</tr>
+</tbody>
+</table>
+<p>Les formulaires d'édition ou de consultation sont générés automatiquement par
+Plone à partir du type des champs.</p>
+<p>Toutefois, un type de champ peut être affiché ou édité de façons différentes
+selon le <a class="reference internal" href="../glossaire.html#term-widget"><em class="xref std std-term">widget</em></a> qui lui est associé.</p>
+<p>Ces <tt class="docutils literal"><span class="pre">widgets</span></tt> sont configurés en étiquetant le champ avec des marqueurs
+préfixés par <cite>widget:</cite>.</p>
+<p>Il est également possible de créer ses propres <tt class="docutils literal"><span class="pre">widgets</span></tt>.</p>
+<p>Voici une liste des types des champs possibles.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="17%" />
+<col width="26%" />
+<col width="35%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Nom</strong></td>
+<td><strong>Type</strong></td>
+<td><strong>Widget par défaut</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td>BackReferenceField</td>
+<td>backreference</td>
+<td>BackReferenceWidget</td>
+<td>Référence navigable.</td>
+</tr>
+<tr class="row-odd"><td>BooleanField</td>
+<td>boolean</td>
+<td>ComputedWidget</td>
+<td>Champ stockant vrai ou faux.</td>
+</tr>
+<tr class="row-even"><td>ColorField</td>
+<td>color</td>
+<td>ColorWiget</td>
+<td>Sélection d'une couleur.</td>
+</tr>
+<tr class="row-odd"><td>ComputedField</td>
+<td>computed</td>
+<td>ComputedWidget</td>
+<td>Champ calculé.</td>
+</tr>
+<tr class="row-even"><td>&nbsp;</td>
+<td>copy</td>
+<td>&nbsp;</td>
+<td>Permet de surcharger un champ
+d'une des classes de base.</td>
+</tr>
+<tr class="row-odd"><td>DataGridField</td>
+<td>datagrid</td>
+<td>DataGridWidget</td>
+<td>Des lignes de tableau.</td>
+</tr>
+<tr class="row-even"><td>DateTimeField</td>
+<td>date</td>
+<td>CalendarWidget</td>
+<td>Stocke des dates et heures.</td>
+</tr>
+<tr class="row-odd"><td>FileField</td>
+<td>file</td>
+<td>FileWidget</td>
+<td>Stocke un fichier sans
+réaliser de traitement.</td>
+</tr>
+<tr class="row-even"><td>FixedPointField</td>
+<td>fixedpoint</td>
+<td>FixedPointWidget</td>
+<td>Champ numérique à virgule fixe</td>
+</tr>
+<tr class="row-odd"><td>FloatField</td>
+<td>float</td>
+<td>FloatWidget</td>
+<td>Champ numérique à virgule fixe</td>
+</tr>
+<tr class="row-even"><td>ImageField</td>
+<td>image</td>
+<td>ImageWidget</td>
+<td>Stocke une image et permet de
+la retailler dynamiquement.</td>
+</tr>
+<tr class="row-odd"><td>IntegerField</td>
+<td>int</td>
+<td>IntegerWidget</td>
+<td>Stocke une donnée numérique
+entière.</td>
+</tr>
+<tr class="row-even"><td>LinesField</td>
+<td>keywords</td>
+<td>KeywordWidget</td>
+<td>Une liste de données, par
+exemple des mots clés.</td>
+</tr>
+<tr class="row-odd"><td>LinesField</td>
+<td>lines</td>
+<td>LinesWidget</td>
+<td>Une liste de ligne.</td>
+</tr>
+<tr class="row-even"><td>LinesField</td>
+<td>multiselection</td>
+<td>MultiSelectionWidget</td>
+<td>Une liste de données à
+sélections multiples.</td>
+</tr>
+<tr class="row-odd"><td>ReferenceField</td>
+<td>reference</td>
+<td>ReferenceBrowserWidget</td>
+<td>Permet de référencer un autre
+objet.</td>
+</tr>
+<tr class="row-even"><td>TextField</td>
+<td>richtext</td>
+<td>RichWidget</td>
+<td>Texte avec mise en forme.</td>
+</tr>
+<tr class="row-odd"><td>StringField</td>
+<td>selection</td>
+<td>SelectionWidget</td>
+<td>Permet de sélectionner une
+ligne de texte parmi plusieurs.</td>
+</tr>
+<tr class="row-even"><td>StringField</td>
+<td>string</td>
+<td>StringWidget</td>
+<td>Champ texte pour les chaines
+de moins de 100 caractères.</td>
+</tr>
+<tr class="row-odd"><td>TextField</td>
+<td>string</td>
+<td>TextAreaWidget</td>
+<td>Champ texte pour les grandes
+chaînes.</td>
+</tr>
+</tbody>
+</table>
+<p>Certains de ces champs reposent sur des produits. Ainsi DataGridField repose sur
+le produit <tt class="xref py py-mod docutils literal"><span class="pre">Products.DataGridField</span></tt> qu'il faut alors ajouter au
+<a class="reference internal" href="../glossaire.html#term-buildout"><em class="xref std std-term">buildout</em></a>.</p>
+<p>Le type <tt class="docutils literal"><span class="pre">copy</span></tt> est une astuce qui permet de surcharger les marqueurs d'un
+champ défini dans l'une des classes mères.</p>
+<p>Par exemple pour changer la description, le titre et la permission de lecture et
+d'écriture du champ <tt class="docutils literal"><span class="pre">title</span></tt>, il suffit de créer un champ portant comme <tt class="docutils literal"><span class="pre">Nom</span></tt>
+<tt class="docutils literal"><span class="pre">title</span></tt> et de lui associer les marqueurs suivants avec les valeurs voulues :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%" />
+<col width="65%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Marqueur</strong></td>
+<td><strong>Valeur</strong></td>
+</tr>
+<tr class="row-even"><td>widget:label</td>
+<td>Le nom du champ</td>
+</tr>
+<tr class="row-odd"><td>widget:label_msgid</td>
+<td>IdentifiantDuNomPourLesTraductions</td>
+</tr>
+<tr class="row-even"><td>widget:description</td>
+<td>La description du champ</td>
+</tr>
+<tr class="row-odd"><td>widget:description_msgid</td>
+<td>IdentifiantDeLaDescriptionPourLesTraductions</td>
+</tr>
+<tr class="row-even"><td>read_permission</td>
+<td>View</td>
+</tr>
+<tr class="row-odd"><td>write_permission</td>
+<td>MonProduit: le nom de la permission</td>
+</tr>
+</tbody>
+</table>
+<p>Les identifiants doivent être en ASCII sans espaces.</p>
+<p>Le nom des permissions est soit celui d'une permission déjà existante soit une
+chaîne de caractères ASCII qui, par convention, doit être préfixée par le nom du
+produit, ce qui permettra de les regrouper dans l'onglet <tt class="docutils literal"><span class="pre">security</span></tt> de
+Zope.</p>
+<p>Parfois, <tt class="docutils literal"><span class="pre">ArchGenXML</span></tt> ne réalise pas automatiquement l'importation de la
+définition de certains types de champ ou de widget. Il faut alors l'ajouter
+soit comme marqueur de la classe en utilisant l'étiquette <cite>import</cite> soit dans la
+zone protégée du module python généré, c'est-à-dire entre les lignes :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">##code-section module-header #fill in your manual code here</span>
+<span class="kn">from</span> <span class="nn">archetypes.referencebrowserwidget</span> <span class="kn">import</span> <span class="n">ReferenceBrowserWidget</span>
+<span class="c">##/code-section module-header</span>
+</pre></div>
+</div>
+<p>&#64;TODO mettre à jour la liste suivante et expliquer l'usage</p>
+<p>Chacun de ces types de champs possède un ou plusieurs attributs qui permettent
+de paramétrer leur comportement :</p>
+<blockquote>
+<div><ul class="simple">
+<li>accessor</li>
+<li>default</li>
+<li>default_method</li>
+<li>edit_accessor</li>
+<li>enforceVocabulary</li>
+<li>index</li>
+<li>name</li>
+<li>mode</li>
+<li>multiValued</li>
+<li>mutator</li>
+<li>primary</li>
+<li>required</li>
+<li>schemata</li>
+<li>searchable</li>
+<li>validators</li>
+<li>vocabulary</li>
+<li>storage</li>
+</ul>
+</div></blockquote>
+<p>Nous allons générer une première version de notre module :</p>
+<div class="highlight-bat"><div class="highlight"><pre>C:\Program Files\Plone<span class="m">4</span>\src\Products.StandArt_AQ\Products<span class="p">&gt;</span> <span class="n">c</span>:\ArchGenXML\bin\ar
+chgenxml.exe ..\model\Products.StandArt_AQ.zargo StandArt_AQ
+INFO  ArchGenXML Version <span class="m">2</span>.<span class="m">5</span>.dev
+(c) <span class="m">2003-2009</span> BlueDynamics Alliance<span class="p">,</span> Austria<span class="p">,</span> GPL <span class="m">2</span>.<span class="m">0</span> or later
+INFO  Directories to search <span class="k">for</span> profiles: [&#39;C:\\ArchGenXML\\src\\archgenxml\\u
+mltools\\argouml&#39;]
+INFO  Parsing...
+INFO  Profile files: <span class="s1">&#39;{u&#39;</span>archgenxml_profile.xmi<span class="s1">&#39;: u&#39;</span>C:\\ArchGenXML\\src\\archg
+enxml\\umltools\\argouml\\archgenxml_profile.xmi<span class="s1">&#39;}&#39;</span>
+INFO  Directory in which we<span class="s1">&#39;re generating the files: &#39;</span>StandArt_AQ&#39;.
+INFO  Generating...
+INFO  Starting new Product: <span class="s1">&#39;StandArt_AQ&#39;</span>.
+c:\archgenxml\eggs\i<span class="m">18</span>ndude<span class="m">-3</span>.<span class="m">1</span>.<span class="m">2</span>-py<span class="m">2</span>.<span class="m">6</span>.egg\i<span class="m">18</span>ndude\odict.py:7: DeprecationWa
+rning: object.__init__() takes no parameters
+  dict.__init__(self<span class="p">,</span> dict)
+INFO      Generating package <span class="s1">&#39;content&#39;</span>.
+INFO          Generating class <span class="s1">&#39;StandArt_DocumentAQ&#39;</span>.
+INFO          Generating class <span class="s1">&#39;StandArt_FolderAQ&#39;</span>.
+INFO  generator run took <span class="m">0</span>.<span class="m">96</span> sec.
+</pre></div>
+</div>
+<p><strong class="command">archgenxml.exe ..\model\Products.StandArt_AQ.zargo StandArt_AQ</strong> a
+lancé l'exécution de ArchGenXML en lui demandant de prendre comme fichier
+d'entrée notre modèle et de générer un répertoire <tt class="file docutils literal"><span class="pre">StandArt_AQ</span></tt> contenant
+le code du module. Pour faire cela nous nous sommes d'abord placé dans le
+répertoire <tt class="file docutils literal"><span class="pre">src\Products.StandArt_AQ\Products</span></tt>.</p>
+<p>Puis, nous pouvons ajouter ce nouveau module au <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt> de notre
+Plone pour le faire apparaitre dans la liste des modules disponibles.</p>
+<p>Pour cela, il suffit d'y ajouter :</p>
+<div class="highlight-ini"><div class="highlight"><pre><span class="na">eggs</span> <span class="o">=</span><span class="s"></span>
+<span class="s">  Plone</span>
+<span class="s">  Products.StandArt_AQ</span>
+
+<span class="na">develop</span> <span class="o">=</span><span class="s"></span>
+<span class="s">  src/Products.StandArt_AQ</span>
+</pre></div>
+</div>
+<p>D'enregistrer et de lancer la commande <strong class="command">bin\buildout</strong>.</p>
+<p>Puis de démarrer l'instance et d'ajouter le produit.</p>
+<p>On peut alors, lorsqu'on est administrateur, ajouter au site Plone une instance
+de StandArt_FolderQA.</p>
+<p>Vous constaterez également en regardant l'onglet Security de la ZMI que nos
+nouvelles permissions ont été ajoutées.</p>
+<p>Si l'on regarde le code du module StandArt_DocumentAQ.py, on constate qu'il
+contient la définition d'un schéma Archetypes :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">((</span>
+  <span class="n">FileField</span><span class="p">(</span>
+       <span class="n">name</span><span class="o">=</span><span class="s">&#39;mDocument&#39;</span><span class="p">,</span>
+      <span class="n">widget</span><span class="o">=</span><span class="n">FileField</span><span class="o">.</span><span class="n">_properties</span><span class="p">[</span><span class="s">&#39;widget&#39;</span><span class="p">](</span>
+          <span class="n">label</span><span class="o">=</span><span class="s">&quot;Document&quot;</span><span class="p">,</span>
+          <span class="n">label_msgid</span><span class="o">=</span><span class="s">&quot;StandArt_DocumentAQ_Document_label&quot;</span><span class="p">,</span>
+          <span class="n">description</span><span class="o">=</span><span class="s">&quot;A document under Quality Assurance&quot;</span><span class="p">,</span>
+          <span class="n">description_msgid</span><span class="o">=</span><span class="s">&quot;StandArt_DocumentAQ_Document_description&quot;</span><span class="p">,</span>
+          <span class="n">i18n_domain</span><span class="o">=</span><span class="s">&#39;StandArt_AQ&#39;</span><span class="p">,</span>
+      <span class="p">),</span>
+      <span class="n">storage</span><span class="o">=</span><span class="n">AttributeStorage</span><span class="p">(),</span>
+      <span class="n">read_permission</span><span class="o">=</span><span class="s">&quot;View&quot;</span><span class="p">,</span>
+      <span class="n">write_permission</span><span class="o">=</span><span class="s">&quot;StandArt: write AQ document&quot;</span><span class="p">,</span>
+  <span class="p">),</span>
+<span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">StandArt_DocumentAQ_schema</span> <span class="o">=</span> <span class="n">BaseSchema</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="o">+</span> \
+  <span class="nb">getattr</span><span class="p">(</span><span class="n">ATDocument</span><span class="p">,</span> <span class="s">&#39;schema&#39;</span><span class="p">,</span> <span class="n">Schema</span><span class="p">(()))</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="o">+</span> \
+  <span class="n">schema</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>La variable <tt class="docutils literal"><span class="pre">schema</span></tt> est une liste de champs, qui ici contient la
+déclaration du champ <tt class="docutils literal"><span class="pre">mDocument</span></tt>. On peut voir comment sont implémentés les
+différents marqueurs du champ et comment lui est associé son <cite>widget</cite>.</p>
+<p>Suit la définition de la classe :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">StandArt_DocumentAQ</span><span class="p">(</span><span class="n">ATDocument</span><span class="p">,</span> <span class="n">BrowserDefaultMixin</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">security</span> <span class="o">=</span> <span class="n">ClassSecurityInfo</span><span class="p">()</span>
+
+  <span class="n">implements</span><span class="p">(</span><span class="n">interfaces</span><span class="o">.</span><span class="n">IStandArt_DocumentAQ</span><span class="p">)</span>
+
+  <span class="n">meta_type</span> <span class="o">=</span> <span class="s">&#39;StandArt_DocumentAQ&#39;</span>
+  <span class="n">_at_rename_after_creation</span> <span class="o">=</span> <span class="bp">True</span>
+
+  <span class="n">schema</span> <span class="o">=</span> <span class="n">StandArt_DocumentAQ_schema</span>
+
+  <span class="c">##code-section class-header #fill in your manual code here</span>
+  <span class="c">##/code-section class-header</span>
+
+  <span class="c"># Methods</span>
+</pre></div>
+</div>
+<p>Qui utilise le schéma créé.</p>
+<p>Lors des futures générations du code, <cite>ArchGenXML</cite> conservera les modifications
+qui auront été apportées aux modules du produit, et complètera le schéma
+Archetypes avec les champs ajoutés à la classe dans le modèle UML.</p>
+<p>Le modèle et le code généré sont multi-plateforme. Ainsi vous pouvez éditer le
+modèle sous Windows ou GNU/Linux sans être lié à l'OS de développement ni à
+celui de déploiement.</p>
+<p>Dans la suite de ce cours nous continuerons notre exposé sous Ubuntu.</p>
+<p>En conséquence les chemins devront être adaptés, c'est-à-dire que les
+séparateurs de fichiers sont des <tt class="docutils literal"><span class="pre">slash</span></tt> au lieu d'être des <tt class="docutils literal"><span class="pre">anti-slash</span></tt>.</p>
+</div>
+<div class="section" id="creation-des-workflows">
+<h2>Création des workflows<a class="headerlink" href="#creation-des-workflows" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous allons associer un workflow documentaire à chaque classe créée.</p>
+<p>Pour cela sélectionnez StandArt_FolderAQ dans la barre de navigation, puis
+cliquez sur le bouton droit pour faire apparaître le menu contextuel.
+Sélectionnez le menu &quot;Create Diagram&quot; et le sous menu &quot;Diagramme d'état&quot;.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_creation_diagramme_etats.jpg" src="../_images/argouml_creation_diagramme_etats.jpg" />
+<p class="caption">Ajout diagramme d'états-transition</p>
+</div>
+<p>Une machine d'états-transitions avec le nom &quot;(Unnamed StateMachine)&quot; est créée
+dans &quot;StandArt_FolderAQ&quot;.</p>
+<p>Depuis la barre de navigation, descendez dans &quot;StandArt_FolderAQ&quot;, puis
+sélectionnez &quot;(Unnamed StateMachine)&quot;.
+Renommez le en &quot;standart_folder_workflow&quot;.</p>
+<p>Descendez d'un niveau dans &quot;standart_folder_workflow&quot;, s'y trouve le diagramme
+d'états-transitions &quot;StandArt_FolderAQ 1&quot;, renommez le
+&quot;standart_folderaq_state_machine&quot;.</p>
+<p>Lorsque vous sélectionnez le diagramme &quot;standart_folderaq_state_machine&quot; vous
+pouvez y créer des états et transitions. Ainsi vous définissez le workflow de
+votre objet.</p>
+<p>Pour ajouter des états il suffit de sélectionner le symbole correspondant dans
+la barre d'icônes, de positionner le curseur dans la zone de dessin et de
+cliquer.</p>
+<p>Pour ajouter des transitions, soit vous sélectionnez l'icône correspondante dans
+la barre et pouvez alors relier deux états déjà existants, soit vous
+sélectionnez un état et cliquez sur l'une des flèches apparaissant à la droite
+et à la gauche de l'état sélectionné.</p>
+<p>Nous allons créer le workflow de FolderAQ, qui contient un état <tt class="docutils literal"><span class="pre">private</span></tt> et
+un état <tt class="docutils literal"><span class="pre">published</span></tt>, reliés par une transition <tt class="docutils literal"><span class="pre">publish</span></tt>.</p>
+<p>Les noms des états et transitions doivent être saisi dans le champ <tt class="docutils literal"><span class="pre">Nom</span></tt>
+accessible par l'onglet <tt class="docutils literal"><span class="pre">Propriétés</span></tt> sur chaque état et transition.</p>
+<p>Les marqueurs des états vont nous permettre de définir qu'elles seront les
+permissions de l'objet lorsqu'il sera dans cet état.</p>
+<p>ArchGenXML permet de manipuler quatre <tt class="docutils literal"><span class="pre">meta</span></tt> permissions qui sont <tt class="docutils literal"><span class="pre">access</span></tt>,
+<tt class="docutils literal"><span class="pre">view</span></tt>, <tt class="docutils literal"><span class="pre">modify</span></tt> et <tt class="docutils literal"><span class="pre">list</span></tt>. Ainsi, à la génération du code, ArchGenXML
+remplace ces meta par le vrai nom des permissions.</p>
+<p>Si l'on veut directement travailler avec les permissions de Plone, il faut créer
+pour chaque permission une <tt class="docutils literal"><span class="pre">Tag</span> <span class="pre">Definition</span></tt> en cliquant sur l'icône <tt class="docutils literal"><span class="pre">TD</span></tt> de
+l'onglet <tt class="docutils literal"><span class="pre">Étiquettes</span></tt> et en lui donnant le nom de la permission voulue.</p>
+<p>On peut alors les ajouter comme marqueurs dans l'onglet <tt class="docutils literal"><span class="pre">Étiquettes</span></tt> de
+l'état. En valeur on précise alors les rôles qui auront cette permission.</p>
+<p>C'est de cette façon que l'on peut préciser qui a les permissions de lecture ou
+d'écriture que l'on a affecté spécifiquement aux champs de nos objets.</p>
+<p>Dans notre cas on crée un <tt class="docutils literal"><span class="pre">TD</span></tt> <tt class="docutils literal"><span class="pre">StandArt:</span> <span class="pre">write</span> <span class="pre">AQ</span> <span class="pre">document</span></tt> pour la
+permission d'écriture de notre champ <cite>mDocument</cite> et l'on donne cette permission
+au rôle <tt class="docutils literal"><span class="pre">Reviewer</span></tt> dans l'état <tt class="docutils literal"><span class="pre">submited</span></tt> pour que seuls les membres ayant le
+rôle <tt class="docutils literal"><span class="pre">Reviewer</span></tt> puissent changer le fichier associé au champ <cite>mDocument</cite>.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_folderaq_workflow.jpg" src="../_images/argouml_folderaq_workflow.jpg" />
+<p class="caption">workflow de FolderAQ</p>
+</div>
+<p>Il reste à créer de la même façon le workflow de DocumentAQ, qui contiendra
+trois états nommés <tt class="docutils literal"><span class="pre">private</span></tt>, <tt class="docutils literal"><span class="pre">submited</span></tt>, <tt class="docutils literal"><span class="pre">published</span></tt>.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_documentaq_workflow.jpg" src="../_images/argouml_documentaq_workflow.jpg" />
+<p class="caption">workflow de DocumentAQ</p>
+</div>
+<p>Puis éditez les transitions, nommez les <tt class="docutils literal"><span class="pre">submit</span></tt>, <tt class="docutils literal"><span class="pre">publish</span></tt>.</p>
+<p>Il est possible d'ajouter aux transitions un garde qui vérifiera que l'on peut
+ou non réaliser cette transition. Plone n'affichera la transition que si le
+garde est vérifié.</p>
+<p>Pour créer un garde il suffit de faire un clic droit dans la la zone d'édition du
+champ <tt class="docutils literal"><span class="pre">Garde</span></tt> dans l'onglet <tt class="docutils literal"><span class="pre">Propriété</span></tt> de la transition, puis de
+sélectionner l'item de menu <tt class="docutils literal"><span class="pre">Nouveau</span></tt>.</p>
+<p>On entre alors dans le panneau d'édition du garde.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_garde_publish.jpg" src="../_images/argouml_garde_publish.jpg" />
+<p class="caption">Garde de la transition publish</p>
+</div>
+<p>On peut alors expliciter comment on veut filtrer la transition en remplissant le
+champ <tt class="docutils literal"><span class="pre">Expression</span></tt>. Pour cela on dispose de trois possibilités :</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="28%" />
+<col width="28%" />
+<col width="43%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Prefixe du garde</strong></td>
+<td><strong>Valeur du garde</strong></td>
+<td><strong>Exemple</strong></td>
+</tr>
+<tr class="row-even"><td>guard_roles</td>
+<td>Une liste de rôles</td>
+<td>guard_roles: Manager; Owner</td>
+</tr>
+<tr class="row-odd"><td>guard_permissions</td>
+<td>Liste de permissions</td>
+<td>guard_permissions: View</td>
+</tr>
+<tr class="row-even"><td>guard_expr</td>
+<td>Expression Tales</td>
+<td>guard_expr:python:object.isOk()</td>
+</tr>
+</tbody>
+</table>
+<p>Les expressions peuvent être combinées, par exemple la transition avec le garde
+<tt class="docutils literal"><span class="pre">guard_roles:Reviewer|guard_permission:Modify</span> <span class="pre">Portal</span> <span class="pre">Content</span></tt> ne sera
+déclenchable que par les modérateurs ayant les droits de modification.</p>
+<p>En plus des gardes, il est possible d'exécuter des scripts avant et après
+transition. Pour cela il faut ajouter une conséquence à la transition comme on
+l'a fait pour le garde. Le nom de la conséquence sera le nom de la fonction
+python appelée lors de la transition.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_garde_et_consequence.jpg" src="../_images/argouml_garde_et_consequence.jpg" />
+<p class="caption">Garde et conséquence</p>
+</div>
+<p>ArchGenXML va créer une arborescence
+<tt class="file docutils literal"><span class="pre">Products.StandArt_AQ/Products/StandArt_AQ/profiles/default/workflows</span></tt>
+contenant un répertoire contenant la définition XML du workflow pour FolderAQ et
+un autre pour DocumentAQ.</p>
+<p>Il génère aussi un fichier <tt class="file docutils literal"><span class="pre">wfsubscribers.py</span></tt> contenant la définition des
+scripts appelés lors des transitions :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># -*- coding: utf-8 -*-</span>
+<span class="c">#</span>
+<span class="c"># File: wfsubscribers.py</span>
+<span class="c">#</span>
+<span class="c"># Copyright (c) 2010 by Michael Launay &lt;michaellaunay@ecreall.com&gt;</span>
+<span class="c"># Generator: ArchGenXML Version 2.5.dev</span>
+<span class="c">#            http://plone.org/products/archgenxml</span>
+<span class="c">#</span>
+<span class="c"># GNU General Public License (GPL)</span>
+<span class="c">#</span>
+
+<span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;Michael Launay &lt;michaellaunay@ecreall.com&gt;&quot;&quot;&quot;</span>
+<span class="n">__docformat__</span> <span class="o">=</span> <span class="s">&#39;plaintext&#39;</span>
+
+
+<span class="c">##code-section module-header #fill in your manual code here</span>
+<span class="c">##/code-section module-header</span>
+
+
+<span class="k">def</span> <span class="nf">onSubmitDocumentAQ</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">event</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;generated workflow subscriber.&quot;&quot;&quot;</span>
+    <span class="c"># do only change the code section inside this function.</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">transition</span> \
+       <span class="ow">or</span> <span class="n">event</span><span class="o">.</span><span class="n">transition</span><span class="o">.</span><span class="n">id</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s">u&#39;submit&#39;</span><span class="p">]</span> \
+       <span class="ow">or</span> <span class="n">obj</span> <span class="o">!=</span> <span class="n">event</span><span class="o">.</span><span class="n">object</span><span class="p">:</span>
+        <span class="k">return</span>
+    <span class="c">##code-section onSubmitDocumentAQ #fill in your manual code here</span>
+    <span class="c">##/code-section onSubmitDocumentAQ</span>
+
+
+
+<span class="c">##code-section module-footer #fill in your manual code here</span>
+<span class="c">##/code-section module-footer</span>
+</pre></div>
+</div>
+<p>Pour ajouter du code spécifique tel que la notification par mail des principaux
+modérateurs, il suffit de le mettre entre la balise <tt class="docutils literal"><span class="pre">##code-section</span>
+<span class="pre">onSubmitDocumentAQ</span></tt> et <tt class="docutils literal"><span class="pre">##/code-section</span> <span class="pre">onSubmitDocumentAQ</span></tt>, mais si le code
+est volumineux ou doit être partagé nous pouvons le mettre dans un module qui
+sera importé dans la section <tt class="docutils literal"><span class="pre">##code-section</span> <span class="pre">module-header</span></tt> et l'appel se fera
+dans la section <tt class="docutils literal"><span class="pre">##code-section</span> <span class="pre">onSubmitDocumentAQ</span></tt>.</p>
+<p>L'événement <tt class="docutils literal"><span class="pre">event</span></tt> contient l'objet qui subit la transition, ainsi que la
+requête.</p>
+<p>Si vous voulez faire de l'introspection et voir ce qui se passe vous pouvez
+mettre un <tt class="docutils literal"><span class="pre">pdb.set_trace</span> <span class="pre">()</span></tt> dans la section, relancer Zope en mode
+<tt class="docutils literal"><span class="pre">foreground</span></tt> <strong class="command">bin/instance fg</strong>, et déclencher la transition. Python
+s'arrêtera sur le point d'arrêt et en tapant la commande <strong class="command">h</strong> vous aurez la
+liste des commandes possibles :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">##code-section onSubmitDocumentAQ #fill in your manual code here</span>
+<span class="kn">import</span> <span class="nn">pdb</span>
+<span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span> <span class="p">()</span>
+<span class="c">##/code-section onSubmitDocumentAQ</span>
+</pre></div>
+</div>
+<p>Il est possible d'associer un workflow créé pour un type de contenu donné à un
+autre type de contenu avec l'étiquette &quot;use_workflow&quot;, il suffit alors de donner
+le nom du workflow comme valeur à l'étiquette.</p>
+<div class="section" id="ajout-d-une-worklist">
+<h3>Ajout d'une worklist<a class="headerlink" href="#ajout-d-une-worklist" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il est possible pour un état donné d'un objet de le déclarer comme devant
+apparaître dans une liste de modération.</p>
+<p>Pour cela il suffit d'ajouter le marqueur <tt class="docutils literal"><span class="pre">worklist</span></tt> à la liste des étiquettes
+de l'état dans lequel l'objet doit être modéré.</p>
+<p>La valeur est alors le nom de la woklist dans laquelle devrait apparaître
+l'objet, mais la liste de modération de Plone regroupe tous les objets associés
+à une <tt class="docutils literal"><span class="pre">worklist</span></tt>.</p>
+<p>Le marqueur <tt class="docutils literal"><span class="pre">worklist:guard_roles</span></tt> permet de restreindre la notification de
+modération aux rôles donnés en valeur au marqueur.</p>
+</div>
+<div class="section" id="ajout-d-un-validateur-sur-un-champ">
+<h3>Ajout d'un validateur sur un champ<a class="headerlink" href="#ajout-d-un-validateur-sur-un-champ" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les #validators# permettent de vérifier la cohérence des valeurs des champs
+saisis. Ils sont appelés à la saisie des champs en mode d'édition online ou à
+l'enregistrement des modifications réalisées sur le contenu en mode édition.</p>
+<p>Les champs de type Archetypes utilisent des objets implémentant l'interface
+IValidator.</p>
+<p>Lors de la saisie du champ, les validateurs associés à un champ sont appelés
+successivement. Dés que l'un deux retourne une valeur différente de True, le
+champ est en erreur et un message correspondant est positionné dans la variable error.</p>
+<p>Par défaut Plone propose plusieurs instances de validators en voici les plus
+utiles :</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="33%" />
+<col width="36%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Nom</td>
+<td>Usage</td>
+<td>Détails</td>
+</tr>
+<tr class="row-even"><td>isDecimal</td>
+<td>L'entrée est elle un
+un nombre décimal ?</td>
+<td>Autorise la notation
+scientifique.</td>
+</tr>
+<tr class="row-odd"><td>isInt</td>
+<td>Est-ce un entier ?</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>isPrintable</td>
+<td>Ne doit pas contenir
+de caractères non
+imprimables</td>
+<td>r'[a-zA-Z0-9s]+$'</td>
+</tr>
+<tr class="row-odd"><td>isInternationalPhone
+Number</td>
+<td>Est un numéro de
+téléphone
+international ?</td>
+<td>Vérifie le format et
+ignore les espaces,
+parenthèse et barres
+obliques.</td>
+</tr>
+<tr class="row-even"><td>isURL</td>
+<td>Est-ce une url ?</td>
+<td>Reconnait la plus part
+des protocoles.</td>
+</tr>
+<tr class="row-odd"><td>isEmail</td>
+<td>Est-ce une adresse mél
+?</td>
+<td>Vérifiée par une
+expression régulière.</td>
+</tr>
+<tr class="row-even"><td>isMailTo</td>
+<td>Est-ce une adresse mél
+précédée par &quot;mailto:&quot;</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>isUnixLikeName</td>
+<td>Est-ce un nom
+respectant le style
+Unix ?</td>
+<td>r&quot;^[A-Za-z][wd-_]
+{0,7}$&quot;</td>
+</tr>
+<tr class="row-even"><td>isMaxSize</td>
+<td>Vérifie si un fichier
+uploadé ou un objet
+supportant l'opération
+len() est plus petit
+qu'une valeur donnée.</td>
+<td>Vérifie à partir de la
+valeur maxsize définit
+sur le champ.</td>
+</tr>
+<tr class="row-odd"><td>isValidDate</td>
+<td>Est-ce que la chaîne
+de caractères peut
+être convertie en date
+?</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>isEmpty</td>
+<td>La valeur doit être
+vide.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>isEmptyNoError</td>
+<td>La valeur doit être
+vide.</td>
+<td>L'erreur ne sera pas
+montrée.</td>
+</tr>
+<tr class="row-even"><td>isValidId</td>
+<td>La valeur doit
+correspondre à
+l'identifiant d'un
+objet.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-odd"><td>isTidyHtml</td>
+<td>Utilise mx.Tidy pour
+valider l'entrée HTML.</td>
+<td>Échoue sur les erreurs
+et les alertes.</td>
+</tr>
+<tr class="row-even"><td>isTidyHtmlWithCleanup</td>
+<td>Utilise mx.Tidy pour
+valider l'entrée HTML.</td>
+<td>Échoue sur les erreurs
+mais nettoie le code des
+alertes.</td>
+</tr>
+<tr class="row-odd"><td>isNonEmptyFile</td>
+<td>Vérifie que le fichier
+uploader n'est pas
+vide.</td>
+<td>&nbsp;</td>
+</tr>
+<tr class="row-even"><td>isTAL</td>
+<td>Est-ce une expression
+Template Attribute
+Language ?</td>
+<td>&nbsp;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Pour les utiliser il suffit d'ajouter &quot;validators&quot; comme étiquette au champ avec
+pour valeur le nom du ou des validators à utiliser.</p>
+<p>Plone offre également la possibilité de paramétrer des validators en les
+instanciant avec des paramètres puis en utilisant comme validator ces instances.</p>
+<p>Par exemple ExpressionValidator qui permet de définir un validator utilisant une
+expression TALES pour dire si la valeur saisie est correcte ou non.</p>
+<p>L'instanciation de ce validator est supportée par ArchGenXML via les étiquettes
+validation_expression pour l'expression et validation_expression_errormsg pour
+le message d'erreur associé.</p>
+<p>RegexValidator du paquet Products.validation.validators.RegexValidator permet
+d'utiliser une expression régulière pour la validation, il faut l'instancier et
+l'enregistrer dans le code généré dans les parties réservées au code manuel.</p>
+<p>RangeValidator permet quant à lui de vérifier qu'une valeur est comprise entre
+deux bornes. Il est dans Products.validation.validators.RangeValidator.</p>
+<p>Nous allons voir comment créer un validator qui rappelle une méthode de notre
+objet.</p>
+<p>Pour cela nous commençons par créer un fichier objectcallbackvalidation.py qui
+contiendra un validator appelant une méthode dont le nom sera dynamiquement
+calculée à partir du nom du champ validé. Par convention nous imposons que la
+méthode ait un nom de la forme is_a_valid_nomduchamp sur la classe du
+contenu :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">Products.validation.interfaces.IValidator</span> <span class="kn">import</span> <span class="n">IValidator</span>
+<span class="kn">from</span> <span class="nn">zope.interface</span> <span class="kn">import</span> <span class="n">implements</span>
+
+
+<span class="k">class</span> <span class="nc">ObjectCallbackValidation</span><span class="p">:</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IValidator</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">fieldname</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;field&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+        <span class="n">instance</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s">&#39;instance&#39;</span><span class="p">]</span>
+        <span class="n">method</span> <span class="o">=</span> <span class="s">&quot;is_a_valid_&quot;</span><span class="o">+</span><span class="n">fieldname</span>
+        <span class="c"># callback the object vaildation methode for the field</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">method</span><span class="p">)(</span><span class="n">value</span><span class="p">)</span>
+
+<span class="n">object_callback_validation</span> <span class="o">=</span> <span class="n">ObjectCallbackValidation</span><span class="p">(</span><span class="s">&quot;object_callback_validation&quot;</span><span class="p">)</span>
+
+<span class="c"># validator registration</span>
+<span class="kn">from</span> <span class="nn">Products.validation</span> <span class="kn">import</span> <span class="n">validation</span>
+<span class="n">validation</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">object_callback_validation</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pour qu'au chargement de notre module ce code soit appelé il nous suffit d'en
+faire un import dans la fonction &quot;initialize&quot; du fichier __init__.py du
+produit.</p>
+<p>Ensuite il suffit de créer une méthode &quot;is_a_valid_nomDeMonChamp&quot; dans notre
+modèle sur notre classe pour chacun des champs à qui on a déclaré
+object_callback_validation pour validator.</p>
+</div>
+<div class="section" id="ajout-d-une-methode">
+<h3>Ajout d'une méthode<a class="headerlink" href="#ajout-d-une-methode" title="Lien permanent vers ce titre">¶</a></h3>
+<p>L'ajout d'une méthode est simple puisqu'il suffit de l'ajouter à l'une des classes de
+nos contenus.</p>
+<p>Par exemple si nous voulons écrire une méthode que l'on utilisera comme
+validator à l'aide du code écrit précédemment pour le champ mDocument du type de
+contenu StandArtDocumentAQ pour vérifier que le fichier uplaoder est un pdf.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_ajout_methode.jpg" src="../_images/argouml_ajout_methode.jpg" />
+<p class="caption">Ajout d'une méthode</p>
+</div>
+<p>La génération du code produit la méthode suivante dans le code
+StandArt_DocumentAQ.py :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">security</span><span class="o">.</span><span class="n">declarePublic</span><span class="p">(</span><span class="s">&#39;is_a_valid_mDocument&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">is_a_valid_mDocument</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p>En l'abscence de précision, la méthode générée est accessible par toute
+page template ou pythonscript quelque soit le rôle de l'utilisateur.</p>
+<p>Pour la protéger, il faut ajouter l'étiquette &quot;permission&quot; avec pour valeur
+le nom de la permission à avoir par exemple &quot;Modify portal content&quot;.</p>
+<p class="last">Cette exposition est due à la présence de la documentation de la méthode qui
+est interprétée par Plone comme la volonté à exposer la méthode.</p>
+</div>
+<p>Ajoutons au modèle le pramètre &quot;value&quot; à la méthode de type None (les
+informations de types ne sont pas utilisés par ArchGenXML) et générons le code à
+nouveau.</p>
+<p>Nous pouvons maintenant remplacer l'instruction pass par notre code :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">##code-section module-header #fill in your manual code here</span>
+<span class="kn">import</span> <span class="nn">pyPdf</span>
+<span class="kn">from</span> <span class="nn">Products.StandArt_AQ</span>  <span class="kn">import</span> <span class="n">StandArt_AQFactory</span> <span class="k">as</span> <span class="n">_</span>
+<span class="c">##/code-section module-header</span>
+
+<span class="c">#...</span>
+
+<span class="k">class</span> <span class="nc">StandArt_DocumentAQ</span><span class="p">(</span><span class="n">ATDocument</span><span class="p">,</span> <span class="n">BrowserDefaultMixin</span><span class="p">):</span>
+  <span class="c">#...</span>
+
+  <span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;Modify portal content&quot;</span><span class="p">,</span> <span class="s">&#39;is_a_valid_mDocument&#39;</span><span class="p">)</span>
+  <span class="k">def</span> <span class="nf">is_a_valid_mDocument</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot; Test if the file is a pdf ?</span>
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="k">try</span><span class="p">:</span>
+          <span class="n">tell</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+          <span class="n">value</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+          <span class="n">f</span> <span class="o">=</span> <span class="n">pyPdf</span><span class="o">.</span><span class="n">PdfFileReader</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="c">#imported at the top of the file</span>
+          <span class="n">f</span><span class="o">.</span><span class="n">documentInfo</span> <span class="c">#nothing is done yet</span>
+          <span class="n">value</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">tell</span><span class="p">)</span>
+          <span class="k">return</span> <span class="mi">1</span>
+      <span class="k">except</span><span class="p">:</span>
+          <span class="k">return</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;file must be a pdf&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Pour la traduction il faut ajouter StandArt_AQFactory dans le
+<tt class="file docutils literal"><span class="pre">__init__.py</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zope.i18nmessageid</span> <span class="kn">import</span> <span class="n">MessageFactory</span>
+<span class="n">StandArt_AQFactory</span> <span class="o">=</span> <span class="n">MessageFactory</span><span class="p">(</span><span class="s">&#39;StandArt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Maintenant nous pouvons ajouter l'étiquette &quot;validators&quot; à mDocument avec pour
+valeur &quot;object_callback_validation&quot;.</p>
+</div>
+<div class="section" id="ajout-d-une-validation-sur-l-ensemble-de-l-edition">
+<h3>Ajout d'une validation sur l'ensemble de l'édition<a class="headerlink" href="#ajout-d-une-validation-sur-l-ensemble-de-l-edition" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Lorsque plusieurs champs sont liés entres eux il n'est possible de tester leur
+validité qu'à l'enregistrement de l'instance du contenu.</p>
+<p>Il suffit d'ajouter la méthode post_validate(self, REQUEST, errrors) au type de
+contenu. Si l'on constate des erreurs, on les remonte en remplissant le
+dictionnaire &quot;errors&quot; :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">security</span><span class="o">.</span><span class="n">declarePublic</span><span class="p">(</span><span class="s">&#39;post_validate&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">post_validate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">REQUEST</span><span class="p">,</span><span class="n">errors</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Check if the pdf info version match the DocumentNumber</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">REQUEST</span> <span class="p">:</span> <span class="k">return</span>
+    <span class="n">pdf_file</span> <span class="o">=</span> <span class="n">REQUEST</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;mDocument_file&#39;</span><span class="p">)</span> <span class="ow">and</span> \
+                    <span class="n">REQUEST</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;mDocument_file&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+    <span class="n">version_number</span> <span class="o">=</span> <span class="n">REQUEST</span><span class="o">.</span><span class="n">has_key</span><span class="p">(</span><span class="s">&#39;mDocumentNumber&#39;</span><span class="p">)</span> <span class="ow">and</span> \
+                    <span class="n">REQUEST</span><span class="o">.</span><span class="n">form</span><span class="p">[</span><span class="s">&#39;mDocumentNumber&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="bp">None</span>
+    <span class="n">m_document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMDocument</span><span class="p">()</span>
+    <span class="n">m_document_number</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMDocumentNumber</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">pdf_file</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">version_number</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> \
+        <span class="n">pdf_file</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">m_document</span> <span class="ow">or</span> \
+        <span class="n">version_number</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">m_document_number</span> <span class="ow">is</span> <span class="bp">None</span> <span class="p">:</span>
+            <span class="k">return</span>
+    <span class="k">if</span> <span class="n">pdf_file</span> <span class="ow">is</span> <span class="bp">None</span> <span class="p">:</span>
+        <span class="n">pdf_file</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">m_document</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">version_number</span> <span class="ow">is</span> <span class="bp">None</span> <span class="p">:</span>
+        <span class="n">version_number</span> <span class="o">=</span> <span class="n">m_document_number</span>
+    <span class="n">tell</span> <span class="o">=</span> <span class="n">pdf_file</span><span class="o">.</span><span class="n">tell</span><span class="p">()</span>
+    <span class="n">pdf_file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">infos</span> <span class="o">=</span> <span class="n">pyPdf</span><span class="o">.</span><span class="n">PdfFileReader</span><span class="p">(</span><span class="n">pdf_file</span><span class="p">)</span><span class="o">.</span><span class="n">documentInfo</span>
+    <span class="n">keywords</span> <span class="o">=</span> <span class="n">infos</span><span class="p">[</span><span class="s">&#39;/Keywords&#39;</span><span class="p">]</span>
+    <span class="n">pdf_file</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">tell</span><span class="p">)</span>
+    <span class="n">str_version</span> <span class="o">=</span> <span class="s">u&quot;Version : &quot;</span>
+    <span class="n">posv</span> <span class="o">=</span> <span class="n">keywords</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">str_version</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">posv</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">keywords</span><span class="p">[</span><span class="n">posv</span> <span class="o">+</span> <span class="nb">len</span><span class="p">(</span><span class="n">str_version</span><span class="p">):]</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">version</span> <span class="o">!=</span> <span class="n">version_number</span> <span class="p">:</span>
+            <span class="n">errors</span><span class="p">[</span><span class="s">&#39;mDocumentNumber&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">&quot;Document numbers doesn&#39;t match&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Il est possible aussi de surcharger la méthode pre_validate qui est appellée
+avant l'appel individuel des &quot;validators&quot; des champs.</p>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Dans le cas d'une édition en ligne c'est à dire sans passer par l'onglet
+Modifier la méthode post_validate n'est pas appelée.</p>
+</div>
+</div>
+<div class="section" id="ajout-d-une-action">
+<h3>Ajout d'une action<a class="headerlink" href="#ajout-d-une-action" title="Lien permanent vers ce titre">¶</a></h3>
+<p>En stéréotypant une méthode par &quot;Action&quot; nous allons ajouter un onglet à la
+barre d'édition de l'instance d'action. Cet onglet renvoie allors sur une page
+template que l'on peut définir.</p>
+<p>Par exemple nous allons ajouter un onglet &quot;Pdf Informations&quot; à notre DocumentAQ
+:</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_action.jpg" src="../_images/argouml_action.jpg" />
+<p class="caption">Ajout d'une action</p>
+</div>
+<p>Le nom de l'onglet, son identifiant, la permission d'accès, le nom de la
+template associée, et la condition d'affichage sont données comme valeurs des
+étiquettes correspondantes.</p>
+<p>L'action est alors ajoutée dans la déclaration xml du type
+StandArt_AQ/profiles/default/types/StandArt_DocumentAQ.xml :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;action</span> <span class="na">title=</span><span class="s">&quot;Pdf Informations&quot;</span>
+    <span class="na">i18n:attributes=</span><span class="s">&quot;title&quot;</span>
+    <span class="na">action_id=</span><span class="s">&quot;pdf_informations&quot;</span>
+    <span class="na">category=</span><span class="s">&quot;object&quot;</span>
+    <span class="na">condition_expr=</span><span class="s">&quot;python:object.getMDocument()&quot;</span>
+    <span class="na">url_expr=</span><span class="s">&quot;string:${object_url}/document_aq_pdf_informations&quot;</span>
+    <span class="na">visible=</span><span class="s">&quot;True&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;permission</span> <span class="na">value=</span><span class="s">&quot;View&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Nous pouvons alors créer la template
+StandArt_AQ/skins/standart_aq_templates/document_aq_pdf_informations.pt
+qui contient :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span> <span class="na">xml:lang=</span><span class="s">&quot;en&quot;</span>
+      <span class="na">xmlns:tal=</span><span class="s">&quot;http://xml.zope.org/namespaces/tal&quot;</span>
+      <span class="na">xmlns:metal=</span><span class="s">&quot;http://xml.zope.org/namespaces/metal&quot;</span>
+      <span class="na">xmlns:i18n=</span><span class="s">&quot;http://xml.zope.org/namespaces/i18n&quot;</span>
+      <span class="na">lang=</span><span class="s">&quot;en&quot;</span>
+      <span class="na">metal:use-macro=</span><span class="s">&quot;here/main_template/macros/master&quot;</span>
+      <span class="na">i18n:domain=</span><span class="s">&quot;plone&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">metal:fill-slot=</span><span class="s">&quot;main&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;table&gt;</span>
+       <span class="nt">&lt;tbody</span> <span class="na">tal:define=</span><span class="s">&quot;pdf_informations python:context.getPdfInformations()&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;tr</span> <span class="na">tal:repeat=</span><span class="s">&quot;keyword pdf_informations&quot;</span><span class="nt">&gt;</span>
+          <span class="nt">&lt;td</span> <span class="na">tal:content=</span><span class="s">&quot;keyword&quot;</span><span class="nt">&gt;</span>Title<span class="nt">&lt;/td&gt;</span>
+          <span class="nt">&lt;td</span> <span class="na">tal:content=</span><span class="s">&quot;python:pdf_informations[keyword]&quot;</span><span class="nt">&gt;</span>Value<span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+       <span class="nt">&lt;/tbody&gt;</span>
+      <span class="nt">&lt;/table&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Cette template appèle une méthode du type de contenu appelée getPdfInformations
+qui retourne le dictionnaire des informations. Pour la définir il nous suffit
+d'ajouter cette méthode comme nous avons fait pour les méthodes précédentes.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">security</span><span class="o">.</span><span class="n">declareProtected</span><span class="p">(</span><span class="s">&quot;View&quot;</span><span class="p">,</span> <span class="s">&#39;getPdfInformations&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">getPdfInformations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Return the pdf document informations</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">document</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">getMDocument</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">document</span> <span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+    <span class="n">strfile</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">StringIO</span><span class="p">(</span><span class="n">document</span><span class="p">)</span>
+    <span class="n">documentInfo</span> <span class="o">=</span> <span class="n">pyPdf</span><span class="o">.</span><span class="n">PdfFileReader</span><span class="p">(</span><span class="n">strfile</span><span class="p">)</span><span class="o">.</span><span class="n">documentInfo</span>
+    <span class="k">return</span> <span class="n">documentInfo</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c">#The copy is needed by security check</span>
+</pre></div>
+</div>
+<p>Il faut ajouter l'import</p>
+</div>
+<div class="section" id="ajout-d-un-portlet-d-affichage-des-documents-soumis">
+<h3>Ajout d'un portlet d'affichage des Documents soumis<a class="headerlink" href="#ajout-d-un-portlet-d-affichage-des-documents-soumis" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La portlet de modération est générique, il est possible de créer ses propres
+portlets et par exemple d'en créer des dédiées à la modération de nos types de
+données à l'exclusion des autres.</p>
+<p>Pour ajouter une portlet il suffit de créer une classe et de lui mettre le
+stéréotype &quot;portlet&quot;.</p>
+<div class="figure align-center">
+<img alt="../_images/argouml_ajout_portlet.jpg" src="../_images/argouml_ajout_portlet.jpg" />
+<p class="caption">Ajout d'une portlet</p>
+</div>
+<p>La génération du module avec ArchGenXML produit deux fichiers.</p>
+<p>Le fichier <tt class="file docutils literal"><span class="pre">StandArt_AQ/profiles/default/portlets.xml</span></tt> contient la
+déclaration de la portlet :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;portlets&gt;</span>
+ <span class="nt">&lt;portlet</span>
+   <span class="na">addview=</span><span class="s">&quot;Products.StandArt_AQ.content.StandArt_WorkList.StandArt_WorkList&quot;</span>
+   <span class="na">title=</span><span class="s">&quot;StandArt_WorkList&quot;</span>
+   <span class="na">description=</span><span class="s">&quot;&quot;</span>
+  <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- ##code-section PORTLETS --&gt;</span>
+  <span class="c">&lt;!-- ##/code-section PORTLETS --&gt;</span>
+
+<span class="nt">&lt;/portlets&gt;</span>
+</pre></div>
+</div>
+<p>On y voit le nom de la portlet et la vue associée.</p>
+<p>Si l'on ouvre le fichier de la vue générée
+<tt class="file docutils literal"><span class="pre">StandArt_AQ/content/StandArt_WorkList.py</span></tt> on y voit principalement :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">IStandArt_WorkList</span><span class="p">(</span><span class="n">IPortletDataProvider</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;A portlet which renders the cart.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="k">class</span> <span class="nc">Assignment</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">Assignment</span><span class="p">):</span>
+    <span class="n">implements</span><span class="p">(</span><span class="n">IStandArt_WorkList</span><span class="p">)</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="n">_</span><span class="p">(</span><span class="s">u&#39;StandArt_WorkList&#39;</span><span class="p">)</span>
+    <span class="c">##code-section assignment-body #fill in your manual code here</span>
+    <span class="c">##/code-section assignment-body</span>
+
+<span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">Renderer</span><span class="p">):</span>
+    <span class="n">render</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/StandArt_WorkList.pt&#39;</span><span class="p">)</span>
+    <span class="c">##code-section renderer-body #fill in your manual code here</span>
+    <span class="c">##/code-section renderer-body</span>
+
+<span class="k">class</span> <span class="nc">AddForm</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">NullAddForm</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">create</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Assignment</span><span class="p">()</span>
+    <span class="c">##code-section addform-body #fill in your manual code here</span>
+    <span class="c">##/code-section addform-body</span>
+</pre></div>
+</div>
+<p>Pour remplir et rendre fonctionnel ce code lisez le chapitre
+<a class="reference internal" href="../portlets/index.html#les-portlets"><em>Les portlets</em></a>.</p>
+<p>Dans notre cas pour réaliser la worklist il faut faire :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#...</span>
+<span class="kn">from</span> <span class="nn">Products.CMFCore.utils</span> <span class="kn">import</span> <span class="n">getToolByName</span>
+<span class="c">#...</span>
+
+<span class="k">class</span> <span class="nc">Renderer</span><span class="p">(</span><span class="n">base</span><span class="o">.</span><span class="n">Renderer</span><span class="p">):</span>
+    <span class="n">render</span> <span class="o">=</span> <span class="n">ViewPageTemplateFile</span><span class="p">(</span><span class="s">&#39;templates/StandArt_WorkList.pt&#39;</span><span class="p">)</span>
+    <span class="c">##code-section renderer-body #fill in your manual code here</span>
+    <span class="nd">@memoize</span>
+    <span class="k">def</span> <span class="nf">_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">target</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">anonymous</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[]</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="n">aq_inner</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="p">)</span>
+        <span class="n">ctool</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#39;portal_catalog&#39;</span><span class="p">)</span>
+        <span class="n">wtool</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#39;portal_workflow&#39;</span><span class="p">)</span>
+        <span class="n">ttool</span> <span class="o">=</span> <span class="n">getToolByName</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="s">&#39;portal_types&#39;</span><span class="p">)</span>
+        <span class="n">ENM_AMC</span> <span class="o">=</span> <span class="n">ttool</span><span class="p">[</span><span class="s">&#39;StandArt_DocumentAQ&#39;</span><span class="p">]</span>
+        <span class="n">wfs</span> <span class="o">=</span> <span class="n">wtool</span><span class="o">.</span><span class="n">getWorkflowsFor</span><span class="p">(</span><span class="s">&#39;StandArt_DocumentAQ&#39;</span><span class="p">)</span>
+        <span class="n">review_states</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">wf</span> <span class="ow">in</span> <span class="n">wfs</span><span class="p">:</span>
+           <span class="n">wl</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">worklists</span><span class="o">.</span><span class="n">_objects</span>
+           <span class="n">wld</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">worklists</span><span class="o">.</span><span class="n">_mapping</span><span class="p">[</span><span class="n">wl</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s">&#39;id&#39;</span><span class="p">]]</span>
+           <span class="n">review_states</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wld</span><span class="o">.</span><span class="n">var_matches</span><span class="p">[</span><span class="s">&#39;review_state&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">ctool</span><span class="o">.</span><span class="n">searchResults</span><span class="p">(</span><span class="n">meta_type</span> <span class="o">=</span> <span class="s">&#39;StandArt_DocumentAQ&#39;</span><span class="p">,</span>
+                 <span class="n">review_state</span> <span class="o">=</span> <span class="n">review_states</span><span class="p">)</span>
+    <span class="c">##/code-section renderer-body</span>
+</pre></div>
+</div>
+<p>Et la page template <tt class="file docutils literal"><span class="pre">StandArt_AQ/content/templates/StandArt_WorkList.pt</span></tt></p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;dl</span> <span class="na">class=</span><span class="s">&quot;portlet portletStandArt_WorkList&quot;</span>
+      <span class="na">i18n:domain=</span><span class="s">&quot;StandArt_AQ&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;dt</span> <span class="na">class=</span><span class="s">&quot;portletHeader&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;portletTopLeft&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+      <span class="nt">&lt;h3&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">i18n:domain=</span><span class="s">&quot;plone&quot;</span> <span class="na">i18n:translate=</span><span class="s">&quot;box_review_list&quot;</span><span class="nt">&gt;</span>
+             Review List
+          <span class="nt">&lt;/span&gt;</span>
+          <span class="nt">&lt;span</span> <span class="na">tal:content=</span><span class="s">&quot;view/data/search_filter&quot;</span><span class="nt">/&gt;</span>
+      <span class="nt">&lt;/h3&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;portletTopRight&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+  <span class="nt">&lt;/dt&gt;</span>
+
+  <span class="nt">&lt;tal:items</span> <span class="na">tal:repeat=</span><span class="s">&quot;b view/review_items&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;dd</span> <span class="na">class=</span><span class="s">&quot;portletItem&quot;</span>
+          <span class="na">tal:define=</span><span class="s">&quot;oddrow repeat/b/odd;</span>
+<span class="s">                      review_state b/review_state;&quot;</span>
+          <span class="na">tal:attributes=</span><span class="s">&quot;class python:oddrow and &#39;portletItem even&#39; or</span>
+<span class="s">                           &#39;portletItem odd&#39;&quot;</span><span class="nt">&gt;</span>
+
+          <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#&quot;</span>
+             <span class="na">tal:attributes=</span><span class="s">&quot;href string:${b/getPath}/view;</span>
+<span class="s">                             title b/Description;</span>
+<span class="s">                             &quot;</span><span class="nt">&gt;</span>
+              <span class="nt">&lt;span</span> <span class="na">tal:replace=</span><span class="s">&quot;b/Title&quot;</span><span class="nt">&gt;</span>
+                  Title
+              <span class="nt">&lt;/span&gt;</span>
+              <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;portletItemDetails&quot;</span><span class="nt">&gt;</span>
+                  <span class="nt">&lt;span</span> <span class="na">tal:replace=</span><span class="s">&quot;b/Creator&quot;</span><span class="nt">&gt;</span>Jim Smith<span class="nt">&lt;/span&gt;</span> <span class="ni">&amp;mdash;</span>
+                  <span class="nt">&lt;span</span> <span class="na">tal:replace=</span><span class="s">&quot;b/modified&quot;</span><span class="nt">&gt;</span> May 5<span class="nt">&lt;/span&gt;</span>
+              <span class="nt">&lt;/span&gt;</span>
+          <span class="nt">&lt;/a&gt;</span>
+
+      <span class="nt">&lt;/dd&gt;</span>
+  <span class="nt">&lt;/tal:items&gt;</span>
+
+  <span class="nt">&lt;dd</span> <span class="na">class=</span><span class="s">&quot;portletFooter&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;portletBottomLeft&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+      Footer
+      <span class="nt">&lt;span</span> <span class="na">class=</span><span class="s">&quot;portletBottomRight&quot;</span><span class="nt">&gt;&lt;/span&gt;</span>
+  <span class="nt">&lt;/dd&gt;</span>
+<span class="nt">&lt;/dl&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="modification-de-la-vue-d-edition">
+<h3>Modification de la vue d'édition<a class="headerlink" href="#modification-de-la-vue-d-edition" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Plone propose un mécanisme trés simple de modification de la vue d'édition d'un
+type donné.</p>
+<p>Il suffit de créer un fichier template dans le répertoire skins basé sur le nom
+du type mis en minucule et suivit du postfixe _edit par exemple pour modifier la
+vue d'édition de StandArt_DocumentAQ il suffit de créer le fichier
+<tt class="file docutils literal"><span class="pre">StandArt_AQ/skins/standart_aq_templates/standart_documentaq_edit.pt</span></tt>
+qui contient alors les slots de la template de base que l'on veut surcharger.</p>
+<p>Par exemple si l'on souhaite &quot;Faire un truc super cool&quot; juste avant l'affichage
+du champ mDocumentNumero on peut faire des choses compliquées comme :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;metal:macro</span> <span class="na">define-macro=</span><span class="s">&quot;body&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;metal:use-macro</span> <span class="na">use-macro=</span><span class="s">&quot;here/edit_macros/macros/body&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;metal:fill-slot</span> <span class="na">fill-slot=</span><span class="s">&quot;widgets&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;tal:tabbed</span> <span class="na">tal:condition=</span><span class="s">&quot;allow_tabbing | nothing&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;fieldset</span> <span class="na">tal:define=</span><span class="s">&quot;sole_fieldset python:len(fieldsets) == 1&quot;</span>
+      <span class="na">tal:repeat=</span><span class="s">&quot;fieldset fieldsets&quot;</span>
+      <span class="na">tal:attributes=</span><span class="s">&quot;id string:fieldset-${fieldset}&quot;</span>
+      <span class="na">tal:omit-tag=</span><span class="s">&quot;sole_fieldset&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;legend</span> <span class="na">id=</span><span class="s">&quot;&quot;</span>
+      <span class="na">tal:content=</span><span class="s">&quot;python: view.getTranslatedSchemaLabel(fieldset)&quot;</span>
+      <span class="na">tal:attributes=</span><span class="s">&quot;id string:fieldsetlegend-${fieldset}&quot;</span>
+      <span class="na">tal:condition=</span><span class="s">&quot;not:sole_fieldset&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;tal:fields</span> <span class="na">repeat=</span><span class="s">&quot;field python:schematas[fieldset].editableFields(here, visible_only=True)&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;div</span> <span class="na">tal:condition=</span><span class="s">&quot;python:field.getName() == &#39;mDocumentNumero&#39;&quot;</span><span class="nt">&gt;</span>
+    Faire un truc super cool !
+      <span class="nt">&lt;/div&gt;</span>
+      <span class="nt">&lt;metal:fieldMacro</span> <span class="na">use-macro=</span><span class="s">&quot;python:here.widget(field.getName(), mode=&#39;edit&#39;)&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/tal:fields&gt;</span>
+  <span class="nt">&lt;/fieldset&gt;</span>
+      <span class="nt">&lt;/tal:tabbed&gt;</span>
+      <span class="nt">&lt;tal:nottabbed</span> <span class="na">tal:condition=</span><span class="s">&quot;not: allow_tabbing | nothing&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;tal:fields</span> <span class="na">repeat=</span><span class="s">&quot;field python:schematas[fieldset].editableFields(here, visible_only=True)&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;metal:fieldMacro</span> <span class="na">use-macro=</span><span class="s">&quot;python:here.widget(field.getName(), mode=&#39;edit&#39;)&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/tal:fields&gt;</span>
+      <span class="nt">&lt;/tal:nottabbed&gt;</span>
+    <span class="nt">&lt;/metal:fill-slot&gt;</span>
+  <span class="nt">&lt;/metal:use-macro&gt;</span>
+<span class="nt">&lt;/metal:macro&gt;</span>
+</pre></div>
+</div>
+<p>Pour savoir quoi surcharger, il faut aller voir les templates
+archetypes/edit_macro et archetypes/base_edit .</p>
+</div>
+<div class="section" id="modification-de-la-vue-de-consultation">
+<h3>Modification de la vue de consultation<a class="headerlink" href="#modification-de-la-vue-de-consultation" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La vue de consultation repose sur le même principe sauf que la template de base
+doit porter le nom du type en minuscule postfixé de _view et que la template de
+base est archetypes/base_view</p>
+</div>
+</div>
+<div class="section" id="exercice">
+<h2>exercice<a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Création des fondements du modèle de l'application &quot;StandArt_AQ&quot;.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Génerer un composant Plone avec ArgoUML et ArchgenXML</a><ul>
+<li><a class="reference internal" href="#definition">Définition</a></li>
+<li><a class="reference internal" href="#savoir">Savoir</a></li>
+<li><a class="reference internal" href="#installation-d-argouml">Installation d'ArgoUML</a></li>
+<li><a class="reference internal" href="#installation-de-archgenxml">Installation de ArchGenXML</a></li>
+<li><a class="reference internal" href="#configuration-d-argouml-pour-utiliser-le-profil-d-archgenxml">Configuration d'ArgoUML pour utiliser le profil d'ArchGenXML</a></li>
+<li><a class="reference internal" href="#creation-du-buildout-de-notre-module">Création du buildout de notre module</a></li>
+<li><a class="reference internal" href="#creation-du-plan-documentaire">Création du plan documentaire</a></li>
+<li><a class="reference internal" href="#creation-des-workflows">Création des workflows</a><ul>
+<li><a class="reference internal" href="#ajout-d-une-worklist">Ajout d'une worklist</a></li>
+<li><a class="reference internal" href="#ajout-d-un-validateur-sur-un-champ">Ajout d'un validateur sur un champ</a></li>
+<li><a class="reference internal" href="#ajout-d-une-methode">Ajout d'une méthode</a></li>
+<li><a class="reference internal" href="#ajout-d-une-validation-sur-l-ensemble-de-l-edition">Ajout d'une validation sur l'ensemble de l'édition</a></li>
+<li><a class="reference internal" href="#ajout-d-une-action">Ajout d'une action</a></li>
+<li><a class="reference internal" href="#ajout-d-un-portlet-d-affichage-des-documents-soumis">Ajout d'un portlet d'affichage des Documents soumis</a></li>
+<li><a class="reference internal" href="#modification-de-la-vue-d-edition">Modification de la vue d'édition</a></li>
+<li><a class="reference internal" href="#modification-de-la-vue-de-consultation">Modification de la vue de consultation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercice">exercice</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="../uml/index.html"
+                        title="Chapitre précédent">Modélisation UML</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="../nouvelles_fonctionnalites_archgenxml.html"
+                        title="Chapitre suivant">Nouvelles fonctionnalités de ArchGenXML</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/archgenxml/index.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="../nouvelles_fonctionnalites_archgenxml.html" title="Nouvelles fonctionnalités de ArchGenXML"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="../uml/index.html" title="Modélisation UML"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

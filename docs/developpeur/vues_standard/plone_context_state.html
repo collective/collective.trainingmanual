@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>La vue &#34;plone_context_state&#34; &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Les vues standard" href="index.html" />
+    <link rel="next" title="La vue &#34;plone_portal_state&#34;" href="plone_portal_state.html" />
+    <link rel="prev" title="Les vues standard" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plone_portal_state.html" title="La vue &#34;plone_portal_state&#34;"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Les vues standard"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="la-vue-plone-context-state">
+<span id="vue-plone-context-state"></span><h1>La vue &quot;plone_context_state&quot;<a class="headerlink" href="#la-vue-plone-context-state" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Cette vue fournit de nombreuses méthodes et attributs fournissant des
+informations sur l'objet de contexte publié.</p>
+<p>A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+cette vue est accessible par l'objet <tt class="docutils literal"><span class="pre">context_state</span></tt>.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;html</span> <span class="na">use-macro=</span><span class="s">&quot;context/@@standard_macros/page&quot;</span><span class="nt">&gt;</span>
+  ...
+  <span class="nt">&lt;div&gt;</span>Le titre de cette page
+    <span class="nt">&lt;span</span> <span class="na">tal:content=</span><span class="s">&quot;context_state/object_title&quot;</span><span class="nt">&gt;</span>Un titre<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  ...
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Détails dans <tt class="xref py py-class docutils literal"><span class="pre">plone.app.layout.globals.interfaces.IContextState</span></tt></p>
+<table border="1" class="docutils">
+<caption>plone_context_state</caption>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribut - Méthode</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">current_page_url()</span></tt></td>
+<td>L'URL de la page courante, incluant la template et la query string
+(paramètres CGI) : <tt class="samp docutils literal"><span class="pre">http://</span><em><span class="pre">site</span></em><span class="pre">/</span><em><span class="pre">objet</span></em><span class="pre">/</span><em><span class="pre">template</span></em><span class="pre">?foo=bar</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">current_base_url()</span></tt></td>
+<td>L'URL de la page courante, incluant la template mais sans la query string
+éventuelle (paramètres CGI) : <tt class="samp docutils literal"><span class="pre">http://</span><em><span class="pre">site</span></em><span class="pre">/</span><em><span class="pre">objet</span></em><span class="pre">/</span><em><span class="pre">template</span></em></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">canonical_object()</span></tt></td>
+<td>L'objet canonique courant, c'est à dire l'objet publié. Si l'objet publié
+est la page par défaut d'un dossier, le dossier est retourné par cette
+méthode.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">canonical_object_url()</span></tt></td>
+<td>L'URL du <tt class="docutils literal"><span class="pre">canonical_object</span></tt> vu ci-dessus.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">view_url()</span></tt></td>
+<td>URL à utiliser pour voir la page présentant l'objet. Les images et
+fichiers sont directement téléchargés lorsque le navigateur évoque leur
+<tt class="docutils literal"><span class="pre">canonical_object_url</span></tt> mentionnée ci-avant.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">view_template_id()</span></tt></td>
+<td>Le nom de la template actuellement utilisée pour cette page.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">is_view_template()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'URL actuelle (celle de la requête HTTP) utilise la vue
+standard de l'objet publié (celle de l'onglet &quot;Voir&quot;)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">object_url()</span></tt></td>
+<td>L'URL de vue de l'objet publié. N'est pas forcément équivalent à
+<tt class="docutils literal"><span class="pre">canonical_object_url()</span></tt> vu ci-dessus si l'objet publié si l'on publie
+un dossier dont la page par défaut est l'un de ses contenus.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">object_title()</span></tt></td>
+<td>Titre ou identifiant (en absence de titre) de l'objet publié.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">workflow_state()</span></tt></td>
+<td>Nom de l'état de workflow de l'objet publié.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">parent()</span></tt></td>
+<td>L'objet parent de l'objet publié.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">folder()</span></tt></td>
+<td>Le dossier canonique courant, c'est-à-dire la même chose que <tt class="docutils literal"><span class="pre">parent()</span></tt>
+ci-dessus si l'objet courant n'est pas folderish (voir <tt class="docutils literal"><span class="pre">is_folderish()</span></tt>
+ci-dessous)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">is_folderish()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié peut contenir des sous-objets enfants. Type
+dossier ou apparenté.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">is_structural_folder()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié est un dossier permettant la navigation et la
+structuration interne libre.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">is_default_page()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié est la page par défaut de son dossier parent.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">is_portal_root()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié est le site plone ou sa page d'accueil.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">is_editable()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié est modifiable par l'utilisateur courant
+(Permet d'afficher ou non l'onglet <em class="guilabel">Modifier</em>).</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">is_locked()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si un verrou WebDAV est posé sur l'objet publié.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">actions()</span></tt></td>
+<td>Les actions filtrées sur le contexte, dépendant des droits de
+l'utilisateur courant. Toutes les catégories d'actions sont fournies sous
+la forme <tt class="docutils literal"><span class="pre">{catégorie:</span> <span class="pre">[{action},</span> <span class="pre">{action},</span> <span class="pre">...],</span> <span class="pre">...}</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">portlet_assignable()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'objet publié peut se voir assigner des portlets. Assigner
+des portlets signifie dans ce cas qu'une disposition de portlets
+spécifique à cet objet peut être envisagée (affichage du lien de gestion
+des portlets). Et non que des portlets peuvent être affichées, ce qui est
+toujours le cas.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="index.html"
+                        title="Chapitre précédent">Les vues standard</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="plone_portal_state.html"
+                        title="Chapitre suivant">La vue &quot;plone_portal_state&quot;</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/vues_standard/plone_context_state.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="plone_portal_state.html" title="La vue &#34;plone_portal_state&#34;"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Les vues standard"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

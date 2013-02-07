@@ -1,0 +1,371 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PlonePAS en ZMI &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Gestion des utilisateurs avec PlonePAS" href="index.html" />
+    <link rel="next" title="Les plugins standard" href="plugins_standard.html" />
+    <link rel="prev" title="Architecture fonctionnelle" href="archi_fonctionnelle.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plugins_standard.html" title="Les plugins standard"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="archi_fonctionnelle.html" title="Architecture fonctionnelle"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Gestion des utilisateurs avec PlonePAS</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <span class="target" id="plonepas-zmi"></span><div class="section" id="plonepas-en-zmi">
+<span id="index-0"></span><h1>PlonePAS en ZMI<a class="headerlink" href="#plonepas-en-zmi" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Un petit tour en ZMI vous permettra de mieux comprendre tout ceci...</p>
+<hr class="docutils" />
+<img alt="../_images/plonepas-zmi-1.png" src="../_images/plonepas-zmi-1.png" />
+<hr class="docutils" />
+<p>La vue principale d'un <tt class="xref py py-mod docutils literal"><span class="pre">PlonePAS</span></tt> expose l'ensemble des plugins - ici ne
+sont exposés que les plugins installés par défaut sur un site Plone 4 - ainsi
+que l'objet <em class="guilabel">plugins</em>, chef d'orchestre des règles de fonctionnement
+de PlonePAS. Intéressons-nous à ce dernier en premier. <a class="footnote-reference" href="#joke" id="id1">[1]</a></p>
+<div class="section" id="categories-de-plugins">
+<span id="index-1"></span><h2>Catégories de plugins<a class="headerlink" href="#categories-de-plugins" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Ouvrons maintenant l'objet <em class="guilabel">acl_users/plugins</em> qui est le &quot;chef
+d'orchestre&quot; de l'utilisation des <a class="reference internal" href="../glossaire.html#term-plugin"><em class="xref std std-term">plugin</em></a>.</p>
+<hr class="docutils" />
+<img alt="../_images/plugin-registry.png" src="../_images/plugin-registry.png" />
+<hr class="docutils" />
+<p>Cette vue vous propose les différentes catégories de plugins de
+<tt class="xref py py-mod docutils literal"><span class="pre">PlonePAS</span></tt>. Comme vous pouvez le constater, chaque catégorie de
+<a class="reference internal" href="../glossaire.html#term-plugin"><em class="xref std std-term">plugin</em></a> est expliquée brièvement.</p>
+<p>Une petite traduction commentée :</p>
+<div class="section" id="anonymoususerfactory-plugins">
+<h3>Anonymoususerfactory Plugins<a class="headerlink" href="#anonymoususerfactory-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type sont des factories d'utilisateurs anonymes. Plone en
+standard n'en utilise pas, sachant qu'il ne propose pas de fonctionnalité
+nécessitant un objet évolué, contrairement aux utilisateurs authentifiés.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IAnonymousUserFactoryPlugin</span></tt></p>
+</div>
+<div class="section" id="authentication-plugins">
+<h3>Authentication Plugins<a class="headerlink" href="#authentication-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type sont responsable de vérifier la validité d'une
+accréditation, généralement un couple identité, mot de passe.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IAuthenticationPlugin</span></tt></p>
+</div>
+<div class="section" id="challenge-plugins">
+<h3>Challenge Plugins<a class="headerlink" href="#challenge-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Ces plugins sont chargés de retourner directement ou indirectement une ressource
+à partir de laquelle l'utilisateur pourra fournir ses accréditations - par
+exemple la page d'authentification. Ce genre de plugin est sollicité lorsqu'un
+utilisateur anonyme tente d'accéder directement ou indirectement à une ressource
+protégée.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IChallengePlugin</span></tt></p>
+</div>
+<div class="section" id="challenge-protocol-chooser-plugins">
+<h3>Challenge Protocol Chooser Plugins<a class="headerlink" href="#challenge-protocol-chooser-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Ces plugins sont chargés de fournir une liste de protocoles (HTTP, FTP, ...)
+pour lesquels un challenge d'authentification peut être lancé. Vous n'aurez
+généralement pas besoin de changer le paramétrage du chooser standard fourni
+avec Plone, encore moins de réaliser votre propre plugin de ce type.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IChallengeProtocolChooser</span></tt></p>
+</div>
+<div class="section" id="reset-credentials-plugins">
+<h3>Reset Credentials Plugins<a class="headerlink" href="#reset-credentials-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type sont chargés de supprimer le jeton d'authentification de
+l'utilisateur. Ils sont sollicités lorsque l'utilisateur de déconnecte du
+site. Comme le jeton d'authentification est récupéré par un plugin de type
+<a class="reference internal" href="#extraction-plugins">Extraction Plugins</a>, et est placé par un plugin de type <a class="reference internal" href="#update-credentials-plugins">Update Credentials
+Plugins</a>, ces trois rôles sont généralement assurés par le même plugin qui est
+donc un <a class="reference internal" href="../glossaire.html#term-multiplugin"><em class="xref std std-term">multiplugin</em></a>.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.ICredentialsResetPlugin</span></tt></p>
+</div>
+<div class="section" id="update-credentials-plugins">
+<h3>Update Credentials Plugins<a class="headerlink" href="#update-credentials-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type sont chargés de fournir au client le jeton
+d'authentification, après une authentification réussie à travers un
+<a class="reference internal" href="#authentication-plugins">Authentication Plugins</a> ou un changement de mot de passe.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.ICredentialsUpdatePlugin</span></tt></p>
+</div>
+<div class="section" id="extraction-plugins">
+<h3>Extraction Plugins<a class="headerlink" href="#extraction-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type ont pour rôle d'extraire l'accréditation du
+request. C'est-à-dire le jeton d'authentification de l'utilisateur
+authentifié. Dans le cas du protocole HTTP, celui-ci est généralement placé dans
+un header (typiquement <tt class="docutils literal"><span class="pre">WWW-Authenticate</span></tt>) ou dans un cookie. C'est
+typiquement ce type de plugin que vous devrez réaliser pour intégrer votre site
+Plone dans une infrastructure <a class="reference internal" href="../glossaire.html#term-sso"><em class="xref std std-term">SSO</em></a>.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IExtractionPlugin</span></tt></p>
+</div>
+<div class="section" id="group-enumeration-plugins">
+<h3>Group_Enumeration Plugins<a class="headerlink" href="#group-enumeration-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type permettent de retrouver des informations sur des groupes
+en fonction de critères de recherche.</p>
+<p>Interface :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IGroupEnumerationPlugin</span></tt></p>
+</div>
+<div class="section" id="group-introspection-plugins">
+<h3>Group_Introspection Plugins<a class="headerlink" href="#group-introspection-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type sont sollicités pour fournir des informations avancées
+sur les groupes (informations étendues d'un groupe, membres d'un groupe, liste
+de groupes, ...). En général, ce genre de plugin est un <a class="reference internal" href="../glossaire.html#term-multiplugin"><em class="xref std std-term">multiplugin</em></a> qui
+est également un <a class="reference internal" href="#group-enumeration-plugins">Group_Enumeration Plugins</a></p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.group.IGroupIntrospection</span></tt></p>
+</div>
+<div class="section" id="group-management-plugins">
+<h3>Group_Management Plugins<a class="headerlink" href="#group-management-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type gèrent des groupes dits &quot;mutables&quot;, c'est à dire dont les
+caractéristiques et les membres sont gérés à travers Zope et Plone comme c'est
+le cas du gestionnaire de groupes fourni en standard par Plone. Un
+<a class="reference internal" href="../glossaire.html#term-multiplugin"><em class="xref std std-term">multiplugin</em></a> de ce type est généralement également de type <a class="reference internal" href="#groups-plugins">Groups
+Plugins</a>.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.group.IGroupManagement</span></tt></p>
+</div>
+<div class="section" id="groups-plugins">
+<h3>Groups Plugins<a class="headerlink" href="#groups-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type fournissent les noms des groupes auxquels appartient un
+<a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a>.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IGroupsPlugin</span></tt></p>
+</div>
+<div class="section" id="local-roles-plugins">
+<h3>Local_Roles Plugins<a class="headerlink" href="#local-roles-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type fournissent les rôles dont dispose un <a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a>
+dans un contexte donné.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.plugins.ILocalRolesPlugin</span></tt></p>
+</div>
+<div class="section" id="properties-plugins">
+<h3>Properties Plugins<a class="headerlink" href="#properties-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce types sont chargés de fournir des propriétés à un
+<a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a> (exemple: nom comlet, adresse mail, etc.). Ces propriétés sont
+fournies sous forme de. Lors de la collection des propriétés d'un
+<a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a>, les propriétés fournies par l'ensemble des <a class="reference internal" href="#properties-plugins">Properties
+Plugins</a> activés sont cumulées.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IPropertiesPlugin</span></tt></p>
+<p>A noter que les plugins de ce type peuvent également implémenter l'interface
+<tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.plugins.IMutablePropertiesPlugin</span></tt>
+lorsqu'ils offrent à Plone la possibilité de modifier les propriétés de
+l'utilisateur.</p>
+</div>
+<div class="section" id="request-type-sniffer-plugins">
+<h3>Request_Type_Sniffer Plugins<a class="headerlink" href="#request-type-sniffer-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type ont pour rôle de déterminer le type de requête de
+l'application cliente (WebDav, XML-RPC, FTP ou navigateur). Sauf en cas de
+besoins &quot;spéciaux&quot; pour un type de client particulier, vous n'aurez jamais à
+réaliser de plugin de ce type, ni même à modifier le paramétrage du plugin de ce
+type installé en standard.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IRequestTypeSniffer</span></tt></p>
+</div>
+<div class="section" id="role-assigner-plugins">
+<h3>Role_Assigner Plugins<a class="headerlink" href="#role-assigner-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type permettent d'ajouter ou de supprimer de façon persistente
+un rôle à un <a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a>.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IRoleAssignerPlugin</span></tt></p>
+</div>
+<div class="section" id="role-enumeration-plugins">
+<h3>Role_Enumeration Plugins<a class="headerlink" href="#role-enumeration-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type permettent d'obtenir une liste de rôles (sous forme de
+mapping incluant des informations supplémentaires) répondant à des critères de
+recherche.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IRoleEnumerationPlugin</span></tt></p>
+</div>
+<div class="section" id="roles-plugins">
+<h3>Roles Plugins<a class="headerlink" href="#roles-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins de ce type permettent d'assigner des rôles à un
+<a class="reference internal" href="../glossaire.html#term-principal"><em class="xref std std-term">principal</em></a>. L'ensemble des plugins activés sont sollicités lors de chaque
+transaction pour déterminer les rôles dont dispose un utilisateur.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IRolesPlugin</span></tt></p>
+</div>
+<div class="section" id="update-plugins">
+<h3>Update Plugins<a class="headerlink" href="#update-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Cette interface n'est utilisée nulle part.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IUpdatePlugin</span></tt></p>
+</div>
+<div class="section" id="user-adder-plugins">
+<h3>User_Adder Plugins<a class="headerlink" href="#user-adder-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface ont l'aptitude d'ajouter des
+utilisateurs de façon persistente. Attention, on utilise plus souvent
+l'interface <a class="reference internal" href="#user-management-plugins">User_Management Plugins</a> plus complète qui hérite de la présente
+interface.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IUserAdderPlugin</span></tt></p>
+</div>
+<div class="section" id="user-enumeration-plugins">
+<h3>User_Enumeration Plugins<a class="headerlink" href="#user-enumeration-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface sont utilisés pour énumérer les
+utilisateurs selon des critères particuliers. Par exemple pour rechercher
+les utilisateurs dont le nom contient &quot;dup&quot;.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IUserEnumerationPlugin</span></tt></p>
+</div>
+<div class="section" id="userfactory-plugins">
+<h3>Userfactory Plugins<a class="headerlink" href="#userfactory-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface sont susceptibles de construire des
+objets de type &quot;utilisateur&quot;. Ce type d'objet, conforme aux utilisateurs Zope
+standard (sécurité, etc.) fournit également les propriétés de l'utilisateur
+(adresse mail, nom complet, ...). Dans le cadre de l'utilisation dans Plone, un
+plugin de ce type est déjà fourni, et sauf exception spécifique, il sera très
+rarement nécessaire de fournir un plugin spécialisé.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IUserFactoryPlugin</span></tt></p>
+</div>
+<div class="section" id="user-introspection-plugins">
+<h3>User_Introspection Plugins<a class="headerlink" href="#user-introspection-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface permettent de lister sous différentes
+formes tous les utilisateurs qu'ils &quot;contiennent&quot;. Généralement, les plugins de
+ce type sont également des <a class="reference internal" href="#authentication-plugins">Authentication Plugins</a>.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.plugins.IUserIntrospection</span></tt></p>
+</div>
+<div class="section" id="user-management-plugins">
+<h3>User_Management Plugins<a class="headerlink" href="#user-management-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface fournissent les outils pour
+changer le mot de passe d'un utilisateur et pour supprimer un utilisateur.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PlonePAS.interfaces.plugins.IUserManagement</span></tt></p>
+</div>
+<div class="section" id="validation-plugins">
+<h3>Validation Plugins<a class="headerlink" href="#validation-plugins" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les plugins implémentant cette interface valident les modifications de
+propriétés d'un utilisateur.</p>
+<p>Interface : <tt class="xref py py-class docutils literal"><span class="pre">Products.PluggableAuthService.interfaces.plugins.IValidationPlugin</span></tt></p>
+<table class="docutils footnote" frame="void" id="joke" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Ceci est un oxymore, je le sais.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">PlonePAS en ZMI</a><ul>
+<li><a class="reference internal" href="#categories-de-plugins">Catégories de plugins</a><ul>
+<li><a class="reference internal" href="#anonymoususerfactory-plugins">Anonymoususerfactory Plugins</a></li>
+<li><a class="reference internal" href="#authentication-plugins">Authentication Plugins</a></li>
+<li><a class="reference internal" href="#challenge-plugins">Challenge Plugins</a></li>
+<li><a class="reference internal" href="#challenge-protocol-chooser-plugins">Challenge Protocol Chooser Plugins</a></li>
+<li><a class="reference internal" href="#reset-credentials-plugins">Reset Credentials Plugins</a></li>
+<li><a class="reference internal" href="#update-credentials-plugins">Update Credentials Plugins</a></li>
+<li><a class="reference internal" href="#extraction-plugins">Extraction Plugins</a></li>
+<li><a class="reference internal" href="#group-enumeration-plugins">Group_Enumeration Plugins</a></li>
+<li><a class="reference internal" href="#group-introspection-plugins">Group_Introspection Plugins</a></li>
+<li><a class="reference internal" href="#group-management-plugins">Group_Management Plugins</a></li>
+<li><a class="reference internal" href="#groups-plugins">Groups Plugins</a></li>
+<li><a class="reference internal" href="#local-roles-plugins">Local_Roles Plugins</a></li>
+<li><a class="reference internal" href="#properties-plugins">Properties Plugins</a></li>
+<li><a class="reference internal" href="#request-type-sniffer-plugins">Request_Type_Sniffer Plugins</a></li>
+<li><a class="reference internal" href="#role-assigner-plugins">Role_Assigner Plugins</a></li>
+<li><a class="reference internal" href="#role-enumeration-plugins">Role_Enumeration Plugins</a></li>
+<li><a class="reference internal" href="#roles-plugins">Roles Plugins</a></li>
+<li><a class="reference internal" href="#update-plugins">Update Plugins</a></li>
+<li><a class="reference internal" href="#user-adder-plugins">User_Adder Plugins</a></li>
+<li><a class="reference internal" href="#user-enumeration-plugins">User_Enumeration Plugins</a></li>
+<li><a class="reference internal" href="#userfactory-plugins">Userfactory Plugins</a></li>
+<li><a class="reference internal" href="#user-introspection-plugins">User_Introspection Plugins</a></li>
+<li><a class="reference internal" href="#user-management-plugins">User_Management Plugins</a></li>
+<li><a class="reference internal" href="#validation-plugins">Validation Plugins</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="archi_fonctionnelle.html"
+                        title="Chapitre précédent">Architecture fonctionnelle</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="plugins_standard.html"
+                        title="Chapitre suivant">Les plugins standard</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/plonepas/plonepas_zmi.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="plugins_standard.html" title="Les plugins standard"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="archi_fonctionnelle.html" title="Architecture fonctionnelle"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Gestion des utilisateurs avec PlonePAS</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

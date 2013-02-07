@@ -1,0 +1,948 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Création d’un buildout Plone avec ZopeSkel &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Déploiement et backup" href="deploiement_backup.html" />
+    <link rel="prev" title="Installation et création d’une instance Plone" href="installation_et_creation_d_une_instance_Plone.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="deploiement_backup.html" title="Déploiement et backup"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="installation_et_creation_d_une_instance_Plone.html" title="Installation et création d’une instance Plone"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="creation-d-un-buildout-plone-avec-zopeskel">
+<span id="buildout-plone3"></span><h1>Création d&#8217;un buildout Plone avec ZopeSkel<a class="headerlink" href="#creation-d-un-buildout-plone-avec-zopeskel" title="Lien permanent vers ce titre">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Vincent Fretin</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Contributors:</th><td class="field-body"></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">1.0.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Révision:</th><td class="field-body"><a class="reference external" href="https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt">https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>Copyright (C) 2010 Vincent Fretin &lt;vincentfretin AT ecreall.com&gt;.</p>
+<p>Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d&#8217;Utilisation Commerciale-Partage des Conditions Initiales à l&#8217;Identique 2.0
+France accessible à <a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr">http://creativecommons.org/licenses/by-nc-sa/2.0/fr</a></p>
+<p>Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).</p>
+<p>THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+&#8220;AS IS&#8221; AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.</p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#creation-du-buildout" id="id1">Création du buildout</a></li>
+<li><a class="reference internal" href="#installation-de-produits-tierces" id="id2">Installation de produits tierces</a></li>
+<li><a class="reference internal" href="#creation-d-un-policy-package-contenant-la-configuration-du-site-plone" id="id3">Création d&#8217;un policy package contenant la configuration du site Plone</a><ul>
+<li><a class="reference internal" href="#creation-du-policy-package" id="id4">Création du policy package</a></li>
+<li><a class="reference internal" href="#installation-de-products-collage-a-l-installation-de-formation-policy" id="id5">Installation de Products.Collage à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#declaration-de-formation-policy-comme-plugin-plone" id="id6">Déclaration de formation.policy comme plugin Plone</a></li>
+<li><a class="reference internal" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy" id="id7">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs" id="id8">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-propos-des-versions" id="id9">À propos des versions</a></li>
+<li><a class="reference internal" href="#releaser-le-policy-package" id="id10">Releaser le policy package</a></li>
+<li><a class="reference internal" href="#repasser-au-developpement" id="id11">Repasser au développement</a></li>
+<li><a class="reference internal" href="#utilisation-de-mr-developer-pour-gerer-les-composants-en-developpement" id="id12">Utilisation de mr.developer pour gérer les composants en développement</a></li>
+<li><a class="reference internal" href="#fabric" id="id13">Fabric</a></li>
+<li><a class="reference internal" href="#ressources" id="id14">Ressources</a></li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Ce chapitre utilise un dépôt subversion créé dans le chapitre
+<a class="reference external" href="http://docs.ecreall.com/developpeur/gestion_des_sources.html#gestion-des-sources" title="(in Plone pour les développeurs v1.0.0)"><em class="xref std std-ref">La gestion des sources avec subversion</em></a>
+ainsi qu&#8217;un Pypi privé créé via <a class="reference internal" href="concepts_python_eggs.html#plonesoftwarecenter"><em>Mise en place d&#8217;un Pypi privé avec PloneSoftwareCenter</em></a>.</p>
+</div>
+<div class="section" id="creation-du-buildout">
+<h2><a class="toc-backref" href="#id1">Création du buildout</a><a class="headerlink" href="#creation-du-buildout" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Créez les répertoires buildouts et packages sur le dépôt subversion :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn mkdir http://devagile/Formation/buildouts
+<span class="nv">$ </span>svn mkdir http://devagile/Formation/packages
+</pre></div>
+</div>
+<p>Commandes :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create -t basic_buildout plone4 --svn-repository<span class="o">=</span>http://devagile/Formation/buildouts/
+Selected and implied templates:
+  templer.buildout#basic_buildout  A basic buildout skeleton
+
+Variables:
+  egg:      plone4
+  package:  plone4
+  project:  plone4
+Running:
+svn mkdir ...
+
+Running svn co ...
+Expert Mode? <span class="o">(</span>What question mode would you like? <span class="o">(</span>easy/expert/all<span class="o">)</span>?<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;easy&#39;</span><span class="o">]</span>:
+Creating template basic_buildout
+  Copying buildout.cfg_tmpl to ./plone4/buildout.cfg
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Avec l&#8217;option &#8211;svn-directory,
+un bug connu de Paste-1.7.3 et ZopeSkel-2.16
+produit l&#8217;erreur suivante à la fin du processus :</p>
+<p>IOError: No egg-info directory found</p>
+<p class="last">Vous pouvez simplement l&#8217;ignorer.</p>
+</div>
+<p>Vous allez éditer le fichier <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt> avant d&#8217;amorcer
+le buildout.</p>
+<p>Remplacez le fichier <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt> par :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[buildout]</span>
+<span class="na">parts</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    instance</span>
+<span class="s">    zopepy</span>
+<span class="na">extends</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    http://dist.plone.org/release/4.2/versions.cfg</span>
+<span class="s">    versions.cfg</span>
+<span class="na">versions</span> <span class="o">=</span> <span class="s">versions</span>
+<span class="na">find-links</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    http://dist.plone.org/release/4.2</span>
+<span class="na">eggs</span> <span class="o">=</span> <span class="s">Pillow</span>
+<span class="na">develop</span> <span class="o">=</span>
+
+<span class="k">[instance]</span>
+<span class="na">recipe</span> <span class="o">=</span> <span class="s">plone.recipe.zope2instance</span>
+<span class="na">user</span> <span class="o">=</span> <span class="s">admin:admin</span>
+<span class="na">http-address</span> <span class="o">=</span> <span class="s">8080</span>
+<span class="na">eggs</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    Plone</span>
+<span class="s">    ${buildout:eggs}</span>
+<span class="na">environment-vars</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    zope_i18n_compile_mo_files true</span>
+<span class="na">zcml</span> <span class="o">=</span>
+
+<span class="k">[zopepy]</span>
+<span class="na">recipe</span> <span class="o">=</span> <span class="s">zc.recipe.egg</span>
+<span class="na">eggs</span> <span class="o">=</span> <span class="s">${instance:eggs}</span>
+<span class="na">interpreter</span> <span class="o">=</span> <span class="s">zopepy</span>
+<span class="na">scripts</span> <span class="o">=</span> <span class="s">zopepy</span>
+</pre></div>
+</div>
+<p>Pillow est un fork de PIL (Python Imaging Library).</p>
+<p>Créez un fichier <tt class="file docutils literal"><span class="pre">versions.cfg</span></tt> que vous utiliserez
+pour geler les versions des modules, pour l&#8217;instant vide :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[versions]</span>
+</pre></div>
+</div>
+<p>Si vous voulez travailler sur la dernière version du fichier versions.cfg de
+Plone, vous pouvez le télécharger comme ceci :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>wget -O versions-plone.cfg http://dist.plone.org/release/4.2/versions.cfg
+</pre></div>
+</div>
+<p>et changez votre <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt> pour que l&#8217;option extends ressemble à
+ceci :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="na">extends</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    versions-plone.cfg</span>
+<span class="s">    versions.cfg</span>
+</pre></div>
+</div>
+<p>Amorcez et lancez buildout :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd </span>plone4
+<span class="nv">$ </span>python bootstrap.py -d
+<span class="nv">$ </span>bin/buildout
+<span class="nv">$ </span>ls -F
+bin/  bootstrap.py  buildout.cfg  develop-eggs/  parts/  var/  versions.cfg
+<span class="nv">$ </span>ls parts
+buildout  instance
+<span class="nv">$ </span>ls bin
+buildout  instance  zopepy
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong class="command">instance</strong> : script pour contrôler l&#8217;instance zope</li>
+<li><strong class="command">zopepy</strong> : interpréteur python avec l&#8217;ensemble des eggs dans le
+<tt class="xref py py-data docutils literal"><span class="pre">sys.path</span></tt></li>
+</ul>
+<p>Démarrez l&#8217;instance avec <tt class="docutils literal"><span class="pre">bin/instance</span> <span class="pre">fg</span></tt> et connectez vous à <a class="reference external" href="http://localhost:8080">http://localhost:8080</a>
+pour créer votre site Plone.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Commitez votre buildout</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn add versions.cfg
+<span class="nv">$ </span>svn ci -m<span class="s2">&quot;Created initial buildout structure&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="installation-de-produits-tierces">
+<h2><a class="toc-backref" href="#id2">Installation de produits tierces</a><a class="headerlink" href="#installation-de-produits-tierces" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Prenons le produit <a class="reference external" href="http://pypi.python.org/pypi/Products.FCKeditor">FCKeditor</a> comme exemple.</p>
+<p>Stoppez l&#8217;instance avec Ctrl+C.</p>
+<p>Ajoutez <tt class="docutils literal"><span class="pre">Products.FCKeditor</span></tt> dans l&#8217;option <em>eggs</em> de la section <tt class="docutils literal"><span class="pre">[instance]</span></tt>
+et reexécutez le buildout :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>bin/buildout
+</pre></div>
+</div>
+<p>Démarrez l&#8217;instance :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>bin/instance <span class="nb">fg</span>
+</pre></div>
+</div>
+<p>Pour les produits n&#8217;étant pas dans l&#8217;espace de nom (namespace en anglais)
+<em>Products</em>, il faut également l&#8217;ajouter dans l&#8217;option zcml.</p>
+<p>À moins que le produit se proclame plugin Plone comme c&#8217;est le cas
+des modules créés avec la commande <strong class="command">paster</strong> que vous verrez dans
+la suite. Dans ce cas-là les fichiers zcml seront inclus grâce à
+<tt class="xref py py-mod docutils literal"><span class="pre">z3c.autoinclude</span></tt>.</p>
+</div>
+<div class="section" id="creation-d-un-policy-package-contenant-la-configuration-du-site-plone">
+<h2><a class="toc-backref" href="#id3">Création d&#8217;un policy package contenant la configuration du site Plone</a><a class="headerlink" href="#creation-d-un-policy-package-contenant-la-configuration-du-site-plone" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous allez créer un <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a> contenant la configuration du site
+Plone.</p>
+<p>Dans ce <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a>, nous allons aussi dire d&#8217;installer
+automatiquement les produits <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> et
+<tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> lors de l&#8217;installation du produit.</p>
+<p>Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les
+utilisateurs nouvellement créés.</p>
+<div class="section" id="creation-du-policy-package">
+<h3><a class="toc-backref" href="#id4">Création du policy package</a><a class="headerlink" href="#creation-du-policy-package" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Créez le policy package :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> /tmp/
+<span class="nv">$ </span>paster create -t plone_basic formation.policy <span class="se">\</span>
+  --svn-repository<span class="o">=</span>http://devagile/Formation/packages
+
+Selected and implied templates:
+  templer.core#basic_namespace  A basic Python project with a namespace package
+  templer.plone#plone_basic     A package <span class="k">for </span>Plone add-ons
+
+Expert Mode? <span class="o">(</span>What question mode would you like? <span class="o">(</span>easy/expert/all<span class="o">)</span>?<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;easy&#39;</span><span class="o">]</span>:
+Version <span class="o">(</span>Version number <span class="k">for </span>project<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;1.0&#39;</span><span class="o">]</span>:
+Description <span class="o">(</span>One-line description of the project<span class="o">)</span> <span class="o">[</span><span class="s1">&#39;&#39;</span><span class="o">]</span>: Projet exemple pour la formation integrateur
+Register Profile <span class="o">(</span>Should this package register a GS Profile<span class="o">)</span> <span class="o">[</span>False<span class="o">]</span>: True
+<span class="nv">$ </span><span class="nb">cd </span>formation.policy
+<span class="nv">$ </span>svn rm --force formation.policy.egg-info
+<span class="nv">$ </span>svn ci -m <span class="s2">&quot;Add initial structure for formation.policy&quot;</span>
+</pre></div>
+</div>
+<p>Le template <em class="xref std std-option">plone_basic</em> hérite du template <em class="xref std std-option">basic_namespace</em>, il
+ajoute en plus un fichier <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt>.</p>
+<p>Vous allez utiliser la propriété <tt class="docutils literal"><span class="pre">svn:externals</span></tt> pour faire une sorte de checkout
+de votre nouveau package dans le dossier src :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span><span class="nb">cd</span> ~/workspace/plone4/
+<span class="nv">$ </span>mkdir src
+<span class="nv">$ </span>svn add src
+<span class="nv">$ </span><span class="nb">cd </span>src
+<span class="nv">$ </span>vim EXTERNALS.txt
+formation.policy http://devagile/Formation/packages/formation.policy/trunk
+<span class="nv">$ </span>svn propset svn:externals -F EXTERNALS.txt .
+<span class="nv">$ </span>svn up
+<span class="nv">$ </span>svn add EXTERNALS.txt
+<span class="nv">$ </span>svn ci -m <span class="s2">&quot;Set svn:externals on src directory to install formation.policy&quot;</span>
+</pre></div>
+</div>
+<p>Ajoutez <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> en dépendances
+de <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> dans le fichier <tt class="file docutils literal"><span class="pre">src/formation.policy/setup.py</span></tt>
+(option install_requires).</p>
+<p>Lorsque vous êtes dans le dossier src, la commande <strong class="command">svn stat</strong> vous
+renvoie les changements faits dans les externals, ici les changements de
+<tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> s&#8217;il y en a.</p>
+<p>La commande <strong class="command">svn up</strong> sera également faite dans les différents externals.
+La seule exception est la commade <strong class="command">svn ci</strong> exécutée à partir du dossier
+<tt class="file docutils literal"><span class="pre">src</span></tt> ou plus en amont, les fichiers modifiés ou ajoutés dans les
+externals ne seront pas commités.</p>
+<p>Il faut vraiment être à l&#8217;intérieur de l&#8217;external, ici le dossier
+<tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> pour que le commit des changements soit réalisé.</p>
+<p>Ceci dit, commitez le changement fait au fichier <tt class="file docutils literal"><span class="pre">setup.py</span></tt>.</p>
+<p>Editez buildout.cfg pour ajouter <em>formation.policy</em> :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[buildout]</span>
+<span class="c1">#...</span>
+<span class="na">develop +</span><span class="o">=</span> <span class="s">src/formation.policy</span>
+
+<span class="k">[instance]</span>
+<span class="c1">#...</span>
+<span class="na">eggs</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    #...</span>
+<span class="s">    formation.policy</span>
+<span class="na">zcml</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    formation.policy</span>
+</pre></div>
+</div>
+<p>Exécutez <strong class="command">bin/buildout</strong>.</p>
+<p>L&#8217;ajout de <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> dans l&#8217;option <tt class="docutils literal"><span class="pre">zcml</span> <span class="pre">=</span> <span class="pre">...</span></tt> génère un <em>ZCML
+slug</em>, fichier XML contenant une seule ligne :</p>
+<p class="centered">
+<strong><tt class="file docutils literal"><span class="pre">parts/instance/etc/package-includes/001-formation.policy-configure.zcml</span></tt></strong></p><div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;include</span> <span class="na">package=</span><span class="s">&quot;formation.policy&quot;</span> <span class="na">file=</span><span class="s">&quot;configure.zcml&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>En fait au démarrage de l&#8217;instance Zope, le fichier
+<tt class="file docutils literal"><span class="pre">parts/instance/etc/site.zcml</span></tt> est lu, ce qui entraine la lecture de tous
+les fichiers situés dans le dossier <tt class="file docutils literal"><span class="pre">package-includes</span></tt>, ainsi que les
+fichiers <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt>, <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> et <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt> des
+produits dans l&#8217;espace de nom <tt class="docutils literal"><span class="pre">Products</span></tt>.</p>
+<p>La chaine de lecture est donc celle-ci :</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">parts/instance/etc/site.zcml</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">parts/instance/etc/package-includes/001-formation.policy-configure.zcml</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation/policy/configure.zcml</span></tt></li>
+</ul>
+<p>Ces fichiers ZCML sont les fichiers de configuration utilisés par la ZCA
+(Zope Component Architecture) pour enregistrer les composants au démarrage.</p>
+</div>
+<div class="section" id="installation-de-products-collage-a-l-installation-de-formation-policy">
+<h3><a class="toc-backref" href="#id5">Installation de Products.Collage à l&#8217;installation de formation.policy</a><a class="headerlink" href="#installation-de-products-collage-a-l-installation-de-formation-policy" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Vous allez maintenant dire à Plone d&#8217;installer <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt>
+lorsque vous installez <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt>.</p>
+<p>Ouvrez le fichier <tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation/policy/configure.zcml</span></tt>,
+vous avez normalement ceci :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span>
+    <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+    <span class="na">xmlns:five=</span><span class="s">&quot;http://namespaces.zope.org/five&quot;</span>
+    <span class="na">xmlns:i18n=</span><span class="s">&quot;http://namespaces.zope.org/i18n&quot;</span>
+    <span class="na">xmlns:genericsetup=</span><span class="s">&quot;http://namespaces.zope.org/genericsetup&quot;</span>
+    <span class="na">i18n_domain=</span><span class="s">&quot;formation.policy&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;five:registerPackage</span> <span class="na">package=</span><span class="s">&quot;.&quot;</span> <span class="na">initialize=</span><span class="s">&quot;.initialize&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;genericsetup:registerProfile</span>
+      <span class="na">name=</span><span class="s">&quot;default&quot;</span>
+      <span class="na">title=</span><span class="s">&quot;formation.policy&quot;</span>
+      <span class="na">directory=</span><span class="s">&quot;profiles/default&quot;</span>
+      <span class="na">description=</span><span class="s">&quot;Installs the formation.policy package&quot;</span>
+      <span class="na">provides=</span><span class="s">&quot;Products.GenericSetup.interfaces.EXTENSION&quot;</span>
+      <span class="nt">/&gt;</span>
+  <span class="c">&lt;!-- -*- extra stuff goes here -*- --&gt;</span>
+
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>La directive <tt class="docutils literal"><span class="pre">&lt;five:registerPackage</span> <span class="pre">..../&gt;</span></tt> signale à Zope que c&#8217;est un
+module. Cette ligne est importante vu que nous ne sommes pas dans l&#8217;espace
+de nom Products.</p>
+<p>La directive <tt class="docutils literal"><span class="pre">&lt;genericsetup:registerProfile</span> <span class="pre">.../&gt;</span></tt> permet d&#8217;enregistrer un
+nouveau profil d&#8217;extension (option <tt class="docutils literal"><span class="pre">provides</span></tt>) avec le nom <tt class="docutils literal"><span class="pre">default</span></tt>
+(option <tt class="docutils literal"><span class="pre">name</span></tt>). Les fichiers du profil se trouvent dans le dossier
+<tt class="file docutils literal"><span class="pre">profiles/default</span></tt>. (option <tt class="docutils literal"><span class="pre">directory</span></tt>).</p>
+<p>Dans <tt class="file docutils literal"><span class="pre">profiles/default</span></tt>, éditez le fichier <tt class="file docutils literal"><span class="pre">metadata.xml</span></tt>
+comme ceci :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;metadata&gt;</span>
+  <span class="nt">&lt;version&gt;</span>1000<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>profile-Products.Collage:default<span class="nt">&lt;/dependency&gt;</span>
+  <span class="nt">&lt;/dependencies&gt;</span>
+<span class="nt">&lt;/metadata&gt;</span>
+</pre></div>
+</div>
+<p>Le produit <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> utilise bien un profil donc nous
+pouvons l&#8217;installer de cette manière.</p>
+<p>Jetez un œil à la seule documentation qui existe sur le <a class="reference external" href="http://plone.org/products/plone/roadmap/195">support des dépendances
+de produits dans metadata.xml</a>.</p>
+<p>Notez que la <em>best practice</em> est maintenant d&#8217;utiliser un entier pour la version
+du profile : 1000, 1001, 1002 et 2000, 2001 pour une branche parallèle.
+ArchGenXML ne respecte pas encore cette convention, il faut au moins deux entiers
+séparés par un point, ex : 1.0. Ce sera sans doute corrigé dans une prochaine
+version.</p>
+<p>Dans la chaine <tt class="docutils literal"><span class="pre">profile-Products.Collage:default</span></tt>, nous avons le préfixe
+<tt class="docutils literal"><span class="pre">profile-</span></tt>, le package au sens Python <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt>, le
+caractère <tt class="docutils literal"><span class="pre">:</span></tt> et le nom du profil à charger <tt class="docutils literal"><span class="pre">default</span></tt>.  Ici <tt class="docutils literal"><span class="pre">default</span></tt> est
+le <tt class="docutils literal"><span class="pre">name</span></tt> donné lors du <tt class="docutils literal"><span class="pre">genericsetup:registerProfile</span></tt> dans le fichier
+<tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> de <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt>.</p>
+</div>
+<div class="section" id="declaration-de-formation-policy-comme-plugin-plone">
+<h3><a class="toc-backref" href="#id6">Déclaration de formation.policy comme plugin Plone</a><a class="headerlink" href="#declaration-de-formation-policy-comme-plugin-plone" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Plone 3.3 inclut un nouveau <a class="reference external" href="http://plone.org/products/plone/roadmap/247">système de plugin</a>. Un produit peut être déclaré
+plugin Plone.</p>
+<p>Dans ce cas les fichiers <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt>, <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> et
+<tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt> du produit seront lus au démarrage, comme pour les
+produits dans l&#8217;espace de nom <tt class="docutils literal"><span class="pre">Products</span></tt>.</p>
+<p>Il n&#8217;est plus nécessaire d&#8217;ajouter le produit dans l&#8217;option <tt class="docutils literal"><span class="pre">zcml</span></tt> de la
+section <tt class="docutils literal"><span class="pre">[instance]</span></tt> dans <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt>.</p>
+<p>Pour cela vérifiez que le egg est déclaré comme plugin Plone, avec dans <tt class="file docutils literal"><span class="pre">src/formation.policy/setup.py</span></tt> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">entry_points</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">[z3c.autoinclude.plugin]</span>
+<span class="s">target = plone</span>
+<span class="s">&quot;&quot;&quot;</span>
+</pre></div>
+</div>
+<p>Supprimez <tt class="docutils literal"><span class="pre">formation.policy</span></tt> de l&#8217;option <tt class="docutils literal"><span class="pre">zcml</span></tt> de la section <tt class="docutils literal"><span class="pre">[instance]</span></tt>
+dans <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt>.</p>
+<p>Et relancez <tt class="docutils literal"><span class="pre">bin/buildout</span></tt> qui va supprimer le fichier
+<tt class="file docutils literal"><span class="pre">parts/instance/etc/package-includes/001-formation.policy-configure.zcml</span></tt>.</p>
+<p>La commande regénère également les metadonnées associées aux eggs en
+développement, concrètement il regénére le fichier
+<tt class="file docutils literal"><span class="pre">src/formation.policy/formation.policy.egg-info/entry_points.txt</span></tt> qui
+déclare le egg comme plugin Plone.</p>
+<p>À quel moment est lu le fichier <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> de
+<tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> ? Il n&#8217;y a rien de magique, la chaine de lecture
+est maintenant :</p>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">parts/instance/etc/site.zcml</span></tt></li>
+<li>lecture des fichiers <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> de tous les produits dans l&#8217;espace de nom <tt class="docutils literal"><span class="pre">Products</span></tt></li>
+<li><tt class="file docutils literal"><span class="pre">~/.buildout/eggs/Products.CMFPlone-4.2.0.1-py2.7.egg/Products/CMFPlone/configure.zcml</span></tt>
+qui contient les lignes :</li>
+</ul>
+<div class="highlight-xml"><div class="highlight"><pre><span class="c">&lt;!-- include plone plugins with z3c.autoinclude --&gt;</span>
+<span class="nt">&lt;includePlugins</span>
+    <span class="na">zcml:condition=</span><span class="s">&quot;not-have disable-autoinclude&quot;</span>
+    <span class="na">package=</span><span class="s">&quot;plone&quot;</span>
+    <span class="na">file=</span><span class="s">&quot;configure.zcml&quot;</span>
+    <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>includePlugins</p>
+<p class="last"><tt class="docutils literal"><span class="pre">includePlugins</span></tt> est une nouvelle directive fournie par
+<tt class="xref py py-mod docutils literal"><span class="pre">z3c.autoinclude</span></tt>. Ici tous les eggs ayant un entry point dans le
+groupe <tt class="docutils literal"><span class="pre">z3c.autoinclude.plugin</span></tt> sont recherchés.  Nous avons dans cette
+directive <tt class="docutils literal"><span class="pre">package=&quot;plone&quot;</span></tt> donc seul les entry points avec <tt class="docutils literal"><span class="pre">target</span> <span class="pre">=</span>
+<span class="pre">plone</span></tt> sont gardés. Pour chaque egg, le fichier <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt>
+(option <tt class="docutils literal"><span class="pre">file</span></tt> de la directive) est lu.</p>
+</div>
+<ul class="simple">
+<li><tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation/policy/configure.zcml</span></tt></li>
+</ul>
+<p>Vous avez le même principe pour les fichiers <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt> et
+<tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>, jetez un œil dans <tt class="file docutils literal"><span class="pre">Products/CMFPlone/meta.zcml</span></tt> et
+<tt class="file docutils literal"><span class="pre">Products/CMFPlone/overrides.zcml</span></tt>.</p>
+</div>
+<div class="section" id="installation-de-products-fckeditor-a-l-installation-de-formation-policy">
+<h3><a class="toc-backref" href="#id7">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a><a class="headerlink" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour dépendre de <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt>, nous ne pouvons pas utiliser cette
+méthode car <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> n&#8217;utilise pas de profil, mais l&#8217;ancien
+dossier Extensions pour être installé via le tool <tt class="docutils literal"><span class="pre">portal_quickinstaller</span></tt>.</p>
+<p>Il existe un produit pour installer des vieux produits à partir d&#8217;un profil :
+<a class="reference external" href="http://pypi.python.org/pypi/genericsetup.quickinstaller">genericsetup.quickinstaller</a>.</p>
+<p>Ce produit enregistre un nouvel <tt class="docutils literal"><span class="pre">importStep</span></tt> dans <tt class="docutils literal"><span class="pre">portal_setup</span></tt> qui regarde
+lors de l&#8217;installation d&#8217;un produit s&#8217;il existe un fichier <tt class="file docutils literal"><span class="pre">products.xml</span></tt>
+dans le dossier du profile.</p>
+<p>Pour que cela marche, il faut que le fichier <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> de
+<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> soit lu d&#8217;une manière ou d&#8217;une autre au
+démarrage.</p>
+<p>Ajoutez <tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>
+<tt class="docutils literal"><span class="pre">install_requires</span></tt> du <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a>.</p>
+<p>Il faut donc lire le fichier <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> du produit
+<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt>, vous pouvez ajouter dans
+<tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation/policy/configure.zcml</span></tt>, cette directive :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;include</span> <span class="na">package=</span><span class="s">&quot;genericsetup.quickinstaller&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Ici l&#8217;option <tt class="docutils literal"><span class="pre">file</span></tt> n&#8217;est pas précisée, la valeur par défaut étant
+<tt class="docutils literal"><span class="pre">file=&quot;configure.zcml&quot;</span></tt>.</p>
+<p>L&#8217;inconvénient de cette ligne est que vous avez l&#8217;information
+<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> à deux endroits, une première fois dans le
+fichier <tt class="file docutils literal"><span class="pre">setup.py</span></tt> et une deuxième fois dans <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt>.</p>
+<p>Plone 3.3 inclut le package <tt class="xref py py-mod docutils literal"><span class="pre">z3c.autoinclude</span></tt> qui permet de ne pas se
+répéter. En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci
+:</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;includeDependencies</span> <span class="na">package=</span><span class="s">&quot;.&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Cette directive recupère la liste des dépendances du egg. Petit rappel, elle le
+récupère à partir du fichier
+<tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation.policy.egg-info/requires.txt</span></tt> qui lui a
+été généré à partir des informations de <tt class="file docutils literal"><span class="pre">setup.py</span></tt>.</p>
+<p>Pour chaque dépendance dans l&#8217;ordre déclaré, elle va inclure dans l&#8217;ordre les
+fichiers <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt>, <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> et <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>
+s&#8217;ils existent.</p>
+<p>Pour finir, créez un fichier <tt class="file docutils literal"><span class="pre">profiles/default/products.xml</span></tt> qui sera lu
+par l&#8217;importStep enregistré par <tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;products&gt;</span>
+  <span class="nt">&lt;installs&gt;</span>
+    <span class="nt">&lt;product</span> <span class="na">name=</span><span class="s">&quot;FCKeditor&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/installs&gt;</span>
+<span class="nt">&lt;/products&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs">
+<h3><a class="toc-backref" href="#id8">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a><a class="headerlink" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Vous allez configurer FCKeditor comme éditeur par défaut (seulement effectif
+pour les nouveaux utilisateurs).</p>
+<p>Tout d&#8217;abord, dans Configuration du site, Modules, activez <em class="guilabel">formation.policy</em>.</p>
+<p>Allez dans <em class="guilabel">Configuration du site</em>, <em class="guilabel">ZMI</em>,
+<em class="guilabel">portal_setup</em>, <em class="guilabel">Snapshots</em>. Créez un snapshot.</p>
+<p>Retournez à la racine de la ZMI et cliquez sur <em class="guilabel">portal_memberdata</em>,
+cliquez sur l&#8217;onglet <em class="guilabel">Properties</em>.</p>
+<p>Éditez la propriété <em class="guilabel">wysiwyg_editor</em>, mettez la valeur <tt class="docutils literal"><span class="pre">FCKeditor</span></tt>.</p>
+<p>Retournez dans <em class="guilabel">portal_setup</em>, <em class="guilabel">Snapshots</em>. Recréez un
+snapshot. Cliquez maintenant sur l&#8217;onglet <em class="guilabel">Comparison</em> et comparez
+vos deux snapshots. Vous voyez bien que la propriété <em>wysiwyg_editor</em>
+a été modifiée dans le fichier <tt class="file docutils literal"><span class="pre">memberdata_properties.xml</span></tt>.</p>
+<p>Maintenant vous allez exporter cette configuration dans votre policy package.
+Cliquez sur <em class="guilabel">portal_setup</em> dans le fil d&#8217;arianne, et cliquez
+sur l&#8217;onglet <em class="guilabel">Export</em>,
+sélectionnez le step <em class="guilabel">MemberData properties</em>, et cliquez sur
+<em class="guilabel">Export selected steps</em>.</p>
+<p>Téléchargez l&#8217;archive tar.gz proposée, extrayez son contenu dans un dossier
+temporaire et copiez le fichier <tt class="file docutils literal"><span class="pre">memberdata_properties.xml</span></tt> dans le
+dossier <tt class="file docutils literal"><span class="pre">profiles/default</span></tt> de votre <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a>.</p>
+<p>Éditez le fichier pour ne laisser que la propriété qui vous intéresse.
+Vous devez donc avoir au final un fichier
+<tt class="file docutils literal"><span class="pre">profiles/default/memberdata_properties.xml</span></tt> avec ce contenu :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;object</span> <span class="na">name=</span><span class="s">&quot;portal_memberdata&quot;</span> <span class="na">meta_type=</span><span class="s">&quot;PlonePAS MemberData Tool&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;wysiwyg_editor&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">&gt;</span>FCKeditor<span class="nt">&lt;/property&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</pre></div>
+</div>
+<p>Vous pouvez exporter de cette façon presque la totalité des configurations des
+tools Plone.</p>
+<p>Pour être sûr que l&#8217;import fonctionne bien, remettez <tt class="docutils literal"><span class="pre">TinyMCE</span></tt> dans
+<em class="guilabel">wysiwyg_editor</em> en ZMI.</p>
+<p>Comme vous avez ajouté un fichier dans le profil, incrémentez la version dans
+<tt class="file docutils literal"><span class="pre">metadata.xml</span></tt>, nous avons donc la version 1001.</p>
+<p>Maintenant si vous redémarrez l&#8217;instance et que vous allez dans
+<em class="guilabel">Configuration du site</em>, <em class="guilabel">Modules</em>, vous pouvez y lire :</p>
+<ul class="simple">
+<li>formation.policy 1.0
+Ce module a été mis à jour. L&#8217;ancienne version du profil est 1000. La nouvelle version du profil est 1001. Il n&#8217;y a pas de procédure de mise à jour pour ce module. Merci de consulter la documentation du module pour la mise à jour, ou contacter l&#8217;auteur du module.</li>
+</ul>
+<p>Il faut en effet écrire un procédure de migration de la version 1000 vers la version 1001.</p>
+<p>Ajoutez dans <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;genericsetup:upgradeDepends</span>
+    <span class="na">title=</span><span class="s">&quot;formation.policy 1000 to 1001&quot;</span>
+    <span class="na">description=</span><span class="s">&quot;Configure FCKeditor as default wysiwyg editor&quot;</span>
+    <span class="na">profile=</span><span class="s">&quot;formation.policy:default&quot;</span>
+    <span class="na">source=</span><span class="s">&quot;1000&quot;</span>
+    <span class="na">destination=</span><span class="s">&quot;1001&quot;</span>
+    <span class="na">import_steps=</span><span class="s">&quot;memberdata-properties&quot;</span>
+    <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Liste des import steps :</p>
+<p class="last">typeinfo, tinymce_settings, atcttool, actions, skins, factorytool,
+placeful_workflow, componentregistry, controlpanel, placeful_marker,
+jsregistry, action-icons, cmfeditions_various, reference_catalog, viewlets,
+content, propertiestool, various, portlets, content_type_registry, plone-final,
+kssregistry, ploneopenid-various, update-workflow-rolemap, sharing,
+uid_catalog, workflow, cssregistry, contentrules, cookie_authentication,
+catalog, difftool, plone-content, toolset, properties, jquerytools-various,
+tinymce_various, browserlayer, plone-difftool, memberdata-properties,
+kss_mimetype, caching_policy_mgr, archetypetool, mailhost, rolemap,
+various-calendar, qiproducts, archetypes-various</p>
+</div>
+<p>Si vous redémarrez l&#8217;instance, vous aurez :</p>
+<ul class="simple">
+<li>formation.policy 1.0
+Ce module a été mis à jour. L&#8217;ancienne version du profil est 1000. La nouvelle version du profil est 1001. Mettre à jour : formation.policy</li>
+</ul>
+<p>Vous n&#8217;avez plus qu&#8217;à cliquer sur le bouton pour mettre à jour votre module.
+L&#8217;option <em class="guilabel">wysiwyg_editor</em> devrait maintenant être <tt class="docutils literal"><span class="pre">FCKeditor</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Commitez vos changements :</p>
+<div class="last highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn add formation/policy/profiles/default/memberdata_properties.xml <span class="se">\</span>
+  formation/policy/profiles/default/products.xml
+<span class="nv">$ </span>svn ci -m <span class="s2">&quot;Added configuration&quot;</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="a-propos-des-versions">
+<h2><a class="toc-backref" href="#id9">À propos des versions</a><a class="headerlink" href="#a-propos-des-versions" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le panneau de configuration <em class="guilabel">Modules</em> accessible via
+<em class="guilabel">Configuration du site</em> est une interface à
+<em class="guilabel">portal_quickinstaller</em> et <em class="guilabel">portal_setup</em>.</p>
+<p>Elle permet d&#8217;installer les produits n&#8217;ayant pas de profile avec
+<em class="guilabel">portal_quickinstaller</em> et les produits avec profile avec
+<em class="guilabel">portal_setup</em>.</p>
+<p>Les versions affichées sont celles des eggs. La version est récupérée via le
+module <tt class="xref py py-mod docutils literal"><span class="pre">pkg_resources</span></tt> fourni par <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> comme vu précédemment.</p>
+<p>La version du egg et du profil peuvent être différentes. Il est même conseillé
+dès le départ d&#8217;utiliser des versions différentes pour la version du
+produit/egg, et la version du profil.</p>
+<p>La version du egg est une version de la forme 1.0.0, 1.0.1, 1.1.0 etc. Si vous
+modifiez du code Python ou des templates, incrémentez cette version.</p>
+<p>La version du profile est un simple entier qui est incrémenté à chaque fois
+qu&#8217;un fichier est modifié ou ajouté dans le dossier du profile. Vous
+incrémenterez généralement aussi la version du egg.</p>
+</div>
+<div class="section" id="releaser-le-policy-package">
+<h2><a class="toc-backref" href="#id10">Releaser le policy package</a><a class="headerlink" href="#releaser-le-policy-package" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Maintenant que vous avez un <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a> qui fait quelque chose, il
+est peut-être temps de réaliser une release pour pouvoir l&#8217;utiliser en
+production. En effet il n&#8217;est pas conseillé d&#8217;utiliser des produits en mode
+développement en production.</p>
+<p>La première chose à faire et d&#8217;éditer le changelog dans le fichier
+<tt class="file docutils literal"><span class="pre">CHANGES.txt</span></tt>.</p>
+<p>Ce fichier texte est au format reST (<a class="reference external" href="http://docutils.sourceforge.net/rst.html">reStructuredText</a>). Il faut respecter
+certaines conventions d&#8217;écriture pour que ce fichier puisse être généré ensuite
+en HTML sur <a class="reference internal" href="glossaire.html#term-pypi"><em class="xref std std-term">Pypi</em></a>.</p>
+<ul class="simple">
+<li>le soulignage d&#8217;un titre doit aller exactement jusqu&#8217;au bout du titre.</li>
+<li>les listes doivent avoir une ligne vide au début et à la fin</li>
+</ul>
+<p>Pour cette première release, vous allez seulement spécifier la date de la release. Remplacez juste <em>unreleased</em> par <em>2009-06-11</em>.
+Remplacez également la puce de la liste, l&#8217;étoile par un tiret qui est la convention dans les produits Plone.</p>
+<p>Votre fichier doit ressembler à ceci :</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="gh">Changelog</span>
+<span class="gh">=========</span>
+
+<span class="gh">1.0 (2009-06-11)</span>
+<span class="gh">----------------</span>
+
+<span class="m">-</span> Initial release
+</pre></div>
+</div>
+<p>La version dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt> doit également être <em>1.0</em>.</p>
+<p>Commitez :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn ci -m <span class="s2">&quot;Prepare release&quot;</span>
+</pre></div>
+</div>
+<p>Maintenant vous allez faire un tag, c&#8217;est-à-dire une copie d&#8217;une branche qui
+sera gelée, faire un checkout de ce tag et pousser la release :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn cp http://devagile/Formation/packages/formation.policy/trunk http://devagile/Formation/packages/formation.policy/tags/1.0 -m <span class="s2">&quot;Tagged&quot;</span>
+<span class="nv">$ </span><span class="nb">cd</span> /tmp
+<span class="nv">$ </span>svn co http://devagile/Formation/packages/formation.policy/tags/1.0
+<span class="nv">$ </span><span class="nb">cd </span>1.0/
+<span class="nv">$ </span>python setup.py register -r mycompany sdist --formats<span class="o">=</span>zip upload -r mycompany
+</pre></div>
+</div>
+<p>Retournez ensuite dans le trunk, incrémentez la version dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>, donc ici <tt class="docutils literal"><span class="pre">1.1</span></tt>. Et éditez le fichier <tt class="file docutils literal"><span class="pre">CHANGES.txt</span></tt> comme ceci :</p>
+<div class="highlight-rst"><div class="highlight"><pre><span class="gh">Changelog</span>
+<span class="gh">=========</span>
+
+<span class="gh">1.1 (unreleased)</span>
+<span class="gh">----------------</span>
+
+<span class="gh">1.0 (2009-06-11)</span>
+<span class="gh">----------------</span>
+
+<span class="m">-</span> Initial release
+</pre></div>
+</div>
+<p>Et commitez :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn ci -m <span class="s2">&quot;Update version after release&quot;</span>
+</pre></div>
+</div>
+<p>Pour plus d&#8217;informations sur la manière de faire une release, voyez les liens suivants
+:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://grok.zope.org/documentation/how-to/releasing-software">http://grok.zope.org/documentation/how-to/releasing-software</a></li>
+<li><a class="reference external" href="http://plone.org/documentation/tutorial/how-to-upload-your-package-to-plone.org">http://plone.org/documentation/tutorial/how-to-upload-your-package-to-plone.org</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Toutes ces étapes peuvent être faites avec une seule commande
+<strong class="command">fullrelease</strong>. Pour cela installez le package
+<tt class="xref py py-mod docutils literal"><span class="pre">zest.releaser</span></tt> dans votre environnement :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>workon myenv
+<span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>easy_install zest.releaser
+</pre></div>
+</div>
+<p>Démarrez votre instance Plone où vous avez installé votre pypi.
+Pour releaser votre package :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span><span class="nb">cd </span>src/formation.policy
+<span class="o">(</span>myenv<span class="o">)</span><span class="nv">$ </span>fullrelease
+</pre></div>
+</div>
+<p class="last">La commande <strong class="command">fullrelease</strong> exécute séquentiellement les commandes
+<strong class="command">prerelease</strong>, <strong class="command">release</strong> et <strong class="command">postrelease</strong>.</p>
+</div>
+<p>Vous allez dorénavant utiliser cette version releasée plutôt que le egg en
+développement.</p>
+<p>Supprimez <tt class="docutils literal"><span class="pre">formation.policy</span></tt> de l&#8217;option <tt class="docutils literal"><span class="pre">develop</span></tt> de la section <tt class="docutils literal"><span class="pre">[buildout]</span></tt> dans <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt>.</p>
+<p>Ajoutez aussi le lien vers le Pypi dans find-links :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[buildout]</span>
+<span class="na">find-links +</span><span class="o">=</span><span class="s"></span>
+<span class="s">    # ...</span>
+<span class="s">    http://devagile:8080/site/products/simple</span>
+</pre></div>
+</div>
+<p>Précisez la version <tt class="docutils literal"><span class="pre">formation.policy</span> <span class="pre">=</span> <span class="pre">1.0</span></tt> dans <tt class="file docutils literal"><span class="pre">versions.cfg</span></tt>.</p>
+<p>L&#8217;external ne sera plus utilisé dans la suite, donc supprimez le également :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn rm src/EXTERNALS.txt
+<span class="nv">$ </span>svn propdel svn:externals src/
+<span class="nv">$ </span>svn ci -m <span class="s2">&quot;Removed external&quot;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="repasser-au-developpement">
+<h2><a class="toc-backref" href="#id11">Repasser au développement</a><a class="headerlink" href="#repasser-au-developpement" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Maintenant vous voulez repasser le egg <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> en mode
+développement pour travailler dessus. Il faut :</p>
+<ul class="simple">
+<li>supprimer la version dans versions.cfg</li>
+<li>ajouter le egg dans l&#8217;option develop de buildout.cfg</li>
+<li>reconfigurer l&#8217;external pour récupérer le egg dans le dossier src</li>
+</ul>
+<p>Passer du mode développement au mode production et vice-versa génère beaucoup de
+bruit dans les logs svn, mais surtout il faut sans cesse répéter les mêmes
+actions.</p>
+<p>Nous allons utiliser dans la suite une extension buildout nommée
+<tt class="xref py py-mod docutils literal"><span class="pre">mr.developer</span></tt> qui s&#8217;occupe de réaliser les 3 étapes décrites ci-dessus en
+une commande.</p>
+</div>
+<div class="section" id="utilisation-de-mr-developer-pour-gerer-les-composants-en-developpement">
+<h2><a class="toc-backref" href="#id12">Utilisation de mr.developer pour gérer les composants en développement</a><a class="headerlink" href="#utilisation-de-mr-developer-pour-gerer-les-composants-en-developpement" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;extension pour zc.buildout <a class="reference external" href="http://pypi.python.org/pypi/mr.developer">mr.developer</a> permet de gérer les composants en
+développement, et de commuter facilement d&#8217;un composant en développement à sa
+version &#8220;releasée&#8221; et inversement.</p>
+<p>Transformez le fichier buildout.cfg :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="na">extends</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    # ...</span>
+<span class="s">    sources.cfg</span>
+<span class="na">extensions</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    # ...</span>
+<span class="s">    mr.developer</span>
+</pre></div>
+</div>
+<p>Créez le fichier <tt class="file docutils literal"><span class="pre">sources.cfg</span></tt> avec ce contenu :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[buildout]</span>
+<span class="na">always-checkout</span> <span class="o">=</span> <span class="s">force</span>
+<span class="na">auto-checkout</span> <span class="o">=</span><span class="s"></span>
+<span class="s">    formation.policy</span>
+
+<span class="k">[sources]</span>
+<span class="na">formation.policy</span> <span class="o">=</span> <span class="s">svn http://devagile/Formation/packages/formation.policy/trunk</span>
+</pre></div>
+</div>
+<p>Exécutez <strong class="command">bin/buildout</strong> et <tt class="xref py py-mod docutils literal"><span class="pre">mr.developer</span></tt> va s&#8217;occuper de faire un
+checkout de <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> dans le dossier <tt class="file docutils literal"><span class="pre">src</span></tt>.</p>
+<p>L&#8217;extension s&#8217;occupe aussi de passer en mode développement
+<tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> et de supprimer <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> de
+<tt class="file docutils literal"><span class="pre">versions.cfg</span></tt> pour que ce soit bien la version en développement qui soit
+utilisée. Cela est fait de manière interne, les fichiers ne sont pas touchés.</p>
+<p><tt class="xref py py-mod docutils literal"><span class="pre">mr.developer</span></tt> génère le script <strong class="command">bin/develop</strong> qui est un script à
+tout faire.</p>
+<p>Exécutez <strong class="command">bin/develop help</strong> pour obtenir la liste des commandes, qui
+ressemblent beaucoup à subversion.</p>
+<p><strong class="command">bin/develop stat</strong> vous liste les checkouts du dossier <tt class="file docutils literal"><span class="pre">src</span></tt>,
+vous dit s&#8217;ils sont actifs ou non (c&#8217;est-à-dire en mode développement ou non) et
+s&#8217;ils sont dans l&#8217;option <em>auto-checkout</em> ou non. Exécutez <strong class="command">bin/develop
+help stat</strong> pour obtenir la légende.</p>
+<p><strong class="command">bin/develop co plonetheme.formation</strong> fait un checkout dans le dossier
+<tt class="file docutils literal"><span class="pre">src</span></tt>, et active le egg (le met en mode développement).</p>
+<p><strong class="command">bin/develop activate plonetheme.formation</strong> suivi de <strong class="command">bin/buildout</strong> permet de passer le egg en mode développement.</p>
+<p><strong class="command">bin/develop deactivate plonetheme.formation</strong> suivi de
+<strong class="command">bin/buildout</strong> permet de désactiver le mode développement et d&#8217;utiliser
+la version spécifiée dans <tt class="file docutils literal"><span class="pre">versions.cfg</span></tt>.</p>
+<p><strong class="command">bin/develop up -vf</strong> permet de mettre à jour tous les
+checkouts. L&#8217;option <em class="xref std std-option">-v</em> permet d&#8217;afficher les messages de subversion.
+L&#8217;option <em class="xref std std-option">-f</em> permet de forcer un <strong class="command">svn up</strong> si le checkout est
+dans un état pas clean.</p>
+<p>L&#8217;idée est d&#8217;ajouter dans auto-checkout les eggs qui ont été modifiés après leur
+dernière release. Comme ceci lorsqu&#8217;il est temps de livrer votre travail en
+production, vous savez exactement quels sont les eggs dont vous devez faire une
+release.</p>
+</div>
+<div class="section" id="fabric">
+<h2><a class="toc-backref" href="#id13">Fabric</a><a class="headerlink" href="#fabric" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Créez un environnement isolé Python &gt;= 2.5 avec Fabric d&#8217;installé :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>mkvirtualenv -p /usr/bin/python2.6 --no-site-packages fab
+<span class="o">(</span>fab<span class="o">)</span><span class="nv">$ </span>easy_install Fabric
+</pre></div>
+</div>
+<p>Création d&#8217;un script Fabric pour la maintenance de l&#8217;instance Plone à distance.
+Créez un fichier <tt class="file docutils literal"><span class="pre">fabfile.py</span></tt> à la racine de votre buildout :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">fabric.api</span> <span class="kn">import</span> <span class="n">run</span><span class="p">,</span> <span class="n">sudo</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">hosts</span>
+
+<span class="n">env</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="s">&quot;anthony&quot;</span>
+<span class="n">env</span><span class="o">.</span><span class="n">hosts</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;devagile&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">update</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Update the checkout of the buildout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">&quot;cd /home/anthony/workspace/plone4; svn up&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">restart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Restart the instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">&quot;/home/anthony/workspace/plone4/bin/instance restart&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">stop</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Stop the instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">&quot;/home/anthony/workspace/plone4/bin/instance stop&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Start the instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">&quot;/home/anthony/workspace/plone4/bin/instance start&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">buildout</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Run bin/buildout</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">run</span><span class="p">(</span><span class="s">&quot;cd /home/anthony/workspace/plone4; bin/buildout&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">up_and_restart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Update the checkout and restart the instance</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">update</span><span class="p">()</span>
+    <span class="n">restart</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">full_up_and_restart</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Do the actions stop, update, buildout, start</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">stop</span><span class="p">()</span>
+    <span class="n">update</span><span class="p">()</span>
+    <span class="n">buildout</span><span class="p">()</span>
+    <span class="n">start</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Pour afficher la liste des commandes disponibles :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>fab --list
+Available commands:
+
+    buildout             Run bin/buildout
+    full_up_and_restart  Do the actions stop, update, buildout, start
+    restart              Restart the instance
+    start                Start the instance
+    stop                 Stop the instance
+    up_and_restart       Update the checkout and restart the instance
+    update               Update the checkout of the buildout
+</pre></div>
+</div>
+<p>Pour redémarrer l&#8217;instance :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>fab restart
+</pre></div>
+</div>
+<p>Pour préciser un autre host qui va donc écraser le host configuré globalement
+dans le fichier :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>fab stop:host<span class="o">=</span>ailleurs
+</pre></div>
+</div>
+<p>Vous pouvez aussi créer des commandes avec des paramètres, exécutez
+<strong class="command">fab -h</strong> pour consulter la liste des options.</p>
+<p>Pour plus de détails, consulter la <a class="reference external" href="http://docs.fabfile.org/#documentation">documentation de Fabric</a></p>
+</div>
+<div class="section" id="ressources">
+<h2><a class="toc-backref" href="#id14">Ressources</a><a class="headerlink" href="#ressources" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://plone.org/documentation/tutorial/buildout">http://plone.org/documentation/tutorial/buildout</a></li>
+<li><a class="reference external" href="http://www.sixfeetup.com/swag/buildout-quick-reference-card">http://www.sixfeetup.com/swag/buildout-quick-reference-card</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Création d&#8217;un buildout Plone avec ZopeSkel</a><ul>
+<li><a class="reference internal" href="#creation-du-buildout">Création du buildout</a></li>
+<li><a class="reference internal" href="#installation-de-produits-tierces">Installation de produits tierces</a></li>
+<li><a class="reference internal" href="#creation-d-un-policy-package-contenant-la-configuration-du-site-plone">Création d&#8217;un policy package contenant la configuration du site Plone</a><ul>
+<li><a class="reference internal" href="#creation-du-policy-package">Création du policy package</a></li>
+<li><a class="reference internal" href="#installation-de-products-collage-a-l-installation-de-formation-policy">Installation de Products.Collage à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#declaration-de-formation-policy-comme-plugin-plone">Déclaration de formation.policy comme plugin Plone</a></li>
+<li><a class="reference internal" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#a-propos-des-versions">À propos des versions</a></li>
+<li><a class="reference internal" href="#releaser-le-policy-package">Releaser le policy package</a></li>
+<li><a class="reference internal" href="#repasser-au-developpement">Repasser au développement</a></li>
+<li><a class="reference internal" href="#utilisation-de-mr-developer-pour-gerer-les-composants-en-developpement">Utilisation de mr.developer pour gérer les composants en développement</a></li>
+<li><a class="reference internal" href="#fabric">Fabric</a></li>
+<li><a class="reference internal" href="#ressources">Ressources</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="installation_et_creation_d_une_instance_Plone.html"
+                        title="Chapitre précédent">Installation et création d&#8217;une instance Plone</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="deploiement_backup.html"
+                        title="Chapitre suivant">Déploiement et backup</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/buildout_plone3.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="deploiement_backup.html" title="Déploiement et backup"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="installation_et_creation_d_une_instance_Plone.html" title="Installation et création d’une instance Plone"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

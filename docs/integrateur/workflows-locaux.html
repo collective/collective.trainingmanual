@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Paramétrage local des workflows &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Déclenchement d’événements avec les règles de contenu" href="contentrules.html" />
+    <link rel="prev" title="TAL/Metal les templates de Zope et Plone" href="formation_tal_metal.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contentrules.html" title="Déclenchement d’événements avec les règles de contenu"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="formation_tal_metal.html" title="TAL/Metal les templates de Zope et Plone"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="parametrage-local-des-workflows">
+<span id="workflows-locaux"></span><h1>Paramétrage local des workflows<a class="headerlink" href="#parametrage-local-des-workflows" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#preparation" id="id1">Préparation</a></li>
+<li><a class="reference internal" href="#installation-du-module" id="id2">Installation du module</a></li>
+<li><a class="reference internal" href="#gestion-des-politiques-de-workflow" id="id3">Gestion des politiques de workflow</a></li>
+<li><a class="reference internal" href="#affectation-des-workflows-locaux" id="id4">Affectation des workflows locaux</a></li>
+<li><a class="reference internal" href="#export-generic-setup" id="id5">Export Generic Setup</a></li>
+<li><a class="reference internal" href="#conclusion" id="id6">Conclusion</a></li>
+</ul>
+</div>
+<p>Nous allons montrer ici comment affecter, sous Plone 4, des processus documentaires différents selon les rubriques du site.</p>
+<p>Imaginons que nous voulons gérer une partie Intranet et une partie Internet sur notre site Plone. Les permissions et les circuits de validation ne seront probablement pas les mêmes.</p>
+<p>Nous allons donc gérer, grâce à la fonctionalité <cite>Support des politiques documentaires locales</cite>, un dossier Intranet dans lequel les documents auront un workflow de type Intranet (les membres peuvent soumettre des documents à un modérateur, qui publie pour tous les membres),
+et un dossier Internet, où les documents auront un workflow avec modération a priori (les membres peuvent soumettre des documents à un modérateur, qui publie soit pour les anonymes soit pour les seuls membres).</p>
+<div class="section" id="preparation">
+<h2><a class="toc-backref" href="#id1">Préparation</a><a class="headerlink" href="#preparation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Connectez vous en tant qu&#8217;administrateur du site.</p>
+<p>Avant de commencer, vous aurez créé à la racine un dossier <cite>Intranet</cite> et un dossier <cite>Internet</cite>, que vous aurez publié.</p>
+<p>Dans chacun de ces dossiers, vous aurez ajouté une actualité, sans la publier.</p>
+<div class="figure align-center">
+<img alt="_images/intranet.jpg" src="_images/intranet.jpg" />
+</div>
+<div class="figure align-center">
+<img alt="_images/internet.jpg" src="_images/internet.jpg" />
+</div>
+</div>
+<div class="section" id="installation-du-module">
+<h2><a class="toc-backref" href="#id2">Installation du module</a><a class="headerlink" href="#installation-du-module" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le système de workflows locaux n&#8217;est pas activé par défaut. Nous allons commencer par installer la fonctionnalité.</p>
+<p>Allez dans configuration du site, puis modules.</p>
+<div class="figure align-center">
+<img alt="_images/selectionneconfiguration.jpg" src="_images/selectionneconfiguration.jpg" />
+</div>
+<div class="figure align-center">
+<img alt="_images/selectionnemodules.jpg" src="_images/selectionnemodules.jpg" />
+</div>
+<p>Vérifiez si la ligne <cite>Support des politiques documentaire locales (CMFPlacefulWorkflow)</cite> apparaît pas dans <cite>Modules disponibles</cite>. Sinon, vérifiez qu&#8217;elle n&#8217;est pas déjà dans <cite>Modules installés</cite> : dans ce cas, passez à l&#8217;étape suivante.</p>
+<p>Cochez la ligne <cite>Support des politiques documentaire locales (CMFPlacefulWorkflow)</cite> dans <cite>Modules disponibles</cite>, et cliquez sur <cite>Activer</cite>.</p>
+<div class="figure align-center">
+<img alt="_images/activemodule.jpg" src="_images/activemodule.jpg" />
+</div>
+<p>Le module est maintenant installé.</p>
+<div class="figure align-center">
+<img alt="_images/moduleinstalle.jpg" src="_images/moduleinstalle.jpg" />
+</div>
+</div>
+<div class="section" id="gestion-des-politiques-de-workflow">
+<h2><a class="toc-backref" href="#id3">Gestion des politiques de workflow</a><a class="headerlink" href="#gestion-des-politiques-de-workflow" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Revenez dans la configuration du site. Dans <cite>Configuration de module</cite>, cliquez sur la nouvelle entrée : <cite>Politiques documentaires</cite>.</p>
+<div class="figure align-center">
+<img alt="_images/politiquesdocumentaires.jpg" src="_images/politiquesdocumentaires.jpg" />
+</div>
+<div class="figure align-center">
+<img alt="_images/pagepolitiquesdocumentaires.jpg" src="_images/pagepolitiquesdocumentaires.jpg" />
+</div>
+<p>Les listes de politiques documentaires existantes par défaut sont affichées.</p>
+<p>Il existe déjà une politique &#8216;Intranet&#8217;. Pour en connaître les détails, cliquez sur le titre.</p>
+<div class="figure align-center">
+<img alt="_images/politiqueintranet.jpg" src="_images/politiqueintranet.jpg" />
+</div>
+<p>Ce que vous voyez est en fait une version simplifiée de la page de configuration du workflow général, dans la <cite>zmi</cite> &gt; <cite>portal_workflows</cite>. Référez vous à la formation sur les workflows pour davantage d&#8217;informations.</p>
+<p>Vous pouvez sélectionner le workflow par défaut, et éventuellement un workflow spécifique par type de contenu (en général on utilise des workflows différents pour les contenus de type rubrique). Les différents workflows disponibles sont ceux décrits dans portal_workflows, onglet &#8216;Contents&#8217;. Référez vous à la formation sur les workflows pour retrouver comment ajouter et modifier des workflows existants.</p>
+<p>Cette configuration conviendra pour notre partie Intranet. Revenons à la page principale de configuration des processus en cliquant sur &#8220;Aller au niveau supérieur&#8221;.</p>
+<p>Nous pourrions vérifier parmi les trois autres workflows disponibles s&#8217;il y en a qui pourraient correspondre à notre besoin pour la partie Internet. Mais nous allons créer une nouvelle politique pour les besoins de cette formation.</p>
+<p>Entrez <cite>internet</cite> dans le champ <cite>Nouvelle politique documentaire</cite>, puis cliquez sur <cite>Ajouter</cite>.</p>
+<p>Donnez lui pour titre <cite>Publication Internet</cite>.</p>
+<p>Nous allons choisir, pour les documents, un <cite>Processus de publication simple</cite>, qui consiste en un circuit privé -&gt; en attente de validation -&gt; publié pour tous. Pour cela, nous sélectionnons cette valeur pour le champ <cite>Processus documentaire par défaut</cite>.</p>
+<p>Pour tous les documents sauf Dossier et Collection, nous choisissons <cite>Processus par défaut de la politique</cite>, qui renvoit à la valeur choisie ci-avant.
+Imaginons que dans le cas de notre site Internet, nous n&#8217;ayons pas besoin de valider les dossiers vu que seul l&#8217;administrateur pourra en ajouter. Nous choisirons alors un workflow à un seul état : le dossier est immédiatement publié, seul son contenu est modéré. Nous choisissons donc <cite>Processus de publication à état unique</cite>.
+Supposons que nous voulons que la gestion des Collections soit identique sur le dossier Internet et au niveau du site. Nous choisirons <cite>Acquisition du processus dans les dossiers parents</cite> pour Collection : le workflow sera le même que pour le dossier parent (le site Plone).</p>
+<div class="figure align-center">
+<img alt="_images/politiqueinternet.jpg" src="_images/politiqueinternet.jpg" />
+</div>
+<p>Vous pouvez maintenant cliquer sur <cite>Enregistrer</cite>. Votre politique a été ajoutée.</p>
+</div>
+<div class="section" id="affectation-des-workflows-locaux">
+<h2><a class="toc-backref" href="#id4">Affectation des workflows locaux</a><a class="headerlink" href="#affectation-des-workflows-locaux" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous allons maintenant associer des workflows différents pour les actualités selon que nous sommes sur l&#8217;intranet ou sur l&#8217;internet.
+Allez dans le dossier Intranet. Cliquez sur le menu <cite>État</cite>, puis <cite>Politique locale</cite>.</p>
+<div class="figure align-center">
+<img alt="_images/menupolitiquelocale.jpg" src="_images/menupolitiquelocale.jpg" />
+</div>
+<p>L&#8217;affectation locale des workflows n&#8217;est pas activée par défaut dans ce dossier. Vous arrivez donc sur une page intermédiaire.
+Cliquez sur <cite>Ajouter une configuration locale des politiques documentaires dans le Dossier</cite>.</p>
+<div class="figure align-center">
+<img alt="_images/politiquelocale.jpg" src="_images/politiquelocale.jpg" />
+</div>
+<p>Vous arrivez sur la page de configuration locale des processus. Vous choisissez ici quelle est la politique que vous voulez activer pour ce Dossier. Sélectionnez dans <cite>Pour ce dossier</cite> : <cite>Intranet</cite>, puis enregistrez.</p>
+<p>Vous pouvez également faire en sorte que la politique soit associée à tous les sous-dossiers du dossier Intranet, mais pas au dossier Intranet lui-même. C&#8217;est utile, par exemple, quand vous voulez des droits et des validations différents pour les modifications à la racine de votre rubrique. Dans ce cas, vous choisirez la politique dans <cite>En dessous de ce dossier</cite>.</p>
+<p>Revenez dans le dossier Intranet. Ce dossier est maintenant en &#8216;Brouillon interne&#8217; : il est modifiable par les modérateurs et visible par les membres). Si vous vous déconnectez, vous observerez qu&#8217;il n&#8217;est plus visible aux anonymes.</p>
+<div class="figure align-center">
+<img alt="_images/nvworkflowlocal.jpg" src="_images/nvworkflowlocal.jpg" />
+</div>
+<p>Allez sur l&#8217;actualité. Vous observerez que les transitions proposées correspondent au workflow <cite>Publication internet</cite> : en tant qu&#8217;administrateur, je peux <cite>Publier en interne</cite>, c&#8217;est-à-dire rendre visible aux membres seulement.</p>
+<div class="figure align-center">
+<img alt="_images/nvworkflowdoclocal.jpg" src="_images/nvworkflowdoclocal.jpg" />
+</div>
+<p>Allez maintenant sur le dossier Internet. Cliquez sur État -&gt; Politique locale. Faites de même, mais sélectionnez <cite>Pour ce dossier</cite> -&gt; <cite>Publication Internet</cite>.</p>
+<p>Le dossier est resté à l&#8217;état &#8216;Publié&#8217;, mais vous observerez qu&#8217;aucune autre transition n&#8217;est disponible : nous utilisons pour les dossiers le workflow <cite>Processus de publication à état unique</cite>.</p>
+<p>Allez dans l&#8217;actualité. Vous avez en tant qu&#8217;administrateur le choix entre <cite>Publier</cite> et <cite>Soumettre à la publication</cite>. Nous utilisons ici le workflow <cite>Processus de publication simple</cite>.</p>
+</div>
+<div class="section" id="export-generic-setup">
+<h2><a class="toc-backref" href="#id5">Export Generic Setup</a><a class="headerlink" href="#export-generic-setup" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les politiques documentaires peuvent être exportées en xml via l&#8217;outil Generic Setup.</p>
+<p>Dans <cite>portal_setup</cite> &gt; <cite>Export</cite>, sélectionnez <cite>Placeful Workflow Policies</cite> puis <cite>Export selected steps</cite>.</p>
+<p>L&#8217;outil ne permet pas d&#8217;exporter la configuration des politiques locales.</p>
+</div>
+<div class="section" id="conclusion">
+<h2><a class="toc-backref" href="#id6">Conclusion</a><a class="headerlink" href="#conclusion" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous savions déjà que nous pouvions avoir des processus documentaires différents suivant le type de contenu.
+Nous savons maintenant que Plone permet de paramétrer des workflows différents pour un même type de contenu mais à différents endroits du site.</p>
+<p>Pour conclure, il faut prendre garde à distinguer trois notions, que nous définirons ici :</p>
+<p><cite>Processus de publication</cite>, ou <cite>workflow</cite> : c&#8217;est la description d&#8217;un processus de validation, avec états, transitions, permissions... On les définit dans la ZMI, dans portal_workflows &gt; Contents.</p>
+<p><cite>Politique documentaire</cite> : c&#8217;est la configuration des workflows pour tous les types de documents du site. On définit la politique par défaut sur la page d&#8217;accueil de portal_workflows, et des politiques supplémentaires dans <cite>Configuration du site</cite> &gt; <cite>Politiques documentaires</cite>.</p>
+<p><cite>Politique locale</cite> : c&#8217;est la sélection d&#8217;une politique documentaire pour qu&#8217;elle s&#8217;applique sur une rubrique du site. On les définit via l&#8217;action <cite>État</cite> &gt; <cite>Politique locale</cite> sur la rubrique.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Paramétrage local des workflows</a><ul>
+<li><a class="reference internal" href="#preparation">Préparation</a></li>
+<li><a class="reference internal" href="#installation-du-module">Installation du module</a></li>
+<li><a class="reference internal" href="#gestion-des-politiques-de-workflow">Gestion des politiques de workflow</a></li>
+<li><a class="reference internal" href="#affectation-des-workflows-locaux">Affectation des workflows locaux</a></li>
+<li><a class="reference internal" href="#export-generic-setup">Export Generic Setup</a></li>
+<li><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="formation_tal_metal.html"
+                        title="Chapitre précédent">TAL/Metal les templates de Zope et Plone</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="contentrules.html"
+                        title="Chapitre suivant">Déclenchement d&#8217;événements avec les règles de contenu</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/workflows-locaux.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="contentrules.html" title="Déclenchement d’événements avec les règles de contenu"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="formation_tal_metal.html" title="TAL/Metal les templates de Zope et Plone"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

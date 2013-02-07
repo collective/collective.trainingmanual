@@ -1,0 +1,260 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Choix et ajout d’un module &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Le protocole HTTP et ses tests" href="presentation_http.html" />
+    <link rel="prev" title="Paramétrer votre site Plone" href="parametrage_plone.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="presentation_http.html" title="Le protocole HTTP et ses tests"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="parametrage_plone.html" title="Paramétrer votre site Plone"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="choix-et-ajout-d-un-module">
+<span id="id1"></span><h1>Choix et ajout d&#8217;un module<a class="headerlink" href="#choix-et-ajout-d-un-module" title="Lien permanent vers ce titre">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Michael Launay</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body">0.1.0</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Révision:</th><td class="field-body"><a class="reference external" href="https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/choix_et_ajout_d_un_module.txt">https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/choix_et_ajout_d_un_module.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>Copyright (C) 2010 Michael Launay &lt;michaellaunay AT ecreall.com&gt;.</p>
+<p>Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d&#8217;Utilisation Commerciale-Partage des Conditions Initiales à l&#8217;Identique 2.0
+France accessible à <a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr">http://creativecommons.org/licenses/by-nc-sa/2.0/fr</a></p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone est un Content Management System, c&#8217;est à dire un portail collaboratif
+qui permet de gérer des contenus tels que des documents, des images, des
+événements, des vidéos, etc.</p>
+<p>Il permet de créer et de gérer les cycles de publications des contenus, ainsi
+on peut affecter des rôles aux membres leur permettant ou non de créer, modifier,
+voir, ou changer les règles des contenus.</p>
+<p>Plone permet facilement la création de nouveaux types de contenu, de nouvelles
+règles de gestion, de nouveaux rôles ou groupes.</p>
+<p>Cette finesse de la gestion des droits associée au fait que Plone est un logiciel
+libre a permis la création de nombreuses extensions permettant soit de
+spécialiser Plone soit de l&#8217;étendre.</p>
+<p>Ces extensions ont d&#8217;abord été appelées &#8220;produits&#8221; mais à partir de la version
+4 de Plone nous parlons de &#8220;modules&#8221;.</p>
+<p>La première étape consiste à identifier son besoin.</p>
+<p>Ensuite, il faut vérifier que Plone ne propose pas déjà les fonctionnalités
+désirées.</p>
+<p>Pour cela, nous pouvons commencer par voir si Plone fournit de base un type
+de contenu spécifique de ce besoin.</p>
+<p>S&#8217;il existe un contenu, il faut alors vérifier que le workflow, qui lui est
+associé, correspond à notre besoin et si nécessaire en développer un autre.</p>
+<p>S&#8217;il n&#8217;existe pas de contenu correspondant à notre besoin et que celui-ci est
+générique, alors il existe surement un module couvrant partiellement ou
+complètement notre besoin.</p>
+<p>On va donc chercher et sélectionner un module.</p>
+</div>
+<div class="section" id="rechercher-et-selectionner-un-module">
+<h2>Rechercher et sélectionner un module<a class="headerlink" href="#rechercher-et-selectionner-un-module" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le site plone.org contient la vitrine des modules Plone disponibles.</p>
+<p><a class="reference external" href="http://plone.org/products">http://plone.org/products</a></p>
+<p>Depuis la version 4 de Plone le site de la communauté Plone possède un nouveau
+classement des modules qui permet entre autres de les chercher par popularité.</p>
+<p>Un article sur cette nouvelle interface a été écrit sur le site de la communauté
+française <a class="reference external" href="http://plone.fr/news/nouveautes-plone-products">http://plone.fr/news/nouveautes-plone-products</a></p>
+<p>Les modules suivent un cycle de vie de développement, les plus utilisés sont
+maintenus et sont adaptés aux nouvelles versions de Plone rapidement.</p>
+<p>Avant d&#8217;utiliser un module, il faut se poser les questions suivantes :</p>
+<ul class="simple">
+<li>Ce module est-il compatible avec notre version de Plone ?</li>
+<li>Depuis combien de temps existe le module ?</li>
+<li>Est-il encore utilisé ?</li>
+<li>Est-il maintenu ?</li>
+<li>Y a-t-il eu des remontées de bogues et est-ce possible ?</li>
+<li>Si oui y a-t-il eu des corrections apportées et au bout de combien de temps ?</li>
+<li>La société ou les développeurs derrière ce module, sont-ils actifs dans la
+communauté ?</li>
+<li>A-t-on accès au code source du module ?</li>
+<li>Le code est-il sur le dépôt de la communauté Python ou Plone ?</li>
+<li>Le module respecte-t-il les standards de programmation de la communauté ?</li>
+<li>Est-il documenté ?</li>
+<li>Modifie-t-il Plone ?</li>
+</ul>
+<p>Suivez ensuite la méthode d&#8217;installation indiquée sur la documentation du produit.
+À défaut d&#8217;être précisée, c&#8217;est toujours la même, nous la présentons plus loin.</p>
+</div>
+<div class="section" id="installer-un-module">
+<h2>Installer un module<a class="headerlink" href="#installer-un-module" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les modules Plone proposés sur plone.org sont hébergés sur des dépôts.</p>
+<ul class="simple">
+<li>Le dépôt des programmes open source de Python, appelé &#8220;pypi&#8221; et accessible sur
+le lien <a class="reference external" href="http://pypi.python.org/pypi">http://pypi.python.org/pypi</a></li>
+<li>Les dépôts des projets et sociétés dont les adresses peuvent être trouvées sur
+internet.</li>
+</ul>
+<p>Le dépôt Pypi est celui de la communauté Python qui est le langage de
+programmation de Plone. Pour y trouver un module spécifique de Plone il faut
+faire une recherche en utilisant le mot-clé Plone et les mots que vous pensez
+être associés à votre besoin.</p>
+<p>Pypi affichera les &#8220;egg&#8221; liées à Plone, en effet depuis les versions 3 de Plone
+les modules sont fournis sous forme de paquets appelés &#8220;egg&#8221; dont on détaillera
+l&#8217;anatomie et comment les ajouter à Plone plus loin. Plone est désormais
+entièrement constitué de eggs qui forment autant de bibliothèques.</p>
+<p>Les modules hébergés exclusivement par les sites de leurs développeurs sont plus
+durs à identifier et leur capital confiance est moins bon.</p>
+<p>Pour installer un module, il suffit en général d&#8217;ajouter le nom du module
+à la valeur <cite>eggs</cite> dans le fichier de configuration (buildout.cfg),
+et de relancer l&#8217;installation du site.
+(Pour plus d&#8217;information sur l&#8217;installation de Plone, consultez la documentation intégrateur).</p>
+<p>Il vous faut ensuite aller dans la configuration du site,</p>
+<div class="figure align-center">
+<img alt="_images/selectionneconfiguration.jpg" src="_images/selectionneconfiguration.jpg" />
+</div>
+<p>section <cite>Modules</cite>,</p>
+<div class="figure align-center">
+<img alt="_images/lien-conf-modules.png" src="_images/lien-conf-modules.png" />
+</div>
+<p>puis activer le module.</p>
+<div class="figure align-center">
+<img alt="_images/activemodule.jpg" src="_images/activemodule.jpg" />
+</div>
+<p>De nombreux exemples d&#8217;installation de modules seront présentés dans cette documentation.</p>
+</div>
+<div class="section" id="tester-le-module">
+<h2>Tester le module<a class="headerlink" href="#tester-le-module" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Ensuite il faut absolument essayer le module sur une copie du site de production
+pour vérifier qu&#8217;il correspond à notre besoin et surtout qu&#8217;il ne casse pas nos
+autres modules et respecte l&#8217;intégrité de notre site.</p>
+<p>Il faut alors dérouler des tests de validation du portail pour vérifier
+l&#8217;intégrité du portail.</p>
+<p>Puis il faut tester le fonctionnement du module pour vérifier son adéquation
+avec le besoin.</p>
+<p>Si le besoin n&#8217;est pas complètement satisfait il faut alors chercher un module
+plus complet ou compléter le développement du module sélectionné.</p>
+<p>Le fait de compléter un module déjà existant par rapport à en créer un ex nihilo
+est à préférer, surtout si les évolutions que l&#8217;on souhaite apporter sont dans
+la logique du module.</p>
+<p>Cette attitude vertueuse permet :</p>
+<ul class="simple">
+<li>de réduire les coûts en ne recréant pas ce qui existe déjà,</li>
+<li>de bénéficier d&#8217;une communauté d&#8217;utilisateurs et de développeurs,</li>
+<li>d&#8217;améliorer la couverture fonctionnelle d&#8217;un module ce qui du coup augmente
+ses chances d&#8217;être réutilisé et donc maintenu.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Choix et ajout d&#8217;un module</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#rechercher-et-selectionner-un-module">Rechercher et sélectionner un module</a></li>
+<li><a class="reference internal" href="#installer-un-module">Installer un module</a></li>
+<li><a class="reference internal" href="#tester-le-module">Tester le module</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="parametrage_plone.html"
+                        title="Chapitre précédent">Paramétrer votre site Plone</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="presentation_http.html"
+                        title="Chapitre suivant">Le protocole HTTP et ses tests</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/choix_et_ajout_d_un_module.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="presentation_http.html" title="Le protocole HTTP et ses tests"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="parametrage_plone.html" title="Paramétrer votre site Plone"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

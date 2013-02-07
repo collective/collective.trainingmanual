@@ -1,0 +1,160 @@
+.. -*- coding: utf-8 -*-
+
+.. _les_vues_standard:
+
+=================
+Les vues standard
+=================
+
+Qu'est-ce que c'est ?
+=====================
+
+Les vues standard, comme leur nom ne l'indiquent pas, ne sont pas des vues HTML
+sur les contenus d'un site Plone mais des multi-adapteurs (voir
+:ref:`guide_zca`) permettant d'acéder aux ressources les plus fréquemment
+utilisées lors de la programmation de vos applications pour Plone, pour réaliser
+vos templates ou dans les expressions utilisées dans les actions.
+
+Pourquoi utiliser ces vues ?
+============================
+
+Il y a d'autres dispositifs pour obtenir les mêmes informations et services que
+ceux proposés par les vues standard. Ces API, que nous ne détailleront pas ici,
+sont maintenues dans Plone 3 et Plone 4 principalement pour faciliter
+l'adaptation des composants d'extension conçus pour fonctionner avec les
+versions antérieures à Plone 3.
+
+L'utilisation de ces vues en lieu et place des API antérieures ont deux
+avantages :
+
+* L'API est simplifiée et unifiée. L'adjonction de futures fonctionnalités
+  seront reflétées dans ces vues ou d'autres vues pour les services futurs.
+
+* Si l'architecture logicielle sous-jacente est amenée à changer dans le futur,
+  l'accès aux services et informations supportée par la dite architecture seront
+  inchangés grâce particulièrement à ces vues
+
+* Les éléments retournés par ces vues sont "cachés" dans la mesure du
+  possible. C'est-à-dire que seul le premier accès à un objet retourné par ces
+  vues est "coûteux" en terme de temps de réponse. Les accès successifs sont
+  immédiats.
+
+
+Quelles vues sont proposées
+===========================
+
+Plone propose en standard les vues suivantes :
+
+.. list-table:: Liste des vues standard
+   :widths: 20 60
+   :header-rows: 1
+
+   * - Nom
+     - Description
+   * - ``plone_context_state``
+     - Informations sur l'objet de contexte courant
+   * - ``plone_portal_state``
+     - Informations et services globaux du portail lui-même
+   * - ``plone_tools``
+     - Accès aux tools les plus fréquemment utilisés
+   * - ``plone_interface_info``
+     - Permet de tester les interfaces Zope 3 depuis du code "untrusted" (une
+       template, une expression TALES d'action, un script de skin). Cette vue
+       est également utile à du code "trusted" pour tester une interface connue
+       par son :term:`dotted name`.
+   * - ``plone_layout``
+     - Fournit l'accès à des méthodes relatives à la mise en page.
+   * - ``plone``
+     - Fournit l'accès aux objets qui étaient auparavant fournis en standard
+       dans la ``main_template`` de Plone jusqu'à sa version 3 [#perfs]_.
+
+.. warning::
+
+   Vous noterez que de nombreuses ressources de :ref:`vue_plone` sont en fait
+   des reprises ou alias de méthodes figurant dans
+   :ref:`vue_plone_portal_state`, :ref:`vue_plone_context_state` ou
+   :ref:`vue_plone_layout`.
+
+   Si le composant que vous développez n'est pas supposé être compatible avec
+   une versions de Plone antérieure à Plone 3, vous préfèrerez l'utilisation des
+   méthodes proposées par ces dernières vues.
+
+
+Accéder aux ressources des vues
+===============================
+
+On utilise pour illustrer les accès la vue fictive nommée ``une_vue``, son
+attribut non moins fictif ``un_attrib`` et une méthode ``une_meth``.
+
+Dans une expression :term:`TALES` d'une action
+----------------------------------------------
+
+.. code-block:: python
+
+   python: object.restrictedTraverse('@@une_vue').un_attrib
+
+Ou, ce qui revient au même en plus court :
+
+::
+
+  object/@@une_vue/un_attrib
+
+
+Dans une template :term:`ZPT`
+-----------------------------
+
+.. code-block:: html
+
+   <div tal:define="une_meth nocall:context/@@une_vue/une_meth;
+                    foo python:une_meth(bar)">
+     ...
+   </div>
+
+Dans du code Python "untrusted"
+-------------------------------
+
+.. code-block:: python
+
+   une_meth = context.restrictedTraverse('@@une_vue').une_meth
+   bar = une_meth(foo)
+
+Dans du code Python "trusted" dans un fichier
+---------------------------------------------
+
+On peut utiliser la méthode standard :meth:`restrictedTraverse('@@une_vue')`
+comme dans du code "untrusted". Cependant, et même si cette approche est plus
+verbeuse, elle est plus efficace en terme de performances.
+
+.. code-block:: python
+
+   from zope.component import getMultiAdapter
+   # ...
+   # Fournir l'objet de contexte par le moyen le plus approprié
+   context = myOwnWayToGetIt() # Comme bon vous semble
+   # Fournir l'objet request. Par défaut, vous pourrez utiliser l'acquisition
+   # A noter que dans les classes de vues, ces deux objets sont généralement
+   # self.context et self.request
+   request = context.REQUEST
+   # Obtenir la vue
+   une_vue = getMultiAdapter((context, request), name=u'une_vue')
+   # Et l'utiliser
+   foo = une_vue.un_attrib
+   bar = une_vue.une_meth(dummy)
+
+.. centered:: Les différentes vues
+
+.. toctree::
+   :maxdepth: 1
+
+   plone_context_state
+   plone_portal_state
+   plone_tools
+   plone_interface_info
+   plone_layout
+   plone
+
+.. rubric:: Footnotes
+
+.. [#perfs] Ce procédé a été abandonné pour cause de performances. Depuis Plone
+            4, ceci ne permet de n'évaluer que les objets nécessaires au
+            déploiement de la template courante.

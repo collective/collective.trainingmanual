@@ -1,0 +1,301 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les directives ZCML &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Le langage ZCML" href="index.html" />
+    <link rel="next" title="Pour aller plus loin" href="plusloin.html" />
+    <link rel="prev" title="Traitement des fichiers ZCML" href="traitement.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plusloin.html" title="Pour aller plus loin"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="traitement.html" title="Traitement des fichiers ZCML"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Le langage ZCML</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-directives-zcml">
+<span id="directives-zcml"></span><h1>Les directives ZCML<a class="headerlink" href="#les-directives-zcml" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Comme vu plus haut, les différentes directives ZCML sont rendues disponibles par
+divers composants de Zope et Plone qui exposent leurs propres namespaces XML
+propres aux fonctionnalités que les dits composants fournissent.</p>
+<div class="section" id="les-namespaces-standard">
+<h2>Les namespaces standard<a class="headerlink" href="#les-namespaces-standard" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les namespaces disponibles en standard avec Plone 4.1 sont les suivants :</p>
+<table border="1" class="docutils">
+<caption>Namespaces ZCML</caption>
+<colgroup>
+<col width="17%" />
+<col width="33%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Préfixe <a class="footnote-reference" href="#recommande" id="id1">[1]</a></th>
+<th class="head">URI</th>
+<th class="head">Commentaire</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">browser</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/browser">http://namespaces.zope.org/browser</a></td>
+<td>Les directives de ce namespace permettent de déclarer des pages, vues
+viewlets, et parfois des menus de vos composants.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">cache</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/cache">http://namespaces.zope.org/cache</a></td>
+<td>Ce namespace fournit deux directives permettant d'associer des règles de
+cache avec des types de contenus. Ce namespace est fourni par
+<tt class="xref py py-mod docutils literal"><span class="pre">plone.app.caching</span></tt> qui est fourni en standard avec Plone 4.1</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">cmf</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/cmf">http://namespaces.zope.org/cmf</a></td>
+<td>Une directive permet de déclarer un layer de skin CMF. Pour rappel, les
+layers de skins CMF sont une survivance facilitant le support de
+composants anciens pour lesquels une adaptation minimaliste à Plone 3 a
+été effectuée. Les nouvelles extensions pour Plone devront utiliser de
+préférence les ressources du namespace <tt class="docutils literal"><span class="pre">browser</span></tt> pour ceci.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">five</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/five">http://namespaces.zope.org/five</a></td>
+<td>Les directives spécifiques au composant <tt class="xref py py-mod docutils literal"><span class="pre">Products.Five</span></tt> qui
+permettent de configurer des ressources spécifiques à Zope 2.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">genericsetup</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/genericsetup">http://namespaces.zope.org/genericsetup</a></td>
+<td>Les directives fournies permettent de déclarer les profils
+d'installation, d'exportation de configuration et de migration fournies
+par <tt class="xref py py-mod docutils literal"><span class="pre">Products.GenericSetup</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">i18n</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/i18n">http://namespaces.zope.org/i18n</a></td>
+<td>L'unique directive de ce namespace permet de déclarer un répertoire de
+fichiers de traductions (fichiers <tt class="file docutils literal"><span class="pre">*.mo</span></tt>) disposés selon le standard
+&quot;gettext&quot;. Pour plus de précisions, voir le chapitre
+<a class="reference internal" href="../internationalisation.html#internationalisation"><em>Internationalisation d'un composant</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">kss</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/kss">http://namespaces.zope.org/kss</a></td>
+<td>Les directives <tt class="docutils literal"><span class="pre">kss</span></tt> permettent d'enregistrer des ressources Ajax.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">meta</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/meta">http://namespaces.zope.org/meta</a></td>
+<td>Les directives fournies par ce namespace permettent de définir de
+nouveaux éléments ZCML (s'ils figurent dans un fichier <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt>)
+ou - plus rarement - de remplacer et personnaliser des éléments existants
+(s'ils figurent dans un fichier <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>).</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">monkey</span></tt></td>
+<td><a class="reference external" href="http://namespaces.plone.org/monkey">http://namespaces.plone.org/monkey</a></td>
+<td>Ce namespace est fourni par le composant
+<tt class="xref py py-mod docutils literal"><span class="pre">collective.monkeypatcher</span></tt>. Ce composant permet de mettre en place
+des monkey patches de façon rationnelle et documentée. Les monkey patches
+actifs peuvent être vus dans le Control Panel Zope à l'aide du composant
+<tt class="xref py py-mod docutils literal"><span class="pre">collective.monkeypatcherpanel</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">plone</span></tt></td>
+<td><a class="reference external" href="http://namespaces.plone.org/plone">http://namespaces.plone.org/plone</a></td>
+<td>Les directives fournies permettent de déclarer les portlets et les règles
+de contenus (content rules)</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">pluggableauthservice</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/pluggableauthservice">http://namespaces.zope.org/pluggableauthservice</a></td>
+<td>L'unique directive <tt class="docutils literal"><span class="pre">registerMultiPlugin</span></tt> permet de déclarer les plugins
+et multiplugins utilisables depuis <a class="reference internal" href="../glossaire.html#term-pas"><em class="xref std std-term">PAS</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">wicked</span></tt></td>
+<td><a class="reference external" href="http://namespaces.openplans.org/wicked">http://namespaces.openplans.org/wicked</a></td>
+<td>Les directives de ce namespace permettent d'identifier les champs d'un
+type de contenu Archetypes qui peuvent se comporter comme une page Wiki.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">z3c</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/z3c">http://namespaces.zope.org/z3c</a></td>
+<td>Les deux directives du namespace <tt class="docutils literal"><span class="pre">z3c</span></tt> permettent de définir les
+widgets pour le gestionnaire de formulaires <tt class="xref py py-mod docutils literal"><span class="pre">z3c.form</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">zcml</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/zcml">http://namespaces.zope.org/zcml</a></td>
+<td>Les directives fournies par ce namespace permettent d'introduire des
+directives conditionnelles.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">zope</span></tt></td>
+<td><a class="reference external" href="http://namespaces.zope.org/zope">http://namespaces.zope.org/zope</a></td>
+<td>Namespace généralement choisi par défaut. Il est donc inutile de préfixer
+les éléments de ce namespace par <tt class="docutils literal"><span class="pre">zope</span></tt> si c'est le cas dans votre
+configuration ZCML. Les directives de ce namespace permettent de déclarer
+des fonctionnalités proposées par la <a class="reference internal" href="../glossaire.html#term-zca"><em class="xref std std-term">ZCA</em></a>, vue en détails dans
+<a class="reference internal" href="../izca-fr.html#guide-zca"><em>Le guide complet de l'Architecture de Composants de Zope</em></a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Zope 3 ou BlueBream disposent d'autres namespaces qui ne sont pas rendus
+disponibles aux applications Zope 2 à travers <tt class="xref py py-mod docutils literal"><span class="pre">Products.Five</span></tt>. Nous ne les
+aborderons pas ici, mais les curieux pourront toujours se reporter au <a class="reference external" href="http://bluebream.zope.org/doc/1.0/zcml/index.html">chapitre
+ZCML de la documentation de BlueBream (en)</a>.</p>
+<table class="docutils footnote" frame="void" id="recommande" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>XML donc ZCML permet d'utiliser n'importe quel préfixe, mais
+pour des questions de lisibilité, il est recommandé de respecter la
+convention proposée.</td></tr>
+</tbody>
+</table>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Les namespaces provenant des composants de Zope 3 (plus précisément du &quot;Zope
+toolkit&quot;) sont exposés par le biais de <tt class="xref py py-mod docutils literal"><span class="pre">Products.Five</span></tt>. Du fait des
+particularités de Zope 2, les directives ZCML exposées par les composants du
+Zope toolkit intégrés dans Zope 2.12 ne sont pas toutes disponibles. C'est
+particulièrement le cas de préfixes <tt class="docutils literal"><span class="pre">apidoc</span></tt>, <tt class="docutils literal"><span class="pre">mail</span></tt> et <tt class="docutils literal"><span class="pre">xmlrpc</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="explorer-les-namespaces-et-directives">
+<h2>Explorer les namespaces et directives<a class="headerlink" href="#explorer-les-namespaces-et-directives" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Comme l'auteur de ces lignes est soudain atteint d'une grosse fatigue au moment
+de détailler les diverses directives ZCML et leur utilisation, il a préféré
+réaliser un composant qui ajoute un tableau de bord Zope 2 qui affiche les
+détails des différents namespaces et directives mises à votre disposition.</p>
+<div class="section" id="aws-zope2zcmldoc">
+<h3>aws.zope2zcmldoc<a class="headerlink" href="#aws-zope2zcmldoc" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Je vous invite à installer sur vos instances de développement le composant
+<a class="reference external" href="http://pypi.python.org/pypi/aws.zope2zcmldoc">aws.zope2zcmldoc</a> et d'explorer
+depuis le tableau de bord la documentation au fur et à mesure de vos besoins.</p>
+<p>Autre avantage : comme <tt class="xref py py-mod docutils literal"><span class="pre">aws.zope2zcmldoc</span></tt> utilise la &quot;réflectivité&quot; des
+directives ZCML, pour ses différentes vues, vous pourrez également l'utiliser
+pour lire la documentation de namespaces et directives fournis par des
+composants de tierce partie comme <tt class="xref py py-mod docutils literal"><span class="pre">iw.fss</span></tt> ou d'autres.</p>
+</div>
+<div class="section" id="quelques-screenshots">
+<h3>Quelques screenshots<a class="headerlink" href="#quelques-screenshots" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="figure align-center">
+<img alt="../_images/controlpanels.png" src="../_images/controlpanels.png" />
+<p class="caption">Le nouveau lien dans le Control Panel Zope 2</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/allnamespaces.png" src="../_images/allnamespaces.png" />
+<p class="caption">Les namespaces disponibles dans votre instance</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/namespacebrowser.png" src="../_images/namespacebrowser.png" />
+<p class="caption">Les différentes directives d'un namespace (ici &quot;browser&quot;)</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/browsermenu.png" src="../_images/browsermenu.png" />
+<p class="caption">Le détail d'une directive ou sous-directive (ici &quot;browser:menu)</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les directives ZCML</a><ul>
+<li><a class="reference internal" href="#les-namespaces-standard">Les namespaces standard</a></li>
+<li><a class="reference internal" href="#explorer-les-namespaces-et-directives">Explorer les namespaces et directives</a><ul>
+<li><a class="reference internal" href="#aws-zope2zcmldoc">aws.zope2zcmldoc</a></li>
+<li><a class="reference internal" href="#quelques-screenshots">Quelques screenshots</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="traitement.html"
+                        title="Chapitre précédent">Traitement des fichiers ZCML</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="plusloin.html"
+                        title="Chapitre suivant">Pour aller plus loin</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/zcml/directives.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="plusloin.html" title="Pour aller plus loin"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="traitement.html" title="Traitement des fichiers ZCML"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Le langage ZCML</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

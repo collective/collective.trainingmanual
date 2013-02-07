@@ -1,0 +1,92 @@
+.. -*- coding: utf-8 -*-
+
+.. _vue_plone_context_state:
+
+============================
+La vue "plone_context_state"
+============================
+
+Cette vue fournit de nombreuses méthodes et attributs fournissant des
+informations sur l'objet de contexte publié.
+
+A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+cette vue est accessible par l'objet ``context_state``.
+
+.. code-block:: xml
+
+   <html use-macro="context/@@standard_macros/page">
+     ...
+     <div>Le titre de cette page
+       <span tal:content="context_state/object_title">Un titre</span>
+     </div>
+     ...
+   </html>
+
+Détails dans :class:`plone.app.layout.globals.interfaces.IContextState`
+
+.. list-table:: plone_context_state
+   :widths: 20 60
+   :header-rows: 1
+
+   * - Attribut - Méthode
+     - Description
+   * - ``current_page_url()``
+     - L'URL de la page courante, incluant la template et la query string
+       (paramètres CGI) : :samp:`http://{site}/{objet}/{template}?foo=bar`
+   * - ``current_base_url()``
+     - L'URL de la page courante, incluant la template mais sans la query string
+       éventuelle (paramètres CGI) : :samp:`http://{site}/{objet}/{template}`
+   * - ``canonical_object()``
+     - L'objet canonique courant, c'est à dire l'objet publié. Si l'objet publié
+       est la page par défaut d'un dossier, le dossier est retourné par cette
+       méthode.
+   * - ``canonical_object_url()``
+     - L'URL du ``canonical_object`` vu ci-dessus.
+   * - ``view_url()``
+     - URL à utiliser pour voir la page présentant l'objet. Les images et
+       fichiers sont directement téléchargés lorsque le navigateur évoque leur
+       ``canonical_object_url`` mentionnée ci-avant.
+   * - ``view_template_id()``
+     - Le nom de la template actuellement utilisée pour cette page.
+   * - ``is_view_template()``
+     - ``True`` si l'URL actuelle (celle de la requête HTTP) utilise la vue
+       standard de l'objet publié (celle de l'onglet "Voir")
+   * - ``object_url()``
+     - L'URL de vue de l'objet publié. N'est pas forcément équivalent à
+       ``canonical_object_url()`` vu ci-dessus si l'objet publié si l'on publie
+       un dossier dont la page par défaut est l'un de ses contenus.
+   * - ``object_title()``
+     - Titre ou identifiant (en absence de titre) de l'objet publié.
+   * - ``workflow_state()``
+     - Nom de l'état de workflow de l'objet publié.
+   * - ``parent()``
+     - L'objet parent de l'objet publié.
+   * - ``folder()``
+     - Le dossier canonique courant, c'est-à-dire la même chose que ``parent()``
+       ci-dessus si l'objet courant n'est pas folderish (voir ``is_folderish()``
+       ci-dessous)
+   * - ``is_folderish()``
+     - ``True`` si l'objet publié peut contenir des sous-objets enfants. Type
+       dossier ou apparenté.
+   * - ``is_structural_folder()``
+     - ``True`` si l'objet publié est un dossier permettant la navigation et la
+       structuration interne libre.
+   * - ``is_default_page()``
+     - ``True`` si l'objet publié est la page par défaut de son dossier parent.
+   * - ``is_portal_root()``
+     - ``True`` si l'objet publié est le site plone ou sa page d'accueil.
+   * - ``is_editable()``
+     - ``True`` si l'objet publié est modifiable par l'utilisateur courant
+       (Permet d'afficher ou non l'onglet :guilabel:`Modifier`).
+   * - ``is_locked()``
+     - ``True`` si un verrou WebDAV est posé sur l'objet publié.
+   * - ``actions()``
+     - Les actions filtrées sur le contexte, dépendant des droits de
+       l'utilisateur courant. Toutes les catégories d'actions sont fournies sous
+       la forme ``{catégorie: [{action}, {action}, ...], ...}``.
+   * - ``portlet_assignable()``
+     - ``True`` si l'objet publié peut se voir assigner des portlets. Assigner
+       des portlets signifie dans ce cas qu'une disposition de portlets
+       spécifique à cet objet peut être envisagée (affichage du lien de gestion
+       des portlets). Et non que des portlets peuvent être affichées, ce qui est
+       toujours le cas.

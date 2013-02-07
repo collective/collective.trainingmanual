@@ -1,0 +1,37 @@
+.. -*- coding: utf-8 -*-
+
+.. _zcml:
+
+===============
+Le langage ZCML
+===============
+
+:Author: Gilles Lenfant
+:Version: 1.0.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/zcml/index.txt>`_
+
+En explorant le code de Plone, vous avez rencontré de nombreux fichiers
+:file:`*.zcml`. En vous demandant à quoi celà peut bien servir.
+
+Le :term:`ZCML` ou Zope Configuration Markup Language est un langage basé sur
+XML qui a été élaboré pour permettre de déclarer les liaisons entre les
+différents éléments logiciels utilisant la :term:`ZCA` de votre application.
+
+Relisez-donc si nécessaire :ref:`guide_zca` pour revoir ce qu'est un
+:term:`adaptateur` ou un :term:`utilitaire`.
+
+
+.. important::
+
+   La lecture de ce chapitre nécessite la connaissance de base du langage XML,
+   et notamment des notions d'élément, d'attribut, et de namespace. Si ces
+   termes vous semblent abscons, je vous invite à passer une heure sur un
+   tutoriel XML.
+
+.. toctree::
+   :maxdepth: 2
+
+   intro
+   traitement
+   directives
+   plusloin

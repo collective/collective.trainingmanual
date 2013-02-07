@@ -1,0 +1,194 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Pour aller plus loin &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Le langage ZCML" href="index.html" />
+    <link rel="next" title="Utiliser la ZCA avec Grok" href="../grok.html" />
+    <link rel="prev" title="Les directives ZCML" href="directives.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../grok.html" title="Utiliser la ZCA avec Grok"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="directives.html" title="Les directives ZCML"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Le langage ZCML</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pour-aller-plus-loin">
+<span id="plus-loin-zcml"></span><h1>Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="comprendre-une-directive-zcml">
+<h2>Comprendre une directive ZCML<a class="headerlink" href="#comprendre-une-directive-zcml" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L'une des explications sur une directive ci-dessus vous parait floue, ou bien
+une directive fournie par un composant de tierce partie n'est pas correctement
+documentée ? Voici la méthode pour pister la définition d'une directive ZCML
+quelconque.</p>
+<p>La directive est exposée à partir d'un namespace, il vous faudra donc trouver un
+fichier <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt> dans lequel est définie cette directive.</p>
+<p>En supposant que la directive s'appelle <tt class="docutils literal"><span class="pre">foo</span></tt> et qu'elle est exposée par le
+namespace <tt class="docutils literal"><span class="pre">http://namespace.mydomain.tld/bar</span></tt>, il vous faudra trouver, à
+l'aide des commandes shell <strong class="command">find</strong> et <strong class="command">grep</strong> un fichier
+<tt class="file docutils literal"><span class="pre">meta.zcml</span></tt> dans lequel figure quelque-chose comme ceci :</p>
+<div class="highlight-xml"><div class="highlight"><pre>namespace=&quot;http://namespace.mydomain.tld/bar&quot;
+...
+name=&quot;foo&quot;
+</pre></div>
+</div>
+<p>Si vous ne le trouvez pas, c'est que vous avez mal cherché, car il se trouve
+forcément quelque part dans l'un des packages de votre projet.</p>
+<p>Vous trouverez donc (si, si !) un fichier <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt> qui contiendra
+quelque chose comme ceci :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+   <span class="na">xmlns:meta=</span><span class="s">&quot;http://namespaces.zope.org/meta&quot;</span>
+   <span class="nt">&gt;</span>
+   ...
+   <span class="nt">&lt;meta:directives</span> <span class="na">namespace=</span><span class="s">&quot;http://namespace.mydomain.tld/bar&quot;</span><span class="nt">&gt;</span>
+      ...
+      <span class="nt">&lt;meta:directive</span>
+         <span class="na">name=</span><span class="s">&quot;foo&quot;</span>
+         <span class="na">schema=</span><span class="s">&quot;bar.zcml.IFooDirective&quot;</span>
+         <span class="na">handler=</span><span class="s">&quot;bar.zcml.foo&quot;</span> <span class="nt">/&gt;</span>
+      ...
+   <span class="nt">&lt;/meta:directives&gt;</span>
+   ...
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>Ce qui signifie que les attributs de l'élément de configuration <tt class="docutils literal"><span class="pre">&lt;foo</span> <span class="pre">...&gt;</span></tt>
+sont définis dans la classe <tt class="xref py py-class docutils literal"><span class="pre">bar.zcml.IFooDirective</span></tt> et que l'élément
+sera traité par la fonction <tt class="xref py py-func docutils literal"><span class="pre">bar.zcml.foo</span></tt>.</p>
+<p>La classe <tt class="xref py py-class docutils literal"><span class="pre">bar.zcml.IFooDirective</span></tt> est une interface (sous-classant
+<tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt>) et ses attributs sont définis par des objets
+des modules <tt class="xref py py-mod docutils literal"><span class="pre">zope.configuration.fields</span></tt> ou de <tt class="xref py py-mod docutils literal"><span class="pre">zope.schema</span></tt> et sont
+généralement abondament commentés.</p>
+<p>Le handler <tt class="xref py py-func docutils literal"><span class="pre">bar.zcml.foo</span></tt> prend pour paramètres un objet implémentant
+<tt class="xref py py-class docutils literal"><span class="pre">zope.configuration.interfaces.IConfigurationContext</span></tt> ainsi que
+l'ensemble des attributs de l'émément <tt class="docutils literal"><span class="pre">&lt;foo</span> <span class="pre">..&gt;</span></tt>.</p>
+<p>Le reste, c'est la lecture du code Python, généralement assez facile, qui vous
+l'apprendra.</p>
+</div>
+<div class="section" id="autres-ressources">
+<h2>Autres ressources<a class="headerlink" href="#autres-ressources" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour aller plus loin, <a class="reference external" href="http://glenfant.wordpress.com/2008/05/09/doing-my-zcml/">cet article de blog</a> explique en détails
+comment faire sa propre directive ZCML.</p>
+<p>Quelques composants simples pour Zope et Plone qui exposent leur propre
+vocabulaire ZCML :</p>
+<ul class="simple">
+<li><a class="reference external" href="http://pypi.python.org/pypi/collective.monkeypatcher">collective.monkeypatcher</a> permet d'effectuer
+des monkey patches Python d'une façon documentée et rationnelle.</li>
+<li><a class="reference external" href="http://pypi.python.org/pypi/archetypes.configure">archetypes.configure</a>
+évite la fastidieuse déclaration de types en Python dans les packages
+fournissant des types de contenus Archetypes</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Pour aller plus loin</a><ul>
+<li><a class="reference internal" href="#comprendre-une-directive-zcml">Comprendre une directive ZCML</a></li>
+<li><a class="reference internal" href="#autres-ressources">Autres ressources</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="directives.html"
+                        title="Chapitre précédent">Les directives ZCML</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="../grok.html"
+                        title="Chapitre suivant">Utiliser la ZCA avec Grok</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/zcml/plusloin.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="../grok.html" title="Utiliser la ZCA avec Grok"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="directives.html" title="Les directives ZCML"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Le langage ZCML</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

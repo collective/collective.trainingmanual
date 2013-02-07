@@ -1,0 +1,286 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les vues standard &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="La vue &#34;plone_context_state&#34;" href="plone_context_state.html" />
+    <link rel="prev" title="Les portlets" href="../portlets/index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plone_context_state.html" title="La vue &#34;plone_context_state&#34;"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="../portlets/index.html" title="Les portlets"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-vues-standard">
+<span id="id1"></span><h1>Les vues standard<a class="headerlink" href="#les-vues-standard" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="qu-est-ce-que-c-est">
+<h2>Qu'est-ce que c'est ?<a class="headerlink" href="#qu-est-ce-que-c-est" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les vues standard, comme leur nom ne l'indiquent pas, ne sont pas des vues HTML
+sur les contenus d'un site Plone mais des multi-adapteurs (voir
+<a class="reference internal" href="../izca-fr.html#guide-zca"><em>Le guide complet de l'Architecture de Composants de Zope</em></a>) permettant d'acéder aux ressources les plus fréquemment
+utilisées lors de la programmation de vos applications pour Plone, pour réaliser
+vos templates ou dans les expressions utilisées dans les actions.</p>
+</div>
+<div class="section" id="pourquoi-utiliser-ces-vues">
+<h2>Pourquoi utiliser ces vues ?<a class="headerlink" href="#pourquoi-utiliser-ces-vues" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Il y a d'autres dispositifs pour obtenir les mêmes informations et services que
+ceux proposés par les vues standard. Ces API, que nous ne détailleront pas ici,
+sont maintenues dans Plone 3 et Plone 4 principalement pour faciliter
+l'adaptation des composants d'extension conçus pour fonctionner avec les
+versions antérieures à Plone 3.</p>
+<p>L'utilisation de ces vues en lieu et place des API antérieures ont deux
+avantages :</p>
+<ul class="simple">
+<li>L'API est simplifiée et unifiée. L'adjonction de futures fonctionnalités
+seront reflétées dans ces vues ou d'autres vues pour les services futurs.</li>
+<li>Si l'architecture logicielle sous-jacente est amenée à changer dans le futur,
+l'accès aux services et informations supportée par la dite architecture seront
+inchangés grâce particulièrement à ces vues</li>
+<li>Les éléments retournés par ces vues sont &quot;cachés&quot; dans la mesure du
+possible. C'est-à-dire que seul le premier accès à un objet retourné par ces
+vues est &quot;coûteux&quot; en terme de temps de réponse. Les accès successifs sont
+immédiats.</li>
+</ul>
+</div>
+<div class="section" id="quelles-vues-sont-proposees">
+<h2>Quelles vues sont proposées<a class="headerlink" href="#quelles-vues-sont-proposees" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone propose en standard les vues suivantes :</p>
+<table border="1" class="docutils">
+<caption>Liste des vues standard</caption>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Nom</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">plone_context_state</span></tt></td>
+<td>Informations sur l'objet de contexte courant</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">plone_portal_state</span></tt></td>
+<td>Informations et services globaux du portail lui-même</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">plone_tools</span></tt></td>
+<td>Accès aux tools les plus fréquemment utilisés</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">plone_interface_info</span></tt></td>
+<td>Permet de tester les interfaces Zope 3 depuis du code &quot;untrusted&quot; (une
+template, une expression TALES d'action, un script de skin). Cette vue
+est également utile à du code &quot;trusted&quot; pour tester une interface connue
+par son <a class="reference internal" href="../glossaire.html#term-dotted-name"><em class="xref std std-term">dotted name</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">plone_layout</span></tt></td>
+<td>Fournit l'accès à des méthodes relatives à la mise en page.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">plone</span></tt></td>
+<td>Fournit l'accès aux objets qui étaient auparavant fournis en standard
+dans la <tt class="docutils literal"><span class="pre">main_template</span></tt> de Plone jusqu'à sa version 3 <a class="footnote-reference" href="#perfs" id="id2">[1]</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p>Vous noterez que de nombreuses ressources de <a class="reference internal" href="plone.html#vue-plone"><em>La vue &quot;plone&quot;</em></a> sont en fait
+des reprises ou alias de méthodes figurant dans
+<a class="reference internal" href="plone_portal_state.html#vue-plone-portal-state"><em>La vue &quot;plone_portal_state&quot;</em></a>, <a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a> ou
+<a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</p>
+<p class="last">Si le composant que vous développez n'est pas supposé être compatible avec
+une versions de Plone antérieure à Plone 3, vous préfèrerez l'utilisation des
+méthodes proposées par ces dernières vues.</p>
+</div>
+</div>
+<div class="section" id="acceder-aux-ressources-des-vues">
+<h2>Accéder aux ressources des vues<a class="headerlink" href="#acceder-aux-ressources-des-vues" title="Lien permanent vers ce titre">¶</a></h2>
+<p>On utilise pour illustrer les accès la vue fictive nommée <tt class="docutils literal"><span class="pre">une_vue</span></tt>, son
+attribut non moins fictif <tt class="docutils literal"><span class="pre">un_attrib</span></tt> et une méthode <tt class="docutils literal"><span class="pre">une_meth</span></tt>.</p>
+<div class="section" id="dans-une-expression-tales-d-une-action">
+<h3>Dans une expression <a class="reference internal" href="../glossaire.html#term-tales"><em class="xref std std-term">TALES</em></a> d'une action<a class="headerlink" href="#dans-une-expression-tales-d-une-action" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">python</span><span class="p">:</span> <span class="nb">object</span><span class="o">.</span><span class="n">restrictedTraverse</span><span class="p">(</span><span class="s">&#39;@@une_vue&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">un_attrib</span>
+</pre></div>
+</div>
+<p>Ou, ce qui revient au même en plus court :</p>
+<div class="highlight-python"><pre>object/@@une_vue/un_attrib</pre>
+</div>
+</div>
+<div class="section" id="dans-une-template-zpt">
+<h3>Dans une template <a class="reference internal" href="../glossaire.html#term-zpt"><em class="xref std std-term">ZPT</em></a><a class="headerlink" href="#dans-une-template-zpt" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">tal:define=</span><span class="s">&quot;une_meth nocall:context/@@une_vue/une_meth;</span>
+<span class="s">                 foo python:une_meth(bar)&quot;</span><span class="nt">&gt;</span>
+  ...
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dans-du-code-python-untrusted">
+<h3>Dans du code Python &quot;untrusted&quot;<a class="headerlink" href="#dans-du-code-python-untrusted" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">une_meth</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">restrictedTraverse</span><span class="p">(</span><span class="s">&#39;@@une_vue&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">une_meth</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">une_meth</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dans-du-code-python-trusted-dans-un-fichier">
+<h3>Dans du code Python &quot;trusted&quot; dans un fichier<a class="headerlink" href="#dans-du-code-python-trusted-dans-un-fichier" title="Lien permanent vers ce titre">¶</a></h3>
+<p>On peut utiliser la méthode standard <tt class="xref py py-meth docutils literal"><span class="pre">restrictedTraverse('&#64;&#64;une_vue')</span></tt>
+comme dans du code &quot;untrusted&quot;. Cependant, et même si cette approche est plus
+verbeuse, elle est plus efficace en terme de performances.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zope.component</span> <span class="kn">import</span> <span class="n">getMultiAdapter</span>
+<span class="c"># ...</span>
+<span class="c"># Fournir l&#39;objet de contexte par le moyen le plus approprié</span>
+<span class="n">context</span> <span class="o">=</span> <span class="n">myOwnWayToGetIt</span><span class="p">()</span> <span class="c"># Comme bon vous semble</span>
+<span class="c"># Fournir l&#39;objet request. Par défaut, vous pourrez utiliser l&#39;acquisition</span>
+<span class="c"># A noter que dans les classes de vues, ces deux objets sont généralement</span>
+<span class="c"># self.context et self.request</span>
+<span class="n">request</span> <span class="o">=</span> <span class="n">context</span><span class="o">.</span><span class="n">REQUEST</span>
+<span class="c"># Obtenir la vue</span>
+<span class="n">une_vue</span> <span class="o">=</span> <span class="n">getMultiAdapter</span><span class="p">((</span><span class="n">context</span><span class="p">,</span> <span class="n">request</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s">u&#39;une_vue&#39;</span><span class="p">)</span>
+<span class="c"># Et l&#39;utiliser</span>
+<span class="n">foo</span> <span class="o">=</span> <span class="n">une_vue</span><span class="o">.</span><span class="n">un_attrib</span>
+<span class="n">bar</span> <span class="o">=</span> <span class="n">une_vue</span><span class="o">.</span><span class="n">une_meth</span><span class="p">(</span><span class="n">dummy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="centered">
+<strong>Les différentes vues</strong></p><div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="plone_context_state.html">La vue &quot;plone_context_state&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plone_portal_state.html">La vue &quot;plone_portal_state&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plone_tools.html">La vue &quot;plone_tools&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plone_interface_info.html">La vue &quot;plone_interface_info&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plone_layout.html">La vue &quot;plone_layout&quot;</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plone.html">La vue &quot;plone&quot;</a></li>
+</ul>
+</div>
+<p class="rubric">Footnotes</p>
+<table class="docutils footnote" frame="void" id="perfs" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[1]</a></td><td>Ce procédé a été abandonné pour cause de performances. Depuis Plone
+4, ceci ne permet de n'évaluer que les objets nécessaires au
+déploiement de la template courante.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les vues standard</a><ul>
+<li><a class="reference internal" href="#qu-est-ce-que-c-est">Qu'est-ce que c'est ?</a></li>
+<li><a class="reference internal" href="#pourquoi-utiliser-ces-vues">Pourquoi utiliser ces vues ?</a></li>
+<li><a class="reference internal" href="#quelles-vues-sont-proposees">Quelles vues sont proposées</a></li>
+<li><a class="reference internal" href="#acceder-aux-ressources-des-vues">Accéder aux ressources des vues</a><ul>
+<li><a class="reference internal" href="#dans-une-expression-tales-d-une-action">Dans une expression <tt class="docutils literal"><span class="pre">TALES</span></tt> d'une action</a></li>
+<li><a class="reference internal" href="#dans-une-template-zpt">Dans une template <tt class="docutils literal"><span class="pre">ZPT</span></tt></a></li>
+<li><a class="reference internal" href="#dans-du-code-python-untrusted">Dans du code Python &quot;untrusted&quot;</a></li>
+<li><a class="reference internal" href="#dans-du-code-python-trusted-dans-un-fichier">Dans du code Python &quot;trusted&quot; dans un fichier</a><ul>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="../portlets/index.html"
+                        title="Chapitre précédent">Les portlets</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="plone_context_state.html"
+                        title="Chapitre suivant">La vue &quot;plone_context_state&quot;</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/vues_standard/index.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="plone_context_state.html" title="La vue &#34;plone_context_state&#34;"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="../portlets/index.html" title="Les portlets"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

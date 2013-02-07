@@ -1,0 +1,415 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Le contrôle du flux d&#39;instructions &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Presentation de Python" href="index.html" />
+    <link rel="next" title="Les conteneurs standard" href="conteneurs_standard.html" />
+    <link rel="prev" title="La console Python" href="console.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="conteneurs_standard.html" title="Les conteneurs standard"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="La console Python"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Presentation de Python</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="le-controle-du-flux-d-instructions">
+<span id="python-controle-flux-instructions"></span><h1>Le contrôle du flux d'instructions<a class="headerlink" href="#le-controle-du-flux-d-instructions" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Un script Python est formé d'une suite d'instructions exécutées en séquence de
+haut en bas.</p>
+<p>Chaque ligne d'instructions est formée d'une ou plusieurs lignes physiques qui
+peuvent être continuées par un antislash <tt class="docutils literal"><span class="pre">\\</span></tt> ou un caractère ouvrant <tt class="docutils literal"><span class="pre">[</span></tt> ou
+<tt class="docutils literal"><span class="pre">(</span></tt> ou <tt class="docutils literal"><span class="pre">{</span></tt> pas encore fermé.</p>
+<p>Cette exécution en séquence peut être modifiée pour choisir ou répéter des
+portions de code. C'est l'objet principal de ce chapitre.</p>
+<div class="section" id="les-instructions-composees">
+<h2>Les instructions composées<a class="headerlink" href="#les-instructions-composees" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-instruction-composee">Instruction composée</dt>
+<dd><dl class="first last docutils">
+<dt>Une instruction composée est constituée :</dt>
+<dd><ul class="first last simple">
+<li>d'une ligne d'en-tête terminée par deux-points ;</li>
+<li>d'un bloc d'instructions indenté par rapport à la ligne d'en-tête.</li>
+</ul>
+</dd>
+</dl>
+</dd>
+</dl>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Toutes les instructions au même niveau d'indentation appartiennent au
+même bloc</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/LesInstructionsComposees.jpg" src="../_images/LesInstructionsComposees.jpg" />
+<p class="caption">Les instructions composées.</p>
+</div>
+<p>Exemple :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">somme</span> <span class="o">=</span> <span class="mf">0.0</span>
+<span class="n">nb_valeurs</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">valeurs</span><span class="p">:</span>
+    <span class="n">nb_valeurs</span> <span class="o">=</span> <span class="n">nb_valeurs</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">somme</span> <span class="o">=</span> <span class="n">somme</span> <span class="o">+</span> <span class="n">valeurs</span>
+<span class="n">moyenne</span> <span class="o">=</span> <span class="n">somme</span> <span class="o">/</span> <span class="n">nb_valeurs</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="first admonition-title">Astuce</p>
+<p class="last">N'indentez pas avec des tabulations. Bien que Python admette les tabulations
+pour indenter le code source, il est vivement recommandé d'utiliser 4 espaces
+à cette fin.</p>
+</div>
+<p>On a souvent besoin d'imbriquer les instructions composées :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">a</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">b</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">x = {:.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">c</span><span class="o">/</span><span class="n">b</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Pas de solution.&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="mi">4</span><span class="o">*</span><span class="n">a</span><span class="o">*</span><span class="n">c</span>
+    <span class="k">if</span> <span class="n">delta</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="n">rac_delta</span> <span class="o">=</span> <span class="n">sqrt</span><span class="p">(</span><span class="n">delta</span><span class="p">)</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">x1 = {:.2f} </span><span class="se">\t</span><span class="s"> x2 = {:.2f}&quot;</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">((</span><span class="o">-</span><span class="n">b</span><span class="o">-</span><span class="n">rac_delta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">),</span> <span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">+</span><span class="n">rac_delta</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)))</span>
+    <span class="k">elif</span> <span class="n">delta</span> <span class="o">&lt;</span> <span class="mf">0.0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Pas de racine réelle.&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">x = {:.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">-</span><span class="n">b</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">a</span><span class="p">)))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="choisir">
+<h2>Choisir<a class="headerlink" href="#choisir" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="choisir-if-elif-else">
+<h3>Choisir : if - [elif] - [else]<a class="headerlink" href="#choisir-if-elif-else" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Contrôler une alternative :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;x est négatif&quot;</span><span class="p">)</span>
+<span class="k">elif</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;x est positif et impair&quot;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="s">&quot;x n&#39;est pas négatif et est pair&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Test d'une valeur booléenne :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">x</span><span class="p">:</span> <span class="c"># mieux que (if x is True:) ou que (if x == True:)</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="syntaxe-compacte-d-une-alternative">
+<h3>Syntaxe compacte d'une alternative<a class="headerlink" href="#syntaxe-compacte-d-une-alternative" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour trouver, par exemple, le minimum de deux nombres, on peut utiliser
+l'opérateur ternaire (repris du C) :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span>
+<span class="c"># Ecriture classique :</span>
+<span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span><span class="p">:</span>
+    <span class="n">plus_petit</span> <span class="o">=</span> <span class="n">x</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">plus_petit</span> <span class="o">=</span> <span class="n">y</span>
+<span class="c"># Utilisation de l&#39;opérateur ternaire :</span>
+<span class="n">plus_petit</span> <span class="o">=</span> <span class="n">x</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">y</span> <span class="k">else</span> <span class="n">y</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;Plus petit : &quot;</span><span class="p">,</span> <span class="n">plus_petit</span><span class="p">)</span> <span class="c"># 3</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="boucler">
+<h2>Boucler<a class="headerlink" href="#boucler" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="boucler-while">
+<h3>Boucler : while<a class="headerlink" href="#boucler-while" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Répéter une portion de code :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span><span class="p">,</span> <span class="n">cpt</span> <span class="o">=</span> <span class="mi">257</span><span class="p">,</span> <span class="mi">0</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;L&#39;approximation de log2 de&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="s">&quot;est&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="n">x</span> <span class="o">//=</span> <span class="mi">2</span> <span class="c"># division avec troncature</span>
+    <span class="n">cpt</span> <span class="o">+=</span> <span class="mi">1</span> <span class="c"># incrémentation</span>
+<span class="k">print</span><span class="p">(</span><span class="n">cpt</span><span class="p">,</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span> <span class="c"># 8</span>
+</pre></div>
+</div>
+<p>Utilisation classique : la saisie filtrée d'une valeur numérique (on doit
+préciser le type car <strong class="command">input()</strong> saisit une chaîne) :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">&#39;Entrez un entier [1 .. 10] : &#39;</span><span class="p">))</span>
+<span class="k">while</span> <span class="ow">not</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;=</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">&#39;Entrez un entier [1 .. 10], S.V.P. : &#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parcourir-for">
+<h3>Parcourir : for<a class="headerlink" href="#parcourir-for" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Parcourir un itérable (tout conteneur que l'on peut parcourir élément par
+élément, dans l'ordre ou non, suivant son type) :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">lettre</span> <span class="ow">in</span> <span class="s">&quot;ciao&quot;</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">lettre</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="c"># c i a o</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="mf">3.14</span><span class="p">]:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="c"># 2 a 3.14</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">):</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="c"># 0 1 2 3 4</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="ruptures-de-sequences">
+<h2>Ruptures de séquences<a class="headerlink" href="#ruptures-de-sequences" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="interrompre-une-boucle-break">
+<h3>Interrompre une boucle : break<a class="headerlink" href="#interrompre-une-boucle-break" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Sort immédiatement de la boucle <strong class="command">for</strong> ou <strong class="command">while</strong> en cours
+contenant l'instruction :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span> <span class="c"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">Boucle interrompue pour x =&quot;</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
+<span class="c"># affiche :</span>
+<span class="c"># 1 2 3 4</span>
+<span class="c"># Boucle interrompue pour x = 5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="court-circuiter-une-boucle-continue">
+<h3>Court-circuiter une boucle : continue<a class="headerlink" href="#court-circuiter-une-boucle-continue" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Passe immédiatement à l'itération suivante de la boucle <strong class="command">for</strong> ou
+<strong class="command">while</strong> en cours contenant l'instruction ; reprend à la ligne de
+l'en-tête de la boucle :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">):</span> <span class="c"># 1, 2, 3, 4, 5, 6, 7, 8, 9, 10</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="k">continue</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">La boucle a sauté la valeur 5&quot;</span><span class="p">)</span>
+<span class="c"># affiche :</span>
+<span class="c"># 1 2 3 4 6 7 8 9 10</span>
+<span class="c"># La boucle a sauté la valeur 5</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="syntaxe-complete-des-boucles">
+<h3>Syntaxe complète des boucles<a class="headerlink" href="#syntaxe-complete-des-boucles" title="Lien permanent vers ce titre">¶</a></h3>
+<p><strong>while - else</strong></p>
+<p>Les boucles <strong class="command">while</strong> et <strong class="command">for</strong> peuvent posséder une clause
+<strong class="command">else</strong> qui ne s'exécute que si la boucle se termine normalement,
+c'est-à-dire sans interruption :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">&quot;Entrez un entier positif : &quot;</span><span class="p">))</span>
+<span class="k">while</span> <span class="ow">not</span><span class="p">(</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">):</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">&#39;Entrez un entier positif, S.V.P. : &#39;</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">y</span> <span class="o">//</span> <span class="mi">2</span>
+<span class="k">while</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">y</span> <span class="o">%</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&quot;{} a pour facteur {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">))</span>
+        <span class="k">break</span> <span class="c"># voici l&#39;interruption !</span>
+    <span class="n">x</span> <span class="o">-=</span> <span class="mi">1</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="s">&quot;est premier.&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>for - else</strong></p>
+<p>Un exemple avec le parcours d'une liste :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">une_sequence</span> <span class="o">=</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]</span>
+<span class="n">cible</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="nb">input</span><span class="p">(</span><span class="s">&quot;Entrez un entier : &quot;</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">une_sequence</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">cible</span><span class="p">:</span>
+        <span class="n">sauve</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="k">break</span> <span class="c"># voici l&#39;interruption !</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span><span class="p">(</span><span class="n">cible</span><span class="p">,</span> <span class="s">&quot;n&#39;est pas dans&quot;</span><span class="p">,</span> <span class="n">une_sequence</span><span class="p">)</span>
+    <span class="n">sauve</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="c"># sauve vaut donc cible ou None :</span>
+<span class="k">print</span><span class="p">(</span><span class="s">&quot;On obtient sauve =&quot;</span><span class="p">,</span> <span class="n">sauve</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="exceptions">
+<h3>Exceptions<a class="headerlink" href="#exceptions" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Afin de rendre les applications plus robustes, il est nécessaire de gérer les
+erreurs d'exécution des parties sensibles du code.</p>
+<p>Le mécanisme des <strong>exceptions</strong> sépare d'un côté la séquence d'instructions
+à exécuter lorsque tout se passe bien, et d'un autre côté, une ou plusieurs
+séquences d'instructions à exécuter en cas d'erreur.</p>
+<p>Lorsqu'une erreur survient, un <strong>objet exception</strong> est passé au mécanisme
+de propagation des exceptions, et l'exécution est transférée à la séquence de
+traitement ad doc.</p>
+<p>Le mécanisme s'effectue en deux phases :</p>
+<blockquote>
+<div><ul class="simple">
+<li>la levée d'exception lors de la détection d'erreur ;</li>
+<li>le traitement approprié.</li>
+</ul>
+</div></blockquote>
+<p class="rubric">Syntaxe</p>
+<p>La séquence normale d'instructions est placée dans un bloc <strong class="command">try</strong>.</p>
+<p>Si une erreur est détectée (levée d'exception), elle est traitée dans le bloc
+<strong class="command">except</strong> approprié (le gestionnaire d'exception).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">math</span> <span class="kn">import</span> <span class="n">sin</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">-</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">):</span> <span class="c"># -4, -3, -2, -1, 0, 1, 2, 3, 4</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s">&#39;{:.3f}&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sin</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">x</span><span class="p">),</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span> <span class="c"># toujours fournir une exception</span>
+        <span class="k">print</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="c"># gère l&#39;exception en 0</span>
+<span class="c"># -0.189 0.047 0.455 0.841 1.0 0.841 0.455 0.047 -0.189</span>
+</pre></div>
+</div>
+<p>Toutes les exceptions levées par Python sont des instances de sous-classe de la
+classe <tt class="xref py py-class docutils literal"><span class="pre">Exception</span></tt>.</p>
+<p>La hiérarchie des sous-classes offre une vingtaine d'exceptions standard.</p>
+<p>L'instruction <strong class="command">raise</strong> permet de lever volontairement une exception :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">x</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="k">if</span> <span class="ow">not</span><span class="p">(</span><span class="mi">0</span> <span class="o">&lt;=</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;x n&#39;est pas dans [0 .. 1]&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Syntaxe complète d'une exception :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="o">...</span> <span class="c"># séquence normale d&#39;exécution</span>
+<span class="k">except</span> <span class="o">&lt;</span><span class="n">exception_1</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="o">...</span> <span class="c"># traitement de l&#39;exception 1</span>
+<span class="k">except</span> <span class="o">&lt;</span><span class="n">exception_2</span><span class="o">&gt;</span><span class="p">:</span>
+    <span class="o">...</span> <span class="c"># traitement de l&#39;exception 2</span>
+<span class="o">...</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="o">...</span> <span class="c"># clause exécutée en l&#39;absence d&#39;erreur</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="o">...</span> <span class="c"># clause toujours exécutée</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>En python 2.6, il est encore possible de lever une exception avec une simple
+chaîne</p>
+<div class="highlight-python"><pre>&gt;&gt;&gt; raise "Une exception"
+Traceback (most recent call last):
+  File ...
+Une exception</pre>
+</div>
+<p class="last">Contrairement à Python 3, où il faut impérativement une instance dérivée de
+<tt class="xref py py-class docutils literal"><span class="pre">BaseException</span></tt>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Le contrôle du flux d'instructions</a><ul>
+<li><a class="reference internal" href="#les-instructions-composees">Les instructions composées</a></li>
+<li><a class="reference internal" href="#choisir">Choisir</a><ul>
+<li><a class="reference internal" href="#choisir-if-elif-else">Choisir : if - [elif] - [else]</a></li>
+<li><a class="reference internal" href="#syntaxe-compacte-d-une-alternative">Syntaxe compacte d'une alternative</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#boucler">Boucler</a><ul>
+<li><a class="reference internal" href="#boucler-while">Boucler : while</a></li>
+<li><a class="reference internal" href="#parcourir-for">Parcourir : for</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ruptures-de-sequences">Ruptures de séquences</a><ul>
+<li><a class="reference internal" href="#interrompre-une-boucle-break">Interrompre une boucle : break</a></li>
+<li><a class="reference internal" href="#court-circuiter-une-boucle-continue">Court-circuiter une boucle : continue</a></li>
+<li><a class="reference internal" href="#syntaxe-complete-des-boucles">Syntaxe complète des boucles</a></li>
+<li><a class="reference internal" href="#exceptions">Exceptions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="console.html"
+                        title="Chapitre précédent">La console Python</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="conteneurs_standard.html"
+                        title="Chapitre suivant">Les conteneurs standard</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/python/controle_flux_instructions.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="conteneurs_standard.html" title="Les conteneurs standard"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="console.html" title="La console Python"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Presentation de Python</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

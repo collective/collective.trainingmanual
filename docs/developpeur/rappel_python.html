@@ -1,0 +1,477 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rappel sur Python &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Presentation de Python" href="python/index.html" />
+    <link rel="prev" title="Plone pour les développeurs" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="python/index.html" title="Presentation de Python"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Plone pour les développeurs"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rappel-sur-python">
+<span id="rappel-python"></span><h1>Rappel sur Python<a class="headerlink" href="#rappel-sur-python" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="section" id="definition">
+<h2>Définition<a class="headerlink" href="#definition" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le but est de maîtriser le langage python, de comprendre et respecter les standards utilisés par la communauté Plone.</p>
+</div>
+<div class="section" id="savoir">
+<h2>Savoir<a class="headerlink" href="#savoir" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li>Installation de python</li>
+<li>Votre premier programme Python</li>
+<li>Types prédéfinis</li>
+<li>Le pouvoir de l’introspection</li>
+<li>Les objets et l'orienté objet</li>
+<li>Traitement des exceptions et utilisation de fichiers</li>
+<li>Expressions régulières</li>
+<li>Traitement du HTML</li>
+<li>Traitement de données XML</li>
+<li>Des scripts et des flots de données (streams)</li>
+</ul>
+</div>
+<div class="section" id="aide-integree-a-python">
+<h2>Aide intégrée à Python<a class="headerlink" href="#aide-integree-a-python" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Dans un Python interactif, vous pouvez lire la documentation d'un
+module avec la commande <em>help</em>, par exemple si vous voulez la documentation
+sur le module <em>os</em>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="s">&quot;os&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>ou bien</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">os</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">os</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Il existe aussi une commande spéciale pour avoir de la documentation
+sur un sujet donné.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="s">&#39;topics&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="attributs-par-defaut-d-une-classe">
+<h2>Attributs par défaut d'une classe<a class="headerlink" href="#attributs-par-defaut-d-une-classe" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Dans un shell Python :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="n">myattr</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">__dict__</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">__dict__</span>
+<span class="go">{&#39;myattr&#39;: 3}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">MyClass</span><span class="o">.</span><span class="n">myattr</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="set">
+<h2>set<a class="headerlink" href="#set" title="Lien permanent vers ce titre">¶</a></h2>
+<p>C'est une liste à éléments uniques :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span>
+<span class="go">set([1, 2, 3, 5])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span>
+<span class="go">set([1, 2, 3, 5, 6])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s2</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">AttributeError</span>: <span class="n">&#39;frozenset&#39; object has no attribute &#39;add&#39;</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="le-call-d-une-classe">
+<h2>Le __call__ d'une classe<a class="headerlink" href="#le-call-d-une-classe" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Une classe peut être appelé :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&quot;bonjour&quot;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">()</span>
+<span class="go">bonjour</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manipulation-de-chaines">
+<h2>Manipulation de chaines<a class="headerlink" href="#manipulation-de-chaines" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonJour&quot;</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+<span class="go">&#39;Bonjour&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="go">&#39;b&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;r&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">&#39;bon&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">&#39;bon&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+<span class="go">&#39;on&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">&#39;u&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]</span>
+<span class="go">&#39;ur&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;bonjour&quot;</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">5</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">&#39;oj&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="difference-entre-unicode-et-string">
+<h2>Différence entre unicode et string<a class="headerlink" href="#difference-entre-unicode-et-string" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.stereoplex.com/two-voices/python-unicode-and-unicodedecodeerror">http://www.stereoplex.com/two-voices/python-unicode-and-unicodedecodeerror</a></li>
+</ul>
+</div>
+<div class="section" id="comprehensive-list-et-generator">
+<h2>Comprehensive list et generator<a class="headerlink" href="#comprehensive-list-et-generator" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)]</span>
+<span class="go">[0, 2, 4, 6, 8, 10, 12, 14, 16, 18]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="go">&lt;generator object at 0x1745ef0&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="go">8</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">g</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="k">print</span> <span class="n">i</span>
+<span class="gp">...</span>
+<span class="go">10</span>
+<span class="go">12</span>
+<span class="go">14</span>
+<span class="go">16</span>
+<span class="go">18</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">StopIteration</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="decorateur">
+<h2>Decorateur<a class="headerlink" href="#decorateur" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Copiez cet exemple dans un fichier <em>test.py</em> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">functools</span>
+
+<span class="k">def</span> <span class="nf">log_calls_decorator</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;My decorator.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@functools.wraps</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;My wrapped function.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">call_string</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="s"> called with *args: </span><span class="si">%r</span><span class="s">, **kwargs: </span><span class="si">%r</span><span class="s"> &quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">retval</span> <span class="o">=</span> <span class="n">f</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">call_string</span> <span class="o">+=</span> <span class="s">&quot; --&gt; &quot;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="n">retval</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">retval</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="k">print</span> <span class="n">call_string</span>
+
+    <span class="k">return</span> <span class="n">wrapped</span>
+
+
+<span class="nd">@log_calls_decorator</span>
+<span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">operand1</span><span class="p">,</span> <span class="n">operand2</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Return the sum of operand1 and operand2.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">operand1</span> <span class="o">+</span> <span class="n">operand2</span>
+</pre></div>
+</div>
+<p>La construction est équivalente à :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">add</span> <span class="o">=</span> <span class="n">log_calls_decorator</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Lancez le :</p>
+<div class="highlight-sh"><div class="highlight"><pre>python -i test.py
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">add</span><span class="o">.</span><span class="n">__name__</span>
+<span class="go">add</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">add</span><span class="o">.</span><span class="n">__doc__</span>
+<span class="go">Return the sum of operand1 and operand2.</span>
+</pre></div>
+</div>
+<p>Le <em>&#64;functools.wraps(f)</em> permet de garder le __name__ et __doc__ de la fonction add d'origine.
+Enlevez le et recommencez le test.</p>
+<p>Pour plus d'informations :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">functools</span><span class="o">.</span><span class="n">update_wrapper</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">functools</span><span class="o">.</span><span class="n">WRAPPER_ASSIGNMENTS</span>
+<span class="go">(&#39;__module__&#39;, &#39;__name__&#39;, &#39;__doc__&#39;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">functools</span><span class="o">.</span><span class="n">WRAPPER_UPDATES</span>
+<span class="go">(&#39;__dict__&#39;,)</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://caines.ca/blog/programming/the-debuggerator-a-practical-intro-to-decorators-in-python/">Source</a></p>
+</div>
+<div class="section" id="methode-de-classe">
+<h2>Methode de classe<a class="headerlink" href="#methode-de-classe" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="nd">@classmethod</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">m</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&quot;classmethod&quot;</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">n</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span> <span class="s">&quot;dans n&quot;</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="go">dans n</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">m</span><span class="p">()</span>
+<span class="go">classmethod</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">m</span><span class="p">()</span>
+<span class="go">classmethod</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span><span class="o">.</span><span class="n">n</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">TypeError</span>: <span class="n">unbound method n() must be called with A instance as first argument (got nothing instead)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="property">
+<h2>Property<a class="headerlink" href="#property" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Exemple :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="n">myattr</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">setMyAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="bp">self</span><span class="o">.</span><span class="n">_myattr</span> <span class="o">=</span> <span class="n">value</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="gp">... </span>  <span class="k">def</span> <span class="nf">getMyAttr</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_myattr</span>
+<span class="gp">... </span>  <span class="n">myattr</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">getMyAttr</span><span class="p">,</span> <span class="n">setMyAttr</span><span class="p">)</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">A</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">myattr</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">myattr</span>
+<span class="go">6</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="template">
+<h2>Template<a class="headerlink" href="#template" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En Python 2.4-2.6 :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;Bonjour </span><span class="si">%(name)s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">{</span><span class="s">&#39;name&#39;</span><span class="p">:</span> <span class="s">&#39;Vincent&#39;</span><span class="p">}</span>
+<span class="go">&#39;Bonjour Vincent&#39;</span>
+</pre></div>
+</div>
+<p>En Python 2.6/3.x :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="s">&quot;Bonjour {name}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Vincent&#39;</span><span class="p">)</span>
+<span class="go">&#39;Bonjour Vincent&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="debogueur-pdb">
+<h2>Debogueur pdb<a class="headerlink" href="#debogueur-pdb" title="Lien permanent vers ce titre">¶</a></h2>
+<p>À insérer dans le code source à l'endroit où vous voulez vous arrêter :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pdb</span><span class="p">;</span> <span class="n">pdb</span><span class="o">.</span><span class="n">set_trace</span> <span class="p">()</span>
+</pre></div>
+</div>
+<p>(Ne mettez pas l'espace avant les parenthèses)</p>
+<p>À partir de là, vous avez les commandes suivantes :</p>
+<ul class="simple">
+<li>s/step : entre dans la fonction</li>
+<li>n/next : instruction suivante</li>
+<li>c/continue : continuer jusqu'au prochain point d'arrêt</li>
+<li>l/list : affiche le contexte</li>
+<li>u/up : monter dans la pile d'appel</li>
+<li>d/down : descendre dans la pile d'appel</li>
+<li>b/break num_line : ajouter un point d'arrêt à la ligne num_line</li>
+<li>a : affiche la liste des paramètres passés à la fonction</li>
+<li>r : continue jusqu'au return de la fonction</li>
+<li>q : quitter la session de debogage</li>
+<li>Taper juste sur la touche <em>entrée</em> exécute la dernière commande réalisée.</li>
+<li>Préfixer par &quot;!&quot; si vous voulez afficher la variable &quot;a&quot; ou &quot;b&quot; plutôt
+que d'exécuter la commande pdb associé.</li>
+</ul>
+<p><a class="reference external" href="http://pythonconquerstheuniverse.wordpress.com/category/the-python-debugger/">Lire un exemple concret d'une session de debogage</a> (en anglais)</p>
+</div>
+<div class="section" id="profiler">
+<h2>Profiler<a class="headerlink" href="#profiler" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Installez le package Ubuntu pour avoir les modules profile et pstats :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo apt-get install python-profiler
+</pre></div>
+</div>
+<p>Dans votre code, pour obtenir des statistiques sur l'appel de la methode :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>remplacez la ligne par :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">profile</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">profile</span><span class="o">.</span><span class="n">Profile</span><span class="p">()</span>
+<span class="n">p</span><span class="o">.</span><span class="n">runcall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">method</span><span class="p">,</span> <span class="n">arg1</span><span class="p">,</span> <span class="n">arg2</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">dump_stats</span><span class="p">(</span><span class="s">&#39;/tmp/stats&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Les résultats seront sauvegardés dans le fichier <em>/tmp/stats</em>.</p>
+<p>Pour ensuite afficher les résultats, ouvrez un Python shell et exécutez :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">pstats</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s">&#39;/tmp/stats&#39;</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">strip_dirs</span><span class="p">()</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://docs.python.org/library/profile.html">Plus d'informations sur le module profile.</a></p>
+</div>
+<div class="section" id="ressources">
+<h2>Ressources<a class="headerlink" href="#ressources" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li>livre <a class="reference external" href="http://diveintopython.adrahon.org/">Plongez au coeur de Python</a></li>
+</ul>
+</div>
+<div class="section" id="exercice">
+<h2>Exercice<a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lecture d'un fichier, traitement avec une expression régulière et écriture des résultats dans un fichier.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rappel sur Python</a><ul>
+<li><a class="reference internal" href="#definition">Définition</a></li>
+<li><a class="reference internal" href="#savoir">Savoir</a></li>
+<li><a class="reference internal" href="#aide-integree-a-python">Aide intégrée à Python</a></li>
+<li><a class="reference internal" href="#attributs-par-defaut-d-une-classe">Attributs par défaut d'une classe</a></li>
+<li><a class="reference internal" href="#set">set</a></li>
+<li><a class="reference internal" href="#le-call-d-une-classe">Le __call__ d'une classe</a></li>
+<li><a class="reference internal" href="#manipulation-de-chaines">Manipulation de chaines</a></li>
+<li><a class="reference internal" href="#difference-entre-unicode-et-string">Différence entre unicode et string</a></li>
+<li><a class="reference internal" href="#comprehensive-list-et-generator">Comprehensive list et generator</a></li>
+<li><a class="reference internal" href="#decorateur">Decorateur</a></li>
+<li><a class="reference internal" href="#methode-de-classe">Methode de classe</a></li>
+<li><a class="reference internal" href="#property">Property</a></li>
+<li><a class="reference internal" href="#template">Template</a></li>
+<li><a class="reference internal" href="#debogueur-pdb">Debogueur pdb</a></li>
+<li><a class="reference internal" href="#profiler">Profiler</a></li>
+<li><a class="reference internal" href="#ressources">Ressources</a></li>
+<li><a class="reference internal" href="#exercice">Exercice</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="index.html"
+                        title="Chapitre précédent">Plone pour les développeurs</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="python/index.html"
+                        title="Chapitre suivant">Presentation de Python</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/rappel_python.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="python/index.html" title="Presentation de Python"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Plone pour les développeurs"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

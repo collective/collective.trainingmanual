@@ -1,0 +1,14 @@
+.. -*- coding: utf-8 -*-
+
+.. _plonepas_votre_plugin:
+
+==============
+ Votre plugin
+==============
+
+Hélas rien ne convient à votre cas particulier dans la collection de plugins
+:mod:`PlonePAS` que nous avons présentés dans :ref:`plonepas_plugins_standard`
+et :ref:`plonepas_plugins_3rdparty`. Eh bien il va falloir vous cracher dans les
+mains et réaliser vous-même votre propre plugin.
+
+.. todo:: Exemple de réalisation de plugin personnel avec le "scriptable plugin"

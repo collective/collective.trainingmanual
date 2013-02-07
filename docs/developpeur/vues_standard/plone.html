@@ -1,0 +1,257 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>La vue &#34;plone&#34; &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Les vues standard" href="index.html" />
+    <link rel="next" title="Internationalisation d&#39;un composant" href="../internationalisation.html" />
+    <link rel="prev" title="La vue &#34;plone_layout&#34;" href="plone_layout.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../internationalisation.html" title="Internationalisation d&#39;un composant"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="plone_layout.html" title="La vue &#34;plone_layout&#34;"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="la-vue-plone">
+<span id="vue-plone"></span><h1>La vue &quot;plone&quot;<a class="headerlink" href="#la-vue-plone" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Cette vue fournit nombre d'informations particulièrement utiles dans la
+construction de vos templates.</p>
+<p>A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+cette vue est accessible par l'objet <tt class="docutils literal"><span class="pre">plone_view</span></tt>.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;html</span> <span class="na">use-macro=</span><span class="s">&quot;context/@@standard_macros/page&quot;</span><span class="nt">&gt;</span>
+  ...
+  <span class="nt">&lt;div&gt;</span>Cette URL est
+    <span class="nt">&lt;span</span> <span class="na">tal:content=</span><span class="s">&quot;plone_view/getCurrentUrl&quot;</span><span class="nt">&gt;</span>http://foo<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  ...
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Détails dans <tt class="xref py py-class docutils literal"><span class="pre">Products.CMFPlone.browser.interfaces.IPlone</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Vous noterez à la lecture des méthodes proposées que nombre d'entre elles
+sont reprises de <a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>,
+<a class="reference internal" href="plone_portal_state.html#vue-plone-portal-state"><em>La vue &quot;plone_portal_state&quot;</em></a> ou <a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>. Celles-ci sont des
+raccourcis facilitant la compatibilité ascendante avec les versions
+antérieures de Plone. Pour programmer un composant qu'il est inutile de
+rendre compatible avec ces anciennes version, on préfèrera l'utilisations des
+méthodes équivalentes de <a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>,
+<a class="reference internal" href="plone_portal_state.html#vue-plone-portal-state"><em>La vue &quot;plone_portal_state&quot;</em></a> ou <a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</p>
+</div>
+<table border="1" class="docutils">
+<caption>plone</caption>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribut - Méthode</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">getCurrentUrl()</span></tt></td>
+<td>URL courante incluant la query string (paramètres CGI)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">visibleIdsEnabled()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si la modification des id des éléments de contenus sont permis
+au niveau du portail comme au niveau de l'utilisateur.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">uniqueItemIndex(pos=0)</span></tt></td>
+<td>Retourne un itérateur utilisable pour énumérer des éléments dans une
+template avec la méthode <tt class="xref py py-meth docutils literal"><span class="pre">next</span></tt>. Exemple : <tt class="docutils literal"><span class="pre">tal:define=&quot;foo</span>
+<span class="pre">plone_view/uniqueItemIndex;</span> <span class="pre">un</span> <span class="pre">foo/next;</span> <span class="pre">deux</span> <span class="pre">foo/next&quot;</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">toLocalizedTime(time,</span> <span class="pre">long_format=None,</span> <span class="pre">time_only=None)</span></tt></td>
+<td>Convertit un objet <tt class="xref py py-class docutils literal"><span class="pre">DateTime</span></tt> ou une date sous forme de <a class="reference external" href="http://fr.wikipedia.org/wiki/ISO_8601">chaîne
+normalisée ISO 8601</a> en une date
+et heure localisées sous forme de chaîne de caractères.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">normalizeString(text)</span></tt></td>
+<td>Transforme un texte quelconque éventuellement unicode en une chaîne ASCII
+compatible avec les identifiants Zope.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">isDefaultPageInFolder()</span></tt></td>
+<td>Equivalent à la méthode <tt class="xref py py-meth docutils literal"><span class="pre">is_default_page</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">isStructuralFolder()</span></tt></td>
+<td>Equivalent à la méthode <tt class="xref py py-meth docutils literal"><span class="pre">is_structural_folder</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">hide_columns(self,</span> <span class="pre">column_left,</span> <span class="pre">column_right)</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">hide_columns(self,</span> <span class="pre">column_left,</span>
+<span class="pre">column_right)</span></tt> de <a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">navigationRootPath</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">navigation_root_path</span></tt> de
+<a class="reference internal" href="plone_portal_state.html#vue-plone-portal-state"><em>La vue &quot;plone_portal_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">navigationRootUrl()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">navigation_root_url</span></tt> de
+<a class="reference internal" href="plone_portal_state.html#vue-plone-portal-state"><em>La vue &quot;plone_portal_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">getParentObject()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">parent</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">getCurrentFolder()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">folder</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">getCurrentFolderUrl()</span></tt></td>
+<td>L'URL du dossier retourné par <tt class="xref py py-meth docutils literal"><span class="pre">getCurrentFolder</span></tt> ci-dessus.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">getCurrentObjectUrl()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">canonical_object_url</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">isFolderOrFolderDefaultPage()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">is_default_page</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">isPortalOrPortalDefaultPage()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">is_portal_root</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">getViewTemplateId()</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">view_template_id</span></tt> de
+<a class="reference internal" href="plone_context_state.html#vue-plone-context-state"><em>La vue &quot;plone_context_state&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">showEditableBorder()</span></tt></td>
+<td>Détermine si le cadre d'édition (contenant les onglets &quot;Contenu&quot;,
+&quot;Modifier&quot;, ...) doit être affiché.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">displayContentsTab()</span></tt></td>
+<td>Détermine si les onglets d'édition doivent être affichés.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">getIcon(item)</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">getIcon(item)</span></tt> de
+<a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">cropText(text,</span> <span class="pre">length,</span> <span class="pre">ellipsis)</span></tt></td>
+<td>Tronque un texte brut jusqu'à <tt class="docutils literal"><span class="pre">length</span></tt> caractères tout en omettant
+l'éventuel mot coupé.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">have_portlets(manager_name,</span> <span class="pre">view=None)</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">have_portlets(manager_name,</span> <span class="pre">view=None)</span></tt>
+de <a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">mark_view(view)</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">mark_view(view)</span></tt> de
+<a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">site_encoding()</span></tt></td>
+<td>L'encodage du texte de ce site. Typiquement <tt class="docutils literal"><span class="pre">utf-8</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">bodyClass(template,</span> <span class="pre">view)</span></tt></td>
+<td>Equivalent de la méthode <tt class="xref py py-meth docutils literal"><span class="pre">bodyClass(template,</span> <span class="pre">view)</span></tt> de
+<a class="reference internal" href="plone_layout.html#vue-plone-layout"><em>La vue &quot;plone_layout&quot;</em></a>.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="plone_layout.html"
+                        title="Chapitre précédent">La vue &quot;plone_layout&quot;</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="../internationalisation.html"
+                        title="Chapitre suivant">Internationalisation d'un composant</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/vues_standard/plone.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="../internationalisation.html" title="Internationalisation d&#39;un composant"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="plone_layout.html" title="La vue &#34;plone_layout&#34;"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

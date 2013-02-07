@@ -1,0 +1,99 @@
+.. -*- coding: utf-8 -*-
+
+.. _zodb:
+
+===================================================
+ZODB - Une Base de données objet native pour python
+===================================================
+
+  N'éclatez pas vos objets dans des tables : stockez les dans une base objet.
+
+Avertissement
+=============
+
+Ce document est une adaptation libre de la documentation accessible à
+http://www.zodb.org/ par Michael Launay.
+
+Licence
+=======
+
+Ce document et régi par la licence Creative Common BY SA, vous pouvez donc le
+partager, le modifier tant que vous citez votre source initiale et que vous
+conservez les termes de la licence initiale.
+
+Résumé
+======
+
+Les programmes Python sont généralement écrits en suivant le paradigme orienté
+objet. Vous pouvez utiliser des objets qui se référencent les uns les autres sans
+contraintes de type ou d'architecture : les objets ne sont liés à aucun schéma
+spécifique et peuvent porter n'importe quelle information.
+
+Stocker ces objets dans une base de données relationnelle exige que vous
+sacrifiez votre liberté d'architecture et la puissance des références. Les
+contraintes des bases relationnelles réduisent votre capacité à écrire du code
+orienté objet.
+
+La ZODB est une base de données objet native, qui stocke vos objets et vous
+permet de travailler selon n'importe lequel des paradigmes possibles en Python. En
+conséquence votre code est plus simple, plus robuste et plus compréhensible.
+
+De plus il n'y a pas de gap entre la base de données et le programme : pas de
+code "glue" à écrire, ni de mappings à configurer. Le tutoriel vous montre à quel point
+c'est facile à utiliser.
+
+Voici quelques- unes des fonctionnalités que la ZODB vous apporte :
+
+* Persistance transparente pour les objets Python.
+* Support des transactions ACID (avec les points de sauvegardes).
+* Historique et fonctionnalité de défaire refaire (undo).
+* Support efficace pour les objets binaires volumineux (BLOBs).
+* Dépôts pluggables.
+* Architecture adaptable.
+
+Documentation
+=============
+
+.. toctree::
+   :maxdepth: 1
+
+   introduction
+   tutorial
+   prog-zodb
+
+Téléchargements
+===============
+
+La ZODB est distribuée sous forme d'un egg (paquet) Python accessible sur le dépôt
+de la communauté Python `Python Package Index
+<http://pypi.python.org/pypi/ZODB3>`_.
+
+Il est à la base de Zope et donc de Plone.
+
+Vous pouvez l'installer seul à l'aide de la commande easy_install 'setuptools'
+: ::
+
+    $ easy_install ZODB3
+
+L'installation des anciennes versions sont possibles via le gestionnaire de
+version Subversion.
+
+Communauté et contribution
+==========================
+
+Les discussions ont lieux sur la mailing liste `ZODB developers' mailing list
+<http://mail.zope.org/mailman/listinfo/zodb-dev>`_.
+
+`Bug reporting <http://zodb.org/bugs.html>`_, `Feature requests <http://zodb.org/features.html>`_, et le planning
+des version sur `Launchpad <http://launchpad.net/zodb>`_.
+
+Si vous voulez contribuer, la communauté sera heureuse de recevoir de l'aide sur
+la documentation, l'aide aux autres développeurs et utilisateurs sur la mailing
+liste, soumission de rapport de bogues, propositions d'améliorations et écriture
+de code.
+
+La ZODB est un projet géré par la fondation Zope où vous pouvez obtenir les droits
+pour contribuer directement sur le code - pour cela récupérez la documentation
+de la communauté `Zope Developer Information <http://docs.zope.org/developer>`_.
+
+

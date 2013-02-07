@@ -1,0 +1,268 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Tutoriel &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="ZODB - Une Base de données objet native pour python" href="index.html" />
+    <link rel="next" title="Programmation ZODB" href="prog-zodb.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="prog-zodb.html" title="Programmation ZODB"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">ZODB - Une Base de données objet native pour python</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="tutoriel">
+<h1>Tutoriel<a class="headerlink" href="#tutoriel" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Ce tutoriel a pour objectif de guider les développeurs avec une introduction pas
+à pas sur comment développer une application qui stocke ses données dans la ZODB.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Commençons par un petit morceau de code que nous allons rendre fonctionnel avec
+la ZODB:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Account</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">def</span> <span class="nf">deposit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">amount</span>
+
+    <span class="k">def</span> <span class="nf">cash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">amount</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span>
+</pre></div>
+</div>
+<p>Ce code définit une classe simple qui gère le solde d'un compte en banque et
+fournit deux méthodes pour manipuler le solde : deposit et cash.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Avant d'être capable d'utiliser la ZODB nous avons à l'installer, en utilisant
+<strong class="command">easy_install</strong>. Remarquez bien que le paquet s'appelle en fait
+&quot;ZODB3&quot;:</p>
+<div class="highlight-python"><pre>$ easy_install ZODB3
+...
+$ python
+&gt;&gt;&gt; import ZODB</pre>
+</div>
+<p>La ZODB est maintenant installée et peut être importée depuis votre installation
+Python.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Si vous ne disposez pas de la commande <strong class="command">easy_install</strong> sur votre
+système, suivez les instructions d'installation <a class="reference external" href="http://peak.telecommunity.com/DevCenter/EasyInstall#installation-instructions">EasyInstall</a></p>
+</div>
+</div>
+<div class="section" id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Lorsqu'un programme souhaite utiliser la ZODB il doit établir une connexion,
+comme pour les autres bases données. Pour la ZODB nous avons besoins de trois
+éléments différents : un système de stockage, une base de données et une
+connexion ::</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ZODB.FileStorage</span> <span class="kn">import</span> <span class="n">FileStorage</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ZODB.DB</span> <span class="kn">import</span> <span class="n">DB</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">storage</span> <span class="o">=</span> <span class="n">FileStorage</span><span class="p">(</span><span class="s">&#39;Data.fs&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">db</span> <span class="o">=</span> <span class="n">DB</span><span class="p">(</span><span class="n">storage</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">connection</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">open</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">connection</span><span class="o">.</span><span class="n">root</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Nous créons un système de stockage appelé FileStorage, qui est le
+système par défaut utilisé par pratiquement tout le monde. Il garde les traces de
+toutes les données dans un fichier unique sur le disque nommé avec le premier paramètre
+fourni à l'instanciation. Enfin, nous récupérons la racine de la base de
+données à partir de la connexion que nous avons ouverte.</p>
+</div>
+<div class="section" id="stocker-des-objets">
+<h2>Stocker des objets<a class="headerlink" href="#stocker-des-objets" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour stocker un objet dans la ZODB nous avons simplement à le lier à n'importe
+quel objet qui est déjà dans la base de données. En fait, l'objet racine
+fonctionne comme un point d'entrée. L'objet racine est un dictionnaire et vous
+pouvez commencer à y stocker directement vos objets de la façon suivante :
+:python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="p">[</span><span class="s">&#39;account-1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Account</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="p">[</span><span class="s">&#39;account-2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">Account</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Les frameworks comme Zope ne créent qu'un seul objet à la racine, qui représente
+l'application elle même, et sous lequel chaque sous-objet est référencé.
+Ils choisissent un nom comme 'app' pour le premier objet qu'il
+place dans la ZODB.</p>
+</div>
+</div>
+<div class="section" id="transactions">
+<h2>Transactions<a class="headerlink" href="#transactions" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Maintenant vous avez deux objets placés dans votre objet racine et dans votre
+base de données. Toutefois ils ne sont pas encore stockés de façon permanente.
+La ZODB utilise le mécanisme des transactions et pour rendre vos modifications
+permanentes vous devez terminer votre transaction : :python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">transaction</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transaction</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;account-1&#39;, &#39;account-2&#39;]</span>
+</pre></div>
+</div>
+<p>Maintenant vous pouvez arrêter et redémarrer votre application et observer votre
+objet racine à nouveau, vous y trouverez les entrées 'account-1' et 'account-2'
+encore présentes ainsi que les objets que vous avez créés.</p>
+<p>Si votre code réalise des modifications pendant une transaction et votre base se trouve dans un
+état non souhaité, il est possible de ne pas livrer les modifications. Vous
+pouvez annuler la transaction ce qui restituera les objets dans l'état d'avant
+le début de transaction : :python:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">root</span><span class="p">[</span><span class="s">&#39;account-1&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;account-2&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">transaction</span><span class="o">.</span><span class="n">abort</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+<span class="go">[&#39;account-1&#39;, &#39;account-2&#39;]</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Les objets qui n'ont pas été stockés dans la ZODB ne seront pas restitués par
+la commande <strong class="command">abort</strong>.</p>
+</div>
+</div>
+<div class="section" id="objets-persistants">
+<h2>Objets persistants<a class="headerlink" href="#objets-persistants" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Un des derniers aspects que nous devons couvrir est la persistance des objets
+par eux-mêmes.
+La ZODB peut stocker presque tous les objets que vous lui donnez (elle ne stocke
+pas les fichiers tels quels par exemple). Mais en fait pour savoir quel objet a
+été modifié la ZODB a besoin que ces objets collaborent avec la base de données.
+En général, vous vous contentez de dériver de la classe <cite>persistent.Persistent</cite>
+pour que cela fonctionne. Appliqué à notre classe d'exemple donne :python:</p>
+<div class="highlight-python"><pre>import persistent
+
+class Account(persistent.Persistent):
+    # ... same code as above ...</pre>
+</div>
+</div>
+<div class="section" id="resume">
+<h2>Résumé<a class="headerlink" href="#resume" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Vous avez vu comment installer la ZODB et comment ouvrir une connexion avec la
+base de données dans votre application pour pouvoir stocker des objets. Nous
+avons également abordé deux commandes simple <strong class="command">commit</strong> et
+<strong class="command">abort</strong>. La documentation de référence contient plus d'informations sur
+chaque sujet.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Tutoriel</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#configuration">Configuration</a></li>
+<li><a class="reference internal" href="#stocker-des-objets">Stocker des objets</a></li>
+<li><a class="reference internal" href="#transactions">Transactions</a></li>
+<li><a class="reference internal" href="#objets-persistants">Objets persistants</a></li>
+<li><a class="reference internal" href="#resume">Résumé</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="Chapitre précédent">Introduction</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="prog-zodb.html"
+                        title="Chapitre suivant">Programmation ZODB</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/zodb/tutorial.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="prog-zodb.html" title="Programmation ZODB"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >ZODB - Une Base de données objet native pour python</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

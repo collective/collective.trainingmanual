@@ -1,0 +1,589 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les viewlets &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Les portlets" href="portlets/index.html" />
+    <link rel="prev" title="Création d&#39;un thème Plone" href="creation_theme.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="portlets/index.html" title="Les portlets"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="creation_theme.html" title="Création d&#39;un thème Plone"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-viewlets">
+<span id="viewlets"></span><h1>Les viewlets<a class="headerlink" href="#les-viewlets" title="Lien permanent vers ce titre">¶</a></h1>
+<p><cite>&quot;L'amour c'est un bouquet de viewlets&quot;</cite> (adapté de &quot;Violettes impériales&quot; par
+Vincent Scotto)</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Gilles Lenfant</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Contributors:</th><td class="field-body">Thomas Desvenain</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">1.0.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Révision:</th><td class="field-body"><a class="reference external" href="https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/viewlets.txt">https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/viewlets.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>Copyright (C) 2010 <a class="reference external" href="gilles.lenfantATgmail.com">Gilles Lenfant</a>.</p>
+<p>Chacun est autorisé à copier, distribuer et/ou modifier ce document suivant les
+termes de la licence Paternité-Pas d'Utilisation Commerciale-Partage des
+Conditions Initiales à l'Identique 2.0 France accessible à
+<a class="reference external" href="http://creativecommons.org/licenses/by-nc-sa/2.0/fr">http://creativecommons.org/licenses/by-nc-sa/2.0/fr</a></p>
+<p>Le code source présent dans ce document est soumis aux conditions de la &quot;Zope
+Public License&quot;, Version 2.1 (ZPL).</p>
+<p>THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED &quot;AS IS&quot; AND
+ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF TITLE, MERCHANTABILITY, AGAINST
+INFRINGEMENT, AND FITNESS FOR A PARTICULAR PURPOSE.</p>
+<p>La lecture de ceci nécessite la connaissance préalable du langage ZCML,
+ainsi que de l'outil GenericSetup.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les différentes pages d'un site Plone sont publiées selon le modèle de la
+<tt class="docutils literal"><span class="pre">main_template</span></tt> depuis la version 1 de Plone. C'est toujours le cas, mais...</p>
+<p>Dans les versions antérieures de Plone, cette template faisait appel à de
+nombreuses macros pour déployer les différents blocs de code HTML nécessaire à
+l'affichage d'une page.</p>
+<p>Même si ceci est toujours - partiellement - vrai, pour aider le support des
+composants prévus pour les versions antérieures de Plone, l'utilisation des
+macros est remplacée par celle des <strong>content providers</strong>.</p>
+<p>L'inclusion du HTML produit par un &quot;content provider&quot; dans la main_template
+ressemble à ceci :</p>
+<div class="highlight-html"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;portal-top&quot;</span> <span class="na">i18n:domain=</span><span class="s">&quot;plone&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">tal:replace=</span><span class="s">&quot;structure provider:plone.portaltop&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+</div>
+<p>Vous remarquez la présence de l'expression TAL <tt class="docutils literal"><span class="pre">provider</span></tt>.  Dans le monde Zope
+3, un provider est un multi adapter qui adapte le context et la request.</p>
+<p>Les viewlets sont des <cite>content providers</cite> qui fournissent une portion de code
+HTML.  Mais dans le monde de Plone, les viewlets ne sont généralement pas
+directement utilisées.</p>
+<p>Plone passe par des <cite>viewlet managers</cite> - une sorte d'aggrégateur de viewlets -
+qui permettent d'ordonnancer les viewlets avec un maximum de flexibilité.</p>
+<p>Cette souplesse permise par les <cite>viewlet managers</cite> rend de moins en moins
+nécessaire la surcharge de la <tt class="docutils literal"><span class="pre">main_template</span></tt> lors de la réalisation de vos
+skins personnelles. Comme nous le verrons plus loin, vous pourrez également lors
+d'une personnalisation graphique &quot;extrème&quot;, ajouter vos propres <cite>viewlet
+managers</cite>.</p>
+</div>
+<div class="section" id="gestion-interactive-des-viewlets">
+<h2>Gestion interactive des viewlets<a class="headerlink" href="#gestion-interactive-des-viewlets" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Pour mieux illustrer les propos ci-avant, Plone fournit un outil visualisant
+l'articulation des viewlet managers et l'arrangement des viewlets dans ceux-ci.
+Ouvrez - étant authentifié comme Manager - un navigateur sur la racine de vote
+site Plone et prolongez l'URL par <tt class="docutils literal"><span class="pre">&#64;&#64;manage-viewlets</span></tt>.</p>
+<div class="figure align-center">
+<img alt="_images/manageviewlets.png" src="_images/manageviewlets.png" />
+<p class="caption">Vue <tt class="docutils literal"><span class="pre">&#64;&#64;manage-viewlets</span></tt> : ordonnancement et masquage des viewlets</p>
+</div>
+<p>Immédiatement, sous chaque cadre, vous trouvez le nom du viewlet manager, dont
+le <tt class="docutils literal"><span class="pre">plone.portaltop</span></tt> de l'extrait précédent.</p>
+<p>A l'intérieur de chaque <cite>viewlet manager</cite>, vous pouvez voir la liste des
+viewlets qu'il fournit.  Chaque nom de viewlet est accompagné :</p>
+<ul class="simple">
+<li>de son rang - commençant par 0 - dans le viewlet manager entre parenthèses,</li>
+<li>de deux flèches permettant de monter ou descendre l'ordre d'apparition de la
+viewlet dans le <cite>viewlet manager</cite>,</li>
+<li>du lien <em class="guilabel">hide</em> permettant de masquer la viewlet.</li>
+</ul>
+<p>Avec cet outil, en remontant la viewlet <tt class="docutils literal"><span class="pre">plone.global_sections</span></tt> en tête en
+quelques clics, on obtient le résultat suivant :</p>
+<div class="figure align-center">
+<img alt="_images/deplace-globalnav.png" src="_images/deplace-globalnav.png" />
+<p class="caption">La viewlet <tt class="docutils literal"><span class="pre">plone.global_sections</span></tt> remontée en tête</p>
+</div>
+<p>Vous aurez également remarqué l'absence des colonnes de portlets dans le
+gestionnaire de viewlets.  Celles-ci sont gérées dans un gestionnaire dédié,
+objet du chapitre sur <a class="reference internal" href="portlets/index.html#les-portlets"><em>Les portlets</em></a>.</p>
+</div>
+<div class="section" id="l-enregistrement-en-zcml">
+<h2>L'enregistrement en ZCML<a class="headerlink" href="#l-enregistrement-en-zcml" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les viewlet managers standard de Plone, ainsi que la plupart des viewlets
+standard sont enregistrés dans le <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> du package
+<tt class="xref py py-mod docutils literal"><span class="pre">plone.app.layout.viewlets</span></tt> dont voici un extrait :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span>
+    <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+    <span class="na">xmlns:browser=</span><span class="s">&quot;http://namespaces.zope.org/browser&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- Register viewlet managers - used in plone&#39;s main_template --&gt;</span>
+
+    <span class="nt">&lt;browser:viewletManager</span>
+        <span class="na">name=</span><span class="s">&quot;plone.htmlhead&quot;</span>
+        <span class="na">provides=</span><span class="s">&quot;.interfaces.IHtmlHead&quot;</span>
+        <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+
+    <span class="nt">&lt;browser:viewletManager</span>
+        <span class="na">name=</span><span class="s">&quot;plone.htmlhead.links&quot;</span>
+        <span class="na">provides=</span><span class="s">&quot;.interfaces.IHtmlHeadLinks&quot;</span>
+        <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+    ...
+    <span class="c">&lt;!-- Define some viewlets --&gt;</span>
+    ...
+
+    <span class="c">&lt;!-- Render the browser title --&gt;</span>
+
+    <span class="nt">&lt;browser:viewlet</span>
+        <span class="na">name=</span><span class="s">&quot;plone.htmlhead.title&quot;</span>
+        <span class="na">manager=</span><span class="s">&quot;.interfaces.IHtmlHead&quot;</span>
+        <span class="na">class=</span><span class="s">&quot;.common.TitleViewlet&quot;</span>
+        <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- Render the workflow history --&gt;</span>
+
+    <span class="nt">&lt;browser:viewlet</span>
+        <span class="na">name=</span><span class="s">&quot;plone.belowcontentbody.workflowhistory&quot;</span>
+        <span class="na">manager=</span><span class="s">&quot;.interfaces.IBelowContentBody&quot;</span>
+        <span class="na">class=</span><span class="s">&quot;.content.WorkflowHistoryViewlet&quot;</span>
+        <span class="na">permission=</span><span class="s">&quot;zope2.View&quot;</span>
+    <span class="nt">/&gt;</span>
+    ...
+
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>Vous remarquez les deux éléments <tt class="docutils literal"><span class="pre">viewletManager</span></tt> et <tt class="docutils literal"><span class="pre">viewlet</span></tt> qui
+enregistrent - respectivement :</p>
+<ul class="simple">
+<li>les <cite>viewlet managers</cite> utilisables dans une template comme la
+<tt class="docutils literal"><span class="pre">main_template</span></tt>,</li>
+<li>les viewlets pouvant être associées aux différents types de viewlet manager.</li>
+</ul>
+<p>Les attributs d'un élément &quot;viewletManager&quot;, les éléments obligatoires étant en gras :</p>
+<table border="1" class="docutils">
+<caption>Attributs d'un élément <tt class="docutils literal"><span class="pre">viewletManager</span></tt> (* = obligatoire)</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribut</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt> *</td>
+<td>Définition du nom du viewlet manager. Doit être unique dans l'instance
+Zope.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">permission</span></tt> *</td>
+<td>Permission nécessaire pour voir le viewlet manager.Généralement
+<tt class="docutils literal"><span class="pre">zope2.View</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">for</span></tt></td>
+<td>Interface des contenus pour lesquels ce viewlet manager peut être
+utilisé.Défaut : <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt> Exemple :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.ATContentTypes.interface.IATDocument</span></tt>. Vous pouvez
+utiliser <tt class="docutils literal"><span class="pre">*</span></tt> pour signaler que le viewlet manager peut être utlisé dans
+n'importe quel contexte, ce qui est le cas la plupart du temps.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">layer</span></tt></td>
+<td>Interface de skin spécifique pour laquelle le viewlet manager peut être
+utilisé. Ce paramètre n'a d'intérêt que lors de la réalisation d'une
+skin, comme dans le cas du composant <tt class="xref py py-mod docutils literal"><span class="pre">NuPlone</span></tt>. Par défaut :
+<tt class="xref py py-class docutils literal"><span class="pre">zope.publisher.interfaces.browser.IDefaultBrowserLayer</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">view</span></tt></td>
+<td>Interface de view pour laquelle le viewlet manager peut être
+utilisé.Défaut : <tt class="xref py py-class docutils literal"><span class="pre">zope.publisher.interfaces.browser.IBrowserView</span></tt>.
+Exemple :
+<tt class="xref py py-class docutils literal"><span class="pre">plone.app.content.browser.interfaces.IFolderContentsView</span></tt>. La
+valeur par défaut convient dans l'immense majorité des cas.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">provides</span></tt></td>
+<td>Interface marker spécifique à ce viewlet manager.Bien que cet attribut
+soit facultatif, il est nécessaire, comme nous le verrons plus loin, de
+l'associer à une interface marker spécifique afin de pouvoir y associer
+des viewlets. Par défaut :
+<tt class="xref py py-class docutils literal"><span class="pre">zope.viewlets.interfaces.IViewletManager</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">class</span></tt> *</td>
+<td>Éventuelle classe Python spécifique de ce viewlet manager. La classe par
+défaut est suffisante dans la majorité des cas.Si vous voulez donner à un
+Manager la possibilité d'ordonner les viewlets - avec le panneau de
+contrôle vu plus haut - inscrites dans ce viewlet manager, la classe
+devra être :
+<tt class="xref py py-class docutils literal"><span class="pre">plone.app.viewletmanager.manager.OrderedViewletManager</span></tt>. Par
+défaut : <tt class="xref py py-class docutils literal"><span class="pre">zope.viewler.manager.ViewletManagerBase</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">template</span></tt> *</td>
+<td>Éventuelle template devant être utilisée pour ce viewlet manager. Ceci
+peut être utilisé dans certains cas en alternative à l'attribut <tt class="docutils literal"><span class="pre">class</span></tt>
+vu ci-avant. Pour illustrer ceci, je vous invite à lire le code de
+mod:<cite>Products.ResourceRegistries</cite>. À noter que cette façon d'opérer est
+rarement utilisée. Par défaut : <tt class="docutils literal"><span class="pre">None</span></tt>. Attention, vous devez fournir
+l'attribut <tt class="docutils literal"><span class="pre">class</span></tt> ou l'attribut <tt class="docutils literal"><span class="pre">template</span></tt> mais en aucun cas les
+deux.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">allowed_interface</span></tt></td>
+<td>Interface Zope3 exposant les méthodes publiques de ce viewlet
+manager. Généralement inutile. Par défaut : <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">allowed_attributes</span></tt></td>
+<td>Liste d'attributs et méthodes publics (séparés par des espaces) de ce
+viewlet manager. Par défaut : <tt class="docutils literal"><span class="pre">None</span></tt></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Dans la définition ZCML d'un <cite>viewlet manager</cite> comme décrite ci-dessus, vous
+devez fournir l'attribut <tt class="docutils literal"><span class="pre">class</span></tt> ou l'attribut <tt class="docutils literal"><span class="pre">template</span></tt> mais en aucun
+cas mes deux. De même, il est inutile de fournir <tt class="docutils literal"><span class="pre">allowed_interface</span></tt> et
+<tt class="docutils literal"><span class="pre">allowed_attributes</span></tt>.</p>
+</div>
+<table border="1" class="docutils">
+<caption>Attributs d'un élément <tt class="docutils literal"><span class="pre">viewlet</span></tt>  (* = obligatoire)</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribut</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt> *</td>
+<td>Définition du nom de la viewlet. Doit être unique dans l'instance Zope.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">permission</span></tt> *</td>
+<td>Permission de vue de cette viewlet. Généralement <tt class="docutils literal"><span class="pre">zope2.View</span></tt></td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">for</span></tt></td>
+<td>Interface de types de contenus pour lesquels cette viewlet sera
+affichée. Par exemple, pour n'afficher cette viewlet que dans les vues
+d'un ATDocument (ou type dérivé), vous placerez :
+<tt class="xref py py-class docutils literal"><span class="pre">Products.ATContentTypes.interface.IATDocument</span></tt>. Par défaut :
+<tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt>. Pour que la viewlet s'affiche dans
+tout contexte, vous placerez <tt class="docutils literal"><span class="pre">*</span></tt>.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">layer</span></tt></td>
+<td>L'utilisation de cet attribut est identique à celle prévue pour le
+viewlet manager.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">view</span></tt></td>
+<td>L'utilisation de cet attribut est identique à celle prévue pour le
+viewlet manager.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">manager</span></tt></td>
+<td>L'interface de viewlet manager dans laquelle cette viewlet peut être
+inscrite. En d'autre termes, la valeur de cet attribut doit être
+identique à l'attribut &quot;provides&quot; de la déclaration ZCML du viewlet
+manager dans lequel vous voulez inscrire la présente viewlet. Par défaut
+: <tt class="xref py py-class docutils literal"><span class="pre">zope.viewlet.interfaces.IViewletManager</span></tt>, c'est à dire que par
+défaut, vous pourrez placer cette viewlet dans n'importe quel viewlet
+manager.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">class</span></tt></td>
+<td>La classe qui réalise cette viewlet. Cette classe doit avoir une méthode
+<tt class="xref py py-meth docutils literal"><span class="pre">render</span></tt> qui produit l'extrait de HTML. Par défaut :
+<tt class="docutils literal"><span class="pre">None</span></tt>. Exemple : <tt class="xref py py-class docutils literal"><span class="pre">browser.maviewlet.MaViewlet</span></tt></td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">attribute</span></tt></td>
+<td>La méthode de rendu de votre classe de viewlet, si celle-ci n'est pas
+<tt class="xref py py-meth docutils literal"><span class="pre">render</span></tt>. Ceci n'a d'intérêt que pour avoir plusieurs méthodes de
+rendu pour une seule classe de viewlet.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">template</span></tt></td>
+<td>Vous pouvez fournir une template pour fournir l'extrait HTML lorsque vous
+ne désirez pas, ou ne pouvez pas, faire réaliser ceci par la méthode
+<tt class="xref py py-meth docutils literal"><span class="pre">render</span></tt> de la classe mentionnée plus haut. Dans ce cas, l'objet
+instancié depuis cette dite classe est accessible dans votre template
+personnelle à travers l'objet &quot;view&quot;.Cette approche est utilisée pour
+personnaliser des viewlets standard ou d'un composant tiers dans vos
+propres réalisations, sans avoir à faire une ligne de Python.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">allowed_interface</span></tt></td>
+<td>L'utilisation de cet attribut est identique à celle prévue pour le
+viewlet manager</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">allowed_attributes</span></tt></td>
+<td>L'utilisation de cet attribut est identique à celle prévue pour le
+viewlet manager</td>
+</tr>
+<tr class="row-odd"><td><tt class="samp docutils literal"><em><span class="pre">foo</span></em></tt></td>
+<td><tt class="docutils literal"><span class="pre">bar</span></tt>. Non, ce n'est pas un gag, vous pouvez fournir des attributs
+unicode supplémentaires de cette façon à la viewlet. Ceux-ci peuvent être
+exploités dans le code Python de la viewlet sous forme d'attributs simple
+<tt class="docutils literal"><span class="pre">self.foo</span></tt>, ou dans la template dans l'expression TALES <tt class="docutils literal"><span class="pre">view/foo</span></tt>.</td>
+</tr>
+</tbody>
+</table>
+<p>Si vous avez bien lu ce qui précède, vous savez comment invoquer un <cite>viewlet
+manager</cite> depuis une template quelconque, et <em>déclarer la compatibilité</em> d'une
+viewlet avec un viewlet manager, en faisant la liaison à l'aide de l'attribut
+&quot;manager&quot; d'une viewlet.</p>
+</div>
+<div class="section" id="le-step-genericsetup">
+<h2>Le step GenericSetup<a class="headerlink" href="#le-step-genericsetup" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Malheureusement ceci peut ne pas suffire !  Les déclarations <a class="reference internal" href="glossaire.html#term-zcml"><em class="xref std std-term">zcml</em></a>
+permettent d'associer les viewlets à des viewlet managers, mais pas de définir
+l'ordre des viewlets au sein du manager...  Ceci est réalisé par un step
+&quot;GenericSetup&quot; dédié, le bien nommé <tt class="file docutils literal"><span class="pre">viewlets.xml</span></tt>.</p>
+<div class="section" id="ordre-des-viewlets">
+<h3>Ordre des viewlets<a class="headerlink" href="#ordre-des-viewlets" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La mise en place d'un profil complet GenericSetup fait l'objet d'un chapitre de
+la documentation intégrateur ; nous ne nous attarderons que sur ce step
+spécifique :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;object&gt;</span>
+    <span class="nt">&lt;order</span> <span class="na">manager=</span><span class="s">&quot;monproduit.monmanager&quot;</span> <span class="na">skinname=</span><span class="s">&quot;*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;viewlet</span> <span class="na">name=</span><span class="s">&quot;monproduit.maviewlet&quot;</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;viewlet</span> <span class="na">name=</span><span class="s">&quot;monproduit.monautreviewlet&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/order&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</pre></div>
+</div>
+<p>L'élément <tt class="docutils literal"><span class="pre">&lt;order</span> <span class="pre">...&gt;</span></tt> déclare le viewlet manager dans lequel la viewlet sera
+insérée.  Notez que ceci ne créé pas le viewlet manager, la création d'icelui
+étant faite dans le fichier ZCML vu dans le paragraphe précédent.</p>
+<p>La valeur de l'attribut <tt class="docutils literal"><span class="pre">manager</span></tt> doit correspondre à celle de l'attribut
+&quot;name&quot; du viewlet manager vu dans sa déclaration ZCML.</p>
+<p>De même, la valeur de l'attribut <tt class="docutils literal"><span class="pre">name</span></tt> des éléments <tt class="docutils literal"><span class="pre">&lt;viewlet</span> <span class="pre">...&gt;</span></tt> doivent
+correspondre à l'attribut <tt class="docutils literal"><span class="pre">name</span></tt> des éléments <tt class="docutils literal"><span class="pre">&lt;viewlet</span> <span class="pre">...&gt;</span></tt> du fichier
+<tt class="file docutils literal"><span class="pre">configure.zcml</span></tt>.</p>
+<p>La valeur de l'attribut <tt class="docutils literal"><span class="pre">skinname</span></tt> permet de ne fournir le paramétrage des
+viewlets que pour une skin, en donnant le nom de cette skin.  Par exemple
+<tt class="docutils literal"><span class="pre">Plone</span> <span class="pre">Default</span></tt>, ou <tt class="docutils literal"><span class="pre">My</span> <span class="pre">Beautiful</span> <span class="pre">Skin</span></tt>.  Dans l'exemple ci-avant, la valeur
+<tt class="docutils literal"><span class="pre">*</span></tt> insère la viewlet pour toutes les skins.</p>
+<p>La déclaration minimale de step telle que fournie ci-avant remplace l'ensemble
+des viewlets éventuellement insérées par d'autres steps <tt class="file docutils literal"><span class="pre">viewlets.xml</span></tt>
+dans le viewlet manager <tt class="docutils literal"><span class="pre">monproduit.monmanager</span></tt>.  Ceci est sans doute l'effet
+voulu dans votre cas.</p>
+<p>Dans de nombreux autres cas, il est également possible d'ajouter des viewlets
+dans des viewlet managers existants fournis par Plone ou des produits tiers.</p>
+<p>Dans ce cas, on utilisera plutôt la notation suivante :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
+<span class="nt">&lt;object&gt;</span>
+    <span class="nt">&lt;order</span> <span class="na">manager=</span><span class="s">&quot;plone.portaltop&quot;</span> <span class="na">skinname=</span><span class="s">&quot;*&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;viewlet</span> <span class="na">name=</span><span class="s">&quot;monproduit.maviewlet&quot;</span> <span class="na">insert-after=</span><span class="s">&quot;plone.header&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/order&gt;</span>
+<span class="nt">&lt;/object&gt;</span>
+</pre></div>
+</div>
+<p>Facile à comprendre : on ajoute pour toutes les skins, dans le viewlet manager
+<tt class="docutils literal"><span class="pre">plone.portaltop</span></tt>, la viewlet <tt class="docutils literal"><span class="pre">monproduit.maviewlet</span></tt> après la viewlet de nom
+<tt class="docutils literal"><span class="pre">plone.header</span></tt>.</p>
+<p>L'attribut <tt class="docutils literal"><span class="pre">insert-after</span></tt> peut également prendre la valeur <tt class="docutils literal"><span class="pre">*</span></tt> pour
+signifier que la viewlet est insérée en dernière position.</p>
+<p>Il est également possible, dans le même ordre d'idées, d'insérer l'attribut
+<tt class="docutils literal"><span class="pre">insert-before</span></tt>.  Je n'insulterai pas votre intelligence en décrivant les
+valeurs possibles de cet attribut.</p>
+</div>
+<div class="section" id="viewlets-cachees">
+<h3>Viewlets cachées<a class="headerlink" href="#viewlets-cachees" title="Lien permanent vers ce titre">¶</a></h3>
+<p>De même, si vous désirez masquer certaines viewlets déclarées dans du code sur
+lequel vous n'avez pas la main, vous devez passer par le step :
+file:<cite>viewlets.xml</cite>.</p>
+<p>Il vous suffira d'ajouter un élément <tt class="docutils literal"><span class="pre">&lt;hidden</span> <span class="pre">...&gt;</span></tt>, dont la syntaxe est
+similaire à celle de <tt class="docutils literal"><span class="pre">&lt;order</span> <span class="pre">...&gt;</span></tt>.  Ici, nous masquons le <cite>path_bar</cite>, appelé
+aussi <cite>breadcrumbs</cite> ou navigation horizontale :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;hidden</span> <span class="na">manager=</span><span class="s">&quot;plone.portaltop&quot;</span> <span class="na">skinname=</span><span class="s">&quot;Formation Theme&quot;</span> <span class="na">purge=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;viewlet</span> <span class="na">name=</span><span class="s">&quot;plone.path_bar&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/hidden&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exemple">
+<h2>Exemple<a class="headerlink" href="#exemple" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous allons faire très simple, ici.  Vous trouverez un exemple plus complet de
+création de viewlet dans le chapitre <a class="reference internal" href="creation_theme.html#creation-theme"><em>Création d'un thème Plone</em></a>.</p>
+<p>Imaginons que vous vouliez que la date d'expiration d'un document apparaisse
+pour les modérateurs du site, sous la ligne d'information de modification (Par
+xxx - Dernière modification le...) : c'est un cas spécifique qui n'est pas
+fourni par défaut dans Plone, mais qui est peut-être indispensable à
+l'application de vos méthodes de travail.</p>
+<p>Nul besoin de modifier la template principale ou quoi que ce soit d'autre. Vous
+pouvez ajouter un élément en ajoutant une viewlet sans intervenir sur le reste
+du code.</p>
+<p>Ajoutez un module <tt class="file docutils literal"><span class="pre">viewlets.py</span></tt> dans <tt class="xref py py-mod docutils literal"><span class="pre">formation.theme</span></tt>, dans lequel
+vous ajouterez une classe ExpirationDateViewlet qui hérite de
+<tt class="xref py py-class docutils literal"><span class="pre">ViewletBase</span></tt> :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">ExpirationDateViewlet</span><span class="p">(</span><span class="n">ViewletBase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">expires</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">context</span><span class="o">.</span><span class="n">getExpirationDate</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">expires</span> <span class="ow">and</span> <span class="s">&#39;&lt;div class=&quot;documentByLine&quot;&gt;Expire le : </span><span class="si">%s</span><span class="s">&lt;/div&gt;&#39;</span> <span class="o">%</span> <span class="n">expires</span><span class="o">.</span><span class="n">Date</span><span class="p">()</span> <span class="ow">or</span> <span class="bp">None</span>
+</pre></div>
+</div>
+<p>Éditez ainsi le fichier <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> de votre produit
+<tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> pour déclarer votre viewlet (vous devrez peut être
+ajouter le namespace <tt class="docutils literal"><span class="pre">xmlns:browser=&quot;http://namespaces.zope.org/browser&quot;</span></tt>).</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;browser:viewlet</span>
+    <span class="na">name=</span><span class="s">&quot;formation.expirationdate&quot;</span>
+    <span class="na">for=</span><span class="s">&quot;Products.ATContentTypes.interface.IATContentType&quot;</span>
+    <span class="na">manager=</span><span class="s">&quot;plone.app.layout.viewlets.interfaces.IBelowContentTitle&quot;</span>
+    <span class="na">class=</span><span class="s">&quot;.viewlets.ExpirationDateViewlet&quot;</span>
+    <span class="na">permission=</span><span class="s">&quot;cmf.ReviewPortalContent&quot;</span>
+    <span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>Vous n'auriez probablement pas su quoi mettre dans manager. Pour le savoir, il
+faut consulter la vue <tt class="docutils literal"><span class="pre">&#64;&#64;manage-viewlets</span></tt>, où vous pourrez trouver l'interface
+du ViewletManager que vous voulez compléter.</p>
+<p>Redémarrez votre site, vous observerez le nouvel élément sur votre
+page d'accueil (si vous lui avez donné une date d'expiration...).</p>
+<div class="figure align-center">
+<img alt="_images/expirationdate.png" src="_images/expirationdate.png" />
+<p class="caption">Viewlet de la date d'expiration</p>
+</div>
+</div>
+<div class="section" id="pour-aller-plus-loin">
+<h2>Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Comme d'habitude, pour comprendre les détails de fonctionnement des mécanismes
+définis dans ce chapitre, il est nécessaire de lire le code source des modules
+suivants :</p>
+<table border="1" class="docutils">
+<caption>Code à lire également</caption>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Module</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref py py-mod docutils literal"><span class="pre">plone.app.layout</span></tt></td>
+<td>Les ressources responsables de la mise en page d'un site Plone</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-mod docutils literal"><span class="pre">plone.app.layout.viewlets</span></tt></td>
+<td>Les ressources fournissant les viewlet managers et viewlets standard de
+Plone.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-mod docutils literal"><span class="pre">zope.publisher.browser</span></tt></td>
+<td>Les ressources Zope 3 de base des viewlets.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les viewlets</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#gestion-interactive-des-viewlets">Gestion interactive des viewlets</a></li>
+<li><a class="reference internal" href="#l-enregistrement-en-zcml">L'enregistrement en ZCML</a></li>
+<li><a class="reference internal" href="#le-step-genericsetup">Le step GenericSetup</a><ul>
+<li><a class="reference internal" href="#ordre-des-viewlets">Ordre des viewlets</a></li>
+<li><a class="reference internal" href="#viewlets-cachees">Viewlets cachées</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exemple">Exemple</a></li>
+<li><a class="reference internal" href="#pour-aller-plus-loin">Pour aller plus loin</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="creation_theme.html"
+                        title="Chapitre précédent">Création d'un thème Plone</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="portlets/index.html"
+                        title="Chapitre suivant">Les portlets</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/viewlets.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="portlets/index.html" title="Les portlets"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="creation_theme.html" title="Création d&#39;un thème Plone"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Glossaire &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="index.html" />
+    <link rel="prev" title="Sensibilisation aux méthodes agiles" href="scrum.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="scrum.html" title="Sensibilisation aux méthodes agiles"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="glossaire">
+<span id="id1"></span><h1>Glossaire<a class="headerlink" href="#glossaire" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Définition des termes et abréviations utilisés dans ce document.</p>
+<dl class="glossary docutils">
+<dt id="term-adapter">adapter</dt>
+<dd>Classe Python fournissant aux objets exposant une certaine interface des
+services supplémentaires, sans utiliser directement la technologie
+d'héritage Python. Les adapteurs font partie des concepts amenés par la
+<a class="reference internal" href="#term-zca"><em class="xref std std-term">ZCA</em></a> (Zope Component Architecture).</dd>
+<dt id="term-adaptateur">adaptateur</dt>
+<dd>Traduction libre de <a class="reference internal" href="#term-adapter"><em class="xref std std-term">adapter</em></a>.</dd>
+<dt id="term-affectation">affectation</dt>
+<dd><p class="first">On <strong>affecte</strong> une variable par une valeur en utilisant le signe <tt class="docutils literal"><span class="pre">=</span></tt>
+(qui n'a rien à voir avec l'égalité en math !). Dans une affectation, le
+membre de gauche <strong>reçoit</strong> le membre de droite ce qui nécessite d'évaluer
+la valeur correspondant au membre de droite avant de l'affecter au membre
+de gauche.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">a</span> <span class="o">=</span> <span class="mi">2</span> <span class="c"># le symbole &quot;a&quot; est une référence à un objet entier valant &quot;2&quot;.</span>
+<span class="n">b</span> <span class="o">=</span> <span class="mf">7.2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">e</span> <span class="o">/</span> <span class="mf">45.12</span><span class="p">)</span> <span class="o">-</span> <span class="mi">2</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">b</span> <span class="o">**</span> <span class="n">a</span>
+</pre></div>
+</div>
+<p class="last">Les affectations relient les identificateurs aux données : si une donnée en
+mémoire n'est plus reliée, le ramasse-miettes <em>(garbage collector)</em> de
+Python la supprime automatiquement</p>
+</dd>
+<dt id="term-at">AT</dt>
+<dd>Abréviation courante d'Archetypes utilisée dans les documentations, blogs,
+mailing-lists, forums ayant trait à Plone.</dd>
+<dt id="term-bool">bool</dt>
+<dd>Classe de base Python pour les objets booléens. Ces derniers ne pouvant être
+que <tt class="samp docutils literal"><span class="pre">True</span></tt> ou <tt class="samp docutils literal"><span class="pre">False</span></tt>.</dd>
+<dt id="term-brain">brain</dt>
+<dd>Toute requête au catalogue fournit une itération de brains. Chaque brain
+étant une référence à un élément de contenu, et incorpore la copie de
+certains attributs de celui-ci (titre, description, ...).  cheeseshop voir
+<a class="reference internal" href="#term-pypi"><em class="xref std std-term">pypi</em></a>.</dd>
+<dt id="term-buildout">buildout</dt>
+<dd>Buildout – ou zc.buildout – est un outil multi-plateformes conçu pour
+installer et paramétrer les différents composants logiciels d'un système
+d'informations. Plone est installable par ce mode depuis sa version 2.5.
+zc.buildout permet en outre de personnaliser l'installation des composants
+qui concourent à l'installation de &quot;votre&quot; site Plone en modifiant son
+fichier de configuration. Le packaging sous forme d'<a class="reference internal" href="#term-eggs"><em class="xref std std-term">eggs</em></a> est
+favorisé.</dd>
+<dt id="term-c">C</dt>
+<dd>Langage compilé de bas niveau utilisé pour coder - entre autres - Linux et
+Python. Un compilateur C est nécessaire pour installer Zope ainsi que de
+nombreuses extensions Python.</dd>
+<dt id="term-component">component</dt>
+<dd>Package Python fournissant des fonctionnalités supplémentaires à Zope ou
+Plone. Les composants sont installés le plus souvent dans
+<tt class="file docutils literal"><span class="pre">$INSTANCE_HOME/lib/python</span></tt>, et plus généralement dans les répertoires
+du système de fichiers désignés par la directive path du fichier de
+configuration de votre instance Zope.  L'extension de Zope ou Plone par
+composants est la méthode recommandée pour faciliter la future migration
+vers le pur Zope 3.  Attention, si un composant comporte des directives
+ZCML, celui-ci doit être déclaré dans la configuration de de votre instance
+Zope.</dd>
+<dt id="term-composant">composant</dt>
+<dd>Traduction libre de <a class="reference internal" href="#term-component"><em class="xref std std-term">component</em></a>.</dd>
+<dt id="term-configlet">configlet</dt>
+<dd>Panneau de configuration de Plone permettant de paramétrer de façon globale
+certains aspects de Plone. Par exemple, le panneau de configuration des
+utilisateurs et des groupes ou le thème graphique. Certains composants
+d'extension de tierce partie ajoutent leur panneau de configuration.</dd>
+<dt id="term-content-type">content type</dt>
+<dd><p class="first">Un type de contenu est le moule avec lequel tous les élément d'un certain
+type sont gérés. Un type de contenu incorpore les dispositifs suivant:</p>
+<ul class="last simple">
+<li>factory de création de l'élément</li>
+<li>vues HTML de l'élément schéma d'informations portées par l'élément,
+incluant ses méta-données</li>
+<li>formulaires de création/modification de ce schéma d'informations</li>
+<li>services &quot;métier&quot; proposés par l'élément.</li>
+</ul>
+</dd>
+<dt id="term-distribute">distribute</dt>
+<dd><p class="first">Distribute est une refonte et une alternative à <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt> élaborée à
+l'initiative de Tarek Ziadé. <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> fournit les outils de
+packaging, de distribution et d'installation de packages Python sous forme
+d'<a class="reference internal" href="#term-egg"><em class="xref std std-term">egg</em></a>.</p>
+<p class="last">Nous recommandons vivement l'utilisation de <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> dont les
+contributeurs sont bien plus réactifs que ceux de <tt class="xref py py-mod docutils literal"><span class="pre">setuptools</span></tt>. Bien
+entendu, <tt class="xref py py-mod docutils literal"><span class="pre">distribute</span></tt> est packagé sous forme d'<a class="reference internal" href="#term-egg"><em class="xref std std-term">egg</em></a>.</p>
+</dd>
+<dt id="term-distutils">distutils</dt>
+<dd><tt class="xref py py-mod docutils literal"><span class="pre">distutils</span></tt> est un package fourni en standard avec Python fournissant
+les outils de packaging. <a class="reference internal" href="#term-distribute"><em class="xref std std-term">distribute</em></a> s'appuie sur <tt class="xref py py-mod docutils literal"><span class="pre">distutils</span></tt> et
+on préfèrera l'utilisation de ce dernier qui fournit des outils plus
+avancés.</dd>
+<dt id="term-dotted-name">dotted name</dt>
+<dd><p class="first">Il n'y a pas de traduction en français facile et concise pour ce terme. Un
+<tt class="docutils literal"><span class="pre">dotted</span> <span class="pre">name</span></tt> permet - généralement dans un fichier <a class="reference internal" href="#term-zcml"><em class="xref std std-term">ZCML</em></a> - de
+désigner un symbole Python quelconque (objet, classe, fonction, ...) sous la
+forme d'une chaîne de caractères proche de celle utilisée par le mot clé
+Python <tt class="docutils literal"><span class="pre">import</span></tt>. Par exemple, le dotted name <tt class="docutils literal"><span class="pre">foo.bar.stuff</span></tt> représente
+l'équivalent en python <tt class="docutils literal"><span class="pre">from</span> <span class="pre">foo.bar</span> <span class="pre">import</span> <span class="pre">stuff</span></tt>.</p>
+<p class="last">En outre, la notation <tt class="docutils literal"><span class="pre">dotted</span> <span class="pre">name</span></tt> admet la notation de package relatif
+par l'utilisation du préfixe <tt class="docutils literal"><span class="pre">.</span></tt>. Par exemple <tt class="docutils literal"><span class="pre">.foo.bar</span></tt> dans un fichier
+ZCML permet de référencer l'objet (classe, fonction, ...) <tt class="docutils literal"><span class="pre">bar</span></tt> du module
+<tt class="file docutils literal"><span class="pre">foo.py</span></tt> lorsque ce module figure dans le même répertoire que le
+fichier ZCML. Un préfixe de deux points (<tt class="docutils literal"><span class="pre">..</span></tt>) permet d'accéder au
+répertoire parent de celui incluant le fichier ZCML et ainsi de suite.</p>
+</dd>
+<dt id="term-egg">egg</dt>
+<dd>Packaging d'un module Python incluant ses méta-données telles que sa
+version, sa documentation et les éventuelles dépendances d'autres eggs. La
+grande majorité des eggs publics sont distribués sur le site
+<a class="reference internal" href="#term-pypi"><em class="xref std std-term">pypi</em></a>. Reportez-vous à la documentation 'intégrateur' pour plus de
+détails.</dd>
+<dt id="term-eggs">eggs</dt>
+<dd>Voir <a class="reference internal" href="#term-egg"><em class="xref std std-term">egg</em></a>.</dd>
+<dt id="term-element">élément</dt>
+<dd>(de contenu) ou &quot;content item&quot;. Unité atomique de contenu fournie par un
+auteur, tel qu'un document, une image, un fichier. Certains types
+d'éléments, tel que le dossier ou la collection sont dits également
+conteneurs ou &quot;folderish&quot; de par leur aptitude à contenir d'autres éléments
+de la même façon qu'un répertoire peut inclure d'autres fichiers et
+répertoires dans un disque dur.</dd>
+<dt id="term-expression">expression</dt>
+<dd><p class="first"><em>Python</em> : Une expression est une portion de code que l'interpréteur Python
+peut évaluer pour obtenir une valeur.  Les expressions peuvent être simples
+ou complexes. Elles sont formées d'une combinaison de littéraux,
+d'identifiants et d'opérateurs.</p>
+<p class="last"><em>TALES</em> : Expression utilisées dans les templates <a class="reference internal" href="#term-zpt"><em class="xref std std-term">ZPT</em></a> pour calculer
+les attributs et les contenus des éléments.</p>
+</dd>
+<dt id="term-groupe">groupe</dt>
+<dd>(d'utilisateurs). Un groupe d'utilisateurs permet d'associer un ensemble
+d'utilisateurs à une fonction dans un site Plone. Ceci permet -
+principalement - d'octroyer des droits particuliers, <a class="reference internal" href="#term-element"><em class="xref std std-term">élément</em></a> par
+élément, à tout un ensemble d'individus par le biais de l'onglet
+<em class="guilabel">partage</em>. Les groupes d'utilisateurs sont gérés par PlonePAS à
+travers le <a class="reference internal" href="#term-configlet"><em class="xref std std-term">configlet</em></a> <em class="guilabel">Utilisateurs et groupes</em>. Un
+utilisateur peut appartenir à autant de groupes que nécessaire, voire aucun
+groupe. Un groupe peut appartenir à un autre groupe (imbrication).</dd>
+<dt id="term-i18n">i18n</dt>
+<dd>Abréviation commune du terme &quot;internationalisation&quot; (il y a 18 lettres
+entre le &quot;i&quot; et le &quot;n&quot; de &quot;internatonalisation&quot;). Opération consistant à
+marquer le code (Python, templates, ...) pour lui permettre de fournir les
+textes de l'interface utilisateur en différents langages. Voir <a class="reference internal" href="#term-l10n"><em class="xref std std-term">l10n</em></a>.</dd>
+<dt id="term-identifiant">identifiant</dt>
+<dd>Un identifiant Python valide est une suite non vide de caractères, de
+longueur quelconque, formée d'un caractère de début et de zéro ou plusieurs
+caractères de continuation.</dd>
+<dt id="term-int">int</dt>
+<dd>Classe de base Python pour les objets représentant un nombre entier.</dd>
+<dt id="term-interface">interface</dt>
+<dd>(en Python) : Une interface est une classe spéciale décrivant l'API publique
+de toute autre classe l'implémentant. L'utilisation des interfaces est à la
+base de la <a class="reference internal" href="#term-zca"><em class="xref std std-term">ZCA</em></a>.</dd>
+<dt id="term-interface-marqueur">interface marqueur</dt>
+<dd>une <a class="reference internal" href="#term-interface"><em class="xref std std-term">interface</em></a> vide (sans attribut ni méthode) permettant de placer
+un tag sur un objet. A noter qu'une <a class="reference internal" href="#term-interface"><em class="xref std std-term">interface</em></a> est associée à un
+classe alors qu'une <a class="reference internal" href="#term-interface-marqueur"><em class="xref std std-term">interface marqueur</em></a> est attribuée objet par
+objet.</dd>
+<dt id="term-invite-de-commandes">invite de commandes</dt>
+<dd>Logiciel vous invitant à contrôler votre système en fournissant des
+commandes et en lisant le compte-rendu des dites commandes. Jusque dans les
+années 80, l'invite de commandes était l'unique moyen de contrôler un
+ordinateur. Sous Windows, l'invite de commandes est fournie par le logiciel
+<strong class="command">cmd.exe`</strong> alors que sous Unix - le choix est plus vaste - le
+couple <a class="reference external" href="http://fr.wikipedia.org/wiki/Xterm">xterm</a> et <a class="reference external" href="http://fr.wikipedia.org/wiki/Bourne-Again_shell">bash</a> est généralement
+utilisé.</dd>
+<dt id="term-l10n">l10n</dt>
+<dd>Abréviation commune de &quot;localisation&quot; (il y a 10 lettres entre le &quot;l&quot; et le
+&quot;n&quot; de &quot;localisation&quot;). Opération consistant à fournir les textes de
+l'interface utilisateur d'un logiciel (d'un composant Plone) dans un langage
+particulier. Voir <a class="reference internal" href="#term-i18n"><em class="xref std std-term">i18n</em></a>.</dd>
+<dt id="term-msi-installer">msi installer</dt>
+<dd>Format de bundle d'installation du monde Windows. Les fichiers de ce type
+ont l'extension <tt class="docutils literal"><span class="pre">.msi</span></tt>.</dd>
+<dt id="term-multiplugin">multiplugin</dt>
+<dd>Un <a class="reference internal" href="#term-plugin"><em class="xref std std-term">plugin</em></a> ayant l'aptitude de remplir plusieurs rôles, donc,
+généralement implémentant plus d'une <a class="reference internal" href="#term-interface"><em class="xref std std-term">interface</em></a>. Un <a class="reference internal" href="#term-plugin"><em class="xref std std-term">plugin</em></a>
+pour <a class="reference internal" href="#term-pas"><em class="xref std std-term">PAS</em></a> est d'ailleurs généralement un multiplugin.</dd>
+<dt id="term-part">part</dt>
+<dd>Une part est une section d'un fichier <a class="reference internal" href="#term-buildout"><em class="xref std std-term">buildout</em></a> contenant une
+variable <a class="reference internal" href="#term-recipe"><em class="xref std std-term">recipe</em></a> définissant le rôle de la part dans le processus
+d'installation global défini par la configuration <a class="reference internal" href="#term-buildout"><em class="xref std std-term">buildout</em></a>. Une part
+n'est exécutée que si elle est référencée dans la liste <tt class="docutils literal"><span class="pre">parts</span> <span class="pre">=</span> <span class="pre">...</span></tt> de
+la section <tt class="docutils literal"><span class="pre">[buildout]</span></tt>.</dd>
+<dt id="term-parts">parts</dt>
+<dd>voir <a class="reference internal" href="#term-part"><em class="xref std std-term">part</em></a>.</dd>
+<dt id="term-permission">permission</dt>
+<dd>Protection d'accès à un objet dont la sécurité est gérée par Zope.</dd>
+<dt id="term-permissions">permissions</dt>
+<dd>voir <a class="reference internal" href="#term-permission"><em class="xref std std-term">permission</em></a>.</dd>
+<dt id="term-pas">PAS</dt>
+<dd>Abréviation de PluggableAuthService, la base du service de gestion des
+utilisateurs, rôles et groupes de Plone. Voir la documentation intégrateur.</dd>
+<dt id="term-paster">paster</dt>
+<dd>Couteau suisse du développeur d'applications Python. Voir
+<a class="reference external" href="http://pythonpaste.org/index.html">http://pythonpaste.org/index.html</a></dd>
+<dt id="term-path">PATH</dt>
+<dd>Variable d'environnement utilisée par votre système d'exploitation pour
+trouver les logiciels invoqués par l'<a class="reference internal" href="#term-invite-de-commandes"><em class="xref std std-term">invite de commandes</em></a>. Cette
+variable d'environnement est constituée d'une liste de répertoires, séparés
+par <tt class="docutils literal"><span class="pre">:</span></tt> pour Unix et <tt class="docutils literal"><span class="pre">;</span></tt> sous Windows.</dd>
+<dt id="term-plugin">plugin</dt>
+<dd>Se dit d'un composant logiciel (fonction, classe, ou objet) s'intégrant dans
+une infrastructure existante et ayant une interface et un rôle pré-défini
+vis-à-vis de cette infrastructure (le rôle est généralement défini par une
+<a class="reference internal" href="#term-interface"><em class="xref std std-term">interface</em></a>), mais implémentant le rôle d'une façon qui lui est
+propre. Les logiciels de type &quot;plugin&quot; sont légion dans le monde de Plone,
+et plus notamment dans le service de gestion des utilisateurs
+<a class="reference internal" href="#term-pas"><em class="xref std std-term">PAS</em></a>. Voir la documentation intégrateur.</dd>
+<dt id="term-pmi">PMI</dt>
+<dd>Plone Management Interface : Ensemble des formulaires fournis par Plone et
+ses éventuelles extensions permettant de gérer et paramétrer le contenu et
+les services.</dd>
+<dt id="term-portlet">portlet</dt>
+<dd>Petite boite d'interface utilisateur située dans la colonne gauche d'un
+portail Plone. Les conditions d'apparition et les interfaces des portlets
+est automatiquement calculé en fonction du contexte (droits de
+l'utilisateur, et emplacement de navigation). L'outil de navigation et le
+calendrier sont des exemples de portlets. Dans la grande majorité des cas,
+les portlets ne font pas strictement partie du contenu.</dd>
+<dt id="term-policy-product">policy product</dt>
+<dd>Un policy product est un composant pour Plone défininissant la politique
+éditoriale du site, et - éventuellement - sa logique métier spécifique. un
+policy product a également pour rôle d'installer et paramétrer de façon
+spécifique Plone et les différents composants de tierce partie ajoutés.</dd>
+<dt id="term-principal">principal</dt>
+<dd>Agent du système Zope exécutant une action. Un agent dispose de permissions
+sur les objets Zope pour exécuter ces actions. Dans les applications Zope ou
+Plone, vous ne verrez que deux types de <tt class="docutils literal"><span class="pre">principals</span></tt> : les utilisateurs
+(ou membres) et les groupes.</dd>
+<dt id="term-product">product</dt>
+<dd>Package Python fournissant des fonctionnalités supplémentaires à Zope ou
+Plone. Les produits sont installés le plus souvent dans
+<tt class="file docutils literal"><span class="pre">$INSTANCE_HOME/Products</span></tt>, et plus généralement dans les répertoires
+du système de fichiers désignés par la directive &quot;products&quot; du fichier de
+configuration de votre instance Zope. L'extension de Zope et Plone par
+produits est un héritage des anciennes versions de Zope, facilitant ainsi
+l'adaptation d'extensions Zope ou Plone conçues pour des versions
+antérieures. Il est en conséquence recommandé de réaliser dorénavant des
+composants (voir plus haut) pour ajouter des fonctionnalités à Zope ou
+Plone.</dd>
+<dt id="term-produit">produit</dt>
+<dd>Traduction libre de <a class="reference internal" href="#term-product"><em class="xref std std-term">product</em></a>.</dd>
+<dt id="term-profil">profil</dt>
+<dd>Traduction libre de <a class="reference internal" href="#term-profile"><em class="xref std std-term">profile</em></a>.</dd>
+<dt id="term-profile">profile</dt>
+<dd>(GenericSetup) : un profil désigne un lot de fichiers XML définissant le
+paramétrage appliqué à un site Plone permettant l'utilisation dans le dit
+site des ressources d'un composant ou d'un produit. Les fichiers d'un
+profil GenericSetup sont – généralement – placés dans le sous-répertoire
+<tt class="file docutils literal"><span class="pre">profiles/default</span></tt> d'un composant ou produit.</dd>
+<dt id="term-propertysheet">propertysheet</dt>
+<dd><p class="first">En français : feuille de propriétés. Dans Plone, il y a deux types de
+feuilles de propriétés :</p>
+<ul class="last simple">
+<li>Les feuilles de propriétés servant à conserver des propriétés globales du
+site, celles-ci se trouvant dans le <a class="reference internal" href="#term-tool"><em class="xref std std-term">tool</em></a>
+<em class="guilabel">portal_properties</em></li>
+<li>Les feuilles de propriétés dynamiques associées aux utilisateurs et aux
+groupes.</li>
+</ul>
+</dd>
+<dt id="term-pypi">pypi</dt>
+<dd>PYthon Packages Index, anciennement appellé cheeseshop, est le site dans
+lequel la grande majorité des packages open source Python sont mis à la
+disposition du public. Sa page d'accueil est <a class="reference external" href="http://pypi.python.org/pypi">http://pypi.python.org/pypi</a></dd>
+<dt id="term-pywin32">pywin32</dt>
+<dd>Package Python pour Windows - disponible pour les architectures 32 et 64
+bits - fournissant l'accès aux services système spécifiques à ce système
+d'exploitation : contrôle des services, de la base de registres, accès COM
+ou DCOM aux applications, accès à Exchange et Active Directory, extensions
+et filtres ISAPI, etc, etc.</dd>
+<dt id="term-recipe">recipe</dt>
+<dd>Peut être traduit en français par &quot;recette&quot;. Une recipe définit le rôle
+d'une <a class="reference internal" href="#term-part"><em class="xref std std-term">part</em></a> d'une configuration <a class="reference internal" href="#term-buildout"><em class="xref std std-term">buildout</em></a> (exemples:
+installation/paramétrage d'Apache, instalation d'un client ZEO, fichier de
+comfiguration défini par une template, ...). La plupart des recipes
+disponibles sont disponible dans le site <a class="reference internal" href="#term-pypi"><em class="xref std std-term">Pypi</em></a> <a class="reference external" href="http://pypi.python.org/pypi?:action=browse&amp;c=512">à cette adresse</a>.</dd>
+<dt id="term-role">rôle</dt>
+<dd>Un rôle regroupe un ensemble de <a class="reference internal" href="#term-permissions"><em class="xref std std-term">permissions</em></a>. Tout visiteur dispose
+d'un ou plusieurs rôles, soit de façon globale, soit de façon contextuelle.</dd>
+<dt id="term-schema">schéma</dt>
+<dd><p class="first"><strong>zope.schema</strong> : Classe héritant de <tt class="xref py py-class docutils literal"><span class="pre">zope.interface.Interface</span></tt>, donc
+une <a class="reference internal" href="#term-interface"><em class="xref std std-term">interface</em></a> dont les attributs sont définis par des objets exposés
+par le module <tt class="xref py py-mod docutils literal"><span class="pre">zope.schema</span></tt>. Ces schémas sont généralement utilisés
+pour modéliser des formulaires (de type <tt class="xref py py-mod docutils literal"><span class="pre">zope.formlib</span></tt> ou
+<tt class="xref py py-mod docutils literal"><span class="pre">z3c.form</span></tt>) .</p>
+<p class="last"><strong>Archetypes</strong> : Liste de champs représentant les données unitaires d'un
+<a class="reference internal" href="#term-type-de-contenu"><em class="xref std std-term">type de contenu</em></a> construit avec les ressources de
+<tt class="xref py py-mod docutils literal"><span class="pre">Products.Archetypes</span></tt>.</p>
+</dd>
+<dt id="term-sso">SSO</dt>
+<dd>Single Sign On ou Authentification unique. Agent permettant de
+n'effectuer qu'une seule authentification pour accéder à plusieurs
+sites. Comme par exemple pour Google apps (mail, agendas, documents). Voir
+<a class="reference external" href="http://fr.wikipedia.org/wiki/SSO">http://fr.wikipedia.org/wiki/SSO</a></dd>
+<dt id="term-structural-folder">structural folder</dt>
+<dd>Type de contenu permettant à un contributeur d'y inclure les contenus de
+son choix. A contrario, le &quot;non structural folder&quot; permet pas à un
+contributeur de structurer librement son contenu. Les composants de tierce
+partie <tt class="xref py py-mod docutils literal"><span class="pre">Products.PloneArticle</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> fournissent
+des exemples de &quot;non structural folder&quot;.</dd>
+<dt id="term-tal">TAL</dt>
+<dd>Template Attribute Language</dd>
+<dt id="term-tales">TALES</dt>
+<dd>Template Attribute Language Expression Syntax</dd>
+<dt id="term-tool">tool</dt>
+<dd>Dans un contexte CMF, donc Plone, un &quot;tool&quot; est un objet unique dans un site
+fournissant un ensemble de services et incorporant ses propres données
+persistantes de configuration. Les tools se trouvent à la racine de Plone et
+leurs noms sont généralement préfixés par <tt class="docutils literal"><span class="pre">portal_</span></tt>.
+<tt class="docutils literal"><span class="pre">portal_properties</span></tt> abrite les feuilles de propriétés de Plone et de la
+plupart des composants d'extension de tierce partie. <tt class="docutils literal"><span class="pre">portal_catalog</span></tt>
+indexe les contenus du site...</dd>
+<dt id="term-ttw">TTW</dt>
+<dd>Ou &quot;Through The Web&quot;. Qualifie généralement le paramétrage ou la
+programmation d'une application Zope depuis des formulaires accessibles
+uniquemant à un administrateur ou un auteur authentifié. La ZMI est le
+principal outil Zope de programmation ou de paramétrage TTW.</dd>
+<dt id="term-type-de-contenu">type de contenu</dt>
+<dd>Traduction libre de <a class="reference internal" href="#term-content-type"><em class="xref std std-term">content type</em></a>.</dd>
+<dt id="term-unified-installer">unified installer</dt>
+<dd>Bundle d'installation complète de Plone, incluant Python, Zope, Plone ainsi
+que tous les modules requis (PIL, elementtree, ...). L'unified installer est
+disponible pour Windows, Mac OSX et Linux.</dd>
+<dt id="term-utilitaire">utilitaire</dt>
+<dd>Traduction française de <a class="reference internal" href="#term-utility"><em class="xref std std-term">utility</em></a>.</dd>
+<dt id="term-utility">utility</dt>
+<dd>Les utilitaires sont simplement des objets qui fournissent une interface et
+qui sont récupérés à partir de cette interface et d'un nom. Cette approche
+permet de créer un registre global dans lequel des instances peuvent être
+inscrites et récupérées à différents endroits de votre application, sans
+avoir besoin de transmettre les instances comme paramètres. Les utilitaires
+sont détaillées dans <a class="reference internal" href="izca-fr.html#guide-zca"><em>Le guide complet de l'Architecture de Composants de Zope</em></a>.</dd>
+<dt id="term-variable">variable</dt>
+<dd>Une variable est un <strong>identifiant</strong> associé à une valeur.
+Informatiquement, c'est une <strong>référence d'objet</strong> situé à une adresse
+mémoire.</dd>
+<dt id="term-variables">variables</dt>
+<dd>Voir <a class="reference internal" href="#term-variable"><em class="xref std std-term">variable</em></a>.</dd>
+<dt id="term-viewlet">viewlet</dt>
+<dd>Une viewlet est responsable du rendu d'un composant de page, donc de la
+réalisation d'un bloc - generalement - HTML. Les viewlets sont généralement
+assemblées par un <a class="reference internal" href="#term-viewlet-manager"><em class="xref std std-term">viewlet manager</em></a>.</dd>
+<dt id="term-viewlet-manager">viewlet manager</dt>
+<dd>Un viewlet manager permet d'assembler les viewlets.
+L'utilisation de viewlets et de viewlet managers permet une disposition
+plus souple des composants d'une page que les classiques macros ZPT ainsi
+que des performances de publication améliorées.</dd>
+<dt id="term-virtualenv">virtualenv</dt>
+<dd><dl class="first last docutils">
+<dt><tt class="xref py py-mod docutils literal"><span class="pre">virtualenv</span></tt> est un outil permettant de créer des installations</dt>
+<dd>virtuelles de Python (presque) indépendantes du Python installé de façon
+globale dans votre système, de sorte que tout <a class="reference internal" href="#term-egg"><em class="xref std std-term">egg</em></a> ajouté dans une
+installation virtuelle ne vient pas &quot;polluer&quot; votre installation
+globale. Par extension, on appelle un &quot;virtualenv&quot; tout environnement
+virtuel créé avec cet outil. Reportez-vous à la documentation intégrateur
+pour plus de détails. Ou bien sur la <a class="reference external" href="http://pypi.python.org/pypi/virtualenv">page
+d'accueil de virtualenv</a></dd>
+</dl>
+</dd>
+<dt id="term-widget">widget</dt>
+<dd>Élément unitaire d'une page permettant au serveur de solliciter une
+information à l'utilisateur. Les widgets sont généralement assemblés dans un
+formulaire.  Plone fournit bien évidemment tous les widgets standard du
+langage HTML (cases à cocher, boutons, listes déroulantes, champ de saisie
+de texte, ...). Ses divers composants, notamment la bibliothèque
+<tt class="file docutils literal"><span class="pre">zope.formlib</span></tt>, KSS et Archetypes proposent des widgets plus évolués
+tel que des calendriers, éditeur WYSIWYG, arbres d'exploration, ...</dd>
+<dt id="term-workflow">workflow</dt>
+<dd>Outil permettant de définir les différents états d'un élément, et les
+transitions permettant de passer d'un état à un autre.  Pour chaque état,
+un sous-ensemble de permissions de cet élément fixe la limite les
+différents types d'accès à celui-ci. Par exemple pour interdire la vue à un
+utilisateur anonyme.  L'exécution de chaque transitions est protégée de
+façon spécifique. Par exemple, seul un modérateur peut exécuter la
+transition &quot;publier&quot; Dans Pone, les workflows sont définis en ZMI à l'aide
+de l'outil DCWorkflow.  Certains types d'éléments, comme l'image, ne sont
+pas associés à un workflow.</dd>
+<dt id="term-zca">ZCA</dt>
+<dd>Zope Component Architecture : Ensemble de services intégrés dans Zope 3, et
+adaptés à Zope 2 depuis sa version 2.9 par l'entremise de Five. La ZCA
+fournit les outils facilitant la collaboration entre objets et services de
+natures différentes concourant à la réalisation de fonctions applicatives,
+tout en évitant les pièges d'un héritage complexe de classes. Par exemple,
+vous disposez d'un composant (A) d'exploration AJAX d'arbre virtuel, d'un
+autre composant (B) gérant un contenu pouvant être représenté de façon
+arborescente, il vous suffira de fournir les adapteurs permettant d'explorer
+le contenu des objets fournis par B à l'aide des widgets fournis par A. Ceci
+ne peut bien entendu être possible que si ces deux composants exposent les
+ressources ZCA (généralement des interfaces) permettant ceci. L'utilisation
+de la ZCA, entamée par Plone depuis sa version 2.5, se généralise depuis sa
+version 3. Plus de détails dans <a class="reference internal" href="izca-fr.html#guide-zca"><em>Le guide complet de l'Architecture de Composants de Zope</em></a>.</dd>
+<dt id="term-zc-buildout">zc.buildout</dt>
+<dd>voir <a class="reference internal" href="#term-buildout"><em class="xref std std-term">buildout</em></a>.</dd>
+<dt id="term-zcml">ZCML</dt>
+<dd>Zope Configuration Markup Language : Langage basé sur XML permettant de
+configurer des composants ou produits pour Zope ou Plone dans des fichiers
+<tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> ou <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>.</dd>
+<dt id="term-zexp">zexp</dt>
+<dd>Format binaire d'exportation et d'importation d'un objet (et éventuel
+sous-objets) de la <a class="reference internal" href="#term-zodb"><em class="xref std std-term">ZODB</em></a>. Pour exporter ou importer un fichier au
+format <tt class="docutils literal"><span class="pre">zexp</span></tt>, cliquez le bouton <em class="guilabel">Import/Export</em> et suivez les
+instructions.</dd>
+<dt id="term-zodb">ZODB</dt>
+<dd>Zope Object Data Base : base de données objets native de Zope.</dd>
+<dt id="term-zmi">ZMI</dt>
+<dd>Zope Management Interface : Interface Web de paramétrage et contrôle d'une
+instance Zope, permettant l'exploration de la ZODB.</dd>
+<dt id="term-zpt">ZPT</dt>
+<dd>Zope Page Templates : Langage de templates pour produire - généralement - du
+texte XML ou HTML. Les templates ZPT utilisent les attributs spéciaux
+préfixés par <tt class="docutils literal"><span class="pre">tal</span></tt>, <tt class="docutils literal"><span class="pre">metal</span></tt> et <tt class="docutils literal"><span class="pre">i18n</span></tt> qui définissent les règles de
+transformation.</dd>
+</dl>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="scrum.html"
+                        title="Chapitre précédent">Sensibilisation aux méthodes agiles</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/glossaire.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="scrum.html" title="Sensibilisation aux méthodes agiles"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

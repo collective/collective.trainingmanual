@@ -1,0 +1,160 @@
+.. -*- coding: utf-8 -*-
+
+.. _directives-zcml:
+
+===================
+Les directives ZCML
+===================
+
+Comme vu plus haut, les différentes directives ZCML sont rendues disponibles par
+divers composants de Zope et Plone qui exposent leurs propres namespaces XML
+propres aux fonctionnalités que les dits composants fournissent.
+
+Les namespaces standard
+=======================
+
+Les namespaces disponibles en standard avec Plone 4.1 sont les suivants :
+
+.. list-table:: Namespaces ZCML
+   :widths: 20 40 60
+   :header-rows: 1
+
+   * - Préfixe [#recommande]_
+     - URI
+     - Commentaire
+   * - ``browser``
+     - http://namespaces.zope.org/browser
+     - Les directives de ce namespace permettent de déclarer des pages, vues
+       viewlets, et parfois des menus de vos composants.
+   * - ``cache``
+     - http://namespaces.zope.org/cache
+     - Ce namespace fournit deux directives permettant d'associer des règles de
+       cache avec des types de contenus. Ce namespace est fourni par
+       :mod:`plone.app.caching` qui est fourni en standard avec Plone 4.1
+   * - ``cmf``
+     - http://namespaces.zope.org/cmf
+     - Une directive permet de déclarer un layer de skin CMF. Pour rappel, les
+       layers de skins CMF sont une survivance facilitant le support de
+       composants anciens pour lesquels une adaptation minimaliste à Plone 3 a
+       été effectuée. Les nouvelles extensions pour Plone devront utiliser de
+       préférence les ressources du namespace ``browser`` pour ceci.
+   * - ``five``
+     - http://namespaces.zope.org/five
+     - Les directives spécifiques au composant :mod:`Products.Five` qui
+       permettent de configurer des ressources spécifiques à Zope 2.
+   * - ``genericsetup``
+     - http://namespaces.zope.org/genericsetup
+     - Les directives fournies permettent de déclarer les profils
+       d'installation, d'exportation de configuration et de migration fournies
+       par :mod:`Products.GenericSetup`.
+   * - ``i18n``
+     - http://namespaces.zope.org/i18n
+     - L'unique directive de ce namespace permet de déclarer un répertoire de
+       fichiers de traductions (fichiers :file:`*.mo`) disposés selon le standard
+       "gettext". Pour plus de précisions, voir le chapitre
+       :ref:`internationalisation`.
+   * - ``kss``
+     - http://namespaces.zope.org/kss
+     - Les directives ``kss`` permettent d'enregistrer des ressources Ajax.
+   * - ``meta``
+     - http://namespaces.zope.org/meta
+     - Les directives fournies par ce namespace permettent de définir de
+       nouveaux éléments ZCML (s'ils figurent dans un fichier :file:`meta.zcml`)
+       ou - plus rarement - de remplacer et personnaliser des éléments existants
+       (s'ils figurent dans un fichier :file:`overrides.zcml`).
+   * - ``monkey``
+     - http://namespaces.plone.org/monkey
+     - Ce namespace est fourni par le composant
+       :mod:`collective.monkeypatcher`. Ce composant permet de mettre en place
+       des monkey patches de façon rationnelle et documentée. Les monkey patches
+       actifs peuvent être vus dans le Control Panel Zope à l'aide du composant
+       :mod:`collective.monkeypatcherpanel`.
+   * - ``plone``
+     - http://namespaces.plone.org/plone
+     - Les directives fournies permettent de déclarer les portlets et les règles
+       de contenus (content rules)
+   * - ``pluggableauthservice``
+     - http://namespaces.zope.org/pluggableauthservice
+     - L'unique directive ``registerMultiPlugin`` permet de déclarer les plugins
+       et multiplugins utilisables depuis :term:`PAS`.
+   * - ``wicked``
+     - http://namespaces.openplans.org/wicked
+     - Les directives de ce namespace permettent d'identifier les champs d'un
+       type de contenu Archetypes qui peuvent se comporter comme une page Wiki.
+   * - ``z3c``
+     - http://namespaces.zope.org/z3c
+     - Les deux directives du namespace ``z3c`` permettent de définir les
+       widgets pour le gestionnaire de formulaires :mod:`z3c.form`
+   * - ``zcml``
+     - http://namespaces.zope.org/zcml
+     - Les directives fournies par ce namespace permettent d'introduire des
+       directives conditionnelles.
+   * - ``zope``
+     - http://namespaces.zope.org/zope
+     - Namespace généralement choisi par défaut. Il est donc inutile de préfixer
+       les éléments de ce namespace par ``zope`` si c'est le cas dans votre
+       configuration ZCML. Les directives de ce namespace permettent de déclarer
+       des fonctionnalités proposées par la :term:`ZCA`, vue en détails dans
+       :ref:`guide_zca`.
+
+Zope 3 ou BlueBream disposent d'autres namespaces qui ne sont pas rendus
+disponibles aux applications Zope 2 à travers :mod:`Products.Five`. Nous ne les
+aborderons pas ici, mais les curieux pourront toujours se reporter au `chapitre
+ZCML de la documentation de BlueBream (en)
+<http://bluebream.zope.org/doc/1.0/zcml/index.html>`_.
+
+.. [#recommande] XML donc ZCML permet d'utiliser n'importe quel préfixe, mais
+   pour des questions de lisibilité, il est recommandé de respecter la
+   convention proposée.
+
+.. attention::
+
+   Les namespaces provenant des composants de Zope 3 (plus précisément du "Zope
+   toolkit") sont exposés par le biais de :mod:`Products.Five`. Du fait des
+   particularités de Zope 2, les directives ZCML exposées par les composants du
+   Zope toolkit intégrés dans Zope 2.12 ne sont pas toutes disponibles. C'est
+   particulièrement le cas de préfixes ``apidoc``, ``mail`` et ``xmlrpc``.
+
+Explorer les namespaces et directives
+=====================================
+
+Comme l'auteur de ces lignes est soudain atteint d'une grosse fatigue au moment
+de détailler les diverses directives ZCML et leur utilisation, il a préféré
+réaliser un composant qui ajoute un tableau de bord Zope 2 qui affiche les
+détails des différents namespaces et directives mises à votre disposition.
+
+aws.zope2zcmldoc
+----------------
+
+
+Je vous invite à installer sur vos instances de développement le composant
+`aws.zope2zcmldoc <http://pypi.python.org/pypi/aws.zope2zcmldoc>`_ et d'explorer
+depuis le tableau de bord la documentation au fur et à mesure de vos besoins.
+
+Autre avantage : comme :mod:`aws.zope2zcmldoc` utilise la "réflectivité" des
+directives ZCML, pour ses différentes vues, vous pourrez également l'utiliser
+pour lire la documentation de namespaces et directives fournis par des
+composants de tierce partie comme :mod:`iw.fss` ou d'autres.
+
+Quelques screenshots
+--------------------
+
+.. figure:: controlpanels.png
+   :align: center
+
+   Le nouveau lien dans le Control Panel Zope 2
+
+.. figure:: allnamespaces.png
+   :align: center
+
+   Les namespaces disponibles dans votre instance
+
+.. figure:: namespacebrowser.png
+   :align: center
+
+   Les différentes directives d'un namespace (ici "browser")
+
+.. figure:: browsermenu.png
+   :align: center
+
+   Le détail d'une directive ou sous-directive (ici "browser:menu)

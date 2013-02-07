@@ -1,0 +1,491 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Installation et création d’une instance Plone &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Création d’un buildout Plone avec ZopeSkel" href="buildout_plone3.html" />
+    <link rel="prev" title="Introduction à zc.buildout" href="presentation_buildout.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="buildout_plone3.html" title="Création d’un buildout Plone avec ZopeSkel"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_buildout.html" title="Introduction à zc.buildout"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="installation-et-creation-d-une-instance-plone">
+<span id="installation-creation-instance-plone"></span><h1>Installation et création d&#8217;une instance Plone<a class="headerlink" href="#installation-et-creation-d-une-instance-plone" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#savoir" id="id1">Savoir</a><ul>
+<li><a class="reference internal" href="#installation-via-l-unified-installer" id="id2">Installation via l&#8217;Unified Installer</a></li>
+<li><a class="reference internal" href="#installation-via-un-template-buildout" id="id3">Installation via un template buildout</a><ul>
+<li><a class="reference internal" href="#installation-sous-ubuntu-debian" id="id4">Installation sous Ubuntu/Debian</a></li>
+<li><a class="reference internal" href="#installation-sur-windows" id="id5">Installation sur Windows</a></li>
+<li><a class="reference internal" href="#installation-sous-mac-osx" id="id6">Installation sous Mac OSX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercice" id="id7">Exercice</a></li>
+</ul>
+</div>
+<p>Plusieurs types d&#8217;installation sont possibles, soit en
+utilisant un &#8220;template&#8221; de configuration, soit en utilisant un
+<a class="reference internal" href="glossaire.html#term-unified-installer"><em class="xref std std-term">unified installer</em></a>.</p>
+<div class="section" id="savoir">
+<h2><a class="toc-backref" href="#id1">Savoir</a><a class="headerlink" href="#savoir" title="Lien permanent vers ce titre">¶</a></h2>
+<p>La récupération des archives et leur installation, la création d&#8217;un buildout et
+la compilation de Zope.</p>
+<p>Plone est disponible en plusieurs versions et selon différents modes.</p>
+<p>Note à propos des combinaisons de versions de Plone, Python et Zope :</p>
+<ul class="simple">
+<li>Plone 3.3 utilise Python 2.4, Zope 2.10. Python 2.5 et 2.6 ne sont pas supportés.</li>
+<li>Plone 4 utilise Python 2.6 et Zope 2.12.</li>
+<li>Plone 4.1 et 4.2 utilisent Zope 2.13, Python 2.7 est supporté.</li>
+</ul>
+<div class="section" id="installation-via-l-unified-installer">
+<span id="installation-unified-installer"></span><h3><a class="toc-backref" href="#id2">Installation via l&#8217;Unified Installer</a><a class="headerlink" href="#installation-via-l-unified-installer" title="Lien permanent vers ce titre">¶</a></h3>
+<p>C&#8217;est la solution la plus simple.</p>
+<p>Le <a class="reference internal" href="glossaire.html#term-unified-installer"><em class="xref std std-term">unified installer</em></a> est un paquet qui contient toutes les sources,
+bibliothèques et outils nécessaires à l&#8217;exécution de Plone.</p>
+<p>Il contient aussi un script d&#8217;installation qui permet de configurer Plone.</p>
+<p>Il contient le mécanisme <a class="reference internal" href="glossaire.html#term-buildout"><em class="xref std std-term">buildout</em></a> qui permettra de facilement modifier
+la configuration de Plone pour ajouter des modules tierces.</p>
+<p>Pour l&#8217;installer, il suffit de récupérer le paquet sur
+<cite>http://plone.org/products/plone</cite> et d&#8217;exécuter ou d&#8217;extraire le paquet selon
+sa plateforme.</p>
+<p>Commandes à exécuter :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>wget http://launchpad.net/plone/3.3/3.3.X/+download/Plone-3.3.X-UnifiedInstaller.tgz
+<span class="nv">$ </span>tar xvzf Plone-3.3rc3-UnifiedInstaller.tgz
+<span class="nv">$ </span><span class="nb">cd </span>Plone-3.3rc3-UnifiedInstaller
+<span class="nv">$ </span>./install.sh --with-python<span class="o">=</span>/usr/bin/python2.4 standalone
+<span class="nv">$ </span><span class="nb">cd</span> ~/Plone/zinstance
+<span class="nv">$ </span>bin/plonectl start
+</pre></div>
+</div>
+<p>Le mode standalone crée une seule instance.  Vous pouvez remplacer
+<tt class="docutils literal"><span class="pre">standalone</span></tt> par <tt class="docutils literal"><span class="pre">zeo</span></tt> pour créer deux clients avec un zeoserver.</p>
+<p>Si vous lancez le script en root, il créera un utilisateur plone et installera
+Python, Zope et Plone dans <tt class="file docutils literal"><span class="pre">/usr/local/Plone</span></tt>. Python ne sera pas compilé
+si vous utilisez l&#8217;option <em class="xref std std-option">--with-python</em>.</p>
+<p>Pour plus d&#8217;informations, lisez le fichier README.txt dans l&#8217;archive et la
+documentation <a class="reference external" href="http://plone.org/documentation/tutorial/installing-plone-3-with-the-unified-installer">Installing Plone 3 with the Unified Installer</a> sur plone.org</p>
+<p>L&#8217;inconvénient de cette solution est que les paquets
+<a class="reference internal" href="glossaire.html#term-unified-installer"><em class="xref std std-term">unified installer</em></a> sont réalisés pour
+les versions stables ou beta de Plone. Les impatients doivent suivre la
+procédure d&#8217;installation par buildout.</p>
+</div>
+<div class="section" id="installation-via-un-template-buildout">
+<h3><a class="toc-backref" href="#id3">Installation via un template buildout</a><a class="headerlink" href="#installation-via-un-template-buildout" title="Lien permanent vers ce titre">¶</a></h3>
+<p><a class="reference internal" href="glossaire.html#term-buildout"><em class="xref std std-term">Buildout</em></a> est un outil qui permet de créer et déployer des
+configurations de projets Python.</p>
+<p>Il est possible à partir d&#8217;un outil nommé <strong class="command">paster</strong> de créer un squelette
+de configuration pour <a class="reference internal" href="glossaire.html#term-buildout"><em class="xref std std-term">buildout</em></a>. Cet outil sera aussi détaillé par la
+suite, il se repose sur un mécanisme de patrons (template) propre à chaque
+projet.</p>
+<p>Pour installer une version de Plone donnée (depuis la version 2.5), il suffit
+donc de créer une configuration pour la version de Plone voulue en utilisant
+<strong class="command">paster</strong> puis de compléter cette configuration pour enfin la
+construire.</p>
+<p>L&#8217;intérêt de cette méthode est de permettre l&#8217;installation de version en cours
+de développement ou en vue d&#8217;automatiser le déploiement sur plusieurs serveurs.</p>
+<div class="section" id="installation-sous-ubuntu-debian">
+<h4><a class="toc-backref" href="#id4">Installation sous Ubuntu/Debian</a><a class="headerlink" href="#installation-sous-ubuntu-debian" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Installez tout d&#8217;abord quelques packages de développement qui seront nécessaires
+pour compiler PIL (Imaging) et python-libxml2 :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>apt-get install libxml2-dev libjpeg62-dev libfreetype6-dev zlib1g-dev
+</pre></div>
+</div>
+<ul class="simple">
+<li>libxml2-dev pour compiler python-libxml2</li>
+<li>libjpeg62-dev libfreetype6-dev zlib1g-dev pour compiler PIL</li>
+</ul>
+<p>Dans Ubuntu Jaunty Jackalope 9.04 et suivants, les versions de Python installés
+par défaut sont 2.5 et 2.6.</p>
+<p>Et les packages python-imaging et python-libxml2 de la distribution ne sont
+compilés que pour ces versions.</p>
+<p>Il n&#8217;y a donc plus de support de ces packages pour Python 2.4. C&#8217;est pourquoi
+ces deux bibliothèques seront compilées à partir du buildout.</p>
+<p><a class="reference external" href="http://maurits.vanrees.org/weblog/archive/2009/03/using-ubuntu-9-04-beta">Voir le billet de Maurits van Rees à ce sujet</a></p>
+<p>Continuez sur le chapitre <a class="reference internal" href="buildout_plone3.html#buildout-plone3"><em>Création d&#8217;un buildout Plone avec ZopeSkel</em></a>.</p>
+</div>
+<div class="section" id="installation-sur-windows">
+<h4><a class="toc-backref" href="#id5">Installation sur Windows</a><a class="headerlink" href="#installation-sur-windows" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Cette section est une mise à jour pour Plone 4 et une francisation de
+<a class="reference external" href="http://plone.org/documentation/kb/using-buildout-on-windows">http://plone.org/documentation/kb/using-buildout-on-windows</a></p>
+<p>Beaucoup de données vont être téléchargées vous devez donc avoir une connexion
+rapide.</p>
+<p>Vous devez être à l&#8217;aise avec Windows et sa console Dos.</p>
+<p>Nous réaliserons l&#8217;installation de Plone 4, mais l&#8217;installation de Plone 3 est
+la même à la différence qu&#8217;au lieu d&#8217;utiliser Python2.6 vous utiliserez
+Python2.4 :</p>
+<p class="rubric">Python</p>
+<p>Installer Python via le <a class="reference internal" href="glossaire.html#term-msi-installer"><em class="xref std std-term">msi installer</em></a> en le téléchargeant depuis le site
+<a class="reference external" href="http://python.org">http://python.org</a>, sélectionner &#8220;install for all users&#8221; qui créera le répertoire
+<tt class="docutils literal"><span class="pre">c:\Python26</span></tt> par défaut.</p>
+<p>Changer la variable d&#8217;environnement <a class="reference internal" href="glossaire.html#term-path"><em class="xref std std-term">path</em></a> pour que Windows puisse
+automatiquement associer la commande <strong class="command">python</strong> à l&#8217;environnement :</p>
+<ul class="simple">
+<li>Python 2.6. Pour cela ouvrez Le <em class="menuselection">panneau de configuration ‣
+Les Propriétés système ‣ Variables d&#8217;environnement ‣ Path ‣ Modifier</em></li>
+<li>Ajoutez y en fin <tt class="docutils literal"><span class="pre">;c:\Python26;c:\Python26\Scripts</span></tt>.</li>
+<li>Vérifier que vos modifications sont bien prises en compte en ouvrant une
+<a class="reference internal" href="glossaire.html#term-invite-de-commandes"><em class="xref std std-term">invite de commandes</em></a> en saisissant <strong class="command">python -V</strong> qui doit
+vous afficher la version de Python.</li>
+</ul>
+<p class="rubric">Distribute</p>
+<ul>
+<li><p class="first">Télécharger le gestionnaire de paquet Python <a class="reference internal" href="glossaire.html#term-distribute"><em class="xref std std-term">distribute</em></a> à l&#8217;adresse
+<a class="reference external" href="http://python-distribute.org/distribute_setup.py">http://python-distribute.org/distribute_setup.py</a> ce qui permettra de récupérer
+les bibliothèques tierces nécessaire à Plone.</p>
+</li>
+<li><p class="first">Exécuter le dans l&#8217;environnement Python correspondant à votre distribution
+Plone :</p>
+<div class="highlight-python"><pre>c:\Python26\python.exe distribute_setup.py</pre>
+</div>
+</li>
+</ul>
+<p class="rubric">pywin32</p>
+<ul class="simple">
+<li>Installer l&#8217;extension <a class="reference internal" href="glossaire.html#term-pywin32"><em class="xref std std-term">pywin32</em></a> qui permettra d&#8217;utiliser les applications
+Windows dans Python. Elle est disponible à l&#8217;adresse
+<a class="reference external" href="http://sourceforge.net/projects/pywin32/files">http://sourceforge.net/projects/pywin32/files</a>. Installer la version la plus
+récente proposée pour Python 2.6.</li>
+</ul>
+<p class="rubric">PIL</p>
+<ul>
+<li><p class="first">Installer PIL la bibliothèque de traitement d&#8217;image dont a besoin Plone pour
+retailler les images importées, disponible à l&#8217;adresse
+<a class="reference external" href="http://effbot.org/downloads">http://effbot.org/downloads</a> :</p>
+<p><a class="reference external" href="http://effbot.org/downloads/PIL-1.1.7.win32-py2.6.exe">http://effbot.org/downloads/PIL-1.1.7.win32-py2.6.exe</a></p>
+</li>
+</ul>
+<p>Des installeurs pour PIL et votre version de Python sont disponibles ici : <a class="reference external" href="http://www.pythonware.com/products/pil/">http://www.pythonware.com/products/pil/</a></p>
+<p>Des installeurs pour les bindings Python libxml2 et libxslt pré-compilés sont mis à votre disposition ici : <a class="reference external" href="http://users.skynet.be/sbi/libxml-python/">http://users.skynet.be/sbi/libxml-python/</a></p>
+<div class="figure align-center">
+<img alt="_images/ModificationDuPath.jpg" src="_images/ModificationDuPath.jpg" />
+<p class="caption">Modification du path</p>
+</div>
+<p class="rubric">Subversion</p>
+<p>Installation de subversion. Subversion est un système de gestion de version qui
+permet de conserver et de réaliser des différences entre les évolutions d&#8217;un
+programme.</p>
+<p>La communauté Plone l&#8217;utilise pour gérer le code source de Plone.</p>
+<p>Ainsi, nous récupèrerons les fichiers nécessaires à la configuration du
+<a class="reference internal" href="glossaire.html#term-buildout"><em class="xref std std-term">buildout</em></a>.</p>
+<ul>
+<li><p class="first">Nous allons donc le télécharger et l&#8217;installer :</p>
+<p><a class="reference external" href="http://subversion.tigris.org/files/documents/15/45953/Setup-Subversion-1.6.2.msi">http://subversion.tigris.org/files/documents/15/45953/Setup-Subversion-1.6.2.msi</a></p>
+</li>
+<li><p class="first">Puis nous ajoutons à notre variable d&#8217;environnement <em>Path</em> le chemin vers
+subversion :</p>
+<div class="highlight-python"><pre>c:\Program Files\Subversion\bin</pre>
+</div>
+</li>
+<li><p class="first">Vérifier en entrant la commande <strong class="command">svn &#8211;version</strong> dans
+<a class="reference internal" href="glossaire.html#term-invite-de-commandes"><em class="xref std std-term">Invite de commandes</em></a> que vous avez bien une version 1.6.2</p>
+</li>
+</ul>
+<p class="rubric">MinGW</p>
+<p>Installation de MinGW. MinGW est un portage du compilateur gcc pour Windows.
+Nous pourrons ainsi compiler le code <a class="reference internal" href="glossaire.html#term-c"><em class="xref std std-term">C</em></a> de Zope.</p>
+<ul class="simple">
+<li>Récupérer le sur <a class="reference external" href="http://sourceforge.net/projects/mingw/files/">http://sourceforge.net/projects/mingw/files/</a></li>
+<li>Exécuter</li>
+<li>Choisir <em>download and install</em></li>
+<li>Accepter la licence</li>
+<li>Prendre la version actuelle</li>
+<li>Cocher <em>MinGW base tools</em> et <em>MinGW Make</em></li>
+<li>Installer MinGW dans <tt class="file docutils literal"><span class="pre">c:\MinGW</span></tt> et faire <em>suivant</em></li>
+<li>MinGW télécharge les outils nécessaires</li>
+<li>Ajouter <tt class="file docutils literal"><span class="pre">C:\MinGW\bin</span></tt> au <em class="guilabel">Path</em></li>
+<li>Copier <strong class="command">cc1.exe</strong> et <strong class="command">collect2.exe</strong> du répertoire
+<tt class="file docutils literal"><span class="pre">c:\MinGW\libexec\gcc\mingw32\3.4.5</span></tt> dans <tt class="file docutils literal"><span class="pre">C:\MinGW\bin</span></tt></li>
+<li>Vérifier en entrant <strong class="command">gcc &#8211;version</strong> dans l&#8217;invite de commande</li>
+<li>Vérifier qu&#8217;il existe un fichier <tt class="file docutils literal"><span class="pre">libpython26.a</span></tt> dans
+<tt class="file docutils literal"><span class="pre">C:\Python26\libs</span></tt> sinon suivez la procédure décrite à
+<a class="reference external" href="http://www.python.org/doc/2.4.1/inst/tweak-flags.html#SECTION000622000000000000000">http://www.python.org/doc/2.4.1/inst/tweak-flags.html#SECTION000622000000000000000</a></li>
+<li>Si vous utilisez Python depuis une installation de Plone, vous devez copier</li>
+<li><tt class="file docutils literal"><span class="pre">Plone\Python\PC\pyconfig.h</span></tt> vers <tt class="file docutils literal"><span class="pre">Plone\Python\Include</span></tt></li>
+</ul>
+<p class="rubric">Configuration de Distutils pour utiliser MinGW</p>
+<p>Nous allons créer un fichier de configuration qui permettra à <a class="reference internal" href="glossaire.html#term-distutils"><em class="xref std std-term">distutils</em></a>
+de savoir qu&#8217;il doit compiler les fichiers avec MinGW.</p>
+<p>Enregistrez les lignes suivantes dans
+<tt class="file docutils literal"><span class="pre">C:\Python26\Lib\distutils\distutils.cfg</span></tt> :</p>
+<div class="highlight-cfg"><div class="highlight"><pre><span class="k">[build]</span>
+<span class="na">compiler</span><span class="o">=</span><span class="s">mingw32</span>
+</pre></div>
+</div>
+<p class="rubric">Installation de paster</p>
+<p><a class="reference internal" href="glossaire.html#term-paster"><em class="xref std std-term">Paster</em></a> va nous permettre de créer le squelette de déploiement de notre
+site Plone. Il sera détaillé dans le chapitre qui lui est consacré.</p>
+<p>Pour installer <a class="reference internal" href="glossaire.html#term-paster"><em class="xref std std-term">Paster</em></a> il suffit de faire <strong class="command">easy_install
+PasteScript</strong></p>
+<p>Pour vérifier qu&#8217;il a bien été installé nous pouvons afficher les patrons de
+projets existant par défaut :</p>
+<div class="highlight-python"><pre>C:\&gt;paster create --list-templates
+Available templates:
+  basic_package:  A basic setuptools-enabled package
+  paste_deploy:   A web application deployed through paste.deploy</pre>
+</div>
+<p>Qui n&#8217;affiche que deux types de patron.</p>
+<p>Nous allons ajouter les patrons liés aux projets Zope avec la commande
+<strong class="command">easy_install ZopeSkel</strong> et vérifier les patrons disponibles :</p>
+<div class="highlight-python"><pre>C:\&gt;paster create --list-templates
+Available templates:
+  archetype:          A Plone project that uses Archetypes content types
+  basic_namespace:    A basic Python project with a namespace package
+  basic_package:      A basic setuptools-enabled package
+  basic_zope:         A Zope project
+  kss_plugin:         A project for a KSS plugin
+  nested_namespace:   A basic Python project with a nested namespace (2 dots
+  in name)
+  paste_deploy:       A web application deployed through paste.deploy
+  plone:              A project for Plone products
+  plone2.5_buildout:  A buildout for Plone 2.5 projects
+  plone2.5_theme:     A theme for Plone 2.5
+  plone2_theme:       A theme for Plone 2.1
+  plone3_buildout:    A buildout for Plone 3 installation
+  plone3_portlet:     A Plone 3 portlet
+  plone3_theme:       A theme for Plone 3
+  plone_app:          A project for Plone products with a nested namespace (2
+  dots in name)
+  plone_hosting:      Plone hosting: buildout with ZEO and any Plone version
+  plone_pas:          A project for a Plone PAS plugin
+  recipe:             A recipe project for zc.buildout
+  silva_buildout:     A buildout for Silva projects</pre>
+</div>
+<p class="rubric">Installation de Plone 4</p>
+<p>Nous allons procéder à l&#8217;installation de Plone en créant un <a class="reference internal" href="glossaire.html#term-buildout"><em class="xref std std-term">buildout</em></a>
+spécifique.</p>
+<p>Pour cela saisissez la commande <strong class="command">paster create -t plone3_buildout monplone4</strong>.
+Pour l&#8217;instant on utilise le patron de Plone 3 pour un site Plone 4. En indiquant une
+version supérieure ou égale à 4, la génération du fichier <cite>buildout.cfg</cite> sera
+différente d&#8217;un Plone 3. Répondez aux questions comme ceci :</p>
+<div class="highlight-python"><pre>Expert mode ? expert
+Plone version : 4.0b1-1
+Zope2 Install Path :
+Plone Products Directory :
+Initial Zope Username ['admin'] :
+Initial User Password : admin
+HTTP Port ['8080'] : 9080
+debug mode |'off'] :
+verbose mode ['off'] :</pre>
+</div>
+<p>Nous avons volontairement changé le port de Plone pour pouvoir faire cohabiter
+plusieurs versions ensemble.</p>
+<p>La plupart de ces variables peuvent être changées par la suite.</p>
+<p>L&#8217;exécution a pour conséquence de créer l&#8217;arborescence suivante :</p>
+<div class="highlight-python"><pre>C:\Documents and Settings\utlisateur&gt;dir monplone4
+ Le volume dans le lecteur C n'a pas de nom.
+ Le numéro de série du volume est BC6D-1497
+
+ Répertoire de C:\Documents and Settings\utlisateur\monplone4
+
+15/03/2010  23:26    &lt;REP&gt;          .
+15/03/2010  23:26    &lt;REP&gt;          ..
+15/03/2010  23:26             3 901 bootstrap.py
+15/03/2010  23:26             2 285 buildout.cfg
+15/03/2010  23:26    &lt;REP&gt;          products
+15/03/2010  23:26            10 856 README.txt
+15/03/2010  23:26    &lt;REP&gt;          src
+15/03/2010  23:26    &lt;REP&gt;          var
+             3 fichier(s)           17 042 octets
+             5 Rép(s)   8 233 197 568 octets libres</pre>
+</div>
+<p>Nous allons générer les scripts de génération :</p>
+<div class="highlight-python"><pre>C:\Documents and Settings\utlisateur&gt;cd monplone4
+
+C:\Documents and Settings\utlisateur\monplone4&gt;python bootstrap.py
+Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin'
+Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\parts'
+Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\\eggs'
+Creating directory 'C:\\Documents and Settings\\utlisateur\\monplone4\
+                    \develop-eggs'
+Generated script 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin\
+                    \buildout'</pre>
+</div>
+<p>Nous allons provoquer la récupération, la compilation et l&#8217;installation de Zope
+et Plone :</p>
+<div class="highlight-python"><pre>C:\Documents and Settings\utlisateur\monplone4&gt;.\bin\buildout.exe
+Getting distribution for 'plone.recipe.distros'.
+zip_safe flag not set; analyzing archive contents...
+plone.__init__: module references __path__
+plone.recipe.__init__: module references __path__
+Got plone.recipe.distros 1.5.
+Getting distribution for 'plone.recipe.zope2instance==4.0a4'.
+Got plone.recipe.zope2instance 4.0a4.
+Getting distribution for 'Zope2==2.12.3'.
+...
+Generated script 'C:\\Documents and Settings\\utlisateur\\monplone4\\bin\
+\instance'.Installing zopepy.
+Generated interpreter 'C:\\Documents and Settings\\utlisateur\\monplone4\
+\bin\\zopepy'.</pre>
+</div>
+<p>Si tout ce passe bien nous avons un répertoire <tt class="file docutils literal"><span class="pre">bin</span></tt> qui contient les
+lanceurs.</p>
+<p>Pour démarrer Plone :</p>
+<div class="highlight-python"><pre>C:\Documents and Settings\utlisateur\monplone4&gt;bin\instance.exe fg</pre>
+</div>
+<p class="rubric">Création de l&#8217;instance</p>
+<p>Connectez vous à l&#8217;adresse <cite>http://localhost:8080</cite>, on vous propose de créer un
+site Plone. Allez y.</p>
+<p class="rubric">Remarques</p>
+<p>L&#8217;installation de plone via buildout pour Windows, n&#8217;est pas recommandée par la
+communauté en raison de sa complexité.</p>
+<p>Pour Windows, il vaut mieux passer par <a class="reference internal" href="glossaire.html#term-unified-installer"><em class="xref std std-term">unified installer</em></a> qui possèdera
+une installation de Python, un PIL, un Zope, et un buildout prêt à l&#8217;emploi.</p>
+<p>Ce qui correspond à une installation réussie des étapes précédentes...</p>
+<p>Dans les deux cas, l&#8217;ajout des modules à Plone (anciennement appelés
+<a class="reference internal" href="glossaire.html#term-produit"><em class="xref std std-term">produit</em></a>) se fait par ajout d&#8217;un <a class="reference internal" href="glossaire.html#term-egg"><em class="xref std std-term">egg</em></a>.</p>
+<p>Les <a class="reference internal" href="glossaire.html#term-eggs"><em class="xref std std-term">eggs</em></a> sont désormais la forme standard des paquets contenant les
+modules d&#8217;extensions de Plone.</p>
+<p>Nous détaillerons les <a class="reference internal" href="glossaire.html#term-eggs"><em class="xref std std-term">eggs</em></a> dans un autre chapitre.</p>
+<p>Donc l&#8217;ajout d&#8217;un <a class="reference internal" href="glossaire.html#term-egg"><em class="xref std std-term">egg</em></a> se fait par déclaration du nom du <a class="reference internal" href="glossaire.html#term-egg"><em class="xref std std-term">egg</em></a>
+voulu dans le fichier <tt class="file docutils literal"><span class="pre">buildout.cfg</span></tt> à la section <a class="reference internal" href="glossaire.html#term-eggs"><em class="xref std std-term">eggs</em></a>.</p>
+<p>En lançant la commande <strong class="command">bin\buildout.exe</strong>, le egg sera téléchargé, et
+au prochain démarrage de Plone, il y sera accessible dans la liste des modules
+du menu de configuration de Plone.</p>
+</div>
+<div class="section" id="installation-sous-mac-osx">
+<h4><a class="toc-backref" href="#id6">Installation sous Mac OSX</a><a class="headerlink" href="#installation-sous-mac-osx" title="Lien permanent vers ce titre">¶</a></h4>
+<p>Sous Mac OSX, installez Python 2.4 soit avec le bundle Python 2.4 <em>.dmg</em> proposé
+en téléchargement, soit en utilisant <a class="reference external" href="http://www.macports.org/">MacPorts</a>,</p>
+<p>Si vous avez installé Python avec MacPorts, pas de problème :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>sudo port install py-pil
+<span class="nv">$ </span>sudo port install py-libxml2
+<span class="nv">$ </span>sudo port install py-libxslt
+</pre></div>
+</div>
+<p>Autrement, vous pouvez trouver une version pré-compilée statique de PIL ici :
+<a class="reference external" href="http://pythonmac.org/packages/py25-fat/index.html">http://pythonmac.org/packages/py25-fat/index.html</a></p>
+<p>Et vous devrez compilez les binders libxml2 et libxslt ceci sur votre poste
+comme indiqué ici : <a class="reference external" href="http://jamesclarke.net/notes/libxml2">http://jamesclarke.net/notes/libxml2</a></p>
+<p>Suivez ensuite la procédure pour Ubuntu/Debian.</p>
+</div>
+</div>
+</div>
+<div class="section" id="exercice">
+<h2><a class="toc-backref" href="#id7">Exercice</a><a class="headerlink" href="#exercice" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous allons créer l&#8217;instance de test qui sera utilisée dans les exercices suivants.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Installation et création d&#8217;une instance Plone</a><ul>
+<li><a class="reference internal" href="#savoir">Savoir</a><ul>
+<li><a class="reference internal" href="#installation-via-l-unified-installer">Installation via l&#8217;Unified Installer</a></li>
+<li><a class="reference internal" href="#installation-via-un-template-buildout">Installation via un template buildout</a><ul>
+<li><a class="reference internal" href="#installation-sous-ubuntu-debian">Installation sous Ubuntu/Debian</a></li>
+<li><a class="reference internal" href="#installation-sur-windows">Installation sur Windows</a></li>
+<li><a class="reference internal" href="#installation-sous-mac-osx">Installation sous Mac OSX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercice">Exercice</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="presentation_buildout.html"
+                        title="Chapitre précédent">Introduction à zc.buildout</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="buildout_plone3.html"
+                        title="Chapitre suivant">Création d&#8217;un buildout Plone avec ZopeSkel</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/installation_et_creation_d_une_instance_Plone.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="buildout_plone3.html" title="Création d’un buildout Plone avec ZopeSkel"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_buildout.html" title="Introduction à zc.buildout"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

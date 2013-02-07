@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rappel HTML et XML &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Concept de Python eggs" href="concepts_python_eggs.html" />
+    <link rel="prev" title="Le protocole HTTP et ses tests" href="presentation_http.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="concepts_python_eggs.html" title="Concept de Python eggs"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_http.html" title="Le protocole HTTP et ses tests"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rappel-html-et-xml">
+<span id="rappel-html-xml"></span><h1>Rappel HTML et XML<a class="headerlink" href="#rappel-html-et-xml" title="Lien permanent vers ce titre">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#definition" id="id1">Définition</a><ul>
+<li><a class="reference internal" href="#comment-sont-composees-les-pages-internet" id="id2">Comment sont composées les pages internet ?</a></li>
+<li><a class="reference internal" href="#rappel-sur-les-bases-html-et-xml" id="id3">Rappel sur les bases HTML et XML</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#savoir" id="id4">Savoir</a><ul>
+<li><a class="reference internal" href="#les-noeuds" id="id5">Les nœuds</a></li>
+<li><a class="reference internal" href="#les-elements" id="id6">Les éléments</a></li>
+<li><a class="reference internal" href="#les-attributs" id="id7">Les attributs</a></li>
+<li><a class="reference internal" href="#le-texte" id="id8">Le texte</a></li>
+<li><a class="reference internal" href="#distinction-entre-html-et-xml" id="id9">Distinction entre HTML et XML</a></li>
+<li><a class="reference internal" href="#le-prologue" id="id10">Le prologue</a></li>
+<li><a class="reference internal" href="#le-doctype" id="id11">Le doctype</a></li>
+<li><a class="reference internal" href="#les-dtd-et-schemas" id="id12">Les DTD et schémas</a></li>
+<li><a class="reference internal" href="#les-documents-bien-formes" id="id13">Les documents bien formés</a></li>
+<li><a class="reference internal" href="#les-documents-valides" id="id14">Les documents validés</a></li>
+<li><a class="reference internal" href="#les-commentaires" id="id15">Les commentaires</a></li>
+<li><a class="reference internal" href="#les-espaces-de-noms" id="id16">Les espaces de noms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercices" id="id17">Exercices</a></li>
+<li><a class="reference internal" href="#ressources" id="id18">Ressources</a></li>
+</ul>
+</div>
+<div class="section" id="definition">
+<h2><a class="toc-backref" href="#id1">Définition</a><a class="headerlink" href="#definition" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="comment-sont-composees-les-pages-internet">
+<h3><a class="toc-backref" href="#id2">Comment sont composées les pages internet ?</a><a class="headerlink" href="#comment-sont-composees-les-pages-internet" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les pages internet sont de simples documents texte dont certains mots sont
+interprétés par le navigateur pour insérer des images, mettre en forme le
+document comme par exemple créer des titres, proposer des liens, exécuter des
+scripts qui sont des suites d&#8217;instructions indiquant au navigateur ce qu&#8217;il
+doit faire, etc.</p>
+<p>Lorsque on utilise un logiciel produisant du HTML, il ne fait qu&#8217;écrire un
+fichier texte mélangeant notre contenu avec les éléments du HTML.</p>
+</div>
+<div class="section" id="rappel-sur-les-bases-html-et-xml">
+<h3><a class="toc-backref" href="#id3">Rappel sur les bases HTML et XML</a><a class="headerlink" href="#rappel-sur-les-bases-html-et-xml" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Lorsqu&#8217;en 1989 Tim Berners-Lee créait le protocole HTTP, il créait aussi HTML
+(Hypertext Markup Language) qui est le format de données transmis par HTTP, il
+met aussi au point le mécanisme d&#8217;URL qui permet de localiser une ressource sur
+le web.</p>
+<p>Le format HTML est un format texte issu de SGML, dont la volonté est de séparer
+le fond de la forme.</p>
+<p>Il permet de mettre en évidence les parties importantes d&#8217;un texte en les
+balisant. Pour cela, on encadre le texte avec un élément HTML qui se présente
+sous la forme <tt class="docutils literal"><span class="pre">&lt;element</span> <span class="pre">attribut1=&quot;valeur1&quot;</span>
+<span class="pre">attribut2=&quot;valeur2&quot;&gt;texte&lt;/element&gt;</span></tt>.</p>
+<p>Les différentes versions de HTML spécifient les noms des éléments et des
+attributs possibles.</p>
+<p>HTML évolue continuellement, nous sommes à la version 4.1 et la version 5 est à
+l&#8217;étude.</p>
+<p>Dès ses origines le langage de balise évolue par l&#8217;ajout des différents
+éditeurs de navigateur web.</p>
+<p>Jusqu&#8217;en 1992, il n&#8217;existe aucune spécification du langage, et par convention
+on parle de HTML 1.0 pour désigner ce qui se faisait à l&#8217;époque. En 1993,
+Mosaic apporte les formulaires rendant ainsi le web interactif ainsi que
+l&#8217;affichage des images.</p>
+<p>En 1995 sort la version 2.0 de HTML, proposée par le W3C World Wide Web
+Consortium qui vient d&#8217;être créé.</p>
+<p>En 1997 sort la version 3 puis la version 4.0 qui décrit le mécanisme des
+feuilles de styles CSS (Cascading Style Sheets). La version 4 est devenue la
+version la plus utilisée sur le web, les dernières corrections datent de 1999
+avec la version 4.1.</p>
+<p>XML a fait son apparition en 1998 avec la version 1.0, afin de rendre plus
+cohérent l&#8217;usage des éléments, il demande que chaque balise ouverte soit
+fermée, que les attributs aient toujours une valeur entre guillemets. En 2004
+sort la version 1.1.</p>
+<p>La version 2.0 de XHTML qui devait apporter XForms et XFrames a finalement été
+abandonnée en décembre 2009. Et HTML 5 a du coup été relancé.</p>
+<p>La grande force de XML est la possibilité d&#8217;enrichir facilement l&#8217;ensemble des
+balises existantes sans avoir à modifier les recommandations du w3c,
+contrairement à HTML.</p>
+</div>
+</div>
+<div class="section" id="savoir">
+<h2><a class="toc-backref" href="#id4">Savoir</a><a class="headerlink" href="#savoir" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous traiterons en priorité XHTML car c&#8217;est le format utilisé par Plone.</p>
+<div class="section" id="les-noeuds">
+<h3><a class="toc-backref" href="#id5">Les nœuds</a><a class="headerlink" href="#les-noeuds" title="Lien permanent vers ce titre">¶</a></h3>
+<p>On peut représenter un texte XML ou HTML par une arborescence de nœuds
+contenant du texte et/ou d&#8217;autres nœuds, cela reviendrait à dire qu&#8217;un nœud est
+l&#8217;équivalent d&#8217;un répertoire ou d&#8217;un fichier en faisant le parallèle avec une
+arborescence de fichiers.</p>
+</div>
+<div class="section" id="les-elements">
+<h3><a class="toc-backref" href="#id6">Les éléments</a><a class="headerlink" href="#les-elements" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Chaque nœud ayant un nom est appelée un élément, il est composé d&#8217;une balise
+ouvrante commençant par un chevron ouvert <tt class="docutils literal"><span class="pre">&lt;</span></tt> puis d&#8217;un nom ne contenant que
+des lettres, des chiffres ou des tirets bas, de zéro à plusieurs attributs
+séparés par des espaces, enfin la balise finie par un chevron fermé <tt class="docutils literal"><span class="pre">&gt;</span></tt>.</p>
+<p>Exemple :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;un_element&gt;</span>
+  bla bla
+  <span class="nt">&lt;un_sous_element</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;un_autre_sous_element&gt;</span>
+    encore du bla bla
+  <span class="nt">&lt;/un_autre_sous_element&gt;</span>
+  <span class="nt">&lt;un_element_avec_un_attribut</span> <span class="na">un_attribut=</span><span class="s">&quot;sa valeur&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/un_element&gt;</span>
+</pre></div>
+</div>
+<p>Un élément doit obligatoirement être fermé soit par une balise portant le même
+nom mais précédé par <tt class="docutils literal"><span class="pre">/</span></tt> et ne pouvant contenir aucun attribut, soit par
+<tt class="docutils literal"><span class="pre">/</span></tt> avant le chevron de fermeture.</p>
+</div>
+<div class="section" id="les-attributs">
+<h3><a class="toc-backref" href="#id7">Les attributs</a><a class="headerlink" href="#les-attributs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Un attribut est un couple nom-valeur écrit à l&#8217;intérieur de la déclaration
+d&#8217;une balise, qui permet de préciser l&#8217;élément qu&#8217;il qualifie.</p>
+<p>En XML la valeur est entre guillemets et peut être vide &#8220;&#8221; mais ne peux être nulle.</p>
+</div>
+<div class="section" id="le-texte">
+<h3><a class="toc-backref" href="#id8">Le texte</a><a class="headerlink" href="#le-texte" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le texte dans XHTML est contenu par un élément et est en unicode par défaut, le
+jeu de caractère est celui de l&#8217;UTF-8 ce qui permet de traiter toutes les
+langues.</p>
+</div>
+<div class="section" id="distinction-entre-html-et-xml">
+<h3><a class="toc-backref" href="#id9">Distinction entre HTML et XML</a><a class="headerlink" href="#distinction-entre-html-et-xml" title="Lien permanent vers ce titre">¶</a></h3>
+<p>HTML peut être vu comme un XML permissif car il autorise que les balises ne
+soient pas fermées, qu&#8217;une balise ouvrante soit fermée par une balise dont la
+casse du nom soit différente de celle ouvrante, que les éléments de style
+soient fortement mélangés au contenu.</p>
+<p>XHTML doit respecter la forme suivante :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot; &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</span>
+<span class="nt">&lt;html</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span>  <span class="na">xml:lang=</span><span class="s">&quot;fr&quot;</span> <span class="na">lang=</span><span class="s">&quot;fr&quot;</span><span class="nt">&gt;</span>
+ <span class="nt">&lt;head&gt;</span>
+  <span class="nt">&lt;title&gt;</span>Exemple XHTML 1.0 strict<span class="nt">&lt;/title&gt;</span>
+ <span class="nt">&lt;/head&gt;</span>
+ <span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;ul&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Tous les éléments doivent être explicitement balisés.<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Les balises fermantes ne sont pas optionnelles.<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Les noms d&#39;éléments et d&#39;attributs <span class="nt">&lt;em</span> <span class="na">class=</span><span class="s">&quot;important&quot;</span><span class="nt">&gt;</span>doivent<span class="nt">&lt;/em&gt;</span> être en minuscules.<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Tous les attributs doivent avoir une valeur explicite <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;checkbox&quot;</span> <span class="na">checked=</span><span class="s">&quot;checked&quot;</span> <span class="na">value=</span><span class="s">&quot;...&quot;</span> <span class="nt">/&gt;</span>.<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Les guillemets sont <span class="nt">&lt;em</span> <span class="na">class=</span><span class="s">&quot;important&quot;</span><span class="nt">&gt;</span>toujours<span class="nt">&lt;/em&gt;</span> obligatoires autour des valeurs d&#39;attribut.<span class="nt">&lt;/li&gt;</span>
+   <span class="nt">&lt;li&gt;</span>Les balises auto-fermantes se terminent tous par un espace et un slash comme pour la balise image : <span class="nt">&lt;img</span> <span class="na">src=</span><span class="s">&quot;i.png&quot;</span> <span class="na">alt=</span><span class="s">&quot;i&quot;</span> <span class="nt">/&gt;</span>,
+    ou un retour à la ligne : <span class="nt">&lt;br</span> <span class="nt">/&gt;&lt;/li&gt;</span>
+  <span class="nt">&lt;/ul&gt;</span>
+ <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="le-prologue">
+<h3><a class="toc-backref" href="#id10">Le prologue</a><a class="headerlink" href="#le-prologue" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le prologue est la première ligne d&#8217;un document HTML ou XHTML et a la forme
+<tt class="docutils literal"><span class="pre">&lt;?xml</span> <span class="pre">version=&quot;1.0&quot;?&gt;</span></tt>. Il permet de savoir si l&#8217;on a affaire à un document
+XML et si c&#8217;est le cas, de connaître la version applicable.</p>
+</div>
+<div class="section" id="le-doctype">
+<h3><a class="toc-backref" href="#id11">Le doctype</a><a class="headerlink" href="#le-doctype" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le doctype est généralement défini tout de suite après le prologue et permet de
+savoir quelle DTD les éléments non qualifiés doivent suivre.</p>
+<p>Cas du HTML :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//IETF//DTD HTML 2.0//EN&quot;&gt;</span>
+</pre></div>
+</div>
+<p>Cas du XTHML 1.0 strict :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Strict//EN&quot;</span>
+<span class="cp">      &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd&quot;&gt;</span>
+</pre></div>
+</div>
+<p>Cas du XHTML 1.0 Transitional :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.0 Transitional//EN&quot;</span>
+<span class="cp">       &quot;http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd&quot;&gt;</span>
+</pre></div>
+</div>
+<p>Cas du XHTML 1.1 :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;</span>
+<span class="cp">       &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="les-dtd-et-schemas">
+<h3><a class="toc-backref" href="#id12">Les DTD et schémas</a><a class="headerlink" href="#les-dtd-et-schemas" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Que ce soit HTML ou XHTML, chacun des deux langages est défini par une DTD
+(Document Type Définition) qui est une sorte de grammaire expliquant les
+combinaisons d&#8217;éléments et d&#8217;attributs possibles.</p>
+<p>XML permet d&#8217;utiliser des schémas à la place des DTD, qui ont l&#8217;avantage d&#8217;être
+en XML et de mieux détailler les éléments et attributs. Il y a ainsi moins
+d&#8217;interprétations possibles des spécifications.</p>
+</div>
+<div class="section" id="les-documents-bien-formes">
+<h3><a class="toc-backref" href="#id13">Les documents bien formés</a><a class="headerlink" href="#les-documents-bien-formes" title="Lien permanent vers ce titre">¶</a></h3>
+<p>On dit d&#8217;un document XML qu&#8217;il est bien formé si chaque balise ouvrante a une
+balise fermante, si les attributs ont bien tous des valeurs au moins vide.</p>
+</div>
+<div class="section" id="les-documents-valides">
+<h3><a class="toc-backref" href="#id14">Les documents validés</a><a class="headerlink" href="#les-documents-valides" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Un document XML est validé lorsqu&#8217;il respecte l&#8217;organisation des éléments
+prévue par une DTD ou un schéma.</p>
+<p>La validation identifie la ou les DTD et Schémas à appliquer au document, va
+les chercher et vérifie que toutes les règles de construction décrite dedans
+sont respectées.</p>
+</div>
+<div class="section" id="les-commentaires">
+<h3><a class="toc-backref" href="#id15">Les commentaires</a><a class="headerlink" href="#les-commentaires" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les commentaires sont délimités par <tt class="docutils literal"><span class="pre">&lt;!--</span></tt> et <tt class="docutils literal"><span class="pre">--&gt;</span></tt>.</p>
+</div>
+<div class="section" id="les-espaces-de-noms">
+<h3><a class="toc-backref" href="#id16">Les espaces de noms</a><a class="headerlink" href="#les-espaces-de-noms" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour permettre l&#8217;extension, XML a introduit la notion d&#8217;espace de nom, ainsi il
+est possible dans un élément de définir un espace de nom liant un préfixe
+d&#8217;élément à un schéma ou une DTD et donc de mélanger des éléments de natures
+différentes. Le format est <tt class="docutils literal"><span class="pre">xmlns:NomPrefixe=&quot;URL&quot;</span></tt>.</p>
+<p>Exemple :</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;ex:exemple</span>
+   <span class="na">xmlns:formation=</span><span class="s">&quot;http://www.ecreall.com/formations/xml&quot;</span>
+   <span class="na">xmlns=</span><span class="s">&quot;http://www.w3.org/1999/xhtml&quot;</span>
+   <span class="na">xmlns:ex=</span><span class="s">&quot;http://example.org&quot;</span><span class="nt">&gt;</span>
+   <span class="nt">&lt;formation:plone</span> <span class="na">version=</span><span class="s">&quot;3 4&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;formation:python&gt;</span>
+      <span class="nt">&lt;p&gt;</span>Python c&#39;est bien<span class="nt">&lt;/p&gt;</span>
+      <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;http://www.afpy.org&quot;</span><span class="nt">&gt;</span>Association Francophone Python<span class="nt">&lt;/p&gt;</span>
+     <span class="nt">&lt;/formation:python&gt;</span>
+   <span class="nt">&lt;/formation:plone&gt;</span>
+<span class="nt">&lt;/ex:exemple&gt;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="exercices">
+<h2><a class="toc-backref" href="#id17">Exercices</a><a class="headerlink" href="#exercices" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Écriture d&#8217;une page HTML et d&#8217;un document XML.</p>
+</div>
+<div class="section" id="ressources">
+<h2><a class="toc-backref" href="#id18">Ressources</a><a class="headerlink" href="#ressources" title="Lien permanent vers ce titre">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/Hypertexte">Hypertexte</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/Html#2007_.C3.A0_nos_jours">HTML</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/XHTML">XHTML</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/Extensible_Markup_Language">XML</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/Uniform_Resource_Locator">URL</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/World_Wide_Web_Consortium">W3C</a></li>
+<li><a class="reference external" href="http://fr.wikipedia.org/wiki/Feuilles_de_style_en_cascade">Feuilles de styles</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rappel HTML et XML</a><ul>
+<li><a class="reference internal" href="#definition">Définition</a><ul>
+<li><a class="reference internal" href="#comment-sont-composees-les-pages-internet">Comment sont composées les pages internet ?</a></li>
+<li><a class="reference internal" href="#rappel-sur-les-bases-html-et-xml">Rappel sur les bases HTML et XML</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#savoir">Savoir</a><ul>
+<li><a class="reference internal" href="#les-noeuds">Les nœuds</a></li>
+<li><a class="reference internal" href="#les-elements">Les éléments</a></li>
+<li><a class="reference internal" href="#les-attributs">Les attributs</a></li>
+<li><a class="reference internal" href="#le-texte">Le texte</a></li>
+<li><a class="reference internal" href="#distinction-entre-html-et-xml">Distinction entre HTML et XML</a></li>
+<li><a class="reference internal" href="#le-prologue">Le prologue</a></li>
+<li><a class="reference internal" href="#le-doctype">Le doctype</a></li>
+<li><a class="reference internal" href="#les-dtd-et-schemas">Les DTD et schémas</a></li>
+<li><a class="reference internal" href="#les-documents-bien-formes">Les documents bien formés</a></li>
+<li><a class="reference internal" href="#les-documents-valides">Les documents validés</a></li>
+<li><a class="reference internal" href="#les-commentaires">Les commentaires</a></li>
+<li><a class="reference internal" href="#les-espaces-de-noms">Les espaces de noms</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#exercices">Exercices</a></li>
+<li><a class="reference internal" href="#ressources">Ressources</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="presentation_http.html"
+                        title="Chapitre précédent">Le protocole HTTP et ses tests</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="concepts_python_eggs.html"
+                        title="Chapitre suivant">Concept de Python eggs</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/presentation_html_xml.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="concepts_python_eggs.html" title="Concept de Python eggs"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_http.html" title="Le protocole HTTP et ses tests"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

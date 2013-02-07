@@ -1,0 +1,206 @@
+.. -*- coding: utf-8 -*-
+
+.. _nouveautes_plone4:
+
+=========================
+Les nouveautés de Plone 4
+=========================
+
+Présentation des nouveautés de Plone 4 par rapport à Plone 3.3.
+
+`Vidéo disponible <http://plone.org/products/plone/features/>`_
+
+.. contents:: :local:
+
+Performances
+============
+
+Plone 4 est centrée sur l'amélioration des performances.
+Il est en environ deux fois plus rapide que Plone 3, et jusqu'à quatre fois
+plus rapide que Plone 2.5
+aussi bien pour les anonymes que pour les utilisateurs connectés.
+Il consomme beaucoup moins de mémoire que les anciennes versions.
+Plone 4 est, à la date de sa sortie l'une des plateformes open source CMS les plus rapides du marché.
+
+Cela est dû à la fois à un effort majeur sur l'optimisation du code de Plone,
+qu'au passage à Python 2.6 plus rapide et moins gourmand que Python 2.4.
+
+`En savoir plus (fr)
+<http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances>`__
+
+Thème
+=====
+
+Plone 4 possède un nouveau thème par défaut appelé "Sunburst", élégant et, minimaliste.
+Il est conçu comme un composant à part, mais inclus par défaut.
+Il est donc facile à remplacer.
+
+Il n'utilise plus de tableaux. La css a été très fortement simplifiée. Il reste
+compatible avec Internet Explorer 6.
+
+Il est prévu pour être compatible avec le futur outil de mise en page Deco prévu pour Plone 5.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/new-look>`__
+
+Ergonomie
+=========
+
+L'interface utilisateur de Plone 4 a été améliorée.
+
+Il est plus facile de `créer un site Plone
+<http://plone.org/products/plone/features/improved-first-run-experience>`__
+, via une page dédiée.
+
+Plone 4 inclut par défaut un nouvel éditeur wysiwyg (TinyMCE),
+et offre de nouveaux paramètres de configuration. TinyMCE remplace kupu.
+Il existe un produit en remplacement de l'éditeur complet FCKeditor : `ckeditor
+<http://plone.fr/news/les-extensions-plone-4-de-macadames>`_.
+
+.. figure:: ./nouveautesplone4/tinymce-screenshot-1.png
+    :align: center
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/intuitive-visual-editing>`__
+
+Amélioration du formulaire de recherche : les options non pertinentes ont été retirées,
+les critères sont choisis par un système de plié/déplié beaucoup plus clair.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/search-and-indexing-improvements>`__
+
+
+Amélioration de l'administration du site
+========================================
+
+Ordonnancement dans les dossiers amélioré
+-----------------------------------------
+
+L'interface pour ordonner les documents dans les dossiers a été améliorée.
+L'intégration entre 'tri' et 'ordonnancement' a été améliorée.
+
+Interface améliorée de gestion des groupes
+------------------------------------------
+
+L'interface a été améliorée pour chercher des groupes,
+associer des utilisateurs à des groupes, etc.
+
+Plone 4 permet de mieux gérer les groupes imbriqués.
+Dans Plone 3.3, vous ne voyiez pas que vous aviez un rôle récupéré grâce un
+super groupe. Plone 4 a été modifié pour le voir, un peu comme la présentation
+faite dans l'onglet partage pour les rôles locaux.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/more-powerful-management-of-users-and-groups>`__
+
+Tableaux de bord des groupes
+----------------------------
+
+Il est maintenant possible de paramétrer des tableaux de bord par défaut
+pour tous les utilisateurs d'un groupe.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/group-dashboards>`__
+
+Possibilité de masquer les portlets
+-----------------------------------
+
+Un simple clic dans l'outil de management des portlets
+permet de masquer/afficher un portlet.
+
+Authentification par email
+--------------------------
+
+Plone 4 prévoit la possibilité d'autoriser l'authentification de l'utilisateur
+par son email plutôt que par son login.
+
+Amélioration de la customisation du site
+========================================
+
+Gestion des icones d'actions
+----------------------------
+
+Les icones d'actions ne sont plus gérées séparément des actions
+(disparition du tool portal_actionicons)
+
+Suppression du base_properties
+------------------------------
+
+Les css ne sont plus écrites en dtml, mais en texte pur.
+L'expérience d'utilisation a montré que l'utilisation de variables dans les css posait plus de risques qu'elle ne faisait gagner de temps.
+
+Améliorations techniques
+========================
+
+Utilisation de Python 2.6 et Zope 2.12
+--------------------------------------
+
+Plone 2.5 et 3.x fonctionnaient sous Python 2.4.
+Python 2.6 est plus rapide et beaucoup moins gourmand en mémoire.
+
+Zope 2.12 est compatible avec la version 2.9.x de la ZODB supportant
+nativement les blobs.
+Totalement eggifié, il est plus facile à déployer.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/under-the-hood-improvements>`__
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/reduced-memory-footprint>`__
+
+Gestion des pièces jointes avec les blobs
+-----------------------------------------
+
+La ZODB gère maintenant les pièces jointes (images et fichiers) de Plone
+dans des fichiers à part de la Data.fs, appelés "blobs".
+
+Cela limite l'impact des modifications de pièces jointes sur la taille des transactions :
+la zodb est plus rapide et grossit moins rapidement entre chaque pack.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/massively-improved-handling-of-large-files-media>`__
+
+Refonte de l'outil de migration
+-------------------------------
+
+Plone utilise maintenant Generic Setup comme outil de migration.
+On a maintenant le même système de mise à jour pour les modules tierces et pour
+Plone lui-même.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/smooth-upgrade-experience>`__
+
+JQuery Tools de base
+--------------------
+
+La bibliothèque Javascript `JQuery Tools
+<http://flowplayer.org/tools/index.html>`_ est incluse de base.
+Cela permet d'avoir des popups améliorant l'expérience utilisateur.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/popup-forms-framework-based-on-jquery-tools>`__
+
+Support de l'indexation des langues asiatiques
+----------------------------------------------
+
+Le moteur d'indexation plain texte gère maintenant les langues asiatiques
+(Chinois, Japonais, Coréen).
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/search-and-indexing-improvements>`__
+
+Les dossiers sont tous des BTree
+--------------------------------
+
+Il y avait auparavant deux types de dossiers : Folder et Large Folder,
+les seconds étant des BTree. Les Folder sont maintenant des BTree et les Large Folder ont été retirés.
+
+`En savoir plus (en)
+<http://plone.org/products/plone/features/new-faster-folder-implementation>`__
+
+Migration de Plone 3.3 vers Plone 4
+===================================
+
+Plone 4 apporte quelques changements radicaux. Il vous faudra sans doute adapter
+le code de vos produits.
+Il existe une `documentation pour vous y aider <http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0>`__.

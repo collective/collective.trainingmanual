@@ -1,0 +1,200 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>La vue &#34;plone_portal_state&#34; &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Les vues standard" href="index.html" />
+    <link rel="next" title="La vue &#34;plone_tools&#34;" href="plone_tools.html" />
+    <link rel="prev" title="La vue &#34;plone_context_state&#34;" href="plone_context_state.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="plone_tools.html" title="La vue &#34;plone_tools&#34;"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="plone_context_state.html" title="La vue &#34;plone_context_state&#34;"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="la-vue-plone-portal-state">
+<span id="vue-plone-portal-state"></span><h1>La vue &quot;plone_portal_state&quot;<a class="headerlink" href="#la-vue-plone-portal-state" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Les informations globales sur le portail sont accessibles à travers les méthodes
+et attributs de cette vue.</p>
+<p>À noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+cette vue est accessible par l'objet <tt class="docutils literal"><span class="pre">portal_state</span></tt>.</p>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;html</span> <span class="na">use-macro=</span><span class="s">&quot;context/@@standard_macros/page&quot;</span><span class="nt">&gt;</span>
+  ...
+  <span class="nt">&lt;div&gt;</span>Le titre du portail
+    <span class="nt">&lt;span</span> <span class="na">tal:content=</span><span class="s">&quot;portal_state/portal_title&quot;</span><span class="nt">&gt;</span>Un titre<span class="nt">&lt;/span&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+  ...
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+</div>
+<p>Détails dans <tt class="xref py py-class docutils literal"><span class="pre">plone.app.layout.globals.interfaces.IPortalState</span></tt></p>
+<table border="1" class="docutils">
+<caption>plone_portal_state</caption>
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Attribut - Méthode</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">portal()</span></tt></td>
+<td>L'objet site Plone (voir également à la fin de ce tableau)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">portal_title()</span></tt></td>
+<td>Le titre du portail.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">portal_url()</span></tt></td>
+<td>L'URL de la racine du portail (voir <tt class="docutils literal"><span class="pre">navigation_root_url</span></tt>).</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">navigation_root_path()</span></tt></td>
+<td>Le path relatif de la racine de navigation du site (la page d'accueil).</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">navigation_root_url()</span></tt></td>
+<td>L'URL de la page d'accueil du site (celle du lien du logo du site ou du
+lien &quot;Accueil&quot; du breadcrumb / fil d'Ariane)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">default_language()</span></tt></td>
+<td>L'abréviation IANA de la langue par défaut du site, comme <tt class="docutils literal"><span class="pre">fr</span></tt> pour le
+Français.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">language()</span></tt></td>
+<td>L'abréviation IANA de la langue utilisée pour la publication de la page
+courante.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">locale()</span></tt></td>
+<td>La <tt class="docutils literal"><span class="pre">locale</span></tt> utlisée pour la publication de la page courante (voir le
+module standard Python <tt class="xref py py-mod docutils literal"><span class="pre">locale</span></tt>).</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">is_rtl()</span></tt></td>
+<td>La langue courante (voir <tt class="docutils literal"><span class="pre">language()</span></tt> plus haut) s'écrit de droite à
+gauche comme l'Arabe ou l'Hébreu.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">member()</span></tt></td>
+<td>L'objet représentant le membre courant. <tt class="docutils literal"><span class="pre">None</span></tt> si anonyme.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">anonymous()</span></tt></td>
+<td><tt class="docutils literal"><span class="pre">True</span></tt> si l'utilisateur courant est anonyme.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">friendly_types()</span></tt></td>
+<td>Liste de  <tt class="docutils literal"><span class="pre">portal_types</span></tt> compatibles avec la recherche.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p>Objet portail</p>
+<p>Grace à la <a class="reference internal" href="../glossaire.html#term-zca"><em class="xref std std-term">ZCA</em></a> décrite dans <a class="reference internal" href="../izca-fr.html#guide-zca"><em>Le guide complet de l'Architecture de Composants de Zope</em></a>, une méthode plus rapide
+permet d'obtenir l'objet portail de façon plus efficace :</p>
+<div class="last highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zope.site.hooks</span> <span class="kn">import</span> <span class="n">getSite</span>
+<span class="c"># ...</span>
+<span class="n">portal</span> <span class="o">=</span> <span class="n">getSite</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="plone_context_state.html"
+                        title="Chapitre précédent">La vue &quot;plone_context_state&quot;</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="plone_tools.html"
+                        title="Chapitre suivant">La vue &quot;plone_tools&quot;</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/vues_standard/plone_portal_state.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="plone_tools.html" title="La vue &#34;plone_tools&#34;"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="plone_context_state.html" title="La vue &#34;plone_context_state&#34;"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Les vues standard</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,775 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les conteneurs standard &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="up" title="Presentation de Python" href="index.html" />
+    <link rel="next" title="Fonctions et espaces de noms" href="fonctions_espaces_noms.html" />
+    <link rel="prev" title="Le contrôle du flux d&#39;instructions" href="controle_flux_instructions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="fonctions_espaces_noms.html" title="Fonctions et espaces de noms"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="controle_flux_instructions.html" title="Le contrôle du flux d&#39;instructions"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Presentation de Python</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-conteneurs-standard">
+<span id="python-conteneurs-standard"></span><h1>Les conteneurs standard<a class="headerlink" href="#les-conteneurs-standard" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Le chapitre &quot;La console Python&quot; a présenté les types de données simples, mais
+Python offre beaucoup plus : les conteneurs.</p>
+<p>De façon générale, un conteneur est un objet composite destiné à contenir
+d'autres objets. Ce chapitre détaille les séquences, les tableaux associatifs,
+les ensembles et les fichiers textuels.</p>
+<div class="section" id="les-sequences">
+<h2>Les séquences<a class="headerlink" href="#les-sequences" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="qu-est-ce-qu-une-sequence">
+<h3>Qu'est-ce qu'une séquence ?<a class="headerlink" href="#qu-est-ce-qu-une-sequence" title="Lien permanent vers ce titre">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-sequence">Sequence</dt>
+<dd>Une séquence est un conteneur ordonné d'éléments indicés par des entiers.</dd>
+</dl>
+<p>Python dispose de trois types prédéfinis de séquences :</p>
+<ul class="simple">
+<li>les chaînes (vues précédemment) ;</li>
+<li>les listes ;</li>
+<li>les tuples.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="les-listes">
+<h2>Les listes<a class="headerlink" href="#les-listes" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="definition-syntaxe-et-exemples">
+<h3>Définition, syntaxe et exemples<a class="headerlink" href="#definition-syntaxe-et-exemples" title="Lien permanent vers ce titre">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-collection">Collection</dt>
+<dd>Collection ordonnée et modifiable d'éléments éventuellement hétérogènes.</dd>
+</dl>
+<p class="rubric">Syntaxe</p>
+<p><em>Éléments séparés par des virgules, et entourés de crochets.</em></p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">couleurs</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;trèfle&#39;</span><span class="p">,</span> <span class="s">&#39;carreau&#39;</span><span class="p">,</span> <span class="s">&#39;coeur&#39;</span><span class="p">,</span> <span class="s">&#39;pique&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">couleurs</span><span class="p">)</span>
+<span class="go">[&#39;trèfle&#39;, &#39;carreau&#39;, &#39;coeur&#39;, &#39;pique&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">couleurs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">14</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">couleurs</span><span class="p">)</span>
+<span class="go">[&#39;trèfle&#39;, 14, &#39;coeur&#39;, &#39;pique&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list1</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list2</span> <span class="o">=</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mf">2.718</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">list3</span> <span class="o">=</span> <span class="p">[</span><span class="n">list1</span><span class="p">,</span> <span class="n">list2</span><span class="p">]</span> <span class="c"># liste de listes</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">list3</span><span class="p">)</span>
+<span class="go">[[&#39;a&#39;, &#39;b&#39;], [4, 2.718]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="initialisations-et-tests">
+<h3>Initialisations et tests<a class="headerlink" href="#initialisations-et-tests" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Utilisation de la répétition, de l'opérateur d'appartenance <strong class="command">in</strong> et de
+l'itérateur <strong class="command">range()</strong> :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">truc</span><span class="p">,</span> <span class="n">machin</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">truc</span><span class="p">)</span> <span class="c"># (liste vide)</span>
+<span class="go">[]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">machin</span><span class="p">)</span>
+<span class="go">[0.0, 0.0, 0.0]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l1</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;l1 =&quot;</span><span class="p">,</span> <span class="n">l1</span><span class="p">)</span>
+<span class="go">l1 = [0, 1, 2, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l2</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;l2 =&quot;</span><span class="p">,</span> <span class="n">l2</span><span class="p">)</span>
+<span class="go">l2 = [4, 5, 6, 7]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l3</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;l3 =&quot;</span><span class="p">,</span> <span class="n">l3</span><span class="p">)</span>
+<span class="go">l3 = [2, 4, 6, 8]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="mi">2</span> <span class="ow">in</span> <span class="n">l1</span><span class="p">,</span> <span class="mi">8</span> <span class="ow">in</span> <span class="n">l2</span><span class="p">,</span> <span class="mi">6</span> <span class="ow">in</span> <span class="n">l3</span><span class="p">)</span>
+<span class="go">True False True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l3</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">l3</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;-&quot;</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="go">0-2 1-4 2-6 3-8</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="methodes">
+<h3>Méthodes<a class="headerlink" href="#methodes" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Quelques méthodes de modification des listes :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span> <span class="o">=</span> <span class="p">[</span><span class="mi">17</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">,</span> <span class="mi">72</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="p">)</span>
+<span class="go">[10, 17, 25, 38, 72]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">12</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="mi">38</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="p">)</span>
+<span class="go">[12, 72, 25, 17, 10]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="mi">17</span><span class="p">))</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">11</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">14</span><span class="p">,</span> <span class="mi">17</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="o">.</span><span class="n">pop</span><span class="p">())</span>
+<span class="go">10</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="p">)</span>
+<span class="go">[11, 14, 17, 2, 17]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mi">17</span><span class="p">))</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nombres</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">nombres</span><span class="p">)</span>
+<span class="go">[11, 14, 17, 2, 17, 1, 2, 3]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="manipulation-des-tranches">
+<h3>Manipulation des &quot;tranches&quot;<a class="headerlink" href="#manipulation-des-tranches" title="Lien permanent vers ce titre">¶</a></h3>
+<p class="rubric">Syntaxe</p>
+<p><em>Si on veut supprimer, remplacer ou insérer plusieurs éléments d'une liste, il
+faut indiquer une tranche dans le membre de gauche d'une affectation et fournir
+une liste dans le membre de droite.</em></p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mots</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;jambon&#39;</span><span class="p">,</span> <span class="s">&#39;sel&#39;</span><span class="p">,</span> <span class="s">&#39;miel&#39;</span><span class="p">,</span> <span class="s">&#39;confiture&#39;</span><span class="p">,</span> <span class="s">&#39;beurre&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mots</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span> <span class="c"># effacement par affectation d&#39;une liste vide</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">mots</span><span class="p">)</span>
+<span class="go">[&#39;jambon&#39;, &#39;sel&#39;, &#39;beurre&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mots</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;salade&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">mots</span><span class="p">)</span>
+<span class="go">[&#39;jambon&#39;, &#39;salade&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mots</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;mayonnaise&#39;</span><span class="p">,</span> <span class="s">&#39;poulet&#39;</span><span class="p">,</span> <span class="s">&#39;tomate&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">mots</span><span class="p">)</span>
+<span class="go">[&#39;jambon&#39;, &#39;mayonnaise&#39;, &#39;poulet&#39;, &#39;tomate&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mots</span><span class="p">[</span><span class="mi">2</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;miel&#39;</span><span class="p">]</span> <span class="c"># insertion en 3è position</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">mots</span><span class="p">)</span>
+<span class="go">[&#39;jambon&#39;, &#39;mayonnaise&#39;, &#39;miel&#39;, &#39;poulet&#39;, &#39;tomate&#39;]</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="les-listes-en-intension">
+<span id="python-listes-en-intention"></span><h2>Les listes en intension<a class="headerlink" href="#les-listes-en-intension" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="sidebar">
+<p class="first sidebar-title">Exemple</p>
+<p>Soit la fonction f(x) retournant l'ensemble des entiers qui à x associe x au
+carré pour tout x compris entre 2 et 10 inclus.</p>
+<p>En Python on écrit :</p>
+<div class="last highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">11</span><span class="p">)]</span>
+<span class="go">[4, 9, 16, 25, 36, 49, 64, 81, 100]</span>
+</pre></div>
+</div>
+</div>
+<p>Une liste en intension est une expression qui permet de générer une liste de
+manière très compacte. Cette notation reprend la définition mathématique d'un
+ensemble en intension.</p>
+<dl class="glossary docutils">
+<dt id="term-liste-en-intension">Liste en intension</dt>
+<dd>Une liste en intension est équivalente à une boucle for qui construirait la
+même liste en utilisant la méthode <strong class="command">append()</strong>.</dd>
+</dl>
+<p>Les listes en intension sont utilisables sous trois formes.</p>
+<p><strong>Première forme</strong> expression d'une liste simple de valeurs :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span><span class="p">]</span>
+<span class="c"># a le même effet que :</span>
+<span class="n">result2</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span><span class="p">:</span>
+    <span class="n">result2</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Deuxième forme</strong> expression d'une liste de valeurs avec filtrage :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span> <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">23</span><span class="p">]</span>
+<span class="c"># a le même effet que :</span>
+<span class="n">result4</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">23</span><span class="p">:</span>
+        <span class="n">result4</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>Troisième forme</strong> expression d'une combinaison de listes de valeurs :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result5</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">+</span><span class="n">y</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">une_autre</span><span class="p">]</span>
+<span class="c"># a le même effet que :</span>
+<span class="n">result6</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">une_seq</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">une_autre</span><span class="p">:</span>
+        <span class="n">result6</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Des utilisations très pythoniques :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">valeurs_s</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;12&quot;</span><span class="p">,</span> <span class="s">&quot;78&quot;</span><span class="p">,</span> <span class="s">&quot;671&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># conversion d&#39;une liste de chaînes en liste d&#39;entier</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">valeurs_i</span> <span class="o">=</span> <span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">valeurs_s</span><span class="p">]</span> <span class="c"># [12, 78, 671]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># calcul de la somme de la liste avec la fonction intégrée sum</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">sum</span><span class="p">([</span><span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">valeurs_s</span><span class="p">]))</span>
+<span class="go">761</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># a le même effet que :</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">valeurs_s</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="n">s</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+<span class="go">761</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Initialisation d&#39;une liste 2D</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">multi_liste</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">2</span> <span class="k">for</span> <span class="n">ligne</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">multi_liste</span><span class="p">)</span>
+<span class="go">[[0, 0], [0, 0], [0, 0]]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="les-tuples">
+<h2>Les tuples<a class="headerlink" href="#les-tuples" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-tuple">Tuple</dt>
+<dd>Collection ordonnée et non modifiable d'éléments éventuellement
+hétérogènes.</dd>
+</dl>
+<p class="rubric">Syntaxe</p>
+<p><em>Éléments séparés par des virgules, et entourés de parenthèses.</em></p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">mon_tuple</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li>Les tuples s'utilisent comme les listes mais leur parcours est plus rapide ;</li>
+<li>Les tuples consomment moins de mémoire ;</li>
+<li>Ils sont utiles pour définir des constantes.</li>
+</ul>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p class="last">Comme les chaînes de caractères, les tuples ne sont pas modifiables !</p>
+</div>
+</div>
+<div class="section" id="retour-sur-les-references">
+<h2>Retour sur les références<a class="headerlink" href="#retour-sur-les-references" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Nous avons déjà vu que l'opération d'affectation, apparemment innocente, est
+une réelle difficulté de Python.</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">i</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Quoi de neuf ?&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">e</span> <span class="o">=</span> <span class="mf">2.718</span>
+</pre></div>
+</div>
+<p>Dans l'exemple ci-dessus, les affectations réalisent plusieurs opérations :</p>
+<ul class="simple">
+<li>crée en mémoire un objet du type ad hoc (membre de droite) ;</li>
+<li>stocke la donnée dans l'objet créé ;</li>
+<li>crée un nom de variable (membre de gauche) ;</li>
+<li>associe ce nom de variable à l'objet contenant la valeur.</li>
+</ul>
+<p>Une conséquence de ce mécanisme est que, si un objet modifiable est affecté,
+tout changement sur un objet modifiera l'autre :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">fable</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Je&quot;</span><span class="p">,</span> <span class="s">&quot;plie&quot;</span><span class="p">,</span> <span class="s">&quot;mais&quot;</span><span class="p">,</span> <span class="s">&quot;ne&quot;</span><span class="p">,</span> <span class="s">&quot;romps&quot;</span><span class="p">,</span> <span class="s">&quot;point&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phrase</span> <span class="o">=</span> <span class="n">fable</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">phrase</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot;casse&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">fable</span><span class="p">)</span>
+<span class="go">[&#39;Je&#39;, &#39;plie&#39;, &#39;mais&#39;, &#39;ne&#39;, &#39;casse&#39;, &#39;point&#39;]</span>
+</pre></div>
+</div>
+<p>Si l'on désire réaliser une vraie copie d'un objet, on doit utiliser le
+module <strong class="command">copy</strong> :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">copy</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="c"># une référence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span> <span class="o">=</span> <span class="n">copy</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="c"># une copie de &quot;surface&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">c</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4, 5]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="go">[1, 2, 3, 4]</span>
+</pre></div>
+</div>
+<p>Dans les rares occasions où l'on veut aussi que chaque élément et attribut de
+l'objet soit copié séparément et de façon récursive, on emploie la fonction
+<strong class="command">copy.deepcopy()</strong>.</p>
+<p class="rubric">Complément graphique sur l'assignation</p>
+<p>Assignation augmentée d'un objet non modifiable (cas d'un entier).</p>
+<p>On a représenté en gris clair l'addition intermédiaire :</p>
+<div class="figure align-center">
+<img alt="../_images/AssignationDUnEntier.jpg" src="../_images/AssignationDUnEntier.jpg" />
+<p class="caption">Exemple (a) Assignation d'un entier</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/AdditionIntermediaire.jpg" src="../_images/AdditionIntermediaire.jpg" />
+<p class="caption">Exemple (b) Addition intermédiaire</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/AssignationAugmentee.jpg" src="../_images/AssignationAugmentee.jpg" />
+<p class="caption">Exemple (c) Assignation augmentée</p>
+</div>
+<p>Assignation augmentée d'un objet modifiable (cas d'une liste).</p>
+<p>On a représenté en gris clair la création de la liste intermédiaire :</p>
+<div class="figure align-center">
+<img alt="../_images/AssignationDUneListe.jpg" src="../_images/AssignationDUneListe.jpg" />
+<p class="caption">Exemple (a) Assignation d'une liste</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/CreationIntermediaireEnMemoire.jpg" src="../_images/CreationIntermediaireEnMemoire.jpg" />
+<p class="caption">Exemple (b) Création intermédiaire en mémoire</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/ListeAssignationAugmentee.jpg" src="../_images/ListeAssignationAugmentee.jpg" />
+<p class="caption">Exemple (c) Assignation augmentée</p>
+</div>
+</div>
+<div class="section" id="les-tableaux-associatifs">
+<h2>Les tableaux associatifs<a class="headerlink" href="#les-tableaux-associatifs" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="les-types-tableaux-associatifs">
+<h3>Les types tableaux associatifs<a class="headerlink" href="#les-types-tableaux-associatifs" title="Lien permanent vers ce titre">¶</a></h3>
+<dl class="glossary docutils">
+<dt id="term-tableau-associatif">Tableau associatif</dt>
+<dd>Un tableau associatif est un type de données permettant de stocker des
+couples <strong>cle : valeur</strong>, avec un accès très rapide à la valeur à
+partir de la clé, la clé ne pouvant être présente qu'une seule fois dans
+le tableau.</dd>
+</dl>
+<p>Il possède les caractéristiques suivantes :</p>
+<ul class="simple">
+<li>l'opérateur d'appartenance d'une clé <strong class="command">in</strong> ;</li>
+<li>la fonction taille <strong class="command">len()</strong> donnant le nombre de couples stockés ;</li>
+<li>il est itérable (on peut le parcourir) mais n'est pas ordonné.</li>
+</ul>
+<p>Python propose le type standard <tt class="docutils literal"><span class="pre">dict</span></tt>.</p>
+</div>
+<div class="section" id="les-dictionnaires-dict">
+<h3>Les dictionnaires (dict)<a class="headerlink" href="#les-dictionnaires-dict" title="Lien permanent vers ce titre">¶</a></h3>
+<p class="rubric">Syntaxe</p>
+<p>Collection de couples <em>cle: valeur</em> entourée d'accolades.</p>
+<p>Les dictionnaires constituent un type composite mais ils n'appartiennent pas
+aux séquences.</p>
+<p>Comme les listes, les dictionnaires sont modifiables, mais les couples
+enregistrés n'occupent pas un ordre immuable, leur emplacement est géré par un
+algorithme spécifique (Cf. les fonctions de hachage).</p>
+<p>Une clé pourra être alphabétique, numérique...en fait tout type hachable. Les
+valeurs pourront être des valeurs numériques, des séquences, des dictionnaires,
+mais aussi des fonctions, des classes ou des instances.</p>
+<p>Exemples de création :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># insertion de clés/valeurs une à une</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span> <span class="o">=</span> <span class="p">{}</span> <span class="c"># dictionnaire vide</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="p">[</span><span class="s">&quot;nom&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d1</span><span class="p">[</span><span class="s">&quot;taille&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">176</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d1</span><span class="p">)</span>
+<span class="go">{&#39;nom&#39;: 3, &#39;taille&#39;: 176}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># définition en extension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d2</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;nom&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s">&quot;taille&quot;</span><span class="p">:</span> <span class="mi">176</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d2</span><span class="p">)</span>
+<span class="go">{&#39;nom&#39;: 3, &#39;taille&#39;: 176}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># définition en intension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d3</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d3</span><span class="p">)</span>
+<span class="go">{2: 4, 4: 16, 6: 36}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># utilisation de paramètres nommés</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d4</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">nom</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">taille</span><span class="o">=</span><span class="mi">176</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d4</span><span class="p">)</span>
+<span class="go">{&#39;taille&#39;: 176, &#39;nom&#39;: 3}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># utilisation d&#39;une liste de couples clés/valeurs</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d5</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">([(</span><span class="s">&quot;nom&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="s">&quot;taille&quot;</span><span class="p">,</span> <span class="mi">176</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">d5</span><span class="p">)</span>
+<span class="go">{&#39;nom&#39;: 3, &#39;taille&#39;: 176}</span>
+</pre></div>
+</div>
+<p class="rubric">Méthodes</p>
+<p>Quelques méthodes applicables aux dictionnaires :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span> <span class="o">=</span> <span class="p">{</span><span class="s">&#39;jack&#39;</span><span class="p">:</span> <span class="mi">4098</span><span class="p">,</span> <span class="s">&#39;sape&#39;</span><span class="p">:</span> <span class="mi">4139</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span><span class="p">[</span><span class="s">&#39;guido&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4127</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">tel</span><span class="p">)</span>
+<span class="go">{&#39;sape&#39;: 4139, &#39;jack&#39;: 4098, &#39;guido&#39;: 4127}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">tel</span><span class="p">[</span><span class="s">&#39;jack&#39;</span><span class="p">])</span>
+<span class="go">4098</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">tel</span><span class="p">[</span><span class="s">&#39;sape&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">tel</span><span class="p">[</span><span class="s">&#39;irv&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4127</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">tel</span><span class="p">)</span>
+<span class="go">{&#39;jack&#39;: 4098, &#39;irv&#39;: 4127, &#39;guido&#39;: 4127}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">tel</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;jack&#39;, &#39;irv&#39;, &#39;guido&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tel</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+<span class="go">[&#39;guido&#39;, &#39;irv&#39;, &#39;jack&#39;]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">tel</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+<span class="go">[4098, 4127, 4127]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;guido&#39;</span> <span class="ow">in</span> <span class="n">tel</span><span class="p">,</span> <span class="s">&#39;jack&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tel</span><span class="p">)</span>
+<span class="go">True False</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="les-ensembles-set">
+<h2>Les ensembles (set)<a class="headerlink" href="#les-ensembles-set" title="Lien permanent vers ce titre">¶</a></h2>
+<dl class="glossary docutils">
+<dt id="term-set">set</dt>
+<dd>Collection itérable non ordonnée d'éléments hachables distincts.</dd>
+</dl>
+<div class="figure align-center">
+<img alt="../_images/OperationsSurLesEnsembles.jpg" src="../_images/OperationsSurLesEnsembles.jpg" />
+<p class="caption">Opérations sur les ensembles</p>
+</div>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;abcd&#39;</span><span class="p">),</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;sbds&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;X =&quot;</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>
+<span class="go">X = {&#39;a&#39;, &#39;c&#39;, &#39;b&#39;, &#39;d&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Y =&quot;</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">Y = {&#39;s&#39;, &#39;b&#39;, &#39;d&#39;} : un seul élément &#39;s&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;c&#39;</span> <span class="ow">in</span> <span class="n">X</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&#39;a&#39;</span> <span class="ow">in</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span> <span class="o">-</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;, &#39;c&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">Y</span> <span class="o">-</span> <span class="n">X</span><span class="p">)</span>
+<span class="go">{&#39;s&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span> <span class="o">|</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;, &#39;c&#39;, &#39;b&#39;, &#39;d&#39;, &#39;s&#39;}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">X</span> <span class="o">&amp;</span> <span class="n">Y</span><span class="p">)</span>
+<span class="go">{&#39;b&#39;, &#39;d&#39;}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>La notation d'ensembles avec des accolades est une nouveauté de Python 3. en
+Python 2, l'affichage serait :</p>
+<div class="last highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">X</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="s">&#39;abcd&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">X</span>
+<span class="go">set([&#39;a&#39;, &#39;c&#39;, &#39;b&#39;, &#39;d&#39;])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="les-fichiers-textuels">
+<h2>Les fichiers textuels<a class="headerlink" href="#les-fichiers-textuels" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="les-fichiers-introduction">
+<h3>Les fichiers : introduction<a class="headerlink" href="#les-fichiers-introduction" title="Lien permanent vers ce titre">¶</a></h3>
+<p>On rappelle que l'ordinateur n'exécute que les programmes présents dans sa
+mémoire volatile (la RAM).</p>
+<p>Mais, pour conserver durablement des informations, il faut utiliser une mémoire
+permanente comme par exemple le dique dur, la clé USB, le DVD...</p>
+<p>Comme la plupart des langages, Python utilise classiquement la notion de
+<strong>fichier</strong>.</p>
+<p>C'est un type pré-défini en Python, qui ne nessécite donc pas d'importer de
+module externe.</p>
+<p>Nous nous limiterons aux fichiers textuels (portables, lisible par un éditeur),
+mais signalons que les fichiers stockés en codage binaire sont plus compacts et
+plus rapides à gérer.</p>
+</div>
+<div class="section" id="gestion-des-fichiers">
+<h3>Gestion des fichiers<a class="headerlink" href="#gestion-des-fichiers" title="Lien permanent vers ce titre">¶</a></h3>
+<p class="rubric">Ouverture et fermeture des fichiers</p>
+<p>Principaux <strong>modes</strong> d'ouverture des fichiers textuels :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;monFichier_1&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span> <span class="c"># en lecture</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;monFichier_2&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span> <span class="c"># en écriture</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f3</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;monFichier_3&quot;</span><span class="p">,</span> <span class="s">&quot;a&quot;</span><span class="p">)</span> <span class="c"># en ajout</span>
+</pre></div>
+</div>
+<p>Python utilise les fichiers en mode texte par défaut (noté t) (pour les
+fichiers binaires, il faut préciser le mode b).</p>
+<p>Tant que le fichier n'est pas fermé, son contenu n'est pas garanti sur le
+disque.</p>
+<p>Une seule méthode de fermeture :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f1</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="rubric">Écriture séquentielle</p>
+<p>Méthodes d'écriture :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;truc.txt&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s">&#39;toto</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="c"># écrit la chaîne s dans f</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">l</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="c"># écrit les chaînes de la liste l dans f</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># utilisation de l&#39;option file de print</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;truc2.txt&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;abcd&quot;</span><span class="p">,</span> <span class="nb">file</span><span class="o">=</span><span class="n">f2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f2</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Regardez maintenant votre fichier <tt class="file docutils literal"><span class="pre">truc.txt</span></tt> avec votre éditeur de texte favori :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">toto</span>
+<span class="n">abc</span>
+</pre></div>
+</div>
+<p class="rubric">Lecture séquentielle</p>
+<p>Méthodes de lecture :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;truc.txt&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span> <span class="c"># lit tout le fichier --&gt; string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span> <span class="c"># lit au plus n octets --&gt; string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span> <span class="c"># lit la ligne suivante --&gt; string</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span> <span class="c"># lit tout le fichier --&gt; liste de strings</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Affichage des lignes d&#39;un fichier une à une</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&quot;truc.txt&quot;</span><span class="p">)</span> <span class="c"># mode &quot;r&quot; par défaut</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">ligne</span> <span class="ow">in</span> <span class="n">f</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">ligne</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="c"># pour sauter le retour à la ligne</span>
+<span class="go">toto</span>
+<span class="go">abc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="iterer-sur-les-conteneurs">
+<h2>Itérer sur les conteneurs<a class="headerlink" href="#iterer-sur-les-conteneurs" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les techniques suivantes sont classiques et très utiles.</p>
+<p>Obtenir clés et valeurs en bouclant sur un dictionnaire :</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">knights</span> <span class="o">=</span> <span class="p">{</span><span class="s">&quot;Gallahad&quot;</span><span class="p">:</span> <span class="s">&quot;the pure&quot;</span><span class="p">,</span> <span class="s">&quot;Robin&quot;</span><span class="p">:</span> <span class="s">&quot;the brave&quot;</span><span class="p">}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">knights</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+<span class="go">Gallahad the pure</span>
+<span class="go">Robin the brave</span>
+</pre></div>
+</div>
+<p>Obtenir clés et valeurs en bouclant sur une liste :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">([</span><span class="s">&quot;tic&quot;</span><span class="p">,</span> <span class="s">&quot;tac&quot;</span><span class="p">,</span> <span class="s">&quot;toe&quot;</span><span class="p">]):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s">&quot;-&gt;&quot;</span><span class="p">)</span>
+<span class="go">0-&gt;tic 1-&gt;tac 2-&gt;toe</span>
+</pre></div>
+</div>
+<p>Boucler sur deux séquences (ou plus) appariées :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">question</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;name&quot;</span><span class="p">,</span> <span class="s">&quot;quest&quot;</span><span class="p">,</span> <span class="s">&quot;favorite color&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">answers</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;Lancelot&quot;</span><span class="p">,</span> <span class="s">&quot;the Holy Grail&quot;</span><span class="p">,</span> <span class="s">&quot;blue&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">q</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">question</span><span class="p">,</span> <span class="n">answers</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="s">&quot;What is your {}? It is {}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">q</span><span class="p">,</span> <span class="n">a</span><span class="p">))</span>
+<span class="go">What is your name? It is Lancelot.</span>
+<span class="go">What is your quest? It is the Holy Grail.</span>
+<span class="go">What is your favorite color? It is blue.</span>
+</pre></div>
+</div>
+<p>Boucler sur une séquence inversée (la séquence initiale est inchangée) :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="go">9 7 5 3 1</span>
+</pre></div>
+</div>
+<p>Boucler sur une séquence triée à éléments uniques (la séquence initiale est
+inchangée) :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">basket</span> <span class="o">=</span> <span class="p">[</span><span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">,</span> <span class="s">&quot;apple&quot;</span><span class="p">,</span> <span class="s">&quot;pear&quot;</span><span class="p">,</span> <span class="s">&quot;orange&quot;</span><span class="p">,</span> <span class="s">&quot;banana&quot;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">basket</span><span class="p">)):</span>
+<span class="gp">... </span>    <span class="k">print</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+<span class="go">apple banana orange pear</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="l-affichage-formate">
+<h2>L'affichage formaté<a class="headerlink" href="#l-affichage-formate" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="admonition attention">
+<p class="first admonition-title">Attention</p>
+<p><strong>Python 2.6</strong> : Contrairement à Python 3, les arguments positionnels d'une
+chaîne de formatage doit être explicite. En d'autres termes l'utilisation du
+slot de formatage <tt class="docutils literal"><span class="pre">{}</span></tt> est sanctionné d'un message d'erreur.</p>
+<div class="last highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="c"># Python 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Je m&#39;appelle {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
+<span class="go">Je m&#39;appelle Bob</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># Python 2.6</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Je m&#39;appelle {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
+<span class="go">Je m&#39;appelle Bob</span>
+</pre></div>
+</div>
+</div>
+<p>La méthode <tt class="xref py py-meth docutils literal"><span class="pre">format</span></tt> permet de contrôler finement toutes sortes d'affichages.</p>
+<p>Remplacements simples :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Je m&#39;appelle {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
+<span class="go">Je m&#39;appelle Bob</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Je m&#39;appelle {{{}}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Bob&quot;</span><span class="p">))</span>
+<span class="go">Je m&#39;appelle {Bob}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="o">*</span><span class="mi">10</span><span class="p">))</span>
+<span class="go">----------</span>
+</pre></div>
+</div>
+<p>Remplacements avec champs nommés :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;The story of {c} and {d}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">c</span><span class="o">=</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="p">))</span>
+<span class="go">The story of 8 and 2</span>
+</pre></div>
+</div>
+<p>Formatages à l'aide de liste :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">stock</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;papier&#39;</span><span class="p">,</span> <span class="s">&#39;enveloppe&#39;</span><span class="p">,</span> <span class="s">&#39;chemise&#39;</span><span class="p">,</span> <span class="s">&#39;encre&#39;</span><span class="p">,</span> <span class="s">&#39;buvard&#39;</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;Nous avons de l&#39;{0[3]} et du {0[0]} en stock</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">stock</span><span class="p">))</span>
+<span class="go">Nous avons de l&#39;encre et du papier en stock</span>
+</pre></div>
+</div>
+<p>Formatages à l'aide de dictionnaire :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;My name is {0[name]}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&#39;Fred&#39;</span><span class="p">)))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># My name is Fred</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">animal</span> <span class="o">=</span> <span class="s">&#39;éléphant&#39;</span><span class="p">,</span> <span class="n">poids</span> <span class="o">=</span> <span class="mi">12000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;L&#39;{0[animal]} pèse {0[poids]} kg</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">d</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c"># L&#39;éléphant pèse 12000 kg</span>
+</pre></div>
+</div>
+<p>Remplacement avec attributs nommés :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">math</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;math.pi = {.pi}, epsilon = {.float_info.epsilon}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">math</span><span class="p">,</span> <span class="n">sys</span><span class="p">))</span>
+<span class="go">math.pi = 3.14159265359, epsilon = 2.22044604925e-16</span>
+</pre></div>
+</div>
+<p>Conversions str() et repr() :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{0!s} {0!r}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s">&quot;Une chaîne&quot;</span><span class="p">))</span>
+<span class="go">Une chaîne &#39;Une chaîne&#39;</span>
+</pre></div>
+</div>
+<p>Formatages numériques :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">n</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pi</span> <span class="o">=</span> <span class="mf">3.1415926535897931</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{0}, et {1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pi</span><span class="p">))</span>
+<span class="go">100, et 3.14159265359</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{}, et {}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pi</span><span class="p">))</span>
+<span class="go">100, et 3.14159265359</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{0}, {1} et {0}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pi</span><span class="p">))</span>
+<span class="go">100, 3.14159265359 et 100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{:.4e}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+<span class="go">3.1416e+00</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{:g}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pi</span><span class="p">))</span>
+<span class="go">3.14159</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">msg</span> <span class="o">=</span> <span class="s">&quot;Résultat sur {:d} échantillons : {:.2f}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pi</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="go">Résultat sur 100 échantillons : 3.14</span>
+</pre></div>
+</div>
+<p>Formatages divers :</p>
+<div class="highlight-pycon"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">s</span> <span class="o">=</span> <span class="s">&quot;The sword of truth&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[The sword of truth]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{:25}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[The sword of truth ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{:&gt;25}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[ The sword of truth]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{:^25}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[ The sword of truth ]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{:-^25}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[---The sword of truth----]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{:.&lt;25}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">))</span>
+<span class="go">[The sword of truth.......]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">long</span> <span class="o">=</span> <span class="mi">12</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;[{}]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">s</span><span class="p">[:</span><span class="nb">long</span><span class="p">]))</span>
+<span class="go">[The sword of]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">m</span> <span class="o">=</span> <span class="mi">123456789</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{:0=12}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+<span class="go">000123456789</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span><span class="p">(</span><span class="s">&quot;{:#=12}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">m</span><span class="p">))</span>
+<span class="go">###123456789</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les conteneurs standard</a><ul>
+<li><a class="reference internal" href="#les-sequences">Les séquences</a><ul>
+<li><a class="reference internal" href="#qu-est-ce-qu-une-sequence">Qu'est-ce qu'une séquence ?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#les-listes">Les listes</a><ul>
+<li><a class="reference internal" href="#definition-syntaxe-et-exemples">Définition, syntaxe et exemples</a></li>
+<li><a class="reference internal" href="#initialisations-et-tests">Initialisations et tests</a></li>
+<li><a class="reference internal" href="#methodes">Méthodes</a></li>
+<li><a class="reference internal" href="#manipulation-des-tranches">Manipulation des &quot;tranches&quot;</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#les-listes-en-intension">Les listes en intension</a></li>
+<li><a class="reference internal" href="#les-tuples">Les tuples</a></li>
+<li><a class="reference internal" href="#retour-sur-les-references">Retour sur les références</a></li>
+<li><a class="reference internal" href="#les-tableaux-associatifs">Les tableaux associatifs</a><ul>
+<li><a class="reference internal" href="#les-types-tableaux-associatifs">Les types tableaux associatifs</a></li>
+<li><a class="reference internal" href="#les-dictionnaires-dict">Les dictionnaires (dict)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#les-ensembles-set">Les ensembles (set)</a></li>
+<li><a class="reference internal" href="#les-fichiers-textuels">Les fichiers textuels</a><ul>
+<li><a class="reference internal" href="#les-fichiers-introduction">Les fichiers : introduction</a></li>
+<li><a class="reference internal" href="#gestion-des-fichiers">Gestion des fichiers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#iterer-sur-les-conteneurs">Itérer sur les conteneurs</a></li>
+<li><a class="reference internal" href="#l-affichage-formate">L'affichage formaté</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="controle_flux_instructions.html"
+                        title="Chapitre précédent">Le contrôle du flux d'instructions</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="fonctions_espaces_noms.html"
+                        title="Chapitre suivant">Fonctions et espaces de noms</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/python/conteneurs_standard.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="fonctions_espaces_noms.html" title="Fonctions et espaces de noms"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="controle_flux_instructions.html" title="Le contrôle du flux d&#39;instructions"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li>
+          <li><a href="index.html" >Presentation de Python</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

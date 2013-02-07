@@ -1,0 +1,206 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>ZODB - Une Base de données objet native pour python &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Introduction" href="introduction.html" />
+    <link rel="prev" title="Quelques Techniques avancées de programmation" href="../python/techniques_avancees_programmation.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="../python/techniques_avancees_programmation.html" title="Quelques Techniques avancées de programmation"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="zodb-une-base-de-donnees-objet-native-pour-python">
+<span id="zodb"></span><h1>ZODB - Une Base de données objet native pour python<a class="headerlink" href="#zodb-une-base-de-donnees-objet-native-pour-python" title="Lien permanent vers ce titre">¶</a></h1>
+<blockquote>
+<div>N'éclatez pas vos objets dans des tables : stockez les dans une base objet.</div></blockquote>
+<div class="section" id="avertissement">
+<h2>Avertissement<a class="headerlink" href="#avertissement" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Ce document est une adaptation libre de la documentation accessible à
+<a class="reference external" href="http://www.zodb.org/">http://www.zodb.org/</a> par Michael Launay.</p>
+</div>
+<div class="section" id="licence">
+<h2>Licence<a class="headerlink" href="#licence" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Ce document et régi par la licence Creative Common BY SA, vous pouvez donc le
+partager, le modifier tant que vous citez votre source initiale et que vous
+conservez les termes de la licence initiale.</p>
+</div>
+<div class="section" id="resume">
+<h2>Résumé<a class="headerlink" href="#resume" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les programmes Python sont généralement écrits en suivant le paradigme orienté
+objet. Vous pouvez utiliser des objets qui se référencent les uns les autres sans
+contraintes de type ou d'architecture : les objets ne sont liés à aucun schéma
+spécifique et peuvent porter n'importe quelle information.</p>
+<p>Stocker ces objets dans une base de données relationnelle exige que vous
+sacrifiez votre liberté d'architecture et la puissance des références. Les
+contraintes des bases relationnelles réduisent votre capacité à écrire du code
+orienté objet.</p>
+<p>La ZODB est une base de données objet native, qui stocke vos objets et vous
+permet de travailler selon n'importe lequel des paradigmes possibles en Python. En
+conséquence votre code est plus simple, plus robuste et plus compréhensible.</p>
+<p>De plus il n'y a pas de gap entre la base de données et le programme : pas de
+code &quot;glue&quot; à écrire, ni de mappings à configurer. Le tutoriel vous montre à quel point
+c'est facile à utiliser.</p>
+<p>Voici quelques- unes des fonctionnalités que la ZODB vous apporte :</p>
+<ul class="simple">
+<li>Persistance transparente pour les objets Python.</li>
+<li>Support des transactions ACID (avec les points de sauvegardes).</li>
+<li>Historique et fonctionnalité de défaire refaire (undo).</li>
+<li>Support efficace pour les objets binaires volumineux (BLOBs).</li>
+<li>Dépôts pluggables.</li>
+<li>Architecture adaptable.</li>
+</ul>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutoriel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prog-zodb.html">Programmation ZODB</a></li>
+</ul>
+</div>
+</div>
+<div class="section" id="telechargements">
+<h2>Téléchargements<a class="headerlink" href="#telechargements" title="Lien permanent vers ce titre">¶</a></h2>
+<p>La ZODB est distribuée sous forme d'un egg (paquet) Python accessible sur le dépôt
+de la communauté Python <a class="reference external" href="http://pypi.python.org/pypi/ZODB3">Python Package Index</a>.</p>
+<p>Il est à la base de Zope et donc de Plone.</p>
+<p>Vous pouvez l'installer seul à l'aide de la commande easy_install 'setuptools'
+:</p>
+<div class="highlight-python"><pre>$ easy_install ZODB3</pre>
+</div>
+<p>L'installation des anciennes versions sont possibles via le gestionnaire de
+version Subversion.</p>
+</div>
+<div class="section" id="communaute-et-contribution">
+<h2>Communauté et contribution<a class="headerlink" href="#communaute-et-contribution" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les discussions ont lieux sur la mailing liste <a class="reference external" href="http://mail.zope.org/mailman/listinfo/zodb-dev">ZODB developers' mailing list</a>.</p>
+<p><a class="reference external" href="http://zodb.org/bugs.html">Bug reporting</a>, <a class="reference external" href="http://zodb.org/features.html">Feature requests</a>, et le planning
+des version sur <a class="reference external" href="http://launchpad.net/zodb">Launchpad</a>.</p>
+<p>Si vous voulez contribuer, la communauté sera heureuse de recevoir de l'aide sur
+la documentation, l'aide aux autres développeurs et utilisateurs sur la mailing
+liste, soumission de rapport de bogues, propositions d'améliorations et écriture
+de code.</p>
+<p>La ZODB est un projet géré par la fondation Zope où vous pouvez obtenir les droits
+pour contribuer directement sur le code - pour cela récupérez la documentation
+de la communauté <a class="reference external" href="http://docs.zope.org/developer">Zope Developer Information</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">ZODB - Une Base de données objet native pour python</a><ul>
+<li><a class="reference internal" href="#avertissement">Avertissement</a></li>
+<li><a class="reference internal" href="#licence">Licence</a></li>
+<li><a class="reference internal" href="#resume">Résumé</a></li>
+<li><a class="reference internal" href="#documentation">Documentation</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#telechargements">Téléchargements</a></li>
+<li><a class="reference internal" href="#communaute-et-contribution">Communauté et contribution</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="../python/techniques_avancees_programmation.html"
+                        title="Chapitre précédent">Quelques Techniques avancées de programmation</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="introduction.html"
+                        title="Chapitre suivant">Introduction</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/zodb/index.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="introduction.html" title="Introduction"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="../python/techniques_avancees_programmation.html" title="Quelques Techniques avancées de programmation"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

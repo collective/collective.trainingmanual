@@ -1,0 +1,870 @@
+.. -*- coding: utf-8 -*-
+
+.. _paramétrer_plone:
+
+===========================
+Paramétrer votre site Plone
+===========================
+
+:Author: Thomas Desvenain
+:Created: 2010-10-18
+:Version: 0.1.0
+:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
+
+Copyright (C) 2010 Thomas Desvenain <thomas.desvenain AT gmail.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Objectif
+========
+
+Nous allons présenter ici les options de paramétrage offertes de base
+à l'administrateur d'un site Plone.
+
+Accéder au menu de configuration
+================================
+
+Vous devez être connecté avec un administrateur.
+Pour accéder au menu de configuration, cliquez sur votre nom d'utilisateur,
+par défaut en haut à droite du site,
+
+
+.. figure:: ./workflowslocaux_images/selectionneconfiguration.jpg
+    :align: center
+
+Vous arrivez sur le menu de configuration du site.
+
+.. figure:: ./parametrage/configuration.png
+    :align: center
+
+Cette page est composée de trois parties :
+
+    - la partie supérieure, `Configuration générale`,
+      contient des liens vers les différents menus
+      de configuration de Plone,
+
+    - la partie centrale contient les liens vers les menus de configuration
+      ajoutés par les modules complémentaires que vous aurez installés,
+
+    - la partie inférieure contient les informations de version et de debug.
+
+Configurer les paramètres de messagerie
+=======================================
+
+Si vous arrivez sur cette page la première fois,
+un message vous alerte sur le fait que vous n'avez pas configuré le serveur smtp.
+Nous allons commencer par remédier à cela.
+
+Plusieurs fonctionnalités de Plone provoquent des envois de mail.
+Pour un bon fonctionnement de votre site, vous `devez` configurer la messagerie.
+
+Cliquez sur `Envoi de courriels`.
+
+.. figure:: ./parametrage/lien-conf-email.png
+
+Vous arrivez sur la page des `Paramètres d'envoi des courriels`.
+
+.. figure:: ./parametrage/envoi-courriel.png
+    :align: center
+
+Entrez dans le champ 'Serveur SMTP' l'addresse de votre serveur d'envoi.
+Si vous êtes dans le réseau d'une entreprise, contactez l'administrateur système
+pour connaitre ce nom. Si vous êtes à votre domicile,
+ce nom se trouve dans le courrier d'ouverture de votre ligne envoyé par votre
+fournisseur d'accès internet (FAI).
+Il s'agit en général de `smtp.nomdufai.fr` ou `smtp.nomdufai.com`.
+
+Si vous utilisez Extended-SMTP, remplissez les champs login-mot de passe suivants.
+À défaut ou si vous n'êtes pas sûr, ne les remplissez pas.
+
+Les deux derniers champs, obligatoires,
+indiquent les informations de l'émetteur des mails envoyés par le site (champ `From`).
+
+Cliquez sur `Enregistrer` pour sauvegarder vos modifications.
+
+Paramètres du site
+==================
+
+.. figure:: ./parametrage/lien-conf-site.png
+
+La page `Paramètres du site` permet d'éditer les métadonnées du site,
+et des réglages de référencement (utiles principalement si votre site est un site internet)
+
+.. figure:: ./parametrage/conf-site.png
+    :align: center
+
+Notamment :
+
+    - le tite du site,
+    - sa description dans les résultats du moteur de recherche
+
+*Exposer les métadonnées Dublin Core* : si cette option est activée, chaque page du site aura des metatags dont le contenu
+correspondra aux métadonnées du document affiché.
+
+*Exposer sitemap.xml.gz* : activé, les moteurs de recherche auront accès au sitemap, optimisant l'indexation
+(activez l'option, puis allez sur sitemap.xml.gz depuis la racine de votre site).
+
+
+Paramètres de base de la sécurité du site
+=========================================
+
+La sécurité dans Plone est un vaste sujet, qui sera traité principalement
+dans d'autres chapitres sur les workflows, les rôles et permissions, etc.
+
+.. todo:: liens vers ces chapitres
+
+.. figure:: ./parametrage/lien-conf-securite.png
+
+Un certain nombre d'options sont disponibles depuis le lien `Sécurité` de la configuration du site.
+
+.. figure:: ./parametrage/parametres-securite.png
+    :align: center
+
+Auto-inscription
+----------------
+
+Si l'option est choisie, une option `S'inscrire` apparaît dans la zone de login pour les anonymes.
+
+.. figure:: ./parametrage/sinscrire.png
+    :align: center
+
+Mot de passe choisi par l'utilisateur
+-------------------------------------
+
+Si cette option est activée, lorsqu'un utilisateur est créé
+un mot de passe provisoire est envoyé au nouvel inscrit, qui peut le modifier immédiatement.
+
+
+Activer les dossiers de l'utilisateur
+-------------------------------------
+
+L'option ajoute un lien dossier personnel dans le menu de l'utilisateur.
+
+.. figure:: ./parametrage/menu-dossierpersonnel.png
+    :align: center
+
+Il s'agit d'un dossier qui est administré par l'utilisateur,
+dans lequel il peut ajouter des documents qu'il peut soumettre à publication.
+
+.. figure:: ./parametrage/dossier-personnel.png
+    :align: center
+
+Affichage de la ligne d'information du document pour les anonymes
+-----------------------------------------------------------------
+
+Par défaut, seuls les membres voient la ligne de métadonnées
+`Par xxx  — Dernière modification xxx` sous le titre des documents.
+Si cette option est activée, elle est visible par les anonymes.
+
+.. figure:: ./parametrage/ausujetde-anonymes.png
+    :align: center
+
+Connexion par email
+-------------------
+
+Permet aux utilisateurs de se connecter en utilisant leur email
+à la place de leur login.
+
+.. figure:: ./parametrage/connexion-email.png
+    :align: center
+
+Paramétrage du calendrier
+=========================
+
+Le calendrier de Plone affiche, dans une portlet, un petit calendrier dans lequel
+les dates comprenant des événements apparaissent en surbrillance.
+
+Nous allons d'abord ajouter une portlet calendrier sur notre site, en haut à gauche.
+
+Ajouter un calendrier
+---------------------
+
+Rendez-vous à la racine de votre site, en cliquant sur le logo.
+En bas à gauche de la page, cliquez sur `Gérer les portlets`
+
+.. figure:: ./parametrage/lien-gerer-portlets.png
+    :align: center
+
+Vous arrivez sur la page de gestion des portlets.
+
+.. figure:: ./parametrage/manage-portlets.png
+    :align: center
+
+Cliquez sur `Ajouter un portlet...` sur la colonne de gauche, et sélectionnez la portlet calendrier.
+
+.. figure:: ./parametrage/option-ajoute-portlet.png
+    :align: center
+
+Cliquez sur la flèche-haut devant `Calendrier`
+pour monter le calendrier au-dessus de la navigation.
+
+.. figure:: ./parametrage/monte-portlet.png
+    :align: center
+
+Revenez sur l'accueil. Vous avez maintenant votre portlet calendrier.
+
+.. figure:: ./parametrage/nouveau-calendrier.png
+    :align: center
+
+Il est bien vide pour le moment...
+
+Compléter le calendrier
+-----------------------
+
+Le calendrier contient des références à des contenus `événement`.
+
+Allez dans le dossier `Événements` et ajoutez-en un.
+
+.. figure:: ./parametrage/ajoute-evenement.png
+    :align: center
+
+.. figure:: ./parametrage/evenement.png
+    :align: center
+
+Pour l'instant, rien n'a changé.
+Publiez-le. Il apparait dans le calendrier.
+
+.. figure:: ./parametrage/calendrier-evenement.png
+    :align: center
+
+Créez un autre événement pour la veille du précédent,
+`Préparation de la salle`, et enregistrez-le, cette fois sans le publier.
+
+Vous voudriez peut-être que les événements 'privés' s'affichent pour leurs propriétaires
+et tous ceux qui y ont accès. Il est possible de configurer cela.
+
+Configurer le calendrier
+------------------------
+
+Retournez dans la `Configuration du site`, puis cliquez sur `Calendrier`
+
+.. figure:: ./parametrage/lien-conf-calendrier.png
+
+Vous pouvez ici sélectionner les états
+dans lesquels vos événements apparaîtront dans le calendrier.
+
+.. figure:: ./parametrage/conf-calendrier.png
+    :align: center
+
+Sélectionnez `Privé [private]`.
+
+En France, la norme est plutôt de commencer la semaine par le lundi.
+Sélectionnez `Lundi`
+
+Enregistrez.
+
+.. figure:: ./parametrage/calendrier-parametre.png
+    :align: center
+
+Le document privé apparaît (ici le 18) et l'ordre des jours a changé.
+
+Paramétrage de la navigation
+============================
+
+.. figure:: ./parametrage/lien-conf-navigation.png
+
+La page `Paramètres de navigation` permet de configurer deux choses :
+les onglets généraux du site et la portlet de navigation.
+
+.. figure:: ./parametrage/conf-navigation.png
+    :align: center
+
+Configuration des onglets
+-------------------------
+
+Par défaut, la barre de navigation supérieure affiche un onglet
+pour chaque dossier ajouté à la racine.
+
+La première option permet de désactiver ce comportement.
+(Dans ce cas, il faudra ajouter manuellement les `actions` sur la barre d'onglet,
+ce qui est plus complexe et fera l'objet d'un autre chapitre)
+
+Si la seconde option est activée, les documents de la racine
+seront également affichés comme onglets.
+
+Si vous voulez masquer **un** dossier des onglets (par exemple : `Membres`),
+rendez-vous sur le dossier, cliquez sur `Modifier`, puis `Paramètres`.
+
+.. figure:: ./parametrage/parametres-membres.png
+    :align: center
+
+Cochez `Exclure de la navigation` et enregistrez.
+
+
+.. figure:: ./parametrage/membres-exclu.png
+    :align: center
+
+`Membres` n'apparaît plus dans la barre de navigation supérieure.
+
+Configuration de la navigation
+------------------------------
+
+.. figure:: ./parametrage/conf-navigation.png
+    :align: center
+
+Vous pouvez également choisir ici les types de contenus affichés dans la portlet de navigation.
+Il est fréquent de choisir de n'afficher que les dossiers.
+
+Vous pouvez également filtrer les contenus affichés dans l'arborescence
+par état documentaire (sachant que, de toute façon, seuls les dossiers et documents
+qu'un utilisateur a le droit de voir apparaissent dans la navigation)
+
+Le **plan du site** utilise également ces paramètres.
+
+Configuration de la portlet de navigation
+-----------------------------------------
+
+**Attention**, ces paramètres ne recouvrent qu'une partie de la configuration
+de la portlet de navigation. Pour la configurer, revenez à la racine et cliquez sur
+`Gérer les portlets` à gauche.
+
+Cliquez maintenant sur le nom de la portlet `Navigation`.
+
+.. figure:: ./parametrage/parametres-portlet-navigation.png
+    :align: center
+
+Vous arrivez sur un menu de configuration (assez complexe)
+où vous définissez essentiellement trois choses :
+
+* le niveau d'affichage, qui est le nombre de niveaux à partir du niveau racine
+  avant qu'on affiche les contenus dans la navigation
+* le niveau racine, qui est le niveau à partir duquel on compte le niveau d'affichage
+* la profondeur d'affichage, qui est le nombre de niveaux maximal qu'on affiche
+  sous le niveau racine...
+
+Par défaut, le niveau d'affichage est 1 et le niveau racine est la racine du site :
+on ne voit donc que les documents contenus dans les dossiers ajoutés à la racine...
+(les choses sont paramétrées par défaut de cette façon de sorte que les dossiers à
+la racine n'apparaissent pas ET dans la portlet de navigation ET dans la barre d'onglets)
+
+Imaginons que nous voulions afficher les dossiers à la racine.
+Entrez 0 pour `niveau d'affichage` et enregistrez.
+
+.. figure:: ./parametrage/nav-affiche-dossiers.png
+    :align: center
+
+
+Conclusion
+----------
+
+Pourquoi deux pages pour configurer la portlet de navigation : dans les paramètres du site
+et dans les paramètres de la portlet ?
+En fait, vous pouvez tout à fait avoir plusieurs portlets de navigation sur votre site,
+configurées différemment. Mais toutes sont concernées par les paramètres définis
+au niveau de la configuration du site...
+
+Paramètres de la recherche
+==========================
+
+.. figure:: ./parametrage/lien-conf-recherche.png
+
+.. figure:: ./parametrage/conf-recherche.png
+    :align: center
+
+La page `Paramètres de la recherche` permet :
+
+    - D'activer / désactiver la recherche instantanée,
+
+    - De sélectionner les types de contenu dans lesquels on fait nos recherches,
+
+
+.. figure:: ./parametrage/conf-recherche-avancee.png
+    :align: center
+
+Et de décider finement d'activer ou pas certaines options de recherche de la recherche avancée :
+
+    - possibilité de chercher par état pour les anonymes,
+    - possibilité de modifier l'ordre des résultats,
+    - possibilité de modifier le nombre de résultats par page,
+    - champs de recherche spécifiques `Titre` et `Description`,
+    - réduction automatique des options rarement utilisées.
+
+Configurer le thème
+===================
+
+.. figure:: ./parametrage/lien-conf-themes.png
+
+Cette page permet de configurer les paramètres d'apparence,
+notamment le thème sélectionné.
+
+.. figure:: ./parametrage/conf-themes.png
+    :align: center
+
+Amusez-vous à sélectionner le Plone Classic Theme
+
+.. figure:: ./parametrage/plone-classic-theme.png
+    :align: center
+
+Il permet de s'assurer que Plone 4 est toujours compatible avec les thèmes
+conçus pour les anciennes versions...
+Ceci étant dit, vous pouvez revenir sur le thème de Plone 4 (Sunburst) :)
+
+Vous pouvez paramétrer les liens externes de sorte qu'ils soient marqués,
+
+.. figure:: ./parametrage/plone-classic-theme.png
+    :align: center
+
+et qu'ils s'ouvrent dans un nouvel onglet.
+
+Vous pouvez également supprimer les icônes de type de contenu dans les listes
+et les portlets.
+
+Enfin, vous pouvez désactiver le système de popup en superposition
+(dit aussi lightbox) pour les formulaires simples.
+
+
+Paramétrage des modules
+=======================
+
+
+.. figure:: ./parametrage/lien-conf-modules.png
+
+Pour l'activation et la désactivation de modules, référez-vous au chapitre
+:ref:`choix_et_ajout_d_un_module`.
+
+Paramétrage des règles de contenu
+=================================
+
+.. figure:: ./parametrage/lien-conf-contentrules.png
+
+Pour les règles de contenu, référez-vous au chapitre :ref:`content_rules`.
+
+
+Paramétrer l'édition de contenus
+================================
+
+
+.. figure:: ./parametrage/lien-conf-edition.png
+
+La page des `Paramètres d'édition` permet de configurer le comportement général
+de l'édition de documents.
+
+.. figure:: ./parametrage/conf-edition.png
+    :align: center
+
+Edition de l'identifiant
+------------------------
+
+Chaque contenu a un identifiant, qui est unique dans chaque dossier.
+Par défaut, l'identifiant est généré automatiquement à partir du titre proposé.
+Vu que l'identifiant est utilisé dans l'URL, de nombreux utilisateurs préfèrent
+le saisir eux mêmes.
+
+Avec cette option activée, les utilisateurs auront une nouvelle option dans leurs
+préférences personnelles :
+
+.. figure:: ./parametrage/personnel-edition-identifiants.png
+    :align: center
+
+Si elle est activée, l'utilisateur pourra saisir l'identifiant d'un document
+lorsqu'il le crée ou le modifie.
+
+.. figure:: ./parametrage/editer-identifiant.png
+    :align: center
+
+
+Éditeur de texte par défaut
+---------------------------
+
+Par défaut sur Plone, l'éditeur de texte est TinyMCE.
+Cependant il est possible d'installer d'autres éditeurs (ckeditor notamment).
+
+Chaque utilisateur peut choisir son éditeur, mais par défaut,
+l'éditeur sera celui choisi sur cette page de configuration.
+
+Si vous avez installé un nouvel éditeur sur votre site, `ckeditor` par exemple,
+il aura une page de configuration spéciale, avec un lien ajouté dans la partie
+`Configuration de module` du menu de configuration.
+
+Éditeur externe
+---------------
+
+Si cette option est activée, les utilisateurs auront la possibilité d'activer
+l'édition externe dans leurs préférences personnelles.
+
+.. figure:: ./parametrage/personnel-edition-externe.png
+    :align: center
+
+L'édition externe permet, à condition d'avoir installé un soft sur son poste,
+de modifier des documents de Plone en les éditant directement avec son logiciel
+préféré, sans avoir besoin de passer par un formulaire.
+Ce qui est particulièrement utile pour les fichiers type tableur ou traitement de texte.
+
+Veuillez vous référer au chapitre :ref:`external_editor` pour de plus amples informations.
+
+Édition en ligne
+----------------
+
+À ne pas confondre avec l'édition externe,
+l'édition en ligne permet de modifier les documents en saissant directement
+vos données en cliquant sur la vue d'affichage, sans passer par un formulaire de modification.
+
+Par exemple, ici nous modifions 'en ligne' la description de la page d'accueil du site.
+
+
+.. figure:: ./parametrage/clique-description.png
+    :align: center
+
+.. figure:: ./parametrage/edite-description.png
+    :align: center
+
+.. figure:: ./parametrage/sauve-description.png
+    :align: center
+
+Attention, cette option ralentit considérablement les performances sur les anciens navigateurs (IE 6...).
+
+Sur les navigateurs les plus récents, elle est par contre insensible.
+
+Vérification de l'intégrité des liens
+-------------------------------------
+
+Si cette option est activée, lorsque vous supprimez un document, Plone vérifie
+qu'aucun autre document ne contient un lien vers ce document, et vous alerte le cas échéant.
+
+Nous avons créé un document `Mon document de référence`
+et un document `Mon document contenant des liens`.
+Dans ce dernier, nous avons ajouté un lien, dans le texte principal, avec le premier.
+
+Quand nous supprimons `Mon document de référence`
+nous obtenons cette popup de confirmation :
+
+.. figure:: ./parametrage/integrite-des-liens.png
+    :align: center
+
+
+Verrouillage des documents en modification
+------------------------------------------
+
+Quand le verrouillage est activé, si un utilisateur est sur le formulaire de modification
+d'un document, les autres utilisateurs susceptibles de modifier le document sont avertis,
+et ils ne peuvent accéder au formulaire sans forcer le déverrouillage.
+
+.. figure:: ./parametrage/verouillage.png
+    :align: center
+
+
+Paramétrer le filtrage du contenu ajouté en HTML
+================================================
+
+Les éditeurs WYSIWIG permettent aux contributeurs du site d'éditer le code html
+de pages qui seront ensuite affichées par les navigateurs des visiteurs du site.
+
+Il peut être dangereux ou gênant de permettre à vos utilisateurs de créer des formulaires,
+d'afficher des objets flash ou autre, d'ajouter des balises meta,
+de trop paramétrer le style de son contenu, etc.
+
+.. figure:: ./parametrage/lien-conf-filtrage.png
+
+La page `Paramètres du filtrage HTML` permet à l'administrateur du site de contrôler
+les éléments html dont il permet l'introduction par les contributeurs.
+
+Dans l'autre sens, si vos utilisateurs s'étonnent que certains contenus qu'ils ajoutent
+ne sont pas enregistrés, c'est ici que vous pouvez étendre les autorisations.
+
+
+.. figure:: ./parametrage/conf-filtrage-balises.png
+    :align: center
+
+La première page permet de définir les balises qui sont filtrées.
+
+Filtrage des balises
+--------------------
+
+Par défaut, toutes les balises XHTML sont acceptées, les autres sont **filtrées** :
+l'élément est supprimé mais pas son contenu.
+
+Éditez un document du site avec un éditeur WYSIWYG, mais avec l'option `HTML`
+(éditer le code source). Entrez le contenu ::
+
+    <toto>Ceci est du texte dans une balise non-html</toto>
+
+Enregistrez le document. Éditez-le à nouveau. Le texte ci-dessus a été remplacé
+par du XHTML valide, par exemple avec TinyMCE ::
+
+    <p>Ceci est du texte dans une balise non-html</p>
+
+Balises indésirables
+--------------------
+
+Ajoutez maintenant ce code ::
+
+    <script language="Javascript">while(0!=1) alert('toto');</script>
+
+Enregistrez. Heureusement, ce script ne s'applique pas !
+Rééditez votre page sur l'édition, et cliquez sur 'HTML'. Vous verrez que votre code
+a été remplacé par ::
+
+    <!-- while(0!=1) alert('toto'); // -->
+
+Les balises indésirables sont commentées. Là donc, même le contenu n'apparaît pas.
+
+Balises non-XHTML autorisées
+----------------------------
+
+Le troisième bloc de la page permet d'autoriser dans le html des balises
+qui ne sont pas XHTML. On y trouve notamment les balises HTML5.
+
+Filtrage des attributs
+----------------------
+
+La deuxième page permet de filtrer les attributs.
+
+.. figure:: ./parametrage/conf-filtrage-attributs.png
+    :align: center
+
+Le premier bloc indique la liste des attributs qui seront simplement supprimés à l'enregistrement.
+
+Le second bloc indique les attributs qui seront supprimés
+s'ils sont dans telle ou telle balise en particulier.
+Par exemple, ici on retire les attributs width et weight des tables et des cellules.
+
+Filtrage des styles et des classes
+----------------------------------
+
+Si l'attribut style est autorisé, vous ne voulez pas forcément que vos utilisateurs
+puissent attribuer n'importe quelle valeur css.
+
+De même, vous craignez peut-être que vos utilisateurs utilisent certaines classes css.
+
+Vous pouvez maitriser la liste des attributs css disponibles dans les attributs 'styles',
+ainsi que les noms de classes interdits dans toute balise 'class'.
+
+.. figure:: ./parametrage/conf-filtrage-attributs.png
+    :align: center
+
+Editez votre document, et entrez ce code ::
+
+    <p style="font-size: 250px; text-align: right">Mon texte stylé</p>
+
+Vous observez que seul le text-align s'applique. Éditez à nouveau le contenu,
+vous verrez que ce code est conservé ::
+
+    <p style="text-align: right; ">Mon texte stylé</p>
+
+
+Paramétrer le comportement wiki
+===============================
+
+.. todo:: comprendre comment le formatage de texte s'intègre avec TinyMCE ou autre
+
+Activer le comportement wiki
+----------------------------
+
+Plone permet d'avoir un comportement wiki, afin d'optimiser la création de contenus liés.
+
+Par défaut, cela n'est pas activé. Allez dans `Paramètres du formatage de texte`.
+
+.. figure:: ./parametrage/lien-conf-formatage.png
+
+Puis allez sur l'onglet `Comportement wiki`.
+
+.. figure:: ./parametrage/conf-comportementwiki.png
+    :align: center
+
+Nous allons l'activer pour les documents. Cochez `Documents` et enregistrez.
+
+Se servir de Plone comme d'un Wiki
+----------------------------------
+
+Créez maintenant un document sur votre site.
+Mettez entre double-parenthèses (( )) ou entre double-crochets [[ ]] les documents
+que vous voulez pouvoir lier par la suite.
+
+.. figure:: ./parametrage/document-wiki.png
+    :align: center
+
+.. figure:: ./parametrage/document-wiki-voir.png
+    :align: center
+
+Un clic sur un lien '+' crée un nouveau contenu ayant pour titre le texte lié.
+
+.. figure:: ./parametrage/lien-ajout-wiki.png
+    :align: center
+
+
+.. figure:: ./parametrage/wiki-add.png
+    :align: center
+
+Le lien + se transforme en lien vers le nouveau contenu.
+
+.. figure:: ./parametrage/wiki-lien.png
+    :align: center
+
+L'identifiant (ici : CMS) peut être utilisé à plusieurs endroits (y compris sur plusieurs pages différentes),
+il crée automatiquement un lien vers cette nouvelle page.
+
+.. figure:: ./parametrage/wiki-liens.png
+    :align: center
+
+Gestion des tailles d'images
+============================
+
+.. figure:: ./parametrage/lien-conf-images.png
+
+Quand vous ajoutez une image dans un document,
+vous choisissez parmi un certain nombre de tailles d'images.
+
+Ces tailles disponibles sont éditables dans la configuration du site, dans
+`Paramètres de la gestion des images`.
+
+.. figure:: ./parametrage/conf-images.png
+    :align: center
+
+Maintenance du serveur et de la base
+====================================
+
+Les opérations de maintenance sont disponibles depuis la page `Maintenance`
+du menu de configuration.
+
+.. figure:: ./parametrage/lien-conf-maintenance.png
+
+Vous pouvez, de cette page, arrêter ou redémarrer le site,
+et 'packer' la base de données.
+
+.. figure:: ./parametrage/conf-maintenance.png
+    :align: center
+
+La base de données (ZODB) doit être packée régulièrement.
+Elle stocke toutes les transactions effectuées,
+ce qui est utile notamment pour la fonction Undo,
+mais ralentit progressivement les performances en lecture / écriture.
+
+Il est nécessaire de purger ces informations,
+en conservant celles des derniers jours.
+
+Un chapitre sur la ZODB est à venir dans la documentation développeur.
+
+.. todo:: lien vers la future doc sur la ZODB.
+
+Choix de la langue du Site
+==========================
+
+.. figure:: ./parametrage/lien-conf-langue.png
+
+La page `Paramètres linguistiques` permet de choisir la langue du site.
+Elle est définie par défaut comme la langue du navigateur
+de l'utilisateur qui a créé le site.
+
+Les options de langue pour les sites multilingues ne se configurent pas ici.
+Nous fournirons une documentation spécifique pour les sites en plusieurs langues.
+
+.. todo:: lien vers une doc pour des sites multilingues
+
+Paramétrer les collections
+==========================
+
+.. figure:: ./parametrage/lien-conf-collections.png
+
+Cette page permet de sélectionner les critères disponibles pour les collections,
+et de les paramétrer,
+ainsi que les données disponibles à l'affichage des collections.
+
+Cette page correspond à un paramétrage plus avancée du site, nous y reviendrons
+dans un chapitre dédié aux collections.
+
+.. todo:: écrire ce chapitre
+
+
+Paramétrer les types de contenu
+===============================
+
+.. todo:: écrire ce chapitre
+
+.. figure:: ./parametrage/lien-conf-types.png
+
+Définir le workflow par défaut
+------------------------------
+
+Première page : workflow par défaut.
+
+.. figure:: ./parametrage/workflow-defaut.png
+    :align: center
+
+Changer le workflow :
+
+.. figure:: ./parametrage/changer-workflow.png
+    :align: center
+
+Enregistrer :
+
+.. figure:: ./parametrage/nouveau-workflow.png
+    :align: center
+
+Définir le workflow de chaque type
+----------------------------------
+
+Sélectionner un type. On peut choisir son workflow spécifique.
+
+Ajout global
+------------
+
+.. figure:: ./parametrage/versionnement-manuel-fichier.png
+    :align: center
+
+Si cette option est activée pour un type, un document de ce type peut être ajouté
+dans n'importe quel dossier qui ne comporte pas de restriction sur son contenu.
+
+Politique de versionnement
+--------------------------
+
+Activer le versionnement manuel pour les fichiers.
+
+Modifier ensuite un fichier.
+
+.. figure:: ./parametrage/version-manuelle-fichier.png
+    :align: center
+
+Cocher la case `nouvelle version`.
+
+.. figure:: ./parametrage/historique-version-fichier.png
+    :align: center
+
+Autoriser les commentaires
+--------------------------
+
+Si cette option est activée, le type de contenu est ouvert au système de commentaires.
+
+Activez les commentaires pour le type `Fichier`.
+Allez sur un contenu fichier, vous voyez maintenant une section `Commentaires`
+avec un bouton `Ajouter un commentaire`.
+
+.. figure:: ./parametrage/commentable.png
+    :align: center
+
+Si vous cliquez sur `Ajouter un commentaire`, une popup s'ouvre vous permettant
+de saisir votre texte.
+
+.. figure:: ./parametrage/commentaire.png
+    :align: center
+
+Enregistrez-le, il apparaît au bas du document. Il est possible de le supprimer,
+ou d'y répondre.
+
+.. figure:: ./parametrage/commentaire-ajoute.png
+    :align: center
+
+.. portlets-specifiques-du-type-de-contenu:
+
+Portlets spécifiques du type de contenu
+---------------------------------------
+
+Vous pouvez paramétrer des portlets qui s'afficheront suivant le type de contenu
+de la page affichée.
+
+Sélectionnez un type de contenu (ici Fichier) sur l'écran de configuration des types.
+Vous avez un lien `Gérer les portlets affectés à ce type de contenu`.
+
+.. figure:: ./parametrage/lien-portlets-types.png
+    :align: center
+
+Cliquez ce lien, vous arrivez sur une page similaire à la page `Gérer les portlets`
+vue plus haut.
+
+.. figure:: ./parametrage/portlet-tdc.png
+    :align: center
+
+Ajoutez une portlet, en naviguant sur le site, vous verrez que lorsque vous
+allez sur une page Fichier, cette portlet apparaît.

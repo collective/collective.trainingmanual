@@ -1,0 +1,281 @@
+.. -*- coding: utf-8 -*-
+
+.. _creation_theme:
+
+=========================
+Création d'un thème Plone
+=========================
+
+Ajout de nouveaux composants visuels à Plone.
+
+Installation de Gloworm
+=======================
+
+Gloworm est un outil pour introspecter les viewlets d'une page Plone,
+très utile pour savoir comment customiser telle partie de la page.
+
+Gloworm est une interface alternative à portal_skins/custom et
+portal_view_customizations. On peut cliquer sur l'endroit que l'on veut
+customiser et cliquer sur customiser. Le produit ne fonctionne pas avec Plone
+4. Un produit qui le remplace sur Plone 4 est probablement
+*plone.app.themeeditor*. 
+
+Créez un fichier :file:`development.cfg` :
+
+.. code-block:: cfg
+
+    [buildout]
+    extends = buildout.cfg
+
+    [instance]
+    eggs +=
+        Products.Gloworm
+
+Reexécutez :command:`bin/buildout -c development.cfg`.
+
+Création d'un theme
+===================
+
+Dans le dossier :file:`src/`, créez un theme avec la commande :
+
+.. code-block:: sh
+
+    $ cd /tmp
+    $ paster create -t plone3_theme formation.theme \
+      --svn-repository=http://devagile/Formation/packages
+    Skin Name : Formation Theme
+    Empty Styles? : False
+    Include Documentation? : True
+    $ svn rm --force formation.theme/formation.theme.egg-info \
+      formation.theme-configure.zcml
+      formation/theme/skins/formation_theme_styles/base.css.dtml \
+      formation/theme/skins/formation_theme_styles/portlets.css.dtml \
+      formation/theme/skins/formation_theme_styles/public.css.dtml \
+      formation/theme/version.txt
+      formation/theme/skins/formation_theme_styles/base_properties.props
+
+:file:`base_properties.props` n'est plus utilisé dans Plone 4.
+
+Éditez :file:`setup.py` pour supprimer les deux lignes :
+
+.. code-block:: py
+
+    setup_requires=["PasteScript"],
+    paster_plugins=["ZopeSkel"]
+
+
+Éditez :file:`formation/theme/profiles/default/skins.xml` pour remplacer
+*based-on="Plone Default"* par *based-on="Sunburst Theme"*.
+
+Et commitez :
+
+.. code-block:: sh
+
+    $ svn ci -m"Initial theme structure"
+
+Retournez dans votre buildout, ajoutez :mod:`formation.theme` dans auto-checkout du
+fichier :file:`sources.cfg`, ainsi que dans *eggs* de la section *[instance]*
+de :file:`buildout.cfg`, commitez et relancez le buildout.
+
+Exercice 1
+==========
+
+Changer la couleur des documents dans l'état "En attente de modération" (pending).
+Utilisez l'extension Firebug de firefox pour récupérer la règle css utilisé par défaut pour colorisé le lien en orange. Copiez ensuite cette règle dans browser/stylesheets/main.css et changez la couleur :
+
+.. code-block:: css
+
+    .state-pending {
+        color:#FFA5FF !important;
+    }
+
+Passez portal_css en mode debug comme ça vous ne devrez pas redémarrer l'instance à chaque fois que vous modifiez les css.
+
+Exercice 2 : Création d'une viewlet
+===================================
+
+Créez une viewlet affichant une image dans le footer.
+
+Référez-vous au chapitre :ref:`viewlets` pour consulter la documentation complète sur cette notion.
+
+Ajouter une image
+-----------------
+
+Ajoutez une image dans le dossier :file:`browser/images/`.
+Pour accéder ensuite à l'image, vous devez utiliser le nom de la
+resourceDirectory : *++resource++formation.theme.images*, suivit de */* et du
+nom de votre image dans le dossier images.
+Exemple : ++resource++formation.theme.images/monimage.png
+
+Éditez le fichier :file:`browser/viewlets.py`, décommentez la classe, nommez
+la *LogoViewlet*. Copiez le fichier :file:`viewlet.pt` en
+:file:`logoviewlet.pt`.
+
+Contenu du fichier logoviewlet.pt :
+
+.. code-block:: html
+
+    <img tal:define="portal_state context/@@plone_portal_state;
+                     root_url portal_state/portal_url"
+         tal:attributes="src string:$root_url/++resource++formation.theme.images/image.png" />
+
+Éditez le fichier :file:`configure.zcml` pour déclarer votre viewlet.
+Vous avez un exemple en commentaire. Il suffit de le décommenter et d'ajuster
+le nom de la viewlet et la classe. Cela donne :
+
+.. code-block:: xml
+
+     <browser:viewlet
+         name="formation.logoviewlet"
+         manager="plone.app.layout.viewlets.interfaces.IPortalFooter"
+         class=".viewlets.LogoViewlet"
+         layer=".interfaces.IThemeSpecific"
+         permission="zope2.View"
+         />
+
+Maintenant au lieu d'afficher votre LogoViewlet dans le PortalFooter,
+vous allez l'afficher dans portalheader en précisant que vous le voulez après le logo de plone.
+Dans configure.zcml, changez l'interface du viewletmanager en IPortalHeader :
+
+.. code-block:: xml
+
+     <browser:viewlet
+         name="formation.logoviewlet"
+         manager="plone.app.layout.viewlets.interfaces.IPortalHeader"
+         class=".viewlets.LogoViewlet"
+         layer=".interfaces.IThemeSpecific"
+         permission="zope2.View"
+         />
+
+Éditez ensuite :file:`profiles/default/viewlets.xml` :
+
+.. code-block:: xml
+
+    <?xml version="1.0"?>
+    <object>
+      <order manager="plone.portalheader" skinname="formation's theme"
+             based-on="Plone Default">
+        <viewlet name="zdevan.logoviewlet"
+                 insert-after="plone.logo" />
+      </order>
+    </object>
+
+Relancez l'instance et réinstallez votre produit pour prendre en compte le changement.
+
+
+Portlets
+========
+
+- http://plone.org/documentation/manual/portlets-developer-manual
+
+Créez le portlet :
+
+.. code-block:: sh
+
+    $ cd /tmp
+    $ paster create -t plone3_portlet formation.portlet.docinfo \
+      --svn-repository=http://devagile/Formation/packages
+
+- Supprimez le répertoire egg-info, le fichier version.txt
+- Ajoutez ensuite l'entry point z3c.autoinclude.plugin dans setup.py
+- Commitez
+- Ajoutez ce nouveau egg dans votre buildout.cfg et sources.cfg
+- Relancez le buildout
+- Commitez les changements fait dans le buildout
+
+Démarrez l'instance, installez le produit et ajoutez le portlet.
+
+Éditez le fichier :file:`docinfoportlet.py` et ajoutez un champ informations au schema IDocInfoPortlet :
+
+.. code-block:: python
+
+        informations = schema.List(title=_(u"Information list"),
+                               description=_(u"A list of information about the document"),
+                               required=True,
+                               value_type=schema.Choice(values=('Creator','effective'))
+                               )
+
+Modifiez également l'implémentation :
+
+.. code-block:: python
+
+    class Assignment(base.Assignment):
+        """Portlet assignment.
+
+        This is what is actually managed through the portlets UI and associated
+        with columns.
+        """
+
+        implements(IDocInfoPortlet)
+
+        informations = ()
+
+        def __init__(self, informations=()):
+            self.informations = informations
+
+Dans la template, afficher les informations qui ont été choisies via le formulaire du portlet :
+
+.. code-block:: html
+
+    <dl class="portlet portletDocInfoPortlet"
+        i18n:domain="formation.portlet.docinfo">
+
+        <dt class="portletHeader">
+            <span class="portletTopLeft"></span>
+            Information
+            <span class="portletTopRight"></span>
+        </dt>
+
+        <dd class="portletItem odd" tal:define="informations view/data/informations;
+                                                plone_view context/@@plone;
+                                                mtool context/portal_membership" >
+
+            <strong>Created by :</strong>
+
+            <span tal:condition="python:'Creator' in informations"
+                  tal:replace="python:mtool.getMemberById(context.Creator()).getProperty('fullname',context.Creator())" />
+
+            <strong>Date of creation :</strong>
+
+            <span i18n:translate="text_effective_date">
+            <span tal:condition="python:'effective' in informations"
+                  tal:content="python:plone_view.toLocalizedTime(context.effective())" />
+            </span>
+
+            <tal:block condition="python:'ExpirationDate' in informations">
+              <span i18n:translate="text_expiration_date"
+                    tal:condition="context/ExpirationDate">
+
+                <strong>Expiration :</strong>
+
+                <span i18n:name="date"
+                      tal:content="python:plone_view.toLocalizedTime(context.ExpirationDate())" />
+              </span>
+            </tal:block>
+        </dd>
+
+    </dl>
+
+Ajoutez une property *available* dans la classe Renderer pour afficher le portlet seulement pour les documents :
+
+.. code-block:: python
+
+    class Renderer(base.Renderer):
+        """Portlet renderer.
+
+        This is registered in configure.zcml. The referenced page template is
+        rendered, and the implicit variable 'view' will refer to an instance
+        of this class. Other methods can be added and referenced in the template.
+        """
+
+        @property
+        def available(self):
+            return self.context.meta_type == "ATDocument"
+
+        render = ViewPageTemplateFile('docinfoportlet.pt')
+
+GenericSetup
+============
+
+- http://plone.org/documentation/tutorial/genericsetup
+- http://www.sixfeetup.com/swag/generic-setup-quick-reference-card

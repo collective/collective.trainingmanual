@@ -1,0 +1,692 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les portlets &mdash; Plone pour les développeurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les développeurs 1.0.0 documentation"
+          href="../_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les développeurs 1.0.0 documentation" href="../index.html" />
+    <link rel="next" title="Les vues standard" href="../vues_standard/index.html" />
+    <link rel="prev" title="Les viewlets" href="../viewlets.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../vues_standard/index.html" title="Les vues standard"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="../viewlets.html" title="Les viewlets"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-portlets">
+<span id="id1"></span><h1>Les portlets<a class="headerlink" href="#les-portlets" title="Lien permanent vers ce titre">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Gilles Lenfant</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Version:</th><td class="field-body">1.0.0</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Révision:</th><td class="field-body"><a class="reference external" href="https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/portlets/index.txt">https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/portlets/index.txt</a></td>
+</tr>
+</tbody>
+</table>
+<p>Copyright (C) 2010 <a class="reference external" href="gilles.lenfantATgmail.com">Gilles Lenfant</a>.</p>
+<p>Les portlets sont les boites thématiques disposées dans les colonnes droite et
+gauche des pages d'un site Plone.</p>
+<p>Plone fournit en standard quelques portlets, certaines quasi-indispensables
+telles que la portlet de navigation, d'autres fournissant des services dont
+l'utilité dépend de l'orientation donnée au site, telles que la portlet calendrier.</p>
+<div class="section" id="personnalisation">
+<h2>Personnalisation<a class="headerlink" href="#personnalisation" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Les lecteurs connaissant les portlets des versions antérieures à Plone 3 seront
+déroutés lors de leur prise de connaissances de Plone 3 ou 4.
+En effet, les portlets
+de nouvelle génération s'apparentent à des contenus d'un nouveau genre qu'un
+administrateur peut disposer de façon distincte en association avec les divers
+types de contenus, ou en association avec les divers groupes d'utilisateur,
+ou encore de façon distincte en association avec chaque contenu individuel.</p>
+<div class="section" id="portlets-des-types-de-contenus">
+<h3>Portlets des types de contenus<a class="headerlink" href="#portlets-des-types-de-contenus" title="Lien permanent vers ce titre">¶</a></h3>
+<p>En tant que Manager, vous pouvez associer tout type de contenu avec une ou
+plusieurs portlets qui seront affichées lors de chaque vue d'un contenu du type
+sélectionné.</p>
+<p>Rendez-vous d'abord dans le panneau de configuration des types :</p>
+<p>Choisissez le type de contenu auquel vous voulez associer une (ou plusieurs)
+portlets, et cliquez le lien &quot;Gérer les portlets affectés à ce type de contenu&quot;.</p>
+<p>Par exemple, pour les &quot;documents&quot;, allez à l'URL
+<tt class="samp docutils literal"><span class="pre">http://</span><em><span class="pre">votre-site</span></em><span class="pre">/&#64;&#64;manage-content-type-portlets?key=Document</span></tt></p>
+<p>Ceci vous amène à un tableau de bord depuis lequel vous pouvez disposer les
+portlets de votre choix, portlets qui seront affichées sur chaque vue d'un
+contenu du type sélectionné, le <em class="guilabel">Document</em> dans notre exemple.</p>
+<div class="figure align-center">
+<img alt="../_images/gestion_portlets_types.png" src="../_images/gestion_portlets_types.png" />
+<p class="caption">Gestion des portlets assignées à un type de contenus</p>
+</div>
+<p>Depuis ce tableau de bord, vous pouvez, comme dans cet exemple, ajouter la
+portlet des événements récents dans la colonne gauche à tous les contenus de
+type &quot;événement&quot;.</p>
+</div>
+<div class="section" id="portlets-des-groupes">
+<h3>Portlets des groupes<a class="headerlink" href="#portlets-des-groupes" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les portlets d'un groupe seront affichées lors de la visite de l'espace du
+groupe, et uniquement aux visiteurs authentifiés membre du groupe.</p>
+<p>Pour gérer les portlets d'un groupe, rendez-vous dans le panneau de
+configuration des groupes.  Sélectionnez l'un des groupes, puis cliquez l'onglet
+&quot;Portlets de groupe&quot;.</p>
+<p>De la même façon que pour les types de contenu, un tableau de bord analogue vous
+invite à ajouter, supprimer ou déplacer des portlets dans les colonnes gauche et
+droite.</p>
+</div>
+<div class="section" id="portlets-des-contenus-ou-portlets-contextuelles">
+<h3>Portlets des contenus ou portlets contextuelles<a class="headerlink" href="#portlets-des-contenus-ou-portlets-contextuelles" title="Lien permanent vers ce titre">¶</a></h3>
+<p>De la même façon que pour les portlets des types de contenus et les portlets des
+groupes, la gestion des portlets contextuelles est réservée aux administrateurs.</p>
+<p>Vous noterez que, lorsque vous naviguez dans votre site, figurent sous les deux
+colonnes de portlets un lien &quot;Gérer les portlets&quot;. Ce lien permet d'agencer
+les portlets affichées dans le contexte du contenu courant.</p>
+<div class="figure align-center">
+<img alt="../_images/gestion_portlets_contenus.png" src="../_images/gestion_portlets_contenus.png" />
+<p class="caption">Gestion des portlets de contenus</p>
+</div>
+<p>Vous trouvez dans chaque colonne, de haut en bas :</p>
+<ul>
+<li><p class="first">Un widget d'ajout de portlets dans le contenu courant.  En effet, chaque
+contenu peut avoir sa propre collection de portlets.</p>
+</li>
+<li><p class="first">La liste des portlets actuellement associées au contenu courant - la racine de
+Plone dans notre cas.  Chaque portlet étant représentée dans un cadre bleu-ciel,
+dans la skin par défaut.  Chaque représentation de portlet étant
+accompagnée des widgets de déplacement, et de suppression.Si la portlet est
+paramétrable, le titre de la portlet est un lien hypertexte au formulaire ad
+hoc.  Nous y reviendrons plus loin.</p>
+</li>
+<li><p class="first">Les règles de blocage/déblocage des portlets, pour les différentes catégories,
+portlets de groupe et portlets de types de contenu, vu précédemment, ainsi que
+les portlets contextuelles du dossier parent.  Pour chaque catégorie et sur
+chaque colonne, vous pouvez :</p>
+<ul>
+<li><p class="first">Conserver les <em class="guilabel">paramètres du dossier parent</em> : les règles
+d'affichage des portlets de la catégorie considérée sont identiques à celles
+appliquées au dossier parent.</p>
+</li>
+<li><dl class="first docutils">
+<dt><em class="guilabel">Bloquer</em> :</dt>
+<dd><p class="first last">les éventuelles portlets de la catégorie considérée ne
+seront pas affichées dans ce contexte.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><em class="guilabel">Toujours montrer</em> :</dt>
+<dd><p class="first last">les éventuelles portlets de la catégorie
+considérée seront toujours affichées quelque soit le paramétrage concernant
+cette catégorie de portlets dans le dossier parent.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="portlets-disponibles-en-standard">
+<h2>Portlets disponibles en standard<a class="headerlink" href="#portlets-disponibles-en-standard" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone fournit en standard toute une liste de portlets. Essayez-les...</p>
+<table border="1" class="docutils">
+<caption>Portlets standard</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Nom</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><em class="guilabel">Login</em></td>
+<td>La classique portlet d'authentification, montrée uniquement aux visiteurs
+anonymes.</td>
+</tr>
+<tr class="row-odd"><td><em class="guilabel">Liste de modération</em></td>
+<td>Fournit à un modérateur la liste des contenus en attente d'approbation
+(voir le chapitre sur les workflows).</td>
+</tr>
+<tr class="row-even"><td><em class="guilabel">RSS feed</em></td>
+<td>Présentation des entrées d'un flux RSS. A noter que ceci permet de
+présenter facilement les premiers élément d'une collection dans une
+portlet.</td>
+</tr>
+<tr class="row-odd"><td><em class="guilabel">Classic portlet</em></td>
+<td>Une &quot;classic portlet&quot; permet de présenter une portlet conçue pour Plone
+2.1 ou Plone 2.5 dans un site Plone 3 ou +. Attention, ce type de portlet ne
+peut pas bénéficier du paramétrage contextuel comme défini plus loin.</td>
+</tr>
+<tr class="row-even"><td><em class="guilabel">Calendar portlet</em></td>
+<td>Permet de présenter les événements dans une vue calendaire.</td>
+</tr>
+<tr class="row-odd"><td><em class="guilabel">Rechercher</em></td>
+<td>Permet d'escamoter le widget de recherche du bandeau supérieur et de le
+placer en portlet</td>
+</tr>
+<tr class="row-even"><td><em class="guilabel">Éléments récents</em></td>
+<td>Présente les publications les plus récente du site.</td>
+</tr>
+<tr class="row-odd"><td><em class="guilabel">Actualités</em></td>
+<td>Présente les articles d'actualités les plus récents.</td>
+</tr>
+<tr class="row-even"><td><em class="guilabel">Événements</em></td>
+<td>Présente les prochains événements publiés sur le site.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="retour-sur-le-parametrage-d-une-portlet">
+<h2>Retour sur le paramétrage d'une portlet<a class="headerlink" href="#retour-sur-le-parametrage-d-une-portlet" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Contrairement aux versions antérieures à Plone 3, <em>le paramétrage d'une portlet
+est local</em>, et s'applique à l'emplacement dans lequel la portlet est placée. On
+peut donc considérer ces portlets comme une sorte de paramètre attaché à un dossier ou à un document.
+Dans le cas des dossiers, ce paramètre est utilisé par défaut dans ses sous-contenus.</p>
+<p>Ce comportement peut être exploité de diverses manières.  Par exemple pour
+proposer une autre portlet de navigation lors de la visite de certaines
+rubriques d'un site.</p>
+</div>
+<div class="section" id="habillage-graphique">
+<h2>Habillage graphique<a class="headerlink" href="#habillage-graphique" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Comme pour tout habillage graphique de Plone, l'habillage graphique des porlets
+doit – dans la mesure du possible – être effectué dans une feuille de styles
+CSS.</p>
+<p>Une visite des colonnes de portlets avec Firebug vous indiquera mieux que je ne
+pourrais le faire ici – et j'ai aussi un peu la flemme – les sélecteurs et
+classes CSS qui s'appliquent aux différentes colonnes et portlets.</p>
+</div>
+<div class="section" id="export-import-generic-setup-du-parametrage-des-portlets">
+<h2>Export/Import Generic setup du paramétrage des portlets<a class="headerlink" href="#export-import-generic-setup-du-parametrage-des-portlets" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Il est possible d'importer via Generic Setup la configuration complète des portlets,
+notamment les assignations locales et les paramètres de configuration.</p>
+</div>
+<div class="section" id="creation-d-une-portlet-personnelle">
+<h2>Création d'une portlet personnelle<a class="headerlink" href="#creation-d-une-portlet-personnelle" title="Lien permanent vers ce titre">¶</a></h2>
+<p>En contrepartie des nouvelles possibilités permises par l'infrastructure des
+portlets de Plone, la réalisation d'une portlet personnelle nécessite dorénavant
+des compétences de développeur.  La réalisation d'une portlet repose sur :</p>
+<ul class="simple">
+<li>Un module Python fournissant les ressources d'édition des paramètres de la
+portlet – ou plutôt d'une instance de la portlet comme nous l'avons vu plus
+haut, ainsi que les données publiées par la portlet.</li>
+<li>Une template représentant l'aspect graphique de la portlet.</li>
+<li>Une déclaration ZCML pour inscrire la portlet dans l'outil de gestion et de
+publication des portlets de Plone.</li>
+<li>Un profil GenericSetup pour installer la portlet dans un site Plone.</li>
+</ul>
+<p>Pour illustrer ceci, l'auteur de ces lignes préfère vous proposer l'exploration
+complète d'une portlet simple, mais utile, présentant l'auteur d'un contenu.</p>
+<div class="section" id="structure-du-composant">
+<h3>Structure du composant<a class="headerlink" href="#structure-du-composant" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Conformément aux conventions d'organisation des composants pour Plone, notre
+composant est construit selon la structure classique suivante à partir du niveau
+<tt class="file docutils literal"><span class="pre">formation.portlet.author</span></tt>. Je vous invite maintenant pour comprendre les explications qui suivent à installer le code de notre portlet de démo :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/formation.portlet.author formation.portlet.author
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<caption>Fichiers principaux du composant</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><tt class="file docutils literal"><span class="pre">__init__.py</span></tt></td>
+<td>Classique création des ressources globales du module.</td>
+</tr>
+<tr class="row-even"><td><tt class="file docutils literal"><span class="pre">config.py</span></tt></td>
+<td>Constantes propres au produit.</td>
+</tr>
+<tr class="row-odd"><td><tt class="file docutils literal"><span class="pre">configure.zcml</span></tt></td>
+<td>Les déclarations ZCML classiques du composant, incluant la directive
+d'inscription de la portlet.</td>
+</tr>
+<tr class="row-even"><td><tt class="file docutils literal"><span class="pre">profiles/default/</span></tt></td>
+<td>Le profil GenericSetup d'installation de la portlet dan un site.</td>
+</tr>
+<tr class="row-odd"><td><tt class="file docutils literal"><span class="pre">authorportlet.py</span></tt></td>
+<td>La définition Python de la portlet, c'est-à-dire l'essentiel de la
+substance de notre composant.</td>
+</tr>
+<tr class="row-even"><td><tt class="file docutils literal"><span class="pre">authorportlet.pt</span></tt></td>
+<td>La template de mise en page de la portlet. Celle-ci est
+intentionnellement simplifiée.</td>
+</tr>
+</tbody>
+</table>
+<p>Comme vous êtes un expert de Python et sans doute de Plone puisque vous avez
+parcouru le site jusqu'ici, vous aurez remarqué que l'auteur de la portlet n'a
+fait aucun effort pour optimiser le code.  En effet, celui-ci est construit dans
+l'optique d'une lisibilité optimale.  Nous y reviendrons plus loin à propos des
+décorateurs de cache.</p>
+<p>Jetons maintenant un oeil sur les fichiers essentiels de <tt class="xref py py-mod docutils literal"><span class="pre">formation.portlet.author</span></tt>.</p>
+</div>
+<div class="section" id="init-py">
+<h3>__init__.py<a class="headerlink" href="#init-py" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Peu de choses à dire.  Nous créons un &quot;logger&quot; utilisable globalement depuis
+l'ensemble du produit.  Non indispensable, mais utile lors de la mise au point
+de produit.</p>
+<p>Un autre classique des composants pour Plone 3+ est la création d'un
+<tt class="xref py py-class docutils literal"><span class="pre">MessageFactory</span></tt> nécessaire :</p>
+<ul class="simple">
+<li>à la traduction des différents textes dans les modules Python,</li>
+<li>au marquage des textes ou &quot;msgid&quot; à traduire, exploitables depuis
+<strong class="program">i18ndude</strong>. Voir <a class="reference internal" href="../internationalisation.html#internationalisation"><em>Internationalisation d'un composant</em></a>.</li>
+</ul>
+<p>Consultez le chapitre sur l'internationalisation et la localisation de ce site
+pour plus de détails à ce sujet.</p>
+</div>
+<div class="section" id="config-py">
+<h3>config.py<a class="headerlink" href="#config-py" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Encore un grand classique des produits pour Plone. Les constantes globales au
+produit sont définies dans ce module.</p>
+</div>
+<div class="section" id="configure-zcml">
+<h3>configure.zcml<a class="headerlink" href="#configure-zcml" title="Lien permanent vers ce titre">¶</a></h3>
+<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;configure</span>
+    <span class="na">xmlns=</span><span class="s">&quot;http://namespaces.zope.org/zope&quot;</span>
+    <span class="na">xmlns:five=</span><span class="s">&quot;http://namespaces.zope.org/five&quot;</span>
+    <span class="na">xmlns:genericsetup=</span><span class="s">&quot;http://namespaces.zope.org/genericsetup&quot;</span>
+    <span class="na">xmlns:plone=</span><span class="s">&quot;http://namespaces.plone.org/plone&quot;</span>
+    <span class="na">i18n_domain=</span><span class="s">&quot;formation.portlet.author&quot;</span><span class="nt">&gt;</span>
+
+  <span class="c">&lt;!-- ... --&gt;</span>
+
+  <span class="nt">&lt;plone:portlet</span>
+      <span class="na">name=</span><span class="s">&quot;formation.portlet.author.AuthorPortlet&quot;</span>
+      <span class="na">interface=</span><span class="s">&quot;.authorportlet.IAuthorPortlet&quot;</span>
+      <span class="na">assignment=</span><span class="s">&quot;.authorportlet.Assignment&quot;</span>
+      <span class="na">view_permission=</span><span class="s">&quot;zope2.View&quot;</span>
+      <span class="na">edit_permission=</span><span class="s">&quot;cmf.ManagePortal&quot;</span>
+      <span class="na">renderer=</span><span class="s">&quot;.authorportlet.Renderer&quot;</span>
+      <span class="na">addview=</span><span class="s">&quot;.authorportlet.AddForm&quot;</span>
+      <span class="na">editview=</span><span class="s">&quot;.authorportlet.EditForm&quot;</span>
+      <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!-- ... --&gt;</span>
+<span class="nt">&lt;/configure&gt;</span>
+</pre></div>
+</div>
+<p>Également un grand classique des composants pour Plone 3+. Dans notre cas, seules
+deux directives sont inscrites :</p>
+<ul class="simple">
+<li>L'inscription du profil &quot;GenericSetup&quot; (supprimée de l'extrait ci-dessus) sur
+laquelle nous ne nous attarderons pas sachant qu'un chapitre de ce site est
+consacré à GenericSetup.</li>
+<li>L'inscription de la portlet dans l'infrastructure de Plone, qui est détaillée
+ci-après.</li>
+</ul>
+<p>La directive <tt class="samp docutils literal"><span class="pre">&lt;plone:portlet...</span></tt> est une directive spécifique à Plone.
+Celle-ci doit incorporer les attributs suivants :</p>
+<table border="1" class="docutils">
+<caption>Attributs de l'élément <tt class="docutils literal"><span class="pre">&lt;plone:portlet</span> <span class="pre">...&gt;</span></tt>.</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Nom</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">name</span></tt></td>
+<td>Le nom unique de la portlet dans le registre global de Plone. Tant pis
+pour vous si vous reprenez un nom déja utilisé ;)</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">title</span></tt></td>
+<td>Le titre de la portlet tel qu'elle apparaitra – après éventuelle
+traduction – dans l'interface de gestion des portlets vue plus haut.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">interface</span></tt></td>
+<td>La classe d'interface incorporant le schéma (Zope 3) des données d'option
+de la portlet. Il est rappellé que ces options s'appliquent au contexte
+dans lequel la portet est définie, contrairement aux portlets pour Plone
+1 et Plone 2.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">assignment</span></tt></td>
+<td>Classe utilisée pour stocker les options de la portlet. Le <tt class="docutils literal"><span class="pre">renderer</span></tt> -
+voir ci-après – de la portlet accède aux options de la portlet par son
+attribut <tt class="docutils literal"><span class="pre">data</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">renderer</span></tt></td>
+<td>La classe utilisée pour générer le rendu HTML de la portlet.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">addview</span></tt></td>
+<td>Une classe de vue (formulaire à la Zope 3) d'ajout de la portlet.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">editview</span></tt></td>
+<td>Une classe de vue (formulaire à la Zope 3) d'édition des options de la
+portlet.</td>
+</tr>
+<tr class="row-odd"><td><tt class="docutils literal"><span class="pre">view_permission</span></tt></td>
+<td>La permission dont le visiteur doit bénéficier dans le contexte courant
+pour afficher la portlet. Dans le cadre de la notre, la permission
+<tt class="docutils literal"><span class="pre">zope2.View</span></tt> est suffisante.</td>
+</tr>
+<tr class="row-even"><td><tt class="docutils literal"><span class="pre">edit_permission</span></tt></td>
+<td>La permission dont le visiteur doit bénéficier pour modifier les options
+de la portlet dans le contexte courant. Dans la plupart des cas – comme
+dans le notre – la permission <tt class="docutils literal"><span class="pre">cmf.ManagePortal</span></tt> convient parfaitement.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p><tt class="docutils literal"><span class="pre">editview</span></tt></p>
+<p class="last">Cet attribut doit être bien entendu omis si votre portlet n'a pas d'option de
+configuration.</p>
+</div>
+<p>Comme nous le verrons plus loin, l'essentiel des ressources de cette portlet,
+référencées dans cette directive, sont définies dans le module &quot;author.py&quot;.</p>
+</div>
+<div class="section" id="authorportlet-py">
+<h3>authorportlet.py<a class="headerlink" href="#authorportlet-py" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Ce module fournit l'essentiel du corps de la portlet, et contient les éléments suivants :</p>
+<table border="1" class="docutils">
+<caption>Éléments de <tt class="file docutils literal"><span class="pre">authorportlet.py</span></tt></caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Classe</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref py py-class docutils literal"><span class="pre">IAuthorPortlet</span></tt></td>
+<td>L'interface définissant le schéma (Zope 3) des options d'une portlet.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-class docutils literal"><span class="pre">Assignment</span></tt></td>
+<td>La classe qui fournit les options de la portlet applicable dans le
+contexte courant. À noter que les objets de type Assignment sont
+construits par les objets <tt class="xref py py-class docutils literal"><span class="pre">AddForm</span></tt> que nous verrons plus
+loin. Dans notre cas, la classe est minimaliste, mais les objets
+<tt class="xref py py-class docutils literal"><span class="pre">Assignment</span></tt> à d'autres portlets peuvent comporter des méthodes
+plus complexes. Un objet Assignment est stocké de façon
+persistante dans le contexte dans lequel la portlet a été créée (objet de
+contenu, type de contenu, groupe ou dashboard)</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-class docutils literal"><span class="pre">AddForm</span></tt></td>
+<td>Un formulaire &quot;Zope 3&quot; permettant de créer un Assignment. Comme vous
+pouvez le lire dans le code, la réalisation d'un AddForm est très simple
+puisque s'appuyant sur le schéma de l'interface de la portlet
+(<tt class="xref py py-class docutils literal"><span class="pre">IAuthorPortlet</span></tt> dans notre cas). Seule la surcharge de la
+méthode <tt class="xref py py-meth docutils literal"><span class="pre">create</span></tt> responsable de la construction de l'objet
+<tt class="xref py py-class docutils literal"><span class="pre">Assignment</span></tt> est requise.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-class docutils literal"><span class="pre">EditForm</span></tt></td>
+<td>Un formulaire &quot;Zope 3&quot; permettant de modifier l'<tt class="xref py py-class docutils literal"><span class="pre">Assignment</span></tt>.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-class docutils literal"><span class="pre">Renderer</span></tt></td>
+<td>Une classe responsable de la réalisation du rendu HTML de la portlet.Ce
+type de classe doit obligatoirement comporter une méthode <tt class="xref py py-meth docutils literal"><span class="pre">render</span></tt>
+produisant le HTML de rendu. Comme dans notre exemple, le rendu est
+généralement délégué à un objet de type <tt class="xref py py-class docutils literal"><span class="pre">ViewPageTemplate</span></tt>. À
+noter qu'un objet de type <tt class="xref py py-class docutils literal"><span class="pre">Renderer</span></tt> doit propager le constructeur
+à sa classe mère (voir l'instruction &quot;super(...)&quot; au début du
+constructeur) et dispose de ce fait des attributs suivants : À noter que
+ces deux derniers attributs sont rarement utilisés.Vous noterez également
+que cette classe propose un attribut booléen <tt class="docutils literal"><span class="pre">available</span></tt>. Celui-ci est
+facultatif et &quot;True&quot; par défaut. Si cet attribut est <tt class="docutils literal"><span class="pre">False</span></tt>, la
+portlet n'est pas affichée.</td>
+</tr>
+</tbody>
+</table>
+<p>Pour plus de détails, nous invitons le lecteur à lire le code
+des classes de base de ces classes.</p>
+<p>Notez que les différentes classes énumérées ci-dessus sont référencées dans la
+déclaration de portlet du <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> vu ci-avant.
+C'est cette déclaration qui
+fait la &quot;glue&quot; entre les différents composants de notre portlet.</p>
+</div>
+<div class="section" id="authorportlet-pt">
+<h3>authorportlet.pt<a class="headerlink" href="#authorportlet-pt" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Cette template met en page la portlet.</p>
+<p>Elle est volontairement minimaliste pour en faciliter la compréhension. Je vous
+laisse le soin de fignoler son habillage graphique si vous voulez l'incorporer
+dans vos propres réalisations.</p>
+<p>Vous noterez que :</p>
+<ul class="simple">
+<li>Les portlets, depuis Plone 2.5, sont définies dans une structure de type <tt class="docutils literal"><span class="pre">&lt;dl</span>
+<span class="pre">class=&quot;portlet&quot;&gt;...&lt;/dl&gt;</span></tt>.</li>
+<li>L'objet de classe <tt class="xref py py-class docutils literal"><span class="pre">Renderer</span></tt> défini dans <tt class="file docutils literal"><span class="pre">author.py</span></tt> est
+accessible dans les expressions TALES de cette portlet à travers la variable
+<tt class="docutils literal"><span class="pre">view</span></tt>. Les différentes données spécifiques à la portlet sont produites par
+des expressions TALES <tt class="samp docutils literal"><span class="pre">view/</span><em><span class="pre">xxx</span></em></tt> où xxx est une méthode ou un attribut
+de la classe <tt class="xref py py-class docutils literal"><span class="pre">Renderer</span></tt> vue plus haut.</li>
+</ul>
+</div>
+<div class="section" id="profiles-default-portlets-xml">
+<h3>profiles/default/portlets.xml<a class="headerlink" href="#profiles-default-portlets-xml" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Fichier d'installation des portlets pour GenericSetup.</p>
+<p>Dans notre cas nous n'avons qu'une portlet à déclarer.  Il n'y a rien de
+particulier à dire sur les attributs <tt class="docutils literal"><span class="pre">title</span></tt> et <tt class="docutils literal"><span class="pre">description</span></tt>.</p>
+<p>L'attribut &quot;addview&quot; doit ici avoir la même valeur que l'attribut <tt class="docutils literal"><span class="pre">name</span></tt> de la
+déclaration de portlet figurant dans notre <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt>.</p>
+</div>
+</div>
+<div class="section" id="et-le-resultat">
+<h2>Et le résultat...<a class="headerlink" href="#et-le-resultat" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Le composant <tt class="xref py py-mod docutils literal"><span class="pre">formation.portlet.author</span></tt> a été ajouté dans l'instance Zope,
+puis ajouté à un site Plone par le biais du QuickInstaller ou du panneau de
+configuration d'installation des produits.  Vous connaissez déjà ces étapes si
+vous êtes arrivé à ce point du site.</p>
+<p>Le membre Albert Einstein a réalisé une étude scientifique très intéressante
+qu'il a publiée dans une page Plone...</p>
+<p>Comme tout membre d'un site Plone, Albert Einstein a rempli son formulaire de
+préférences personnelles, incluant son nom complet, sa ville, son mémo perso et
+sa photo au format requis.</p>
+<p>Le webmestre du site estime que les portlets classiques publiées par défaut à la
+droite ne rendent pas justice à l'auteur d'un contenu d'une telle valeur, et
+préfère remplacer celles-ci par notre portlet de présentation de l'auteur de
+façon spécifique à cette page.</p>
+<div class="figure align-center">
+<img alt="../_images/affichage_sans_portlet.png" src="../_images/affichage_sans_portlet.png" />
+<p class="caption">L'article tel que publié par Albert Einstein</p>
+</div>
+<p>Dans la gestion locale des portlets, on commence par bloquer toutes les portlets
+pouvant s'appliquer localement.</p>
+<div class="figure align-center">
+<img alt="../_images/addform.png" src="../_images/addform.png" />
+<p class="caption">On ajoute une &quot;Author portlet&quot; détaillée</p>
+</div>
+<div class="figure align-center">
+<img alt="../_images/affichage_avec_portlet.png" src="../_images/affichage_avec_portlet.png" />
+<p class="caption">Et voilà le résultat...</p>
+</div>
+<p>Si <em class="guilabel">show author details</em> était décoché dans le formulaire d'ajout /
+modification, la portlet n'afficherait pas &quot;Berlin&quot; ni &quot;Je suis un savant..&quot;.</p>
+</div>
+<div class="section" id="creer-votre-propre-portlet">
+<h2>Créer votre propre portlet<a class="headerlink" href="#creer-votre-propre-portlet" title="Lien permanent vers ce titre">¶</a></h2>
+<p>ZopeSkel est votre ami. Puisque vous l'avez installé comme indiqué dans votre environnement de développement, il suffit de taper ceci pour avoir le squelette de votre portlet personnelle :</p>
+<div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>paster create -t plone3_portlet ma.belle.portlet
+</pre></div>
+</div>
+<p>Suivez les instructions de l'assistant de création et à vous de jouer.</p>
+</div>
+<div class="section" id="pour-aller-plus-loin">
+<h2>Pour aller plus loin<a class="headerlink" href="#pour-aller-plus-loin" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Par souci de simplification, deux aspect du développement de portlets ont été
+passés sous silence dans l'exemple ci-avant :</p>
+<ul class="simple">
+<li>Les <em>ressources d'internationalisation</em> et traduction de la portlet, les
+informations relatives à l'internationalisation fournies ailleurs dans ce
+site étant applicables ici. Voir à ce sujet <a class="reference internal" href="../internationalisation.html#internationalisation"><em>Internationalisation d'un composant</em></a></li>
+<li>L'utilisation des <em>décorateurs de cache</em> permettant d'optimiser les méthodes
+Python, ainsi que code HTML spécifique à la portlet.  Le cache des portlets
+utilise les ressources du module plone.memoize, qui s'utilise sous la forme
+de décorateurs Python.  Dans le cas de cette portlet, les décorateurs de vue
+(<tt class="docutils literal"><span class="pre">from</span> <span class="pre">plone.memoize</span> <span class="pre">import</span> <span class="pre">view</span></tt>...) auraient pu être utilisés.</li>
+</ul>
+<p>Pour réaliser des portlets plus complexes ou plus performantes, lisez le code
+des paquetages Python suivants :</p>
+<table border="1" class="docutils">
+<caption>Code source relatif</caption>
+<colgroup>
+<col width="20%" />
+<col width="80%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Module</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><tt class="xref py py-mod docutils literal"><span class="pre">plone.app.portlets.portlets</span></tt></td>
+<td>Les portlets fournies en standard par Plone.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-mod docutils literal"><span class="pre">zope.formlib</span></tt></td>
+<td>Le gestionnaire de formulaires de Zope 3.</td>
+</tr>
+<tr class="row-even"><td><tt class="xref py py-mod docutils literal"><span class="pre">zope.schema</span></tt></td>
+<td>L'alter-ego d'Archetypes pour Zope 3.</td>
+</tr>
+<tr class="row-odd"><td><tt class="xref py py-mod docutils literal"><span class="pre">plone.memoize</span></tt></td>
+<td>Divers types de caches Python utilisables sous forme de décorateurs.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition hint">
+<p class="first admonition-title">Indice</p>
+<p>Autres portlets</p>
+<p class="last">Vous pouvez également vous inspirer des nombreuses portlets à votre
+disposition dans le référentiel Subversion &quot;collective&quot;
+<a class="reference external" href="https://svn.plone.org/svn/collective">https://svn.plone.org/svn/collective</a>, la grande majorité des portlets
+étant préfixées par <tt class="samp docutils literal"><span class="pre">collective.portlet...</span></tt>.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les portlets</a><ul>
+<li><a class="reference internal" href="#personnalisation">Personnalisation</a><ul>
+<li><a class="reference internal" href="#portlets-des-types-de-contenus">Portlets des types de contenus</a></li>
+<li><a class="reference internal" href="#portlets-des-groupes">Portlets des groupes</a></li>
+<li><a class="reference internal" href="#portlets-des-contenus-ou-portlets-contextuelles">Portlets des contenus ou portlets contextuelles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#portlets-disponibles-en-standard">Portlets disponibles en standard</a></li>
+<li><a class="reference internal" href="#retour-sur-le-parametrage-d-une-portlet">Retour sur le paramétrage d'une portlet</a></li>
+<li><a class="reference internal" href="#habillage-graphique">Habillage graphique</a></li>
+<li><a class="reference internal" href="#export-import-generic-setup-du-parametrage-des-portlets">Export/Import Generic setup du paramétrage des portlets</a></li>
+<li><a class="reference internal" href="#creation-d-une-portlet-personnelle">Création d'une portlet personnelle</a><ul>
+<li><a class="reference internal" href="#structure-du-composant">Structure du composant</a></li>
+<li><a class="reference internal" href="#init-py">__init__.py</a></li>
+<li><a class="reference internal" href="#config-py">config.py</a></li>
+<li><a class="reference internal" href="#configure-zcml">configure.zcml</a></li>
+<li><a class="reference internal" href="#authorportlet-py">authorportlet.py</a></li>
+<li><a class="reference internal" href="#authorportlet-pt">authorportlet.pt</a></li>
+<li><a class="reference internal" href="#profiles-default-portlets-xml">profiles/default/portlets.xml</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#et-le-resultat">Et le résultat...</a></li>
+<li><a class="reference internal" href="#creer-votre-propre-portlet">Créer votre propre portlet</a></li>
+<li><a class="reference internal" href="#pour-aller-plus-loin">Pour aller plus loin</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="../viewlets.html"
+                        title="Chapitre précédent">Les viewlets</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="../vues_standard/index.html"
+                        title="Chapitre suivant">Les vues standard</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/portlets/index.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="../vues_standard/index.html" title="Les vues standard"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="../viewlets.html" title="Les viewlets"
+             >précédent</a> |</li>
+        <li><a href="../index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

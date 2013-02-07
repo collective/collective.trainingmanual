@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Les nouveautés de Plone 4 &mdash; Plone pour les intégrateurs 1.0.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '1.0.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/translations.js"></script>
+    <link rel="search" type="application/opensearchdescription+xml"
+          title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
+          href="_static/opensearch.xml"/>
+    <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
+    <link rel="next" title="Paramétrer votre site Plone" href="parametrage_plone.html" />
+    <link rel="prev" title="Les nouveautés de Plone 3" href="presentation_nouveautes_plone3.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="parametrage_plone.html" title="Paramétrer votre site Plone"
+             accesskey="N">suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_nouveautes_plone3.html" title="Les nouveautés de Plone 3"
+             accesskey="P">précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="les-nouveautes-de-plone-4">
+<span id="nouveautes-plone4"></span><h1>Les nouveautés de Plone 4<a class="headerlink" href="#les-nouveautes-de-plone-4" title="Lien permanent vers ce titre">¶</a></h1>
+<p>Présentation des nouveautés de Plone 4 par rapport à Plone 3.3.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/">Vidéo disponible</a></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#performances" id="id1">Performances</a></li>
+<li><a class="reference internal" href="#theme" id="id2">Thème</a></li>
+<li><a class="reference internal" href="#ergonomie" id="id3">Ergonomie</a></li>
+<li><a class="reference internal" href="#amelioration-de-l-administration-du-site" id="id4">Amélioration de l&#8217;administration du site</a><ul>
+<li><a class="reference internal" href="#ordonnancement-dans-les-dossiers-ameliore" id="id5">Ordonnancement dans les dossiers amélioré</a></li>
+<li><a class="reference internal" href="#interface-amelioree-de-gestion-des-groupes" id="id6">Interface améliorée de gestion des groupes</a></li>
+<li><a class="reference internal" href="#tableaux-de-bord-des-groupes" id="id7">Tableaux de bord des groupes</a></li>
+<li><a class="reference internal" href="#possibilite-de-masquer-les-portlets" id="id8">Possibilité de masquer les portlets</a></li>
+<li><a class="reference internal" href="#authentification-par-email" id="id9">Authentification par email</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#amelioration-de-la-customisation-du-site" id="id10">Amélioration de la customisation du site</a><ul>
+<li><a class="reference internal" href="#gestion-des-icones-d-actions" id="id11">Gestion des icones d&#8217;actions</a></li>
+<li><a class="reference internal" href="#suppression-du-base-properties" id="id12">Suppression du base_properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ameliorations-techniques" id="id13">Améliorations techniques</a><ul>
+<li><a class="reference internal" href="#utilisation-de-python-2-6-et-zope-2-12" id="id14">Utilisation de Python 2.6 et Zope 2.12</a></li>
+<li><a class="reference internal" href="#gestion-des-pieces-jointes-avec-les-blobs" id="id15">Gestion des pièces jointes avec les blobs</a></li>
+<li><a class="reference internal" href="#refonte-de-l-outil-de-migration" id="id16">Refonte de l&#8217;outil de migration</a></li>
+<li><a class="reference internal" href="#jquery-tools-de-base" id="id17">JQuery Tools de base</a></li>
+<li><a class="reference internal" href="#support-de-l-indexation-des-langues-asiatiques" id="id18">Support de l&#8217;indexation des langues asiatiques</a></li>
+<li><a class="reference internal" href="#les-dossiers-sont-tous-des-btree" id="id19">Les dossiers sont tous des BTree</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#migration-de-plone-3-3-vers-plone-4" id="id20">Migration de Plone 3.3 vers Plone 4</a></li>
+</ul>
+</div>
+<div class="section" id="performances">
+<h2><a class="toc-backref" href="#id1">Performances</a><a class="headerlink" href="#performances" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone 4 est centrée sur l&#8217;amélioration des performances.
+Il est en environ deux fois plus rapide que Plone 3, et jusqu&#8217;à quatre fois
+plus rapide que Plone 2.5
+aussi bien pour les anonymes que pour les utilisateurs connectés.
+Il consomme beaucoup moins de mémoire que les anciennes versions.
+Plone 4 est, à la date de sa sortie l&#8217;une des plateformes open source CMS les plus rapides du marché.</p>
+<p>Cela est dû à la fois à un effort majeur sur l&#8217;optimisation du code de Plone,
+qu&#8217;au passage à Python 2.6 plus rapide et moins gourmand que Python 2.4.</p>
+<p><a class="reference external" href="http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances">En savoir plus (fr)</a></p>
+</div>
+<div class="section" id="theme">
+<h2><a class="toc-backref" href="#id2">Thème</a><a class="headerlink" href="#theme" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone 4 possède un nouveau thème par défaut appelé &#8220;Sunburst&#8221;, élégant et, minimaliste.
+Il est conçu comme un composant à part, mais inclus par défaut.
+Il est donc facile à remplacer.</p>
+<p>Il n&#8217;utilise plus de tableaux. La css a été très fortement simplifiée. Il reste
+compatible avec Internet Explorer 6.</p>
+<p>Il est prévu pour être compatible avec le futur outil de mise en page Deco prévu pour Plone 5.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/new-look">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="ergonomie">
+<h2><a class="toc-backref" href="#id3">Ergonomie</a><a class="headerlink" href="#ergonomie" title="Lien permanent vers ce titre">¶</a></h2>
+<p>L&#8217;interface utilisateur de Plone 4 a été améliorée.</p>
+<p>Il est plus facile de <a class="reference external" href="http://plone.org/products/plone/features/improved-first-run-experience">créer un site Plone</a>
+, via une page dédiée.</p>
+<p>Plone 4 inclut par défaut un nouvel éditeur wysiwyg (TinyMCE),
+et offre de nouveaux paramètres de configuration. TinyMCE remplace kupu.
+Il existe un produit en remplacement de l&#8217;éditeur complet FCKeditor : <a class="reference external" href="http://plone.fr/news/les-extensions-plone-4-de-macadames">ckeditor</a>.</p>
+<div class="figure align-center">
+<img alt="_images/tinymce-screenshot-1.png" src="_images/tinymce-screenshot-1.png" />
+</div>
+<p><a class="reference external" href="http://plone.org/products/plone/features/intuitive-visual-editing">En savoir plus (en)</a></p>
+<p>Amélioration du formulaire de recherche : les options non pertinentes ont été retirées,
+les critères sont choisis par un système de plié/déplié beaucoup plus clair.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/search-and-indexing-improvements">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="amelioration-de-l-administration-du-site">
+<h2><a class="toc-backref" href="#id4">Amélioration de l&#8217;administration du site</a><a class="headerlink" href="#amelioration-de-l-administration-du-site" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="ordonnancement-dans-les-dossiers-ameliore">
+<h3><a class="toc-backref" href="#id5">Ordonnancement dans les dossiers amélioré</a><a class="headerlink" href="#ordonnancement-dans-les-dossiers-ameliore" title="Lien permanent vers ce titre">¶</a></h3>
+<p>L&#8217;interface pour ordonner les documents dans les dossiers a été améliorée.
+L&#8217;intégration entre &#8216;tri&#8217; et &#8216;ordonnancement&#8217; a été améliorée.</p>
+</div>
+<div class="section" id="interface-amelioree-de-gestion-des-groupes">
+<h3><a class="toc-backref" href="#id6">Interface améliorée de gestion des groupes</a><a class="headerlink" href="#interface-amelioree-de-gestion-des-groupes" title="Lien permanent vers ce titre">¶</a></h3>
+<p>L&#8217;interface a été améliorée pour chercher des groupes,
+associer des utilisateurs à des groupes, etc.</p>
+<p>Plone 4 permet de mieux gérer les groupes imbriqués.
+Dans Plone 3.3, vous ne voyiez pas que vous aviez un rôle récupéré grâce un
+super groupe. Plone 4 a été modifié pour le voir, un peu comme la présentation
+faite dans l&#8217;onglet partage pour les rôles locaux.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/more-powerful-management-of-users-and-groups">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="tableaux-de-bord-des-groupes">
+<h3><a class="toc-backref" href="#id7">Tableaux de bord des groupes</a><a class="headerlink" href="#tableaux-de-bord-des-groupes" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il est maintenant possible de paramétrer des tableaux de bord par défaut
+pour tous les utilisateurs d&#8217;un groupe.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/group-dashboards">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="possibilite-de-masquer-les-portlets">
+<h3><a class="toc-backref" href="#id8">Possibilité de masquer les portlets</a><a class="headerlink" href="#possibilite-de-masquer-les-portlets" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Un simple clic dans l&#8217;outil de management des portlets
+permet de masquer/afficher un portlet.</p>
+</div>
+<div class="section" id="authentification-par-email">
+<h3><a class="toc-backref" href="#id9">Authentification par email</a><a class="headerlink" href="#authentification-par-email" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Plone 4 prévoit la possibilité d&#8217;autoriser l&#8217;authentification de l&#8217;utilisateur
+par son email plutôt que par son login.</p>
+</div>
+</div>
+<div class="section" id="amelioration-de-la-customisation-du-site">
+<h2><a class="toc-backref" href="#id10">Amélioration de la customisation du site</a><a class="headerlink" href="#amelioration-de-la-customisation-du-site" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="gestion-des-icones-d-actions">
+<h3><a class="toc-backref" href="#id11">Gestion des icones d&#8217;actions</a><a class="headerlink" href="#gestion-des-icones-d-actions" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les icones d&#8217;actions ne sont plus gérées séparément des actions
+(disparition du tool portal_actionicons)</p>
+</div>
+<div class="section" id="suppression-du-base-properties">
+<h3><a class="toc-backref" href="#id12">Suppression du base_properties</a><a class="headerlink" href="#suppression-du-base-properties" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Les css ne sont plus écrites en dtml, mais en texte pur.
+L&#8217;expérience d&#8217;utilisation a montré que l&#8217;utilisation de variables dans les css posait plus de risques qu&#8217;elle ne faisait gagner de temps.</p>
+</div>
+</div>
+<div class="section" id="ameliorations-techniques">
+<h2><a class="toc-backref" href="#id13">Améliorations techniques</a><a class="headerlink" href="#ameliorations-techniques" title="Lien permanent vers ce titre">¶</a></h2>
+<div class="section" id="utilisation-de-python-2-6-et-zope-2-12">
+<h3><a class="toc-backref" href="#id14">Utilisation de Python 2.6 et Zope 2.12</a><a class="headerlink" href="#utilisation-de-python-2-6-et-zope-2-12" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Plone 2.5 et 3.x fonctionnaient sous Python 2.4.
+Python 2.6 est plus rapide et beaucoup moins gourmand en mémoire.</p>
+<p>Zope 2.12 est compatible avec la version 2.9.x de la ZODB supportant
+nativement les blobs.
+Totalement eggifié, il est plus facile à déployer.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/under-the-hood-improvements">En savoir plus (en)</a></p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/reduced-memory-footprint">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="gestion-des-pieces-jointes-avec-les-blobs">
+<h3><a class="toc-backref" href="#id15">Gestion des pièces jointes avec les blobs</a><a class="headerlink" href="#gestion-des-pieces-jointes-avec-les-blobs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La ZODB gère maintenant les pièces jointes (images et fichiers) de Plone
+dans des fichiers à part de la Data.fs, appelés &#8220;blobs&#8221;.</p>
+<p>Cela limite l&#8217;impact des modifications de pièces jointes sur la taille des transactions :
+la zodb est plus rapide et grossit moins rapidement entre chaque pack.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/massively-improved-handling-of-large-files-media">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="refonte-de-l-outil-de-migration">
+<h3><a class="toc-backref" href="#id16">Refonte de l&#8217;outil de migration</a><a class="headerlink" href="#refonte-de-l-outil-de-migration" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Plone utilise maintenant Generic Setup comme outil de migration.
+On a maintenant le même système de mise à jour pour les modules tierces et pour
+Plone lui-même.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/smooth-upgrade-experience">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="jquery-tools-de-base">
+<h3><a class="toc-backref" href="#id17">JQuery Tools de base</a><a class="headerlink" href="#jquery-tools-de-base" title="Lien permanent vers ce titre">¶</a></h3>
+<p>La bibliothèque Javascript <a class="reference external" href="http://flowplayer.org/tools/index.html">JQuery Tools</a> est incluse de base.
+Cela permet d&#8217;avoir des popups améliorant l&#8217;expérience utilisateur.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/popup-forms-framework-based-on-jquery-tools">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="support-de-l-indexation-des-langues-asiatiques">
+<h3><a class="toc-backref" href="#id18">Support de l&#8217;indexation des langues asiatiques</a><a class="headerlink" href="#support-de-l-indexation-des-langues-asiatiques" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Le moteur d&#8217;indexation plain texte gère maintenant les langues asiatiques
+(Chinois, Japonais, Coréen).</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/search-and-indexing-improvements">En savoir plus (en)</a></p>
+</div>
+<div class="section" id="les-dossiers-sont-tous-des-btree">
+<h3><a class="toc-backref" href="#id19">Les dossiers sont tous des BTree</a><a class="headerlink" href="#les-dossiers-sont-tous-des-btree" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Il y avait auparavant deux types de dossiers : Folder et Large Folder,
+les seconds étant des BTree. Les Folder sont maintenant des BTree et les Large Folder ont été retirés.</p>
+<p><a class="reference external" href="http://plone.org/products/plone/features/new-faster-folder-implementation">En savoir plus (en)</a></p>
+</div>
+</div>
+<div class="section" id="migration-de-plone-3-3-vers-plone-4">
+<h2><a class="toc-backref" href="#id20">Migration de Plone 3.3 vers Plone 4</a><a class="headerlink" href="#migration-de-plone-3-3-vers-plone-4" title="Lien permanent vers ce titre">¶</a></h2>
+<p>Plone 4 apporte quelques changements radicaux. Il vous faudra sans doute adapter
+le code de vos produits.
+Il existe une <a class="reference external" href="http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-3-x-to-4.0">documentation pour vous y aider</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table des matières</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Les nouveautés de Plone 4</a><ul>
+<li><a class="reference internal" href="#performances">Performances</a></li>
+<li><a class="reference internal" href="#theme">Thème</a></li>
+<li><a class="reference internal" href="#ergonomie">Ergonomie</a></li>
+<li><a class="reference internal" href="#amelioration-de-l-administration-du-site">Amélioration de l&#8217;administration du site</a><ul>
+<li><a class="reference internal" href="#ordonnancement-dans-les-dossiers-ameliore">Ordonnancement dans les dossiers amélioré</a></li>
+<li><a class="reference internal" href="#interface-amelioree-de-gestion-des-groupes">Interface améliorée de gestion des groupes</a></li>
+<li><a class="reference internal" href="#tableaux-de-bord-des-groupes">Tableaux de bord des groupes</a></li>
+<li><a class="reference internal" href="#possibilite-de-masquer-les-portlets">Possibilité de masquer les portlets</a></li>
+<li><a class="reference internal" href="#authentification-par-email">Authentification par email</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#amelioration-de-la-customisation-du-site">Amélioration de la customisation du site</a><ul>
+<li><a class="reference internal" href="#gestion-des-icones-d-actions">Gestion des icones d&#8217;actions</a></li>
+<li><a class="reference internal" href="#suppression-du-base-properties">Suppression du base_properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ameliorations-techniques">Améliorations techniques</a><ul>
+<li><a class="reference internal" href="#utilisation-de-python-2-6-et-zope-2-12">Utilisation de Python 2.6 et Zope 2.12</a></li>
+<li><a class="reference internal" href="#gestion-des-pieces-jointes-avec-les-blobs">Gestion des pièces jointes avec les blobs</a></li>
+<li><a class="reference internal" href="#refonte-de-l-outil-de-migration">Refonte de l&#8217;outil de migration</a></li>
+<li><a class="reference internal" href="#jquery-tools-de-base">JQuery Tools de base</a></li>
+<li><a class="reference internal" href="#support-de-l-indexation-des-langues-asiatiques">Support de l&#8217;indexation des langues asiatiques</a></li>
+<li><a class="reference internal" href="#les-dossiers-sont-tous-des-btree">Les dossiers sont tous des BTree</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#migration-de-plone-3-3-vers-plone-4">Migration de Plone 3.3 vers Plone 4</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Sujet précédent</h4>
+  <p class="topless"><a href="presentation_nouveautes_plone3.html"
+                        title="Chapitre précédent">Les nouveautés de Plone 3</a></p>
+  <h4>Sujet suivant</h4>
+  <p class="topless"><a href="parametrage_plone.html"
+                        title="Chapitre suivant">Paramétrer votre site Plone</a></p>
+  <h3>Cette page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/presentation_nouveautes_plone4.txt"
+           rel="nofollow">Montrer la source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Recherche rapide</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Saisissez un mot clef ou un nom de module, classe ou fonction.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="Index général"
+             >index</a></li>
+        <li class="right" >
+          <a href="parametrage_plone.html" title="Paramétrer votre site Plone"
+             >suivant</a> |</li>
+        <li class="right" >
+          <a href="presentation_nouveautes_plone3.html" title="Les nouveautés de Plone 3"
+             >précédent</a> |</li>
+        <li><a href="index.html">Formation Plone</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2010-2013, Communauté Plone francophone.
+      Mis à jour le  07-February-2013.
+      Créé avec <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>
