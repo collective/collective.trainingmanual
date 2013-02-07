@@ -19,24 +19,32 @@ Presque chaque thème comprend :
 Liste des thèmes abordés
 ========================
 
-- Présentation des nouveautés de Plone 3 et 4
+- Présentation de Plone
 - Concept de Python eggs
-- Création d'un buildout Plone 3 avec paster
-- Concepts de base Zope 3
-- Migration des composants développés pour Plone 2.5
-- Migration d'un portail Plone 2.5 à Plone 3
-- Déploiement et backup
-- Formation de TAL/Metal permettant l'écriture de pages dynamiques
-- Envoi de mail suite à un évènement sur le portail
-- Internationalisation d'un composant
+- Création d'un buildout
+- Création d'un thème
+- Moteur de template (TAL/Metal)
+- Concepts de base Zope 3 (composants)
+- Internationalisation
+- Moteur de règle (pour réagir à un événement)
 - Notions avancées de formulaire d'édition
-- Nouvelles fonctionnalités de ArchGenXML
-- Création d'un thème Plone 3 (avec paster)
+- Migration d'une version de Plone à l'autre
+- Déploiement et backup
+- [deprecated] ArchgenXML
 
 Ressources
 ==========
 
 Livres de Packt Publishing, en anglais :
+
+- `Professional Plone 4 Development
+  <http://www.packtpub.com/professional-plone-4-development/book>`_
+  Martin Aspeli
+  Aout 2011
+
+- `A users guide to Plone
+  <http://www.enfoldsystems.com/support/a-users-guide-to-plone.html>`_
+  september 2010
 
 - `Practical Plone 3: A Beginner's Guide to Building Powerful Websites
   <http://www.packtpub.com/practical-plone-3-beginners-guide-to-building-powerful-websites/book>`_,
@@ -63,15 +71,3 @@ Livres de Packt Publishing, en anglais :
   <http://www.packtpub.com/plone-3-3-multimedia-website/book>`_,
   Tom Gross,
   juin 2010
-
-Version
-=======
-
-0.1
-
-Le contenu de cette version est validé, mais n'est pas considéré comme publiable en l'état
-
-Changements
-===========
-
-0.1 - Première version de la documentation intégrateur

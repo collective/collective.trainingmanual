@@ -52,9 +52,9 @@ Le CMS Plone évolue constamment sans perte de compatibilité. Il est maintenu
 par une communauté de sociétés qui en assure la pérennité et l'adéquation avec
 le besoin des clients.
 
-En France on trouve pas moins de 11 sociétés spécialisées réalisant en support
-expert sur cette technologie sur les 336 sociétés mondiales réparties sur 62
-pays (C.f.  ).
+En France on trouve pas moins de 14 sociétés spécialisées réalisant en support
+expert sur cette technologie sur les 369 sociétés mondiales réparties sur 62
+pays (C.f. http://plone.org/support/providers).
 
 Centralisation des documents
 ============================
@@ -582,29 +582,23 @@ Creative-Common Share Alike By, ils sont donc librement téléchargeables et
 peuvent être partagés, modifiés tant qu'à votre tour vous redistribuez vos
 améliorations sous les même termes de licence.
 
-Des tutoriels en ligne peuvent être installés (produit Amberjack). Ces
-tutoriels permettent de réaliser sous forme d'exercices les étapes
-fondamentales à la création et à la publication de document.
-
 Sécurisation
 ------------
 
-La sécurité de Plone passe par l'utilisation du protocole ssl et vous devez
-donc acheter un certificat X509 auprès d'une autorité reconnue par vos
-navigateurs internet ou en générer un autosigné.
+La sécurité de tout site Internet passe par l'utilisation du protocole ssl et
+vous devez donc acheter un certificat X509 auprès d'une autorité reconnue
+par les navigateurs internet ou en générer un autosigné.
 
 Statistiques
 ------------
 
 Les rapports sur la fréquentation sont donnés par des outils libres
-complémentaires tels que webalizer, ou fournissant les même services que Google
+complémentaires tels que piwik, ou fournissant les même services que Google
 Analytics pour les sites web.
 
-Par exemple avec piwik  nous retrouvons toutes la richesse d'Analytics ce qui
-vous permet de définir nos propres statistiques.
-
-Piwik possède en plus l'avantage de pouvoir tenir compte des pages servies par
-les caches.
+Piwik offre une solution très avancée pour réaliser l'analyse du trafic sur
+votre site Internet. Le `module plone collective.piwik.core
+<http://pypi.python.org/pypi/collective.piwik.core>`_
 
 Ceci est rendu possible par l'utilisation d'un script javascript exécuté par le
 navigateur chaque fois qu'une page du portail est affichée.
@@ -612,3 +606,21 @@ navigateur chaque fois qu'une page du portail est affichée.
 .. figure:: presentation_plone_images/picture_2.png
 
    Statistiques avec Piwik
+
+La solution `Google ananlytics <http://www.google.com/analytics/>`_
+est supportée grace au module `collective.googleanalytics
+<http://pypi.python.org/pypi/collective.googleanalytics>`_
+qui met à disposition une intégration très avancée des événements suivant:
+
+* téléchargement
+* lien externe
+* commentaire
+* lien sur un email (contact)
+
+De plus ce module est intégré automatiquement avec les modules suivants et
+donc votre analyse pourra bénéficier des actions utilisateurs supplémentaires
+correspondant au module:
+
+* collective.addthis (partage sur réseaux sociaux)
+* Products.PloneFormGen (définition d'objectifs)
+

@@ -1,8 +1,8 @@
 .. -*- coding: utf-8 -*-
 
-===========================================
-Documentation Plone 3 / Plone 4 en français
-===========================================
+===============================
+Documentation Plone en français
+===============================
 
 Installation
 ============
@@ -89,27 +89,26 @@ bundle `MinGW <http://www.mingw.org/>`_ soit dans le bundle `Cygwin
 Obtenir et compiler la documentation
 ====================================
 
-Le référentiel de cette documentation est disponible dans le serveur Subversion
-"collective" des contributeurs de Plone. Si vous disposez d'une accréditation
-sur ce serveur et désirez devenir contributeur : ::
+Le référentiel de cette documentation est disponible sur github dans l'organisation
+"collective" (contributeurs de Plone). Si vous disposez d'une accréditation
+sur cette organisation et désirez devenir contributeur : ::
 
-  $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr \
-    collective.trainingmanual
+  $ git clone git@github.com:collective/collective.trainingmanual.git
 
 Si vous ne disposez pas d'accréditation ou voulez juste obtenir et compiler
 cette documentation : ::
 
-  $ svn export http://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr \
-    collective.trainingmanual
+  $ git clone git://github.com/collective/collective.trainingmanual.git
 
 Vous pouvez maintenant générer cette documentation en HTML : ::
 
-  $ workon sphinx
-  (sphinx)$ cd collective.trainingmanual/integrateur
-  (sphinx)$ make html
+  $ cd collective.trainingmanual
+  $ python bootstrap.py
+  $ bin/buildout
+  $ bin/generate_book.sh
 
 Vous pouvez ouvrir maintenant
-``collective.trainingmanual/sphinx/build/html/index.html`` dans votre navigateur
+``collective.trainingmanual/docs/integrateur/index.html`` dans votre navigateur
 favori.
 
 Pour obtenir la documentation en PDF : ::
@@ -184,7 +183,7 @@ dépend du niveau d'imbrication du fichier dans la structure globale du
 document. Pour générer le HTML, ce n'est pas un problème, mais LaTeX limite
 l'imbrication des sections à 6 niveaux.
 
-SVN commit
+git commit
 ----------
 
 Ouf, vous êtes satisfait de votre excellent document. Il faut en faire profiter

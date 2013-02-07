@@ -157,8 +157,8 @@ PURPOSE.</p>
 <li><a class="reference internal" href="#creation-du-policy-package" id="id4">Création du policy package</a></li>
 <li><a class="reference internal" href="#installation-de-products-collage-a-l-installation-de-formation-policy" id="id5">Installation de Products.Collage à l&#8217;installation de formation.policy</a></li>
 <li><a class="reference internal" href="#declaration-de-formation-policy-comme-plugin-plone" id="id6">Déclaration de formation.policy comme plugin Plone</a></li>
-<li><a class="reference internal" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy" id="id7">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a></li>
-<li><a class="reference internal" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs" id="id8">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a></li>
+<li><a class="reference internal" href="#installation-de-collective-ckeditor-a-l-installation-de-formation-policy" id="id7">Installation de collective.ckeditor à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#configuration-de-ckeditor-pour-tous-les-nouveaux-utilisateurs" id="id8">Configuration de ckeditor pour tous les nouveaux utilisateurs</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#a-propos-des-versions" id="id9">À propos des versions</a></li>
@@ -290,9 +290,9 @@ pour créer votre site Plone.</p>
 </div>
 <div class="section" id="installation-de-produits-tierces">
 <h2><a class="toc-backref" href="#id2">Installation de produits tierces</a><a class="headerlink" href="#installation-de-produits-tierces" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Prenons le produit <a class="reference external" href="http://pypi.python.org/pypi/Products.FCKeditor">FCKeditor</a> comme exemple.</p>
+<p>Prenons le produit <a class="reference external" href="http://pypi.python.org/pypi/collective.ckeditor">FCKeditor</a> comme exemple.</p>
 <p>Stoppez l&#8217;instance avec Ctrl+C.</p>
-<p>Ajoutez <tt class="docutils literal"><span class="pre">Products.FCKeditor</span></tt> dans l&#8217;option <em>eggs</em> de la section <tt class="docutils literal"><span class="pre">[instance]</span></tt>
+<p>Ajoutez <tt class="docutils literal"><span class="pre">collective.ckeditor</span></tt> dans l&#8217;option <em>eggs</em> de la section <tt class="docutils literal"><span class="pre">[instance]</span></tt>
 et reexécutez le buildout :</p>
 <div class="highlight-sh"><div class="highlight"><pre><span class="nv">$ </span>bin/buildout
 </pre></div>
@@ -314,7 +314,7 @@ la suite. Dans ce cas-là les fichiers zcml seront inclus grâce à
 Plone.</p>
 <p>Dans ce <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a>, nous allons aussi dire d&#8217;installer
 automatiquement les produits <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> et
-<tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> lors de l&#8217;installation du produit.</p>
+<tt class="xref py py-mod docutils literal"><span class="pre">collective.ckeditor</span></tt> lors de l&#8217;installation du produit.</p>
 <p>Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les
 utilisateurs nouvellement créés.</p>
 <div class="section" id="creation-du-policy-package">
@@ -353,7 +353,7 @@ formation.policy http://devagile/Formation/packages/formation.policy/trunk
 <span class="nv">$ </span>svn ci -m <span class="s2">&quot;Set svn:externals on src directory to install formation.policy&quot;</span>
 </pre></div>
 </div>
-<p>Ajoutez <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> en dépendances
+<p>Ajoutez <tt class="xref py py-mod docutils literal"><span class="pre">Products.Collage</span></tt> et <tt class="xref py py-mod docutils literal"><span class="pre">collective.ckeditor</span></tt> en dépendances
 de <tt class="xref py py-mod docutils literal"><span class="pre">formation.policy</span></tt> dans le fichier <tt class="file docutils literal"><span class="pre">src/formation.policy/setup.py</span></tt>
 (option install_requires).</p>
 <p>Lorsque vous êtes dans le dossier src, la commande <strong class="command">svn stat</strong> vous
@@ -519,35 +519,12 @@ directive <tt class="docutils literal"><span class="pre">package=&quot;plone&quo
 <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>, jetez un œil dans <tt class="file docutils literal"><span class="pre">Products/CMFPlone/meta.zcml</span></tt> et
 <tt class="file docutils literal"><span class="pre">Products/CMFPlone/overrides.zcml</span></tt>.</p>
 </div>
-<div class="section" id="installation-de-products-fckeditor-a-l-installation-de-formation-policy">
-<h3><a class="toc-backref" href="#id7">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a><a class="headerlink" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Pour dépendre de <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt>, nous ne pouvons pas utiliser cette
-méthode car <tt class="xref py py-mod docutils literal"><span class="pre">Products.FCKeditor</span></tt> n&#8217;utilise pas de profil, mais l&#8217;ancien
-dossier Extensions pour être installé via le tool <tt class="docutils literal"><span class="pre">portal_quickinstaller</span></tt>.</p>
-<p>Il existe un produit pour installer des vieux produits à partir d&#8217;un profil :
-<a class="reference external" href="http://pypi.python.org/pypi/genericsetup.quickinstaller">genericsetup.quickinstaller</a>.</p>
-<p>Ce produit enregistre un nouvel <tt class="docutils literal"><span class="pre">importStep</span></tt> dans <tt class="docutils literal"><span class="pre">portal_setup</span></tt> qui regarde
-lors de l&#8217;installation d&#8217;un produit s&#8217;il existe un fichier <tt class="file docutils literal"><span class="pre">products.xml</span></tt>
-dans le dossier du profile.</p>
-<p>Pour que cela marche, il faut que le fichier <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> de
-<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> soit lu d&#8217;une manière ou d&#8217;une autre au
-démarrage.</p>
-<p>Ajoutez <tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> dans <tt class="file docutils literal"><span class="pre">setup.py</span></tt>
-<tt class="docutils literal"><span class="pre">install_requires</span></tt> du <a class="reference internal" href="glossaire.html#term-policy-package"><em class="xref std std-term">policy package</em></a>.</p>
-<p>Il faut donc lire le fichier <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> du produit
-<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt>, vous pouvez ajouter dans
-<tt class="file docutils literal"><span class="pre">src/formation.policy/src/formation/policy/configure.zcml</span></tt>, cette directive :</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;include</span> <span class="na">package=</span><span class="s">&quot;genericsetup.quickinstaller&quot;</span> <span class="nt">/&gt;</span>
-</pre></div>
-</div>
-<p>Ici l&#8217;option <tt class="docutils literal"><span class="pre">file</span></tt> n&#8217;est pas précisée, la valeur par défaut étant
-<tt class="docutils literal"><span class="pre">file=&quot;configure.zcml&quot;</span></tt>.</p>
-<p>L&#8217;inconvénient de cette ligne est que vous avez l&#8217;information
-<tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> à deux endroits, une première fois dans le
-fichier <tt class="file docutils literal"><span class="pre">setup.py</span></tt> et une deuxième fois dans <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt>.</p>
-<p>Plone 3.3 inclut le package <tt class="xref py py-mod docutils literal"><span class="pre">z3c.autoinclude</span></tt> qui permet de ne pas se
-répéter. En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci
-:</p>
+<div class="section" id="installation-de-collective-ckeditor-a-l-installation-de-formation-policy">
+<h3><a class="toc-backref" href="#id7">Installation de collective.ckeditor à l&#8217;installation de formation.policy</a><a class="headerlink" href="#installation-de-collective-ckeditor-a-l-installation-de-formation-policy" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Pour dépendre de <tt class="xref py py-mod docutils literal"><span class="pre">collective.ckeditor</span></tt>, nous ne pouvons pas utiliser cette
+méthode car <tt class="xref py py-mod docutils literal"><span class="pre">collective.ckeditor</span></tt> utilise un profil.</p>
+<p>Plone depuis sa versions 3.3 inclut le package <tt class="xref py py-mod docutils literal"><span class="pre">z3c.autoinclude</span></tt>
+qui permet de ne pas se répéter. Vous pouvez utiliser la directive:</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;includeDependencies</span> <span class="na">package=</span><span class="s">&quot;.&quot;</span> <span class="nt">/&gt;</span>
 </pre></div>
 </div>
@@ -558,27 +535,17 @@ récupère à partir du fichier
 <p>Pour chaque dépendance dans l&#8217;ordre déclaré, elle va inclure dans l&#8217;ordre les
 fichiers <tt class="file docutils literal"><span class="pre">meta.zcml</span></tt>, <tt class="file docutils literal"><span class="pre">configure.zmcl</span></tt> et <tt class="file docutils literal"><span class="pre">overrides.zcml</span></tt>
 s&#8217;ils existent.</p>
-<p>Pour finir, créez un fichier <tt class="file docutils literal"><span class="pre">profiles/default/products.xml</span></tt> qui sera lu
-par l&#8217;importStep enregistré par <tt class="xref py py-mod docutils literal"><span class="pre">genericsetup.quickinstaller</span></tt> :</p>
-<div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
-<span class="nt">&lt;products&gt;</span>
-  <span class="nt">&lt;installs&gt;</span>
-    <span class="nt">&lt;product</span> <span class="na">name=</span><span class="s">&quot;FCKeditor&quot;</span> <span class="nt">/&gt;</span>
-  <span class="nt">&lt;/installs&gt;</span>
-<span class="nt">&lt;/products&gt;</span>
-</pre></div>
 </div>
-</div>
-<div class="section" id="configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs">
-<h3><a class="toc-backref" href="#id8">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a><a class="headerlink" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs" title="Lien permanent vers ce titre">¶</a></h3>
-<p>Vous allez configurer FCKeditor comme éditeur par défaut (seulement effectif
+<div class="section" id="configuration-de-ckeditor-pour-tous-les-nouveaux-utilisateurs">
+<h3><a class="toc-backref" href="#id8">Configuration de ckeditor pour tous les nouveaux utilisateurs</a><a class="headerlink" href="#configuration-de-ckeditor-pour-tous-les-nouveaux-utilisateurs" title="Lien permanent vers ce titre">¶</a></h3>
+<p>Vous allez configurer ckeditor comme éditeur par défaut (seulement effectif
 pour les nouveaux utilisateurs).</p>
 <p>Tout d&#8217;abord, dans Configuration du site, Modules, activez <em class="guilabel">formation.policy</em>.</p>
 <p>Allez dans <em class="guilabel">Configuration du site</em>, <em class="guilabel">ZMI</em>,
 <em class="guilabel">portal_setup</em>, <em class="guilabel">Snapshots</em>. Créez un snapshot.</p>
 <p>Retournez à la racine de la ZMI et cliquez sur <em class="guilabel">portal_memberdata</em>,
 cliquez sur l&#8217;onglet <em class="guilabel">Properties</em>.</p>
-<p>Éditez la propriété <em class="guilabel">wysiwyg_editor</em>, mettez la valeur <tt class="docutils literal"><span class="pre">FCKeditor</span></tt>.</p>
+<p>Éditez la propriété <em class="guilabel">wysiwyg_editor</em>, mettez la valeur <tt class="docutils literal"><span class="pre">CKEditor</span></tt>.</p>
 <p>Retournez dans <em class="guilabel">portal_setup</em>, <em class="guilabel">Snapshots</em>. Recréez un
 snapshot. Cliquez maintenant sur l&#8217;onglet <em class="guilabel">Comparison</em> et comparez
 vos deux snapshots. Vous voyez bien que la propriété <em>wysiwyg_editor</em>
@@ -596,7 +563,7 @@ Vous devez donc avoir au final un fichier
 <tt class="file docutils literal"><span class="pre">profiles/default/memberdata_properties.xml</span></tt> avec ce contenu :</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot;?&gt;</span>
 <span class="nt">&lt;object</span> <span class="na">name=</span><span class="s">&quot;portal_memberdata&quot;</span> <span class="na">meta_type=</span><span class="s">&quot;PlonePAS MemberData Tool&quot;</span><span class="nt">&gt;</span>
- <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;wysiwyg_editor&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">&gt;</span>FCKeditor<span class="nt">&lt;/property&gt;</span>
+ <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;wysiwyg_editor&quot;</span> <span class="na">type=</span><span class="s">&quot;string&quot;</span><span class="nt">&gt;</span>CKEditor<span class="nt">&lt;/property&gt;</span>
 <span class="nt">&lt;/object&gt;</span>
 </pre></div>
 </div>
@@ -610,9 +577,13 @@ tools Plone.</p>
 <em class="guilabel">Configuration du site</em>, <em class="guilabel">Modules</em>, vous pouvez y lire :</p>
 <ul class="simple">
 <li>formation.policy 1.0
-Ce module a été mis à jour. L&#8217;ancienne version du profil est 1000. La nouvelle version du profil est 1001. Il n&#8217;y a pas de procédure de mise à jour pour ce module. Merci de consulter la documentation du module pour la mise à jour, ou contacter l&#8217;auteur du module.</li>
+Ce module a été mis à jour. L&#8217;ancienne version du profil est 1000.
+La nouvelle version du profil est 1001. Il n&#8217;y a pas de procédure de mise à
+jour pour ce module. Merci de consulter la documentation du module pour
+la mise à jour, ou contacter l&#8217;auteur du module.</li>
 </ul>
-<p>Il faut en effet écrire un procédure de migration de la version 1000 vers la version 1001.</p>
+<p>Il faut en effet écrire un procédure de migration de la version 1000
+vers la version 1001.</p>
 <p>Ajoutez dans <tt class="file docutils literal"><span class="pre">configure.zcml</span></tt> :</p>
 <div class="highlight-xml"><div class="highlight"><pre><span class="nt">&lt;genericsetup:upgradeDepends</span>
     <span class="na">title=</span><span class="s">&quot;formation.policy 1000 to 1001&quot;</span>
@@ -951,8 +922,8 @@ dans le fichier :</p>
 <li><a class="reference internal" href="#creation-du-policy-package">Création du policy package</a></li>
 <li><a class="reference internal" href="#installation-de-products-collage-a-l-installation-de-formation-policy">Installation de Products.Collage à l&#8217;installation de formation.policy</a></li>
 <li><a class="reference internal" href="#declaration-de-formation-policy-comme-plugin-plone">Déclaration de formation.policy comme plugin Plone</a></li>
-<li><a class="reference internal" href="#installation-de-products-fckeditor-a-l-installation-de-formation-policy">Installation de Products.FCKeditor à l&#8217;installation de formation.policy</a></li>
-<li><a class="reference internal" href="#configuration-de-fckeditor-pour-tous-les-nouveaux-utilisateurs">Configuration de FCKeditor pour tous les nouveaux utilisateurs</a></li>
+<li><a class="reference internal" href="#installation-de-collective-ckeditor-a-l-installation-de-formation-policy">Installation de collective.ckeditor à l&#8217;installation de formation.policy</a></li>
+<li><a class="reference internal" href="#configuration-de-ckeditor-pour-tous-les-nouveaux-utilisateurs">Configuration de ckeditor pour tous les nouveaux utilisateurs</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#a-propos-des-versions">À propos des versions</a></li>

@@ -29,7 +29,7 @@
           title="Recherchez dans Plone pour les intégrateurs 1.0.0 documentation"
           href="_static/opensearch.xml"/>
     <link rel="top" title="Plone pour les intégrateurs 1.0.0 documentation" href="index.html" />
-    <link rel="next" title="Les nouveautés de Plone 3" href="presentation_nouveautes_plone3.html" />
+    <link rel="next" title="Les nouveautés de Plone" href="changes/index.html" />
     <link rel="prev" title="A propos de ce document" href="apropos.html" />
 <script language="javascript">
 //<![CDATA[
@@ -106,7 +106,7 @@ href="http://www.apple.com/safari/download/">Safari</a></p>
           <a href="genindex.html" title="Index général"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="presentation_nouveautes_plone3.html" title="Les nouveautés de Plone 3"
+          <a href="changes/index.html" title="Les nouveautés de Plone"
              accesskey="N">suivant</a> |</li>
         <li class="right" >
           <a href="apropos.html" title="A propos de ce document"
@@ -167,9 +167,9 @@ qui existe depuis 2001.</p>
 <p>Le CMS Plone évolue constamment sans perte de compatibilité. Il est maintenu
 par une communauté de sociétés qui en assure la pérennité et l&#8217;adéquation avec
 le besoin des clients.</p>
-<p>En France on trouve pas moins de 11 sociétés spécialisées réalisant en support
-expert sur cette technologie sur les 336 sociétés mondiales réparties sur 62
-pays (C.f.  ).</p>
+<p>En France on trouve pas moins de 14 sociétés spécialisées réalisant en support
+expert sur cette technologie sur les 369 sociétés mondiales réparties sur 62
+pays (C.f. <a class="reference external" href="http://plone.org/support/providers">http://plone.org/support/providers</a>).</p>
 </div>
 <div class="section" id="centralisation-des-documents">
 <h2>Centralisation des documents<a class="headerlink" href="#centralisation-des-documents" title="Lien permanent vers ce titre">¶</a></h2>
@@ -576,31 +576,42 @@ licence compatible GPL.</p>
 Creative-Common Share Alike By, ils sont donc librement téléchargeables et
 peuvent être partagés, modifiés tant qu&#8217;à votre tour vous redistribuez vos
 améliorations sous les même termes de licence.</p>
-<p>Des tutoriels en ligne peuvent être installés (produit Amberjack). Ces
-tutoriels permettent de réaliser sous forme d&#8217;exercices les étapes
-fondamentales à la création et à la publication de document.</p>
 </div>
 <div class="section" id="securisation">
 <h3>Sécurisation<a class="headerlink" href="#securisation" title="Lien permanent vers ce titre">¶</a></h3>
-<p>La sécurité de Plone passe par l&#8217;utilisation du protocole ssl et vous devez
-donc acheter un certificat X509 auprès d&#8217;une autorité reconnue par vos
-navigateurs internet ou en générer un autosigné.</p>
+<p>La sécurité de tout site Internet passe par l&#8217;utilisation du protocole ssl et
+vous devez donc acheter un certificat X509 auprès d&#8217;une autorité reconnue
+par les navigateurs internet ou en générer un autosigné.</p>
 </div>
 <div class="section" id="statistiques">
 <h3>Statistiques<a class="headerlink" href="#statistiques" title="Lien permanent vers ce titre">¶</a></h3>
 <p>Les rapports sur la fréquentation sont donnés par des outils libres
-complémentaires tels que webalizer, ou fournissant les même services que Google
+complémentaires tels que piwik, ou fournissant les même services que Google
 Analytics pour les sites web.</p>
-<p>Par exemple avec piwik  nous retrouvons toutes la richesse d&#8217;Analytics ce qui
-vous permet de définir nos propres statistiques.</p>
-<p>Piwik possède en plus l&#8217;avantage de pouvoir tenir compte des pages servies par
-les caches.</p>
+<p>Piwik offre une solution très avancée pour réaliser l&#8217;analyse du trafic sur
+votre site Internet. Le <a class="reference external" href="http://pypi.python.org/pypi/collective.piwik.core">module plone collective.piwik.core</a></p>
 <p>Ceci est rendu possible par l&#8217;utilisation d&#8217;un script javascript exécuté par le
 navigateur chaque fois qu&#8217;une page du portail est affichée.</p>
 <div class="figure">
 <img alt="_images/picture_2.png" src="_images/picture_2.png" />
 <p class="caption">Statistiques avec Piwik</p>
 </div>
+<p>La solution <a class="reference external" href="http://www.google.com/analytics/">Google ananlytics</a>
+est supportée grace au module <a class="reference external" href="http://pypi.python.org/pypi/collective.googleanalytics">collective.googleanalytics</a>
+qui met à disposition une intégration très avancée des événements suivant:</p>
+<ul class="simple">
+<li>téléchargement</li>
+<li>lien externe</li>
+<li>commentaire</li>
+<li>lien sur un email (contact)</li>
+</ul>
+<p>De plus ce module est intégré automatiquement avec les modules suivants et
+donc votre analyse pourra bénéficier des actions utilisateurs supplémentaires
+correspondant au module:</p>
+<ul class="simple">
+<li>collective.addthis (partage sur réseaux sociaux)</li>
+<li>Products.PloneFormGen (définition d&#8217;objectifs)</li>
+</ul>
 </div>
 </div>
 </div>
@@ -657,8 +668,8 @@ navigateur chaque fois qu&#8217;une page du portail est affichée.</p>
   <p class="topless"><a href="apropos.html"
                         title="Chapitre précédent">A propos de ce document</a></p>
   <h4>Sujet suivant</h4>
-  <p class="topless"><a href="presentation_nouveautes_plone3.html"
-                        title="Chapitre suivant">Les nouveautés de Plone 3</a></p>
+  <p class="topless"><a href="changes/index.html"
+                        title="Chapitre suivant">Les nouveautés de Plone</a></p>
   <h3>Cette page</h3>
   <ul class="this-page-menu">
     <li><a href="_sources/presentation_plone.txt"
@@ -688,7 +699,7 @@ navigateur chaque fois qu&#8217;une page du portail est affichée.</p>
           <a href="genindex.html" title="Index général"
              >index</a></li>
         <li class="right" >
-          <a href="presentation_nouveautes_plone3.html" title="Les nouveautés de Plone 3"
+          <a href="changes/index.html" title="Les nouveautés de Plone"
              >suivant</a> |</li>
         <li class="right" >
           <a href="apropos.html" title="A propos de ce document"

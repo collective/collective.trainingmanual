@@ -1,8 +1,5 @@
 .. -*- coding: utf-8 -*-
 
-.. _nouveautes_plone4:
-
-=========================
 Les nouveautés de Plone 4
 =========================
 
@@ -13,7 +10,7 @@ Présentation des nouveautés de Plone 4 par rapport à Plone 3.3.
 .. contents:: :local:
 
 Performances
-============
+------------
 
 Plone 4 est centrée sur l'amélioration des performances.
 Il est en environ deux fois plus rapide que Plone 3, et jusqu'à quatre fois
@@ -29,7 +26,7 @@ qu'au passage à Python 2.6 plus rapide et moins gourmand que Python 2.4.
 <http://plone.fr/decouverte-de-plone-4/amelioration-significative-des-performances>`__
 
 Thème
-=====
+-----
 
 Plone 4 possède un nouveau thème par défaut appelé "Sunburst", élégant et, minimaliste.
 Il est conçu comme un composant à part, mais inclus par défaut.
@@ -44,7 +41,7 @@ Il est prévu pour être compatible avec le futur outil de mise en page Deco pr�
 <http://plone.org/products/plone/features/new-look>`__
 
 Ergonomie
-=========
+---------
 
 L'interface utilisateur de Plone 4 a été améliorée.
 
@@ -71,7 +68,7 @@ les critères sont choisis par un système de plié/déplié beaucoup plus clair
 
 
 Amélioration de l'administration du site
-========================================
+----------------------------------------
 
 Ordonnancement dans les dossiers amélioré
 -----------------------------------------
@@ -115,7 +112,7 @@ Plone 4 prévoit la possibilité d'autoriser l'authentification de l'utilisateur
 par son email plutôt que par son login.
 
 Amélioration de la customisation du site
-========================================
+----------------------------------------
 
 Gestion des icones d'actions
 ----------------------------
@@ -130,7 +127,7 @@ Les css ne sont plus écrites en dtml, mais en texte pur.
 L'expérience d'utilisation a montré que l'utilisation de variables dans les css posait plus de risques qu'elle ne faisait gagner de temps.
 
 Améliorations techniques
-========================
+------------------------
 
 Utilisation de Python 2.6 et Zope 2.12
 --------------------------------------
@@ -199,7 +196,7 @@ les seconds étant des BTree. Les Folder sont maintenant des BTree et les Large 
 <http://plone.org/products/plone/features/new-faster-folder-implementation>`__
 
 Migration de Plone 3.3 vers Plone 4
-===================================
+-----------------------------------
 
 Plone 4 apporte quelques changements radicaux. Il vous faudra sans doute adapter
 le code de vos produits.

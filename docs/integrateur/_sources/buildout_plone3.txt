@@ -176,7 +176,7 @@ Prenons le produit `FCKeditor`_ comme exemple.
 
 Stoppez l'instance avec Ctrl+C.
 
-Ajoutez ``Products.FCKeditor`` dans l'option *eggs* de la section ``[instance]``
+Ajoutez ``collective.ckeditor`` dans l'option *eggs* de la section ``[instance]``
 et reexécutez le buildout :
 
 .. code-block:: sh
@@ -197,7 +197,7 @@ des modules créés avec la commande :command:`paster` que vous verrez dans
 la suite. Dans ce cas-là les fichiers zcml seront inclus grâce à
 :mod:`z3c.autoinclude`.
 
-.. _`FCKeditor`: http://pypi.python.org/pypi/Products.FCKeditor
+.. _`FCKeditor`: http://pypi.python.org/pypi/collective.ckeditor
 
 Création d'un policy package contenant la configuration du site Plone
 =====================================================================
@@ -207,7 +207,7 @@ Plone.
 
 Dans ce :term:`policy package`, nous allons aussi dire d'installer
 automatiquement les produits :mod:`Products.Collage` et
-:mod:`Products.FCKeditor` lors de l'installation du produit.
+:mod:`collective.ckeditor` lors de l'installation du produit.
 
 Nous allons ensuite configurer FCKeditor comme éditeur par défaut pour les
 utilisateurs nouvellement créés.
@@ -254,7 +254,7 @@ de votre nouveau package dans le dossier src :
     $ svn add EXTERNALS.txt
     $ svn ci -m "Set svn:externals on src directory to install formation.policy"
 
-Ajoutez :mod:`Products.Collage` et :mod:`Products.FCKeditor` en dépendances
+Ajoutez :mod:`Products.Collage` et :mod:`collective.ckeditor` en dépendances
 de :mod:`formation.policy` dans le fichier :file:`src/formation.policy/setup.py`
 (option install_requires).
 
@@ -456,45 +456,14 @@ Vous avez le même principe pour les fichiers :file:`meta.zcml` et
 :file:`overrides.zcml`, jetez un œil dans :file:`Products/CMFPlone/meta.zcml` et
 :file:`Products/CMFPlone/overrides.zcml`.
 
-Installation de Products.FCKeditor à l'installation de formation.policy
+Installation de collective.ckeditor à l'installation de formation.policy
 -----------------------------------------------------------------------
 
-Pour dépendre de :mod:`Products.FCKeditor`, nous ne pouvons pas utiliser cette
-méthode car :mod:`Products.FCKeditor` n'utilise pas de profil, mais l'ancien
-dossier Extensions pour être installé via le tool ``portal_quickinstaller``.
+Pour dépendre de :mod:`collective.ckeditor`, nous ne pouvons pas utiliser cette
+méthode car :mod:`collective.ckeditor` utilise un profil.
 
-Il existe un produit pour installer des vieux produits à partir d'un profil :
-`genericsetup.quickinstaller`_.
-
-Ce produit enregistre un nouvel ``importStep`` dans ``portal_setup`` qui regarde
-lors de l'installation d'un produit s'il existe un fichier :file:`products.xml`
-dans le dossier du profile.
-
-Pour que cela marche, il faut que le fichier :file:`configure.zmcl` de
-:mod:`genericsetup.quickinstaller` soit lu d'une manière ou d'une autre au
-démarrage.
-
-Ajoutez :mod:`genericsetup.quickinstaller` dans :file:`setup.py`
-``install_requires`` du :term:`policy package`.
-
-Il faut donc lire le fichier :file:`configure.zmcl` du produit
-:mod:`genericsetup.quickinstaller`, vous pouvez ajouter dans
-:file:`src/formation.policy/src/formation/policy/configure.zcml`, cette directive :
-
-.. code-block:: xml
-
-    <include package="genericsetup.quickinstaller" />
-
-Ici l'option ``file`` n'est pas précisée, la valeur par défaut étant
-``file="configure.zcml"``.
-
-L'inconvénient de cette ligne est que vous avez l'information
-:mod:`genericsetup.quickinstaller` à deux endroits, une première fois dans le
-fichier :file:`setup.py` et une deuxième fois dans :file:`configure.zmcl`.
-
-Plone 3.3 inclut le package :mod:`z3c.autoinclude` qui permet de ne pas se
-répéter. En lieu et place de la ligne ci-dessus, vous pouvez utiliser celle-ci
-:
+Plone depuis sa versions 3.3 inclut le package :mod:`z3c.autoinclude`
+qui permet de ne pas se répéter. Vous pouvez utiliser la directive:
 
 .. code-block:: xml
 
@@ -509,24 +478,10 @@ Pour chaque dépendance dans l'ordre déclaré, elle va inclure dans l'ordre les
 fichiers :file:`meta.zcml`, :file:`configure.zmcl` et :file:`overrides.zcml`
 s'ils existent.
 
-Pour finir, créez un fichier :file:`profiles/default/products.xml` qui sera lu
-par l'importStep enregistré par :mod:`genericsetup.quickinstaller` :
+Configuration de ckeditor pour tous les nouveaux utilisateurs
+-------------------------------------------------------------
 
-.. code-block:: xml
-
-    <?xml version="1.0"?>
-    <products>
-      <installs>
-        <product name="FCKeditor" />
-      </installs>
-    </products>
-
-.. _`genericsetup.quickinstaller`: http://pypi.python.org/pypi/genericsetup.quickinstaller
-
-Configuration de FCKeditor pour tous les nouveaux utilisateurs
---------------------------------------------------------------
-
-Vous allez configurer FCKeditor comme éditeur par défaut (seulement effectif
+Vous allez configurer ckeditor comme éditeur par défaut (seulement effectif
 pour les nouveaux utilisateurs).
 
 Tout d'abord, dans Configuration du site, Modules, activez :guilabel:`formation.policy`.
@@ -537,7 +492,7 @@ Allez dans :guilabel:`Configuration du site`, :guilabel:`ZMI`,
 Retournez à la racine de la ZMI et cliquez sur :guilabel:`portal_memberdata`,
 cliquez sur l'onglet :guilabel:`Properties`.
 
-Éditez la propriété :guilabel:`wysiwyg_editor`, mettez la valeur ``FCKeditor``.
+Éditez la propriété :guilabel:`wysiwyg_editor`, mettez la valeur ``CKEditor``.
 
 Retournez dans :guilabel:`portal_setup`, :guilabel:`Snapshots`. Recréez un
 snapshot. Cliquez maintenant sur l'onglet :guilabel:`Comparison` et comparez
@@ -562,7 +517,7 @@ Vous devez donc avoir au final un fichier
 
     <?xml version="1.0"?>
     <object name="portal_memberdata" meta_type="PlonePAS MemberData Tool">
-     <property name="wysiwyg_editor" type="string">FCKeditor</property>
+     <property name="wysiwyg_editor" type="string">CKEditor</property>
     </object>
 
 Vous pouvez exporter de cette façon presque la totalité des configurations des
@@ -578,9 +533,13 @@ Maintenant si vous redémarrez l'instance et que vous allez dans
 :guilabel:`Configuration du site`, :guilabel:`Modules`, vous pouvez y lire :
 
 - formation.policy 1.0
-  Ce module a été mis à jour. L'ancienne version du profil est 1000. La nouvelle version du profil est 1001. Il n'y a pas de procédure de mise à jour pour ce module. Merci de consulter la documentation du module pour la mise à jour, ou contacter l'auteur du module.
+  Ce module a été mis à jour. L'ancienne version du profil est 1000.
+  La nouvelle version du profil est 1001. Il n'y a pas de procédure de mise à
+  jour pour ce module. Merci de consulter la documentation du module pour
+  la mise à jour, ou contacter l'auteur du module.
 
-Il faut en effet écrire un procédure de migration de la version 1000 vers la version 1001.
+Il faut en effet écrire un procédure de migration de la version 1000
+vers la version 1001.
 
 Ajoutez dans :file:`configure.zcml` :
 

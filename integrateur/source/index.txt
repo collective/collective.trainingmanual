@@ -33,8 +33,7 @@ California 94105, USA.
 
    apropos
    presentation_plone
-   presentation_nouveautes_plone3
-   presentation_nouveautes_plone4
+   changes/index
    parametrage_plone
    choix_et_ajout_d_un_module
    presentation_http
