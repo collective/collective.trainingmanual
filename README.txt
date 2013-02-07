@@ -15,7 +15,7 @@ nécessaires à la construction de cette documentation aux formats HTML et PDF.
 Python et modules supplémentaires
 ---------------------------------
 
-Ca va de soi. Il vous faut une installation Python 2.4 ou plus
+Ca va de soi. Il vous faut une installation Python 2.6 ou plus
 récente. Attention, Python 3.x n'est pas (encore) supporté.
 
 Installez `distribute
