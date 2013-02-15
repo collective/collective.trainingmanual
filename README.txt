@@ -18,35 +18,6 @@ Python et modules supplémentaires
 Ca va de soi. Il vous faut une installation Python 2.6 ou plus
 récente. Attention, Python 3.x n'est pas (encore) supporté.
 
-Installez `distribute
-<http://pypi.python.org/pypi/distribute#installation-instructions>`_.
-
-Puis : ::
-
-  $ easy_install virtualenv
-  $ easy_install virtualenvwrapper
-  $ mkdir ~/.virtualenvs
-
-Ajoutez dans votre .bashrc : ::
-
-  TMPDIR=/tmp
-  source /usr/local/bin/virtualenvwrapper.sh
-
-Créez un environnement sphinx et installez Sphinx : ::
-
-  $ mkvirtualenv sphinx
-  (sphinx)$ easy_install Sphinx
-
-Le bas de la page http://docs.ecreall.com/developpeur/ vous indique quelle
-version minimum de Sphinx installer.
-
-.. admonition::
-   ``sudo`` ?
-
-   Selon votre installation Python sous Unix (Linux, MacOSX, ...) il vous faudra
-   remplacer ``easy_install`` par ``sudo easy_install`` pour l'installation de
-   virtualenv et virtualenvwrapper (pas pour Sphinx).
-
 Latex (optionnel)
 -----------------
 
@@ -111,17 +82,6 @@ Vous pouvez ouvrir maintenant
 ``collective.trainingmanual/docs/integrateur/index.html`` dans votre navigateur
 favori.
 
-Pour obtenir la documentation en PDF : ::
-
-  $ workon sphinx
-  (sphinx)$ cd collective.trainingmanual/sphinx
-  (sphinx)$ make latex
-  (sphinx)$ cd build/latex
-  (sphinx)$ make all-pdf
-
-Vous pouvez ouvrir maintenant
-``collective.trainingmanual/sphinx/build/latex/FormationPlone.pdf`` avec votre
-visionneuse PDF favorite (Evince, Acrobat Reader, ...)
 
 Règles de rédaction
 ===================
