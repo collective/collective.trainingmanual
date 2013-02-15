@@ -457,7 +457,7 @@ Vous avez le même principe pour les fichiers :file:`meta.zcml` et
 :file:`Products/CMFPlone/overrides.zcml`.
 
 Installation de collective.ckeditor à l'installation de formation.policy
------------------------------------------------------------------------
+------------------------------------------------------------------------
 
 Pour dépendre de :mod:`collective.ckeditor`, nous ne pouvons pas utiliser cette
 méthode car :mod:`collective.ckeditor` utilise un profil.
