@@ -30,9 +30,9 @@ Linux Debian / Ubuntu
 
 Tout est disponible sous forme de packages pré-compilés : ::
 
-  $ sudo apt-get install texlive
+  $ sudo apt-get install texlive-full
 
-texlive remplace les packages tetex-base tetex-bin tetex-extra, normalement.
+texlive remplace les packages tetex-base tetex-bin tetex-extra.
 
 MacOSX
 ......
