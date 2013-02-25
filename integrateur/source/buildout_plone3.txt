@@ -9,7 +9,6 @@ Création d'un buildout Plone avec ZopeSkel
 :Author: Vincent Fretin
 :Contributors:
 :Version: 1.0.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
 
 Copyright (C) 2010 Vincent Fretin <vincentfretin AT ecreall.com>.
 

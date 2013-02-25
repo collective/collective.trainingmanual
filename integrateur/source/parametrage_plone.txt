@@ -9,7 +9,6 @@ Paramétrer votre site Plone
 :Author: Thomas Desvenain
 :Created: 2010-10-18
 :Version: 0.1.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
 
 Copyright (C) 2010 Thomas Desvenain <thomas.desvenain AT gmail.com>.
 

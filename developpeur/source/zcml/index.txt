@@ -8,7 +8,6 @@ Le langage ZCML
 
 :Author: Gilles Lenfant
 :Version: 1.0.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/zcml/index.txt>`_
 
 En explorant le code de Plone, vous avez rencontré de nombreux fichiers
 :file:`*.zcml`. En vous demandant à quoi celà peut bien servir.

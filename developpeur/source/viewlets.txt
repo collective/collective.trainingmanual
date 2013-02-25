@@ -12,7 +12,6 @@ Vincent Scotto)
 :Author: Gilles Lenfant
 :Contributors: Thomas Desvenain
 :Version: 1.0.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/viewlets.txt>`_
 
 Copyright (C) 2010 `Gilles Lenfant <gilles.lenfant AT gmail.com>`_.
 

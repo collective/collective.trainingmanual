@@ -8,7 +8,6 @@ Introduction à zc.buildout
 
 :Author: Vincent Fretin
 :Contributors:
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_buildout.txt>`_
 
 Copyright (C) 2010 Vincent Fretin <vincentfretin AT gmail.com>.
 

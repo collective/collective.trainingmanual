@@ -9,7 +9,6 @@ Internationalisation d'un composant
 :Author: Vincent Fretin
 :Version: 1.0.0
 :Contributors: Thomas Desvenain
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/internationalisation.txt>`_
 
 Copyright (C) 2010, Vincent Fretin <vincentfretin AT gmail.com>.
 
@@ -47,7 +46,7 @@ Pour l'installer, ajoutez à votre buildout :
         collective.trainingmanual.i18nexamples
 
     [sources]
-    collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/collective.trainingmanual.i18nexamples
+    collective.trainingmanual.i18nexamples = svn https://svn.plone.org/svn/collective/collective.trainingmanual/trunk.old/fr/examples/collective.trainingmanual.i18nexamples
 
 Vous pourrez observer les exemples de cette formation en allant à l'adresse
 /i18nexamples depuis la racine de votre site.

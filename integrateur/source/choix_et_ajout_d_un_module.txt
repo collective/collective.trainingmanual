@@ -8,7 +8,6 @@ Choix et ajout d'un module
 
 :Author: Michael Launay
 :Version: 0.1.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/choix_et_ajout_d_un_module.txt>`_
 
 Copyright (C) 2010 Michael Launay <michaellaunay AT ecreall.com>.
 

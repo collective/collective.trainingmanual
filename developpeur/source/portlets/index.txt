@@ -8,7 +8,6 @@ Les portlets
 
 :Author: Gilles Lenfant
 :Version: 1.0.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/developpeur/source/portlets/index.txt>`_
 
 Copyright (C) 2010 `Gilles Lenfant <gilles.lenfant AT gmail.com>`_.
 

@@ -9,7 +9,6 @@ Déploiement et backup
 :Author: Vincent Fretin
 :Contributors: Thomas Desvenain
 :Version: 1.0.0
-:Révision: `<https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/integrateur/source/presentation_plone.txt>`_
 
 Copyright (C) 2010 Vincent Fretin <vincentfretin AT ecreall.com>.
 
@@ -66,7 +65,8 @@ Vous pouvez récupérer l'exemple complet de buildout sur le collective :
 
 .. code-block:: sh
 
-    $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/buildout
+    $ git clone git://github.com/collective/collective.trainingmanual.git
+    $ cd collective.trainingmanual/examples/buildout
 
 Le :file:`buildout.cfg` du chapitre précédent est légèrement modifié :
 
