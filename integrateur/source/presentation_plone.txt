@@ -607,7 +607,7 @@ navigateur chaque fois qu'une page du portail est affichée.
 
    Statistiques avec Piwik
 
-La solution `Google ananlytics <http://www.google.com/analytics/>`_
+La solution `Google analytics <http://www.google.com/analytics/>`_
 est supportée grace au module `collective.googleanalytics
 <http://pypi.python.org/pypi/collective.googleanalytics>`_
 qui met à disposition une intégration très avancée des événements suivant:
