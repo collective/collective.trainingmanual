@@ -31,8 +31,8 @@ A la gestion des login / mot de passe et des rôles des utilisateurs,
 - L'attribution de rôles globaux et contextuels
 
 De plus, et comme son nom l'indique, les mécanismes de base de :mod:`PlonePAS`
- sont fournis par des composants dits :term:`plugin` qui permettent une grande
- souplesse pour personnaliser ses propres règles :
+sont fournis par des composants dits :term:`plugin` qui permettent une grande
+souplesse pour personnaliser ses propres règles :
 
 - D'extraction des données d'authentification
 - D'authentification
