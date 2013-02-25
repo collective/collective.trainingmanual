@@ -288,13 +288,9 @@ Créez le fichier :file:`~/.buildout/default.cfg` avec ce contenu :
     eggs-directory = /home/vincentfretin/.buildout/eggs
     download-cache = /home/vincentfretin/.buildout/downloads
     #extends-cache = /home/vincentfretin/.buildout/configs
-    zope-directory = /home/vincentfretin/.buildout/zope
 
 Remplacez ici bien sûr ``vincentfretin`` par votre compte. Vous ne pouvez pas
 utiliser le caractère *~* ici.
-
-L'option :data:`zope-directory` permet de partager la même installation de
-Zope 2.10.x pour plusieurs buildouts Plone 3.3.x.
 
 À savoir que les valeurs par défaut de ces variables sont : ::
 
