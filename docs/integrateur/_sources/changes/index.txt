@@ -1,9 +1,0 @@
-=======================
-Les nouveautés de Plone
-=======================
-
-.. toctree::
-   :maxdepth: 1
-
-   plone4_0.txt
-   plone3.txt
