@@ -50,7 +50,7 @@ Savoir
 - Apache
 - Varnish
 - HAproxy
-- CacheFu / plone.app.caching
+- plone.app.caching
 - Supervisor
 
 Profil de déploiement
