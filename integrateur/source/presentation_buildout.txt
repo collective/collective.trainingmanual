@@ -354,8 +354,7 @@ pas gelés avec leur version.
 
 Une extension s'ajoute avec l'option ``extensions`` de la section ``[buildout]``
 Ajoutez donc l'extension :mod:`buildout.dumppickedversions` à votre fichier
-:file:`~/.buildout/default.cfg`, comme cela l'extension sera active pour tous
-vos buildouts :
+:file:`buildout.cfg` :
 
 .. code-block:: cfg
 
