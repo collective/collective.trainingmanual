@@ -100,7 +100,7 @@ Vous trouvez dans chaque colonne, de haut en bas :
 - La liste des portlets actuellement associées au contenu courant - la racine de
   Plone dans notre cas.  Chaque portlet étant représentée dans un cadre bleu-ciel,
   dans la skin par défaut.  Chaque représentation de portlet étant
-  accompagnée des widgets de déplacement, et de suppression.Si la portlet est
+  accompagnée des widgets de déplacement, et de suppression. Si la portlet est
   paramétrable, le titre de la portlet est un lien hypertexte au formulaire ad
   hoc.  Nous y reviendrons plus loin.
 
@@ -223,7 +223,7 @@ composant est construit selon la structure classique suivante à partir du nivea
 
 .. code-block:: sh
 
-   $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk/fr/examples/formation.portlet.author formation.portlet.author
+   $ svn co https://svn.plone.org/svn/collective/collective.trainingmanual/trunk.old/fr/examples/formation.portlet.author formation.portlet.author
 
 .. list-table:: Fichiers principaux du composant
    :widths: 15 60
@@ -406,7 +406,7 @@ Ce module fournit l'essentiel du corps de la portlet, et contient les éléments
        noter qu'un objet de type :class:`Renderer` doit propager le constructeur
        à sa classe mère (voir l'instruction "super(...)" au début du
        constructeur) et dispose de ce fait des attributs suivants : À noter que
-       ces deux derniers attributs sont rarement utilisés.Vous noterez également
+       ces deux derniers attributs sont rarement utilisés. Vous noterez également
        que cette classe propose un attribut booléen ``available``. Celui-ci est
        facultatif et "True" par défaut. Si cet attribut est ``False``, la
        portlet n'est pas affichée.
@@ -457,9 +457,9 @@ Et le résultat...
 =================
 
 Le composant :mod:`formation.portlet.author` a été ajouté dans l'instance Zope,
-puis ajouté à un site Plone par le biais du QuickInstaller ou du panneau de
-configuration d'installation des produits.  Vous connaissez déjà ces étapes si
-vous êtes arrivé à ce point du site.
+puis ajouté à un site Plone depuis le panneau de configuration d'installation
+des modules. Vous connaissez déjà ces étapes si vous êtes arrivé à ce point du
+site.
 
 Le membre Albert Einstein a réalisé une étude scientifique très intéressante
 qu'il a publiée dans une page Plone...
