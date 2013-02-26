@@ -11,7 +11,7 @@ Qu'est-ce que c'est ?
 
 Les vues standard, comme leur nom ne l'indiquent pas, ne sont pas des vues HTML
 sur les contenus d'un site Plone mais des multi-adapteurs (voir
-:ref:`guide_zca`) permettant d'acéder aux ressources les plus fréquemment
+:ref:`guide_zca`) permettant d'accéder aux ressources les plus fréquemment
 utilisées lors de la programmation de vos applications pour Plone, pour réaliser
 vos templates ou dans les expressions utilisées dans les actions.
 
@@ -32,7 +32,7 @@ avantages :
 
 * Si l'architecture logicielle sous-jacente est amenée à changer dans le futur,
   l'accès aux services et informations supportée par la dite architecture seront
-  inchangés grâce particulièrement à ces vues
+  inchangés grâce particulièrement à ces vues.
 
 * Les éléments retournés par ces vues sont "cachés" dans la mesure du
   possible. C'est-à-dire que seul le premier accès à un objet retourné par ces
@@ -40,8 +40,8 @@ avantages :
   immédiats.
 
 
-Quelles vues sont proposées
-===========================
+Quelles vues sont proposées ?
+=============================
 
 Plone propose en standard les vues suivantes :
 
@@ -76,7 +76,7 @@ Plone propose en standard les vues suivantes :
    :ref:`vue_plone_layout`.
 
    Si le composant que vous développez n'est pas supposé être compatible avec
-   une versions de Plone antérieure à Plone 3, vous préfèrerez l'utilisation des
+   une versions de Plone antérieure à Plone 3, vous préférerez l'utilisation des
    méthodes proposées par ces dernières vues.
 
 
@@ -132,7 +132,7 @@ verbeuse, elle est plus efficace en terme de performances.
    # Fournir l'objet de contexte par le moyen le plus approprié
    context = myOwnWayToGetIt() # Comme bon vous semble
    # Fournir l'objet request. Par défaut, vous pourrez utiliser l'acquisition
-   # A noter que dans les classes de vues, ces deux objets sont généralement
+   # À noter que dans les classes de vues, ces deux objets sont généralement
    # self.context et self.request
    request = context.REQUEST
    # Obtenir la vue

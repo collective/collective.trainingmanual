@@ -9,7 +9,7 @@ La vue "plone"
 Cette vue fournit nombre d'informations particulièrement utiles dans la
 construction de vos templates.
 
-A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+À noter que dans vos templates utilisant la macro de gabarit de page par défaut,
 cette vue est accessible par l'objet ``plone_view``.
 
 .. code-block:: xml

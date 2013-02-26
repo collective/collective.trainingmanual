@@ -176,7 +176,7 @@ Plugins`_ activés sont cumulées.
 
 Interface : :class:`Products.PluggableAuthService.interfaces.plugins.IPropertiesPlugin`
 
-A noter que les plugins de ce type peuvent également implémenter l'interface
+À noter que les plugins de ce type peuvent également implémenter l'interface
 :class:`Products.PlonePAS.interfaces.plugins.IMutablePropertiesPlugin`
 lorsqu'ils offrent à Plone la possibilité de modifier les propriétés de
 l'utilisateur.

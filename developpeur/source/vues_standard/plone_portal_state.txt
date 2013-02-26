@@ -63,11 +63,11 @@ Détails dans :class:`plone.app.layout.globals.interfaces.IPortalState`
 
 .. hint:: Objet portail
 
-   Grace à la :term:`ZCA` décrite dans :ref:`guide_zca`, une méthode plus rapide
+   Grâce à la :term:`ZCA` décrite dans :ref:`guide_zca`, une méthode plus rapide
    permet d'obtenir l'objet portail de façon plus efficace :
 
    .. code-block:: python
 
-      from zope.site.hooks import getSite
+      from zope.component.hooks import getSite
       # ...
       portal = getSite()

@@ -181,7 +181,7 @@ Définition des termes et abréviations utilisés dans ce document.
 
   interface marqueur
     une :term:`interface` vide (sans attribut ni méthode) permettant de placer
-    un tag sur un objet. A noter qu'une :term:`interface` est associée à un
+    un tag sur un objet. À noter qu'une :term:`interface` est associée à un
     classe alors qu'une :term:`interface marqueur` est attribuée objet par
     objet.
 

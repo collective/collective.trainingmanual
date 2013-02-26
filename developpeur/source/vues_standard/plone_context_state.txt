@@ -9,7 +9,7 @@ La vue "plone_context_state"
 Cette vue fournit de nombreuses méthodes et attributs fournissant des
 informations sur l'objet de contexte publié.
 
-A noter que dans vos templates utilisant la macro de gabarit de page par défaut,
+À noter que dans vos templates utilisant la macro de gabarit de page par défaut,
 cette vue est accessible par l'objet ``context_state``.
 
 .. code-block:: xml

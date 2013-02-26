@@ -142,7 +142,7 @@ Plone fournit en standard toute une liste de portlets. Essayez-les...
      - Fournit à un modérateur la liste des contenus en attente d'approbation
        (voir le chapitre sur les workflows).
    * - :guilabel:`RSS feed`
-     - Présentation des entrées d'un flux RSS. A noter que ceci permet de
+     - Présentation des entrées d'un flux RSS. À noter que ceci permet de
        présenter facilement les premiers élément d'une collection dans une
        portlet.
    * - :guilabel:`Classic portlet`
