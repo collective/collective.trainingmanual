@@ -67,7 +67,7 @@ qui permettent d'ordonnancer les viewlets avec un maximum de flexibilité.
 Cette souplesse permise par les `viewlet managers` rend de moins en moins
 nécessaire la surcharge de la ``main_template`` lors de la réalisation de vos
 skins personnelles. Comme nous le verrons plus loin, vous pourrez également lors
-d'une personnalisation graphique "extrème", ajouter vos propres `viewlet
+d'une personnalisation graphique "extrême", ajouter vos propres `viewlet
 managers`.
 
 
@@ -233,7 +233,7 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
 
    Dans la définition ZCML d'un `viewlet manager` comme décrite ci-dessus, vous
    devez fournir l'attribut ``class`` ou l'attribut ``template`` mais en aucun
-   cas mes deux. De même, il est inutile de fournir ``allowed_interface`` et
+   cas les deux. De même, il est inutile de fournir ``allowed_interface`` et
    ``allowed_attributes``.
 
 
