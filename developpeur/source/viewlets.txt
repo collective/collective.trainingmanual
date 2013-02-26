@@ -199,9 +199,9 @@ Les attributs d'un élément "viewletManager" :
        :class:`plone.app.content.browser.interfaces.IFolderContentsView`. La
        valeur par défaut convient dans l'immense majorité des cas.
    * - ``provides``
-     - `Marker interface` spécifique à ce viewlet manager. Bien que cet attribut
+     - :term:`interface marqueur` spécifique à ce viewlet manager. Bien que cet attribut
        soit facultatif, il est nécessaire, comme nous le verrons plus loin, de
-       l'associer à une interface marker spécifique afin de pouvoir y associer
+       l'associer à une interface marqueur spécifique afin de pouvoir y associer
        des viewlets. Par défaut :
        :class:`zope.viewlets.interfaces.IViewletManager`.
    * - ``class`` \*
