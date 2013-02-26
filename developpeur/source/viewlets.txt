@@ -45,7 +45,7 @@ Même si ceci est toujours - partiellement - vrai, pour aider le support des
 composants prévus pour les versions antérieures de Plone, l'utilisation des
 macros est remplacée par celle des **content providers**.
 
-L'inclusion du HTML produit par un "content provider" dans la main_template
+L'inclusion du HTML produit par un `content provider` dans la main_template
 ressemble à ceci :
 
 .. code-block:: html
@@ -55,12 +55,10 @@ ressemble à ceci :
     </div>
 
 Vous remarquez la présence de l'expression TAL ``provider``.  Dans le monde Zope
-3, un provider est un multi adapter qui adapte le context et la request.
+3, un provider est un multi adapter qui adapte le context, la request et la vue.
+Ici le provider est un `viewlet manager`.
 
-Les viewlets sont des `content providers` qui fournissent une portion de code
-HTML.  Mais dans le monde de Plone, les viewlets ne sont généralement pas
-directement utilisées.
-
+Les viewlets fournissent une portion de code HTML.
 Plone passe par des `viewlet managers` - une sorte d'aggrégateur de viewlets -
 qui permettent d'ordonnancer les viewlets avec un maximum de flexibilité.
 
@@ -77,7 +75,7 @@ Gestion interactive des viewlets
 Pour mieux illustrer les propos ci-avant, Plone fournit un outil visualisant
 l'articulation des viewlet managers et l'arrangement des viewlets dans ceux-ci.
 Ouvrez - étant authentifié comme Manager - un navigateur sur la racine de vote
-site Plone et prolongez l'URL par ``@@manage-viewlets``.
+site Plone et prolongez l'URL par ``/@@manage-viewlets``.
 
 .. figure:: viewlets/manageviewlets.png
    :align: center
