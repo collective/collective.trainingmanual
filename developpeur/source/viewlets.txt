@@ -167,7 +167,7 @@ enregistrent - respectivement :
 
 * les viewlets pouvant être associées aux différents types de viewlet manager.
 
-Les attributs d'un élément "viewletManager", les éléments obligatoires étant en gras :
+Les attributs d'un élément "viewletManager" :
 
 .. list-table:: Attributs d'un élément ``viewletManager`` (\* = obligatoire)
    :widths: 15 60
@@ -179,11 +179,11 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
      - Définition du nom du viewlet manager. Doit être unique dans l'instance
        Zope.
    * - ``permission`` \*
-     - Permission nécessaire pour voir le viewlet manager.Généralement
+     - Permission nécessaire pour voir le viewlet manager. Généralement
        ``zope2.View``.
    * - ``for``
      - Interface des contenus pour lesquels ce viewlet manager peut être
-       utilisé.Défaut : :class:`zope.interface.Interface` Exemple :
+       utilisé. Défaut : :class:`zope.interface.Interface` Exemple :
        :class:`Products.ATContentTypes.interface.IATDocument`. Vous pouvez
        utiliser ``*`` pour signaler que le viewlet manager peut être utlisé dans
        n'importe quel contexte, ce qui est le cas la plupart du temps.
@@ -194,19 +194,19 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
        :class:`zope.publisher.interfaces.browser.IDefaultBrowserLayer`.
    * - ``view``
      - Interface de view pour laquelle le viewlet manager peut être
-       utilisé.Défaut : :class:`zope.publisher.interfaces.browser.IBrowserView`.
+       utilisé. Défaut : :class:`zope.publisher.interfaces.browser.IBrowserView`.
        Exemple :
        :class:`plone.app.content.browser.interfaces.IFolderContentsView`. La
        valeur par défaut convient dans l'immense majorité des cas.
    * - ``provides``
-     - Interface marker spécifique à ce viewlet manager.Bien que cet attribut
+     - `Marker interface` spécifique à ce viewlet manager. Bien que cet attribut
        soit facultatif, il est nécessaire, comme nous le verrons plus loin, de
        l'associer à une interface marker spécifique afin de pouvoir y associer
        des viewlets. Par défaut :
        :class:`zope.viewlets.interfaces.IViewletManager`.
    * - ``class`` \*
      - Éventuelle classe Python spécifique de ce viewlet manager. La classe par
-       défaut est suffisante dans la majorité des cas.Si vous voulez donner à un
+       défaut est suffisante dans la majorité des cas. Si vous voulez donner à un
        Manager la possibilité d'ordonner les viewlets - avec le panneau de
        contrôle vu plus haut - inscrites dans ce viewlet manager, la classe
        devra être :
@@ -216,12 +216,12 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
      - Éventuelle template devant être utilisée pour ce viewlet manager. Ceci
        peut être utilisé dans certains cas en alternative à l'attribut ``class``
        vu ci-avant. Pour illustrer ceci, je vous invite à lire le code de
-       mod:`Products.ResourceRegistries`. À noter que cette façon d'opérer est
+       :mod:`Products.ResourceRegistries`. À noter que cette façon d'opérer est
        rarement utilisée. Par défaut : ``None``. Attention, vous devez fournir
        l'attribut ``class`` ou l'attribut ``template`` mais en aucun cas les
        deux.
    * - ``allowed_interface``
-     - Interface Zope3 exposant les méthodes publiques de ce viewlet
+     - Interface exposant les méthodes publiques de ce viewlet
        manager. Généralement inutile. Par défaut : ``None``
    * - ``allowed_attributes``
      - Liste d'attributs et méthodes publics (séparés par des espaces) de ce
@@ -260,10 +260,10 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
        viewlet manager.
    * - ``manager``
      - L'interface de viewlet manager dans laquelle cette viewlet peut être
-       inscrite. En d'autre termes, la valeur de cet attribut doit être
+       inscrite. En d'autres termes, la valeur de cet attribut doit être
        identique à l'attribut "provides" de la déclaration ZCML du viewlet
        manager dans lequel vous voulez inscrire la présente viewlet. Par défaut
-       : :class:`zope.viewlet.interfaces.IViewletManager`, c'est à dire que par
+       : :class:`zope.viewlet.interfaces.IViewletManager`, c'est-à-dire que par
        défaut, vous pourrez placer cette viewlet dans n'importe quel viewlet
        manager.
    * - ``class``
@@ -279,7 +279,7 @@ Les attributs d'un élément "viewletManager", les éléments obligatoires étan
        ne désirez pas, ou ne pouvez pas, faire réaliser ceci par la méthode
        :meth:`render` de la classe mentionnée plus haut. Dans ce cas, l'objet
        instancié depuis cette dite classe est accessible dans votre template
-       personnelle à travers l'objet "view".Cette approche est utilisée pour
+       personnelle à travers l'objet "view". Cette approche est utilisée pour
        personnaliser des viewlets standard ou d'un composant tiers dans vos
        propres réalisations, sans avoir à faire une ligne de Python.
    * - ``allowed_interface``
@@ -328,8 +328,8 @@ spécifique :
     </object>
 
 L'élément ``<order ...>`` déclare le viewlet manager dans lequel la viewlet sera
-insérée.  Notez que ceci ne créé pas le viewlet manager, la création d'icelui
-étant faite dans le fichier ZCML vu dans le paragraphe précédent.
+insérée.  Notez que ceci ne crée pas le viewlet manager, la création de
+celui-ci étant faite dans le fichier ZCML vu dans le paragraphe précédent.
 
 La valeur de l'attribut ``manager`` doit correspondre à celle de l'attribut
 "name" du viewlet manager vu dans sa déclaration ZCML.
@@ -378,7 +378,7 @@ Viewlets cachées
 
 De même, si vous désirez masquer certaines viewlets déclarées dans du code sur
 lequel vous n'avez pas la main, vous devez passer par le step :
-file:`viewlets.xml`.
+:file:`viewlets.xml`.
 
 Il vous suffira d'ajouter un élément ``<hidden ...>``, dont la syntaxe est
 similaire à celle de ``<order ...>``.  Ici, nous masquons le `path_bar`, appelé
