@@ -32,7 +32,7 @@ ou encore de façon distincte en association avec chaque contenu individuel.
 Portlets des types de contenus
 ------------------------------
 
-En tant que Manager, vous pouvez associer tout type de contenu avec une ou
+En tant qu'administrateur, vous pouvez associer tout type de contenu avec une ou
 plusieurs portlets qui seront affichées lors de chaque vue d'un contenu du type
 sélectionné.
 
