@@ -74,7 +74,7 @@ Gestion interactive des viewlets
 
 Pour mieux illustrer les propos ci-avant, Plone fournit un outil visualisant
 l'articulation des viewlet managers et l'arrangement des viewlets dans ceux-ci.
-Ouvrez - étant authentifié comme Manager - un navigateur sur la racine de vote
+Ouvrez - étant authentifié comme administrateur - un navigateur sur la racine de vote
 site Plone et prolongez l'URL par ``/@@manage-viewlets``.
 
 .. figure:: viewlets/manageviewlets.png
@@ -207,7 +207,7 @@ Les attributs d'un élément "viewletManager" :
    * - ``class`` \*
      - Éventuelle classe Python spécifique de ce viewlet manager. La classe par
        défaut est suffisante dans la majorité des cas. Si vous voulez donner à un
-       Manager la possibilité d'ordonner les viewlets - avec le panneau de
+       administrateur la possibilité d'ordonner les viewlets - avec le panneau de
        contrôle vu plus haut - inscrites dans ce viewlet manager, la classe
        devra être :
        :class:`plone.app.viewletmanager.manager.OrderedViewletManager`. Par
