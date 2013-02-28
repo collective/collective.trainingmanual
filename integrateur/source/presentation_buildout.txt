@@ -278,7 +278,7 @@ sous-dossiers :
 .. code-block:: sh
 
     $ mkdir ~/.buildout ~/.buildout/eggs ~/.buildout/downloads \
-      ~/.buildout/configs ~/.buildout/zope
+      ~/.buildout/configs
 
 Créez le fichier :file:`~/.buildout/default.cfg` avec ce contenu :
 
@@ -373,6 +373,13 @@ Il existe aussi une option ``allow-picked-versions = false`` disponible dans le
 cœur de :mod:`zc.buildout` qui permet de stopper le buildout si un egg n'est pas
 gelé. Cette option et l'extension :mod:`buildout.dumppickedversions` sont
 mutuellement exclusives.
+
+.. attention::
+
+    Cette extension n'est plus compatible avec buildout 2. La fonctionnalité
+    a été intégré dans le cœur. Il suffit de préciser l'option 
+    ``show-picked-version = true`` à la place de 
+    ``extensions = buildout.dumppickedversions``.
 
 Option extends
 ==============
@@ -703,7 +710,7 @@ Le egg :mod:`foo.bar` est en mode développement :
     -rw-r--r-- 1 vincentfretin vincentfretin 32 2009-05-26 15:38 setuptools.egg-link
 
 Nous pouvons également utiliser un wildcard dans l'option ``develop``. Mettez
-``develop = src/*``, du coup les deux eggs :mod:`foo.bar` et mod:`foo.rab` sont
+``develop = src/*``, du coup les deux eggs :mod:`foo.bar` et :mod:`foo.rab` sont
 en développement.
 
 Option index et find-links
