@@ -2,9 +2,9 @@
 
 .. _tal_metal:
 
-========================================
-TAL/Metal les templates de Zope et Plone
-========================================
+==========================================
+TAL/Metal : les templates de Zope et Plone
+==========================================
 
 Les Zope Page Templates sont un mécanisme permettant d'écrire des pages xhtml
 dynamiques.
@@ -57,8 +57,6 @@ Ressources
 ==========
 
 Lire la documentation `ZPT - Zope Page Templates`_ sur plone.org.
-
-À noter que certains exemples avec ``tal:repeat`` sont faux.
 
 Un ``tal:repeat`` sur une balise ``<ul ..>`` ou ``<tbody ...>`` répètera la
 balise à chaque tour de boucle. Le ``tal:repeat`` devrait donc se situer sur un
@@ -541,12 +539,6 @@ Afficher du texte dans la template qui ne sera pas rendu par la suite
 
   tal:replace="nothing"
 
-Choisir la classe d'une entité
-
-.. code-block:: xml
-
-  tal:attributes="class python:test(...,'selected','plain')"
-
 Utilisation d'un dictionnaire dans les expressions path
 
 ``getPerson`` est une fonction python qui renvoie le dictionnaire
@@ -569,23 +561,4 @@ Gérer une exception
 .. code-block:: xml
 
   <p>Le prix de l'article est <b tal:content="context/prix" tal:on-error="string:N/A">0.00</b> Euros.</p>
-
-
-Exercice
-========
-
-- Customisation de la template model9 de PloneArticle pour supprimer "ajouter
-  images" et "ajouter liens".
-
-From Raphael Ritz at 
-http://n2.nabble.com/where-do-I-find-the-view-template-to-edit-a-page-%28plone-3.2%29-tp2975276p2979777.html :
-
-``atct_edit`` is just a wrapper around ``base_edit`` (or whatever gets called
-from ``base_edit``) to allow for atct specific form controller settings without
-interfering with Archetypes proper.  ``base_edit`` in turn pulls in the macros
-from ``edit_macros`` (in the ``archetypes`` skin layer) unless you (or someone)
-provides any of those macros specifically (like via a ``<type_name>_view/edit``
-template).
-
-http://www.llakomy.com/articles/new-submit-button-for-archetypes-edit-template
 

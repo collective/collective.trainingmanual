@@ -46,6 +46,8 @@ California 94105, USA.
    external_editor
    munin
    ploneformgen/index
+   scripts-plone-bases
+   templates-plone-bases
    formation_tal_metal
    workflows-locaux
    contentrules

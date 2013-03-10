@@ -1,0 +1,811 @@
+.. -*- coding: utf-8 -*-
+
+.. _scripts-plone-bases:
+
+================================
+Ecrire des scripts Plone : bases
+================================
+
+:Author: Thomas Desvenain
+:Created: 2013-02-28
+:Version: 0.1.0
+
+.. contents:: :local:
+
+Copyright (C) 2013 Thomas Desvenain <thomas.desvenain AT gmail.com>.
+
+Chacun est autorisé à copier, distribuer et/ou modifier ce document
+suivant les termes de la licence Paternité-Pas
+d'Utilisation Commerciale-Partage des Conditions Initiales à l'Identique 2.0
+France accessible à http://creativecommons.org/licenses/by-nc-sa/2.0/fr
+
+Le code source présent dans ce document est soumis aux conditions de
+la « Zope Public License », Version 2.1 (ZPL).
+
+THE SOURCE CODE IN THIS DOCUMENT AND THE DOCUMENT ITSELF IS PROVIDED
+"AS IS" AND ANY AND ALL EXPRESS OR IMPLIED WARRANTIES ARE DISCLAIMED,
+INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF TITLE,
+MERCHANTABILITY, AGAINST INFRINGEMENT, AND FITNESS FOR A PARTICULAR
+PURPOSE.
+
+Introduction
+============
+
+Zope permet aux utilisateurs d'écrire en ligne des scripts.
+L'idée de départ était de permettre de réaliser de véritables applications en ligne.
+L'idée est devenue obsolète car elle ne permettait pas une qualité de déploiement et d'organisation du code
+telle qu'on peut l'avoir aujourd'hui avec les eggs.
+Il reste que grâce à cela on a hérité de fonctions disponibles suffisamment étendues pour rendre de grands services à un webmaster.
+
+Ce chapitre permettra à un développeur débutant de comprendre comment écrire de petits scripts
+pour traiter du contenu d'un site Plone.
+
+A la fin de cette formation, une personne qui n'a que quelques bases de programmation
+sera capable de réaliser des tâches scriptées comme par exemple : ::
+
+    - déplacer toutes les actualités créées dans le site dans un seul et même dossier,
+    - créer des sous-dossiers dans un ensemble de dossiers,
+    - compter le nombre de documents récemment ajoutés dans une partie du site,
+    - produire un fichier csv reprenant le titre, l'auteur et la date de création de tous les documents du site,
+    - etc.
+
+Ce sera l'occasion d'aborder des notions essentielles telles que : ::
+
+    - la structure de la ZODB,
+    - les tools,
+    - les types de contenu,
+    - le catalogue de Plone.
+
+Dans le chapitre suivant : :ref:`templates-plone-bases`, nous valoriserons visuellement des données
+et des indicateurs extraits à l'aide de scripts dans une template.
+
+Mon premier script
+==================
+
+Nous allons écrire un premier script qui affiche simplement une "Table des matières" de votre site,
+en affichant la liste des dossiers à la racine, et la liste des sous-dossiers.
+
+Créer un script
+---------------
+
+..warning::
+
+	Attention ! Comme pour toute opération, ne testez jamais vos scripts en production, essayez-les d'abord sur un serveur de tests !
+
+Pour créer un script, vous avez besoin d'aller dans la ZMI ::
+- connectez-vous en administrateur,
+- allez dans la configuration du site,
+- cliquez sur *Interface d'administration de Zope (ZMI)*
+
+Vous entrez dans le backoffice de Zope : la Zope Management Interface.
+A partir de là, vous pouvez naviguer dans vos données, et consulter les 'tools' (sur lesquels nous reviendrons plus tard).
+
+Vous pouvez ajouter ici votre premier script. Pour cela, sélectionnez Script dans la sélection d'ajout, en haut à droite, et cliquez sur 'Add'.
+
+Appelez le script 'table_of_contents' et ajoutez-le.
+
+Vous arrivez sur une page d'édition permettant d'éditer le code du script.
+
+.. note::
+
+	Pour éditer vos scripts, nous vous conseillons d'utiliser Zope External Editor.
+	Une fois celui-ci installé, vous éditez le script en cliquant sur le crayon à côté du nom du script.
+	Vous bénéficiez ainsi de tous les avantages d'un éditeur de texte (notamment la coloration syntaxique),
+	largements supérieurs à un simple textarea pour vous aider à saisir vos lignes de code...
+
+Le script par défaut
+--------------------
+
+Par défaut, un script par défaut est créé qui affiche simplement des informations sur le script lui-même.
+Vous pouvez le tester en cliquant sur l'onglet "test" (pour plus de commodité ouvrez-le dans une nouvelle fenêtre).
+
+Nous allons commenter ce script.
+
+.. code-block:: python
+
+	from Products.PythonScripts.standard import html_quote
+
+La première chose que vous notez, c'est qu'il est possible de réaliser des imports.
+Attention, les imports possibles sont réservés à certains modules, classes et fonctions.
+Pour des raisons de sécurité, en effet, seule une partie de l'API de zope est disponible en ligne. Les modules python en dehors de Zope ainsi que de nombreuses fonctions de Zope sont indisponibles.
+Vous êtes ainsi assurés, par exemple, que les managers de vos sites n'auront pas accès à des fonctions du système (os, sys, etc).
+Quand vous essayerez d'utiliser ou d'importer un élément non autorisé, vous aurez une erreur "Privilèges insuffisants"
+
+.. code-block:: python
+
+	request = container.REQUEST
+	response =  request.response
+
+Un certain nombre de noms sont disponibles de base dans un script. Ils concernent des éléments permettant de retrouver le contexte du script :
+
+    - container : le conteneur du script,
+    - context : le contexte d'exécution du script (cf plus loin),
+    - script : l'objet script lui-même.
+
+
+.. code-block:: python
+
+	print "This is the", script.meta_type, '"%s"' % script.getId(),
+	...
+	return printed
+
+``return printed`` fait que le script va renvoyer l'ensemble du texte qui a été imprimé durant l'exécution du script.
+
+Mon premier script
+------------------
+
+Nous allons écrire un premier script permettant d'afficher une table des matières du site.
+
+.. code-block:: python
+
+	folders = container.values()
+	for folder in folders:
+	    if folder.portal_type == 'Folder':
+	        print folder.Title(), "\n"
+	        for element in folder.values():
+	            print "   ", element.Title(), "\n"
+
+	return printed
+
+Vous savez peut-être déjà que dans Zope, les éléments du site (documents, dossiers, etc) sont également des objets, des instances de classes qui fournissent des méthodes.
+Ces méthodes permettent de retrouver des informations sur le contenu de l'objet ou d'effectuer des traitements.
+
+Ici, la méthode "Title" permet de récupérer le titre du document ou du dossier.
+
+Les données d'un élément sont, quant à elles, des attributs de cet objet.
+
+Renvoyer un script en HTML
+--------------------------
+
+Sachez que votre script peut renvoyer du HTML. A priori vous n'aurez jamais besoin de cela car vous écrirez une template. Vous pouvez néanmoins tester le script suivant :
+
+.. code-block:: python
+
+    folders = container.values()
+    for folder in folders:
+        if folder.portal_type == 'Folder':
+            print "<h1>", folder.Title(), "</h1>"
+            print "<ul>"
+            for element in folder.values():
+                print "<li>", element.Title(), "</li>"
+            print "</ul>"
+
+    return printed
+
+Votre script peut aussi renvoyer tout autre format texte, comme par exemple un fichier csv. Nous verrons un exemple plus loin.
+Mais la plupart du temps, un script sert à renvoyer une structure python : une liste d'objets, un dictionnaire, etc.
+Dans ce chapitre, à des fins illustratives nous écrivons des scripts qui retournent du texte, mais dès que nous saurons écrire des templates,
+nous utiliserons les scripts de manière plus habituelle.
+
+Naviguer dans les documents par script
+--------------------------------------
+
+La méthode ``values()`` permet de récupérer la liste des contenus d'un dossier.
+La méthodes ``ids()`` permet de récupérer la liste des identifiants des contenus du dossier.
+Les dossiers se comportent comme des dictionnaires et comme des objets. Si vous avez un dossier 'documents' dans le container,
+vous pouvez y accéder par l'expression : ``container['documents']`` ou ``container.documents``.
+Ainsi, le bloc de code suivant est strictement identique au précédent.
+
+.. code-block:: python
+
+	for folder_id in container.keys():
+	    if container[folder_id].portal_type == 'Folder':
+		    print container[folder_id].Title(), "\n"
+		    for subfolder_id in container[folder_id].keys():
+		        print "   ", container[folder_id][subfolder_id].Title(), "\n"
+
+    return printed
+
+Note : sur un objet, la méthode ``getParentNode()`` et l'attribut ``aq_parent`` permettent de récupérer le parent.
+
+Comment connaître la liste des méthodes disponibles sur un objet ?
+------------------------------------------------------------------
+
+Il est indispensable d'apprendre à retrouver quelles sont les méthodes disponibles sur un objet.
+Il existe pour cela un module : Products.DocFinderTab, qui ajoute, dans la ZMI, un onglet 'Doc' sur chaque objet.
+Cet onglet permet de retrouver la liste des classes de base de l'objet et les méthodes disponibles.
+
+Protéger le script
+------------------
+
+.. warning::
+
+	Très important ! Le script que vous venez de créer est disponible pour tous les utilisateurs du site, même non connectés.
+	Il est extrêmement dangereux de ne pas protéger un script, en particulier si celui-ci opère des traitements sur .
+
+Pour exécuter un script, il faut avoir la permission 'View' sur l'objet.
+Allez dans l'onglet 'Security' de votre script, ligne 'View' et sélectionnez 'Manager' uniquement.
+
+Suivi des modifications sur un script
+-------------------------------------
+
+L'onglet **History**, sur un script, vous permet d'afficher la liste des modifications effectuées,
+de réaliser des comparatifs et de récupérer des anciennes versions.
+
+Créer et gérer des contenus par script
+======================================
+
+Imaginons que vous utilisez un site Plone pour gérer l'intranet des services de votre entreprise.
+Vous avez créé un dossier pour chaque service.
+Vous souhaitez que chaque service rassemble ses factures par mois dans un dossier.
+Tant qu'à faire, autant que la structure de ce dossier soit la même dans chaque service, à savoir
+*"factures/2013/02"* (*"Factures / 2013 / Février 2013"* pour le titre).
+
+Vous vous dites que vous pourriez écrire un script que vous passerez chaque mois et qui créera les bons dossiers.
+Et vous avez raison, car Plone permet de faire cela très facilement !
+
+Voici un premier script qui va créer le dossier factures dans chaque dossier principal à la racine de votre Plone.
+Créez un script **generate_factures** à la racine de votre ZMI :
+
+.. code-block:: python
+
+	for folder in container.values():
+	    if folder.portal_type != 'Folder':
+	        continue
+
+	    # on boucle sur la liste des contenus dont le portal_type est 'Folder'
+	    if 'factures' not in folder: # on vérifie que l'object identifié 'factures' n'existe pas déjà
+	        folder.invokeFactory('Folder', 'factures', title="Factures", description="Factures du service")
+	        print "factures créé dans %s" % folder.absolute_url() # %s est remplacé dans la chaine par le rendu de folder.absolute_url()
+
+	return printed
+
+Testez ensuite le script (pour qu'il fonctionne, vous devez avoir quelques dossiers à la racine de votre site Plone).
+
+La première ligne permet de boucler sur la liste des contenus.
+Ensuite, si on voit que le contenu n'est pas un dossier, on reprend la boucle (mot clé ``continue``).
+``if 'factures' not in folder`` permet de vérifier qu'il n'y a pas dans le dossier un élément dont l'identifiant est 'factures'.
+Cela équivaut à ``if 'factures' not in folder.keys()`` ou ``if not hasattr(folder, 'factures')`` ou encore ``if not folder.has_key('factures')``.
+
+``folder.invokeFactory('Folder', 'factures', title="Factures", description="Factures du service")`` est l'expression la plus intéressante !
+La méthode invokeFactory sur un dossier permet ici de créer un sous-contenu de portal_type 'Folder' avec un identifiant 'factures',
+un titre : 'Factures' et une description : "Factures du service".
+
+Les arguments nommés (*keyword args*, ou *kwargs*) permettent de donner une valeur aux champs lors de la création de l'objet.
+
+La méthode ``invokeFactory`` vérifie les droits d'ajouts. Si l'utilisateur qui ajoute le script n'a pas le droit d'ajouter ce type de contenu,
+ou si le script essaye d'ajouter un contenu interdit à cet endroit (restriction), le script renverra une erreur de privilège.
+
+.. note::
+
+	**Rappel sur les types de contenu**
+
+	Les types de contenus sont ce qui structure l'information sous Plone.
+	Il y a deux "espèces" de types de contenu : les types de contenu "Archetypes" et les types de contenu "Dexterity".
+	Les seconds ont la particularité de pouvoir être définis en ligne. Les premiers sont plus anciens et, à l'heure où ces lignes sont écrites, les types de contenu de base de Plone sont encore des contenus "Archetypes".
+
+	Qu'il soit Archetypes ou Dexterity, un type de contenu est composé de deux choses : une **factory** et un **schema**.
+	La **factory**, disponible dans le `tool` **portal_types** de la ZMI, contient des informations sur le type de contenu
+	telles que son nom, sa description, les sous-contenus autorisés, les modes d'affichage.
+	Le schéma contient la liste des champs du type de contenu, qui détermine les informations que peuvent contenir les contenus de ce type.
+	Il permet de générer les formulaires d'ajout et de modification.
+
+	Pour aller plus loin, vous pouvez essayer de générer par script des contenus créés via dexterity (Pour créer des types de contenus Dexterity, allez dans Configuration du site > Types de contenu Dexterity).
+
+``absolute_url()`` est une méthode qui permet de récupérer l'url de l'objet.
+Un autre méthode très utile est la méthode ``getPhysicalPath()`` qui permet de récupérer (sous la forme d'un tuple),
+le chemin d'accès zope à l'objet.
+
+
+On continue notre script
+------------------------
+
+Nous enrichissons maintenant notre script pour qu'il crée des dossiers en fonction du mois actuel.
+
+.. code-block:: python
+
+    from DateTime import DateTime
+    today = DateTime()
+    year = str(today.year())
+    month = "%02d" % today.month() # permet d'avoir des affichages du type "01", "02", ... "10", "11", "12"
+
+    for folder in container.values():
+        if folder.portal_type != 'Folder':
+            continue
+
+        # on boucle sur la liste des contenus dont le portal_type est 'Folder'
+        if 'factures' not in folder: # on vérifie que l'object identifié 'factures' n'existe pas déjà
+            folder.invokeFactory('Folder', 'factures', title="Factures", description="Factures du service")
+            print "'factures' créé dans %s" % folder.absolute_url()
+
+        if year not in folder.factures:
+            folder.factures.invokeFactory('Folder', year, title="Factures", description="Factures de l'année %s" % year)
+
+        month_id = '%s-%s' % (month, year)
+    	if month_id not in folder.factures[year]:
+            folder.factures[year].invokeFactory('Folder', month_id, title=month_id)
+            print "%s créé dans %s" % (month_title, folder.factures[year].absolute_url())
+
+    return printed
+
+``DateTime`` est un module de dates spécifique à zope que l'on peut utiliser dans les scripts. Il prend en paramètre soit rien (auquel cas l'objet correspond à la date du jour)
+soit une date au format ("YYY/MM/DD").
+
+Copier des contenus
+-------------------
+
+Imaginons que vous ayez créé un modèle excel de synthèse annuelle "factures-synthese-anuelle.ods" des factures que vous avez stocké dans un dossier "modeles".
+Vous souhaitez qu'il soit copié à chaque fois dans le dossier de factures annuel. C'est possible ! Vous allez ajouter dans la boucle les lignes suivantes :
+
+.. code-block:: python
+
+    modeles_folder = container.modeles
+
+    for folder in container.values():
+        if folder.portal_type != 'Folder':
+            continue
+
+        ...
+
+        if 'factures-synthese-anuelle.ods' not in folder.factures[year]:
+            cb = container.modeles.manage_copyObjects(['factures-synthese-anuelle.ods'])
+            folder.factures[year].manage_pasteObjects(cb)
+            print "factures-synthese-anuelle.ods copié dans %s" % folder.factures[year].absolute_url()
+
+Le copier-coller et le couper-coller fonctionnent suivant un système de *clipboard* : on crée un clipboard que l'on copie ou déplace ensuite
+(aucun traitement n'est fait tant qu'on ne sait pas où le contenu est destiné à être coupé ou copié).
+
+Publier des contenus
+--------------------
+
+Nous souhaitons que la synthèse anuelle soit immédiatement publiée
+
+.. code-block:: python
+
+    if 'factures-synthese-anuelle.ods' not in folder.factures[year]:
+        cb = container.modeles.manage_copyObjects(['factures-synthese-anuelle.ods'])
+        folder.factures[year].manage_pasteObjects(cb)
+        container.portal_workflow.doActionFor(folder.factures[year]['factures-synthese-anuelle.ods'], 'publish')
+        print "factures-synthese-anuelle.ods copié dans %s" % folder.factures[year].absolute_url()
+
+Nous ne ferons pas de rappel ici sur les workflows, qui méritent un chapitre à part entière.
+Disons simplement que nous appliquons la transition *"publish"* ("Publier") sur le contenu.
+Si pour une raison ou une autre la transition n'est pas disponible,
+ou si l'utilisateur qui lance le script n'a pas le droit de passer cette transition, le script renverra une erreur.
+
+Les tools
+---------
+
+À la racine de la ZMI, vous avez dû observer un certain nombre d'objets spéciaux, nombre d'entre eux ayant un id commençant par *portal_*. Ce sont les tools.
+Les tools offrent deux types de service : ils permettent de stocker des propriétés utiles sur l'ensemble du site, et ils fournissent des méthodes.
+Pour consulter les méthodes disponibles,
+Pour récupérer un tool, il faut faire soit :
+
+.. code-block:: python
+
+    portal_workflow = portal.portal_workflow #(où portal est l'objet 'site')
+
+soit :
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    portal_workflow = getToolByName(context, 'portal_workflow') #(où context est n'importe quel objet de la base)
+
+Les *tools* ne sont pas la seule manière d'avoir accès à des méthodes de l'api. Il existe aussi les *vues standard*, que nous aborderons plus loin.
+
+Déplacer des contenus
+---------------------
+
+Certains services avaient pris les devants en créant dans leur dossier un dossier "facturation" dans lequels ils avaient placé en vrac les factures.
+Vous souhaitez déplacer ceux qui ont été créés en février dans le nouveau dossier (vous pourrez améliorer votre script pour traiter aussi les anciens !).
+
+Dans un nouveau script :
+
+.. code-block:: python
+
+    for folder in container.values():
+        if folder.portal_type != 'Folder':
+            continue
+
+        if 'facturation' in folder:
+            cb = folder.facturation.manage_cutObjects([
+                        content.getId()
+                        for content in folder.facturation.values()
+                        if DateTime('2013/02/01 00:00') < content.created() < DateTime('2013/02/28 23:59')])
+            folder.factures['2013']['02-2013'].manage_pasteObjects(cb)
+
+En paramètre de la méthode *manage_cutObjects*, nous avons une comprehension list, qui génère la liste des ids des objets dont la date de création est située entre le
+1er février 2013 et le 31 décembre 2013 à 23h59 (donc dans le mois).
+
+    - ``getId()`` est une la méthode qui renvoit l'identifiant de l'objet.
+    - ``created()`` renvoit la date de création
+
+Modifier des contenus / retrouver la valeur d'un champ
+------------------------------------------------------
+
+Imaginons que nous voulions changer le titre de tous les dossiers "02-2013" en "Février 2013", nous allons écrire ceci :
+
+.. code-block:: python
+
+    for folder in container.values():
+        if folder.portal_type != 'Folder':
+            continue
+
+        folder['factures']['2013']['02-2013'].setTitle("Février 2013")
+        folder['factures']['2013']['02-2013'].reindexObject()
+
+Pour modifier le contenu d'un champ (avec archetypes), en général la méthode est "set + le nom du champ dont la première lettre passe en majuscule".
+
+la méthode suivante fonctionne également la plupart des cas :
+
+.. code-block:: python
+
+    obj = folder['factures']['2013']['02-2013']
+    obj.getField('title').set(obj, "Février 2013")
+
+Pour récupérer la valeur d'un champ, sous archetypes en général la méthode (accesseur) permettant de la récupérer est nommée :
+"getChamp", avec le nom du champ où la première lettre est mise en majuscule.
+
+Les cas particuliers sont très fréquents. Ainsi ::
+
+    - ``Title()`` pour le titre
+    - ``Description()`` pour la description
+    - ``created()`` pour la date de création (champ CreationDate)
+    - ``modified()`` pour la date de création (champ ModificationDate)
+    - ``Creator()`` pour l'auteur du document (le login de l'utilisateur qui l'a ajouté)
+    - etc.
+
+La plupart du temps (c'est notamment vrai avec dexterity), on peut récupérer la valeur sur l'objet en prenant l'attribut correspondant au nom du champ.
+
+.. code-block:: python
+
+    print obj.title
+
+.. warning::
+
+    Ce code (en fait, tout le code qu'on écrit depuis le début) n'est pas du tout optimal.
+    En général, on évitera de faire des "values()" et de parcourir les dossiers pour atteindre les éléments souhaités,
+    on passera par une "requête catalogue" qui nous permet d'atteindre les éléments souhaités via une recherche à critères.
+    Nous verrons cela lors de la 3e partie de ce chapitre.
+
+.. note::
+
+    Exercice : Détectez les dossiers de niveau 1 et 2 qui sont vides, affichez leur titre et leur URL et le login de l'utilisateur qui l'a créé.
+    Indiquez ceux qui parmi eux ont été créés il y a plus d'un mois.
+
+Supprimer des contenus
+----------------------
+
+Nous allons écrire un script pour supprimer tous les contenus que nous avons créé ! Le script suivant supprime tous les dossiers factures.
+
+.. code-block:: python
+
+    for folder in container.values():
+        if folder.portal_type != 'Folder':
+            continue
+
+        if 'factures' in folder:
+            folder.manage_delObjects(['factures'])
+            print "factures supprimé dans %s" % folder.absolute_url()
+
+    return printed
+
+Connaître et exploiter les informations utilisateur
+===================================================
+
+Vous avez quelques trucs pour produire des éléments, récupérer de l'information sur ces éléments.
+Voyons maintenant comment récupérer des informations sur les utilisateurs.
+
+Accéder aux propriétés de l'utilisateur
+---------------------------------------
+
+.. note::
+
+    Avant tout, nous, allons cesser de créer des scripts directement à la racine du portail (car c'est parfois difficile de s'y retrouver).
+    Nous allons les créer en tant que *layer* dans le **portal_skins**.
+
+    Allez dans l'objet portal_skins. Vous voyez la liste des skins, qui sont des dossiers. Ces skins ont un système de priorités.
+    Un layer est un objet disponible partout sur le site. Si plusieurs layers ont le même nom, c'est celui qui est dans la skin prioritaire qui est utilisé.
+    Les priorités des skins sont indiquées dans l'onglet "Properties" du **portal_skins**.
+    La skin **custom** est une skin éditable en ligne qui est toujours prioritaire sur les autres.
+    Allez dans "le custom" et faites *"Add -> Script"*.
+
+    Attention ! Ne laissez pas trainer des scripts dangereux dans le custom sans les avoir protégés !
+
+Notre premier script va afficher quelques informations sur l'utilisateur logué. Nous l'appelerons : **authenticated_user_infos**.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    member = getToolByName(context, 'portal_membership').getAuthenticatedMember()
+    print "Login de l'utilisateur : ", member.getId()
+    print "Email : ", member.getProperty('email')
+    print "Nom complet : ", member.getProperty('fullname')
+    return printed
+
+Autorisez ce script pour les utilisateurs 'Member'.
+
+Le tool **portal_membership** est celui qui offre les services permettant d'accéder aux utilisateurs
+(liste des utilisateurs, utilisateur connecté, etc) et de vérifier leurs droits.
+La méthode ``getProperty`` permet de récupérer une propriété de l'utilisateur.
+La liste des propriétés disponibles est disponible dans le tool **portal_memberdata**.
+
+Vous pouvez tester ce script avec plusieurs utilisateurs.
+
+Nous allons maintenant faire un script qui permet de retrouver les informations sur un utilisateur, suivant un paramètre de la requête.
+Créez un nouveau script user_infos.
+Vous avez peut-être vu le champ *"Parameter List"* sur le formulaire du script.
+Complétez-le avec ``user_id=None``, puis saisissez le code suivant :
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    member = getToolByName(context, 'portal_membership').getMemberById(user_id)
+    print "Login de l'utilisateur : ", member.getId()
+    print "Email : ", member.getProperty('email')
+    print "Nom complet : ", member.getProperty('fullname')
+    print "Dernière connexion : ", member.getProperty('login_time')
+    print "Avant-dernière connexion : ", member.getProperty('last_login_time')
+    print "Groupes de l'utilisateur : ", ", ".join(member.getGroupIds()) or "Aucun"
+    return printed
+
+Quand vous testez le script, un formulaire est mis à votre disposition.
+Mais l'usage réel est d'appeler directement l'URL avec la valeur en paramètre.
+
+La méthode **getMemberById** permet de trouver un utilisateur suivant son identifiant.
+L'objet utilisateur contient, en plus de la méthode *getProperty*,
+un certain nombre de méthodes permettant de retrouver les groupes auxquels il appartient : ``getGroups()``, ``getGroupIds()``, etc.
+Le tool **portal_groups**, qui fonctionne à l'image du tool **portal_membership**, permet de récupérer l'information sur les groupes.
+
+
+Mettre en forme les dates / les vues standard
+---------------------------------------------
+
+Dans notre affichage, les dates sont difficiles à lire, et exprimées dans un standard international.
+Comme tout système de publication multilingue, Plone fournit un outil pour exprimer les dates dans un format local.
+
+C'est un exemple - très utilisé - de service rendu par une vue standard de plone (en l'occurence la vue *"plone"*).
+
+Pour accéder à une vue standard depuis un script, on utilise la méthode *restrictedTraverse*.
+Nous expliquerons un peu plus en détail plus loin la notion de traversing - dans le chapitre sur les templates, qui en font un usage intensif.
+Disons pour l'instant qu'il s'agit de la méthode générique pour accéder à un élément depuis un objet Zope :
+un contenu depuis un contenant, une vue ou un script depuis un objet, etc.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    member = getToolByName(context, 'portal_membership').getMemberById(user_id)
+    plone_view = context.restrictedTraverse('@@plone')
+
+    print "Login de l'utilisateur : ", member.getId()
+    print "Email : ", member.getProperty('email')
+    print "Nom complet : ", member.getProperty('fullname')
+    print "Dernière connexion : ", plone_view.toLocalizedTime(member.getProperty('login_time'), long_format=1)
+    print "Avant-dernière connexion : ", plone_view.toLocalizedTime(member.getProperty('last_login_time'), long_format=1)
+    print "Groupes de l'utilisateur : ", ", ".join(member.getGroupIds()) or "Aucun"
+    return printed
+
+Une référence complète des vues standard est disponible dans la partie développeur ce site.
+
+Modifier les propriétés de l'utilisateur
+----------------------------------------
+
+Nous allons écrire un script qui permet de modifier les adresses email de tous les utilisateurs,
+afin que tous les emails soient remplacés par votre propre adresse, avec un préfixe.
+Très utile (voire indispensable) quand on récupère une base de production sur un serveur de tests.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    mtool = getToolByName(context, 'portal_membership')
+    members = mtool.listMembers()
+    plone_utils = getToolByName(context, 'plone_utils')
+    for member in members:
+        member_id = member.getId()
+        old_email = member.getProperty('email')
+        new_email = "monemail+%s@chezmoi.com" % member_id
+        if old_email != new_email:
+            plone_utils.setMemberProperties(member, email=new_email)
+            print "Changed %s email : %s -> %s" % (member_id, old_email, mtool.getMemberById(member_id).getProperty('email'))
+
+    return printed
+
+Vous observez l'utilisation de la méthode ``setMemberProperties`` du tool **plone_utils** pour indiquer les nouvelles valeurs de propriétés utilisateur.
+
+.. warning::
+
+    Ce script aura des comportements inattendus si vous utilisez un plugin
+    qui ne permet pas de sortir la liste des membres sans recherche préalable (type plugin ldap).
+
+
+Exporter en csv des informations utilisateurs
+---------------------------------------------
+
+Imaginons que vous souhaitiez simplement exporter dans un fichier la liste des emails des utilisateurs du site.
+Nous allons réaliser pour cela un export CSV.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    users = getToolByName(context, 'portal_membership').listMembers()
+
+        response = context.REQUEST.response
+        response.setHeader('Cache-Control', 'no-cache')
+        response.setHeader('Pragma', 'no-cache')
+        response.setHeader(
+          'Content-type', 'application/vnd.ms-excel;charset=windows-1252')
+        response.setHeader(
+          'Content-disposition',
+          'attachment; filename="all-emails.csv"')
+
+        print '"Login";"Nom complet";"email"'
+        for user in users:
+            print '"%s";"%s";"%s"' % (
+                   user.getId(),
+                   user.getProperty('fullname').decode('utf-8').encode('windows-1252'),
+                   user.getProperty('email'))
+
+        return printed
+
+.. warning::
+
+    Ce script aura des comportements inattendus si vous utilisez un plugin qui ne permet pas de sortir la liste des membres sans recherche préalable (type plugin ldap).
+
+Ce script introduit quelques nouvelles notions.
+
+L'objet **REQUEST** est un objet qui contient des informations sur la requête de l'utilisateur (url, ip, referer, paramètres de formulaire...).
+Pour en connaître le contenu, vous n'aurez qu'à imprimer ``REQUEST.items()``.
+Dans un script, **REQUEST** est disponible comme attribut de tous les objets, notamment le **context**.
+
+L'objet response est un object qui permet de caractériser la réponse à renvoyer à l'utilisateur.
+Il permet de définir une redirection, de définir les headers, etc.
+Ici, nous indiquons que le rendu est un fichier csv optimisé pour excel (encodé en windows-1252) et qu'il n'est pas mis en cache.
+
+Exercice : écrivez un script permettant de retrouver la liste des utilisateurs qui ne se sont jamais connectés ou qui ne se sont pas logués depuis au moins un an,
+avec la date de dernière connexion. Indiquez le nombre total d'utilisateurs dans ce cas.
+(Astuce : *Il y a un an* = *DateTime() - 365*. Si votre site est ouvert depuis moins de temps que ça, vous pouvez changer la contrainte ;))
+
+
+Récupérer les rôles d'un utilisateur
+------------------------------------
+
+Nous allons écrire un script qui permet d'afficher les rôles d'un utilisateur sur un objet donné.
+Cela peut être très utile pour comprendre l'origine d'un problème
+(pourquoi l'utilisateur  n'a pas accès à ce document ? est-ce un problème de paramétrage de ses droits ou est-ce un bug ?)
+
+Créez le script **get_userroles** avec un paramètre *user_id*.
+
+.. code-block:: python
+
+    user = context.portal_membership.getMemberById(user_id)
+    print "Roles de %s : %s" % (user_id, user.getRolesInContext(context))
+    return printed
+
+La méthode **getRolesInContext** permet de récupérer la liste des rôles d'un utilisateur sur l'objet en paramètre.
+Allez sur n'importe qel document ou dossier de votre site, ajoutez get_user_roles à l'URL : vous obtenez un résultat en fonction du contexte.
+L'objet **context** est bien l'élément dans le contexte duquel vous exécutez le script.
+
+Vérifier un privilège de l'utilisateur connecté
+-----------------------------------------------
+
+Vous pouvez vérifier si, oui ou non, l'utilisateur connecté a un privilège sur un élément.
+Le script suivant permet de montrer si l'utilisateur **connecté** a le droit d'ajouter, de modifier, de reviewer.
+
+Voici un script *user_privileges* :
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    mtool = getToolByName(context, 'portal_membership')
+    user = mtool.getAuthenticatedMember()
+    print "Vous avez les rôles : ", ", ".join(user.getRolesInContext(context))
+    print "Vous avez le droit de :"
+    print "Voir : ", mtool.checkPermission('View', context) and "oui" or "non"
+    print "Voir : ", mtool.checkPermission('View', context) and "oui" or "non"
+    print "Modifier : ", mtool.checkPermission('Modify portal content', context) and "oui" or "non"
+    print "Modérer : ", mtool.checkPermission('Review portal content', context) and "oui" or "non"
+    print "Ajouter du contenu : ", mtool.checkPermission('Review portal content', context) and "oui" or "non"
+    return printed
+
+Connectez vous avec d'autres utilisateurs et essayez le script un peu partout, en ajoutant */user_privileges* aux adresses des contenus.
+
+Exercice : réalisez un script permettant, quand on l'applique sur un dossier, d'avoir la liste des utilisateurs ayant au moins un rôle Contributeur, Modérateur ou Editeur,
+avec leurs emails.
+
+Info : la méthode *folder.users_with_local_role(role)* renvoit la liste des utilisateurs ayant ce role défini localement sur le dossier.
+Si vous utilisez cette méthode, pensez au fait que le rôle peut également être hérité du parent.
+
+
+Utiliser le catalogue de Plone
+==============================
+
+Ce chapitre n'est pas un cours sur le catalogue de Plone. Nous ferons néanmoins quelques rappels : ::
+
+ - tous les contenus de Plone font l'objet d'un enregistrement dans un catalogue, qui est le tool *portal_catalog*,
+ - il est possible de retrouver des contenus de plone via des recherches multi-critères,
+ - il est considérablement moins couteux de rechercher et d'exploiter un enregistrement dans le catalogue
+   que de parcourir le site jusqu'à trouver un document et exploiter les données de celui-ci ;
+   tout code destiné à être utilisé régulièrement DOIT privilégier le catalogue sur le parcours du site.
+ - la liste des critères de recherche disponibles est dans l'onglet *Index* du **portal_catalog**, et la liste
+   des métadonnées disponibles sur les enregistrements est dans l'onglet **Metadata**.
+
+Nous allons écrire un script qui permet de retrouver la liste des 50 derniers éléments créés par un utilisateur.
+Créez un script qui prend en paramètre **user_id**.
+
+Une première requête catalogue
+------------------------------
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    portal_catalog = getToolByName(context, 'portal_catalog')
+    brains = portal_catalog.searchResults(Creator=user_id,
+                                          sort_on='created', # le tri se fait sur l'index 'created' (date de création)
+                                          sort_order='reverse', # le tri est inversé (antéchronologique)
+                                          sort_limit=50) # on limite à 50 résultats
+    for brain in brains:
+        print brain.Title, " ", brain.getURL() # On affiche la métadonnée Title et on calcule l'url du document
+
+    return printed
+
+La méthode searchResults prend les critères en arguments nommés. Nous présentons ici un critère classique (Creator) et les trois critères de tri.
+On accède aux métadonnées sur l'enregistrement via l'appel à un attribut.
+En plus des attributs-métadonnées, le brain dispose de trois méthodes utiles :
+
+  - ``getURL()`` -> renvoit l'URL absolue du document
+  - ``getPath()`` -> renvoit le chemin d'accès zope
+  - ``getObject()`` -> renvoit l'objet
+
+Un aperçu un peu plus complet est disponible ici :  `Querying the catalog <http://plone.org/documentation/manual/developer-manual/indexing-and-searching/querying-the-catalog>`_
+
+A des fins illustratives, nous présentons ici un script qui affiche l'ensemble des documents modifiés depuis un mois
+dans le dossier où est lancé le script, et affiche le total de résultats.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+    portal_catalog = getToolByName(context, 'portal_catalog')
+    brains = portal_catalog.searchResults(path="/".join(context.getPhysicalPath()), # critère chemin d'accès
+                                          portal_type=('File', 'Document'), # critère sur le type : Fichier OU Document
+                                          # entre aujourd'hui et il y a 31 jours (on pourrait écrire plus simplement : {'query': DateTime() - 31, 'range': 'min'})
+                                          modified={'query': (DateTime() - 31, DateTime()), 'range': 'minmax'},
+                                          sort_on='modified', # le tri se fait sur l'index 'modified' (date de modification)
+                                          sort_order='reverse', # le tri est inversé (antéchronologique)
+                                          ) # on limite à 50 résultats
+    print "Total : ", len(brains)
+    for brain in brains:
+        print brain.Title, " ", brain.getURL() # On affiche la métadonnée Title et on calcule l'url du document
+
+    return printed
+
+
+Voici un script, que nous appellerons **all-contents.csv**.
+Il exporte en *csv* une liste des documents contenus dans le dossier où il est appliqué, et récursivement.
+
+.. code-block:: python
+
+    from Products.CMFCore.utils import getToolByName
+
+    response = context.REQUEST.response
+    response.setHeader('Cache-Control', 'no-cache')
+    response.setHeader('Pragma', 'no-cache')
+    response.setHeader(
+      'Content-type', 'application/vnd.ms-excel;charset=windows-1252')
+    response.setHeader(
+      'Content-disposition',
+      'attachment; filename="all-contents.csv"')
+
+    portal_catalog = getToolByName(context, 'portal_catalog')
+    brains = portal_catalog.searchResults(path="/".join(context.getPhysicalPath()), # critère chemin d'accès
+                                          portal_type=('File', 'Document', 'Event', 'News'), # critère sur le type (on exclut les fichiers)
+                                          )
+    print '"Path";"Titre";"Auteur";"MAJ"'
+    for brain in brains:
+        print '"%s";"%s";"%s";"%s"' % (brain.getPath(), brain.Title.decode('utf-8').encode('windows-1252'), brain.Creator, brain.modified.strftime('%d/%m/%Y'))
+
+    return printed
+
+
+Exercices :
+
+- Créez un script qui produit un fichier csv, qui indique, pour chaque utilisateur,
+  le nombre d'élements qu'il a créés depuis 2 ans et depuis la création du site,
+  et un lien vers le dernier document qu'il a créé.
+- Créez un script qui compte le nombre de documents et de fichiers dans chaque dossier à la racine du site
+
+Pour ces exercices, vous devrez faire plusieurs requêtes catalogue dans le même script !
+
+On le voit, les scripts sont très utiles dès lors qu'il s'agit d'établir rapidement des indicateurs sur l'utilisation de son site.
+
+**Nous allons maintenant apprendre à valoriser sous forme d'affichage html les données que nous avons appris à constituer** : :ref:`templates-plone-bases`.
