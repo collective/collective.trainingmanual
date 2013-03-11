@@ -71,14 +71,14 @@ qui contient les instructions, vous devriez pouvoir lire facilement cette templa
 
 Nous avons deux types d'expressions TAL :
 
-  - des expressions TAL simples, sans directive et qui se caractérisent par leur forme de chemin d'accès,
-  - des expressions python, introduites par la directive *"python:"*
+- des expressions TAL simples, sans directive et qui se caractérisent par leur forme de chemin d'accès,
+- des expressions python, introduites par la directive *"python:"*
 
 Vous noterez que, dans les expressions tal simples, la syntaxe '/' permet d'exprimer de nombreuses manières d'accéder à un objet depuis un autre objet.
 
-  - *"context/@@plone"* est synonyme de ``context.restrictedTraverse('@@plone')`` en python
-  - *"context/title_or_id"* est synonyme de ``context.title_or_id()``,
-  - *"template/title"* est synonyme de ``template.title``,
+- *"context/@@plone"* est synonyme de ``context.restrictedTraverse('@@plone')`` en python
+- *"context/title_or_id"* est synonyme de ``context.title_or_id()``,
+- *"template/title"* est synonyme de ``template.title``,
 
 Appel à un script
 =================
@@ -131,18 +131,18 @@ Complétez ainsi votre template :
       </body>
     </html>
 
-Quelques remarques : ::
+Quelques remarques :
 
-    - Nous avons rajouté une boucle : *tal:repeat="brain context/get_user_recent_added"*
-      qui s'écrirait, dans un script python: ``for brain in context.get_user_recent_added():``.
+- Nous avons rajouté une boucle : *tal:repeat="brain context/get_user_recent_added"*
+  qui s'écrirait, dans un script python: ``for brain in context.get_user_recent_added():``.
 
-    - Comme vous pouvez le voir, brain/Title et brain/getURL équivalent respectivement à ``brain.Title`` et ``brain.getURL()``
-      (les expressions TAL ont cela d'agréable qu'elles sont sobres en caractères spéciaux).
+- Comme vous pouvez le voir, brain/Title et brain/getURL équivalent respectivement à ``brain.Title`` et ``brain.getURL()``
+  (les expressions TAL ont cela d'agréable qu'elles sont sobres en caractères spéciaux).
 
-    - Une expression TAL introduite par la directive **string:** permet de renvoyer une chaine de caractères
-      composée de contenu statique et du rendu de sous-expressions TALES.
+- Une expression TAL introduite par la directive **string:** permet de renvoyer une chaine de caractères
+  composée de contenu statique et du rendu de sous-expressions TALES.
 
-    - Nous utilisons ici une autre "vue standard" : **plone_portal_state**, qui permet notamment de récupérer l'URL absolue du site.
+- Nous utilisons ici une autre "vue standard" : **plone_portal_state**, qui permet notamment de récupérer l'URL absolue du site.
 
 
 Utiliser la master template de Plone
@@ -242,7 +242,7 @@ Exercices
   et pour chacun d'entre eux le nombre de documents qu'ils ont créé.
 
 - Vous réaliserez une template qui affiche, pour chaque mot clé disponible sur le site, le nombre d'occurences et un lien vers la page des résultats.
-  (Astuces : 1/ le script collectKeywords vous permet de récupérer la liste des mots clés, 2/ l'index concerné est l'index Subject.).
+  (Astuces : 1/ le script *collectKeywords('subject', 'Subject* vous permet de récupérer la liste des mots clés, 2/ l'index concerné est l'index *Subject*.).
   Bonus : la taille de l'affichage du mot clé sera proportionnelle au nombre d'occurences !
 
 Ecrire la template sous la forme d'une vue
@@ -256,14 +256,6 @@ Une vue est composée d'une template et d'une classe. La template va reprendre l
 Ce chapitre n'a pas pour objectif d'expliquer la création d'un package. Référez-vous, pour cela, à la documentation développeur,
 ou demandez à votre prestataire favori.
 
-paster create -t toutpt_collective formation.vues --svn-repository=https://svn.ecreall.com/MESHS/packages
-
-checkouts.cfg -> ajouter formation.vues
-buildout.cfg -> ajouter formation.vues dans les eggs
-sources.cfg -> ajouter formation.vues = svn https://svn.ecreall.com/MESHS/packages/formation.vues/trunk
-
-repasser le buildout
-
 Nous allons créer une vue "welcome". Pour cela, il faut d'abord la déclarer dans une zcml.
 
 .. code-block :: xml
@@ -276,12 +268,12 @@ Nous allons créer une vue "welcome". Pour cela, il faut d'abord la déclarer da
       permission="zope2.View"
       />
 
-Vous pouvez ensuite simplement récupérer la template (utilisez le lien click context du formulaire d'édition de la template),
-et l'enregistrer dans un fichier welcome.pt
+Vous pouvez ensuite simplement récupérer la template (utilisez le lien *click context* du formulaire d'édition de la template),
+et l'enregistrer dans un fichier **welcome.pt**.
 
-Vous reprenez ensuite dans la classe Welcome (qui hérite de BrowserView) le code des scripts que vous incluez dans des méthodes du même nom.
-La classe Welcome contient un attribut context (l'équivalent du context dans le script ou la template) et un attribut request
-(l'équivalent de context.REQUEST dans le script ou request dans la template).
+Vous reprenez ensuite dans la classe **Welcome** (qui hérite de **BrowserView**) le code des scripts que vous incluez dans des méthodes du même nom.
+La classe **Welcome** contient un attribut **context** (l'équivalent du **context** dans le script ou la template) et un attribut **request**
+(l'équivalent de ``context.REQUEST`` dans le script ou request dans la template).
 
 .. code-block :: python
 
@@ -317,7 +309,7 @@ La classe Welcome contient un attribut context (l'équivalent du context dans le
             return brains
 
 
-Modifiez votre template de sorte qu'elle aille chercher les méthodes non pas sur le contexte (context) mais sur la vue (view).
+Modifiez votre template de sorte qu'elle aille chercher les méthodes non pas sur le contexte (**context**) mais sur la vue (**view**).
 Retirez toute référence à l'objet template.
 
 .. code-block :: html
@@ -368,14 +360,13 @@ Deux remarques sur le zcml :
 Comme on n'a pas de template on utilise non pas une browser:page mais une browser:view. Pour faire simple, par rapport à ce que vous connaissez,
 une browser:page équivaut à une template et une browser view à un script.
 
-Le critère "for" indique une restriction sur l'interface du contenu - ici, on restreint aux contextes 'IFolderish',
+Le critère **for** indique une restriction sur l'interface du contenu - ici, on restreint aux contextes **IFolderish**,
 qui est une interface qu'ont tous les objets qui peuvent en contenir d'autres.
 Les autres contextes n'auront pas cette vue (pour connaitre les interfaces d'un contexte, dans la ZMI,
 allez dans l'onglet Interfaces de l'objet).
-Le critère *permission* permet protéger la vue. Un utilisateur essayant d'y accéder sans avoir ladit permission aura une erreur de privilèges insuffisants.
+Le critère **permission** permet protéger la vue. Un utilisateur essayant d'y accéder sans avoir ladit permission aura une erreur de privilèges insuffisants.
 
-Pour une browser view, il faut écrire une méthode __call__ qui renvoit le rendu attendu.
-
+Pour une *browser view*, il faut écrire une méthode **__call__** qui renvoit le rendu attendu.
 
 .. code-block :: python
 
@@ -404,7 +395,7 @@ Pour une browser view, il faut écrire une méthode __call__ qui renvoit le rend
 
             return "\n".join(lines)
 
-Nous sommes dans une vue, qui est du code python non restreint. A ce titre, on a accès à toute l'API python disponible.
+Nous sommes dans une vue, qui est du code python non restreint. À ce titre, on a accès à toute l'API python disponible.
 Dans ce cas, nous gagnerons à utiliser la librairie csv pour produire notre fichier.
 
 
@@ -445,8 +436,8 @@ Dans ce cas, nous gagnerons à utiliser la librairie csv pour produire notre fic
             csvdata.seek(0)
             return csvdata.read().decode('utf-8').encode('windows-1252')
 
-Ce qui est tout de même bien plus propre.
 
+Ce qui est tout de même bien plus propre.
 
 Une viewlet pour ajouter un lien vers une vue
 =============================================
@@ -454,22 +445,24 @@ Une viewlet pour ajouter un lien vers une vue
 Ma première viewlet
 -------------------
 
-Tous les développements que nous avons réalisés jusqu'à présent souffre, vous avez du le remarquer, d'un gros inconvénient :
-nous n'avons nulle part, dans notre site, de lien vers les différentes pages et exports que nous avons réalisés.
+Tous les développements que nous avons réalisés jusqu'à présent souffrent, vous avez du le remarquer, d'un gros inconvénient :
+nous n'avons nulle part, dans notre site, de lien vers les différentes pages et exports que nous avons réalisés !
 Autrement dit : nos développements ne sont pas intégrés.
 
 Comment ajouter un lien vers nos nouvelles pages ?
+
 Vous pouvez tout simplement mettre un lien à la main dans un document Plone, mais cela peut être fastidieux si vous souhaitez que ce lien apparaisse dans de nombreux contextes.
 Un réflexe de développement "à l'ancienne" est, à l'extrême opposé, de modifier le code de la template de base et d'y mettre le lien (éventuellement conditionnel) vers notre page.
 Mais "si tout le monde fait cela", à la fin cette template ne ressemblera plus à rien. Surtout, si vous voulez que votre développement soit utilisé par d'autres, ou sur d'autres de vos sites,
 il ne faut pas qu'il intervienne sur le comportement par défaut du site.
 
-Pour cela Plone fonctionne avec ce qu'on appelle des "viewlets", qui sont des blocs que l'on peut enregistrer pour qu'ils s'affichent dans des slots appelés "viewletmanagers".
+Pour cela, Plone fonctionne avec ce qu'on appelle des *viewlets*. Ce sont des blocs que l'on peut enregistrer pour qu'ils s'affichent dans des slots appelés *viewletmanagers*.
 Une documentation complète des viewlets est disponible dans la documentation développeur.
 
-Nous allons, nous, simplement ajouter un lien (sous forme d'image) vers notre export xml sous le titre des dossiers de notre site, pour les utilisateurs ayant le droit d'ajouter des contenus.
-Nous allons ajouter ceci dans une zcml de notre package :
+Nous allons, nous, simplement ajouter un lien (sous forme d'image) vers notre export xml sous le titre des dossiers de notre site,
+pour les utilisateurs ayant le droit d'ajouter des contenus.
 
+Nous allons ajouter ceci dans une zcml de notre package :
 
 .. code-block :: xml
 
@@ -481,17 +474,15 @@ Nous allons ajouter ceci dans une zcml de notre package :
       permission="cmf.AddPortalContent"
       />
 
-Remarques ::
-    - *class* indique la classe qui fournira le rendu html de notre lien (voir ci--après).
-    - *manager* indique le bloc dans lequel l'élément sera ajouté. Pour choisir le manager, allez sur la vue /@@manage-viewlets sur une des pages de votre site.
-      Les *viewlet managers* ont un nom et une interface. C'est l'interface que vous indiquez ici.
-    - *for* permet de mettre une contrainte sur le contexte (ici, on n'affichera le lien que sur .
-    - *permission* permet de n'afficher la viewlet que pour certains utilisateurs (on la fera correspondre avec la permission de la vue).
-    - cela ne fait pas l'objet du présent cours, mais pour information un attribut *layer* est souvent utilisé afin de mettre une contrainte sur les produits installés / l'interface de la request
-    - *name* est utile si vous souhaitez remplacer une viewlet existante. Si deux viewlets ont le même nom et sont associées au même manager, alors une seule est affichée :
-      celle qui déclare une interface for la plus proche du contexte en cours, et celle qui a un critère layer le plus proche du layer en cours.
+Remarques :
+- **class** indique la classe qui fournira le rendu html de notre lien (voir ci--après).
+- **manager** indique le bloc dans lequel l'élément sera ajouté. Pour choisir le manager, allez sur la vue /@@manage-viewlets sur une des pages de votre site. Les **viewlet managers** ont un nom et une interface. C'est l'interface que vous indiquez ici.
+- **for** permet de mettre une contrainte sur le contexte (ici, on n'affichera le lien que sur les dossiers).
+- **permission** permet de n'afficher la viewlet que pour certains utilisateurs (on la fera correspondre avec la permission de la vue).
+- cela ne fait pas l'objet du présent cours, mais pour information un attribut **layer** est souvent utilisé afin de mettre une contrainte sur les produits installés / l'interface de la request.
+- *name* est utile si vous souhaitez remplacer une viewlet existante. Si deux viewlets ont le même nom et sont associées au même manager, alors une seule est affichée : celle qui déclare une interface for la plus proche du contexte en cours, et celle qui a un critère layer le plus proche du layer en cours.
 
-Dans un module viewlets.py nous allons créer cette classe LinkAllContentsCSV :
+Dans un module **viewlets.py** nous allons créer cette classe **LinkAllContentsCSV** :
 
 .. code-block :: python
 
@@ -523,6 +514,7 @@ Pour des besoins plus complexes, vous utiliserez une template en surchargeant l'
     class LinkAllContentsCSV(ViewletBase):
 
         index = ViewPageTemplateFile('link-allcontents-csv.pt')
+
 
 Exercices
 ---------
