@@ -52,7 +52,7 @@ Livres de Packt Publishing, en anglais :
   DeStefano, Jon Stahl, Martin Aspeli, Matt Bowen, Ricardo Newbery, Sam
   Knox, Steve McMahon, Tom Conklin, Veda Williams,
   février 2009
-
+²
 - `Plone 3 Theming
   <http://www.packtpub.com/plone-3-theming-create-flexible-powerful-professional-templates/book>`_,
   Veda Williams,
