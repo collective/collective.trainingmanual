@@ -68,7 +68,7 @@ en affichant la liste des dossiers à la racine, et la liste des sous-dossiers.
 Créer un script
 ---------------
 
-..warning::
+.. warning::
 
 	Attention ! Comme pour toute opération, ne testez jamais vos scripts en production, essayez-les d'abord sur un serveur de tests !
 
@@ -181,17 +181,17 @@ Naviguer dans les documents par script
 --------------------------------------
 
 La méthode ``values()`` permet de récupérer la liste des contenus d'un dossier.
-La méthodes ``ids()`` permet de récupérer la liste des identifiants des contenus du dossier.
+La méthodes ``keys()`` permet de récupérer la liste des identifiants des contenus du dossier.
 Les dossiers se comportent comme des dictionnaires et comme des objets. Si vous avez un dossier 'documents' dans le container,
 vous pouvez y accéder par l'expression : ``container['documents']`` ou ``container.documents``.
 Ainsi, le bloc de code suivant est strictement identique au précédent.
 
 .. code-block:: python
 
-	for folder_id in container.keys():
-	    if container[folder_id].portal_type == 'Folder':
-		    print container[folder_id].Title(), "\n"
-		    for subfolder_id in container[folder_id].keys():
+    for folder_id in container.keys():
+        if container[folder_id].portal_type == 'Folder':
+           print container[folder_id].Title(), "\n"
+    	    for subfolder_id in container[folder_id].keys():
 		        print "   ", container[folder_id][subfolder_id].Title(), "\n"
 
     return printed
@@ -235,7 +235,7 @@ Vous vous dites que vous pourriez écrire un script que vous passerez chaque moi
 Et vous avez raison, car Plone permet de faire cela très facilement !
 
 Voici un premier script qui va créer le dossier factures dans chaque dossier principal à la racine de votre Plone.
-Créez un script **generate_factures** à la racine de votre ZMI :
+Créez un script **generate_invoices** à la racine de votre ZMI :
 
 .. code-block:: python
 
@@ -298,7 +298,6 @@ Nous enrichissons maintenant notre script pour qu'il crée des dossiers en fonct
     today = DateTime()
     year = str(today.year())
     month = "%02d" % today.month() # permet d'avoir des affichages du type "01", "02", ... "10", "11", "12"
-
     for folder in container.values():
         if folder.portal_type != 'Folder':
             continue
@@ -309,7 +308,7 @@ Nous enrichissons maintenant notre script pour qu'il crée des dossiers en fonct
             print "'factures' créé dans %s" % folder.absolute_url()
 
         if year not in folder.factures:
-            folder.factures.invokeFactory('Folder', year, title="Factures", description="Factures de l'année %s" % year)
+            folder.factures.invokeFactory('Folder', year, title=year, description="Factures de l'année %s" % year)
 
         month_id = '%s-%s' % (month, year)
     	if month_id not in folder.factures[year]:
@@ -330,6 +329,7 @@ Vous souhaitez qu'il soit copié à chaque fois dans le dossier de factures annu
 .. code-block:: python
 
     modeles_folder = container.modeles
+    cb = container.modeles.manage_copyObjects(['factures-synthese-anuelle.ods'])
 
     for folder in container.values():
         if folder.portal_type != 'Folder':
@@ -338,7 +338,6 @@ Vous souhaitez qu'il soit copié à chaque fois dans le dossier de factures annu
         ...
 
         if 'factures-synthese-anuelle.ods' not in folder.factures[year]:
-            cb = container.modeles.manage_copyObjects(['factures-synthese-anuelle.ods'])
             folder.factures[year].manage_pasteObjects(cb)
             print "factures-synthese-anuelle.ods copié dans %s" % folder.factures[year].absolute_url()
 
@@ -437,14 +436,15 @@ la méthode suivante fonctionne également la plupart des cas :
 Pour récupérer la valeur d'un champ, sous archetypes en général la méthode (accesseur) permettant de la récupérer est nommée :
 "getChamp", avec le nom du champ où la première lettre est mise en majuscule.
 
-Les cas particuliers sont très fréquents. Ainsi ::
+Les cas particuliers sont très fréquents. Ainsi :
 
-    - ``Title()`` pour le titre
-    - ``Description()`` pour la description
-    - ``created()`` pour la date de création (champ CreationDate)
-    - ``modified()`` pour la date de création (champ ModificationDate)
-    - ``Creator()`` pour l'auteur du document (le login de l'utilisateur qui l'a ajouté)
-    - etc.
+- ``Title()`` pour le titre
+- ``Description()`` pour la description
+- ``created()`` pour la date de création (champ CreationDate)
+- ``modified()`` pour la date de modification (champ ModificationDate)
+- ``Creator()`` pour l'auteur du document (le login de l'utilisateur qui l'a ajouté)
+- ``Language()`` pour la langue du document
+- etc.
 
 La plupart du temps (c'est notamment vrai avec dexterity), on peut récupérer la valeur sur l'objet en prenant l'attribut correspondant au nom du champ.
 
@@ -524,7 +524,7 @@ La liste des propriétés disponibles est disponible dans le tool **portal_membe
 Vous pouvez tester ce script avec plusieurs utilisateurs.
 
 Nous allons maintenant faire un script qui permet de retrouver les informations sur un utilisateur, suivant un paramètre de la requête.
-Créez un nouveau script user_infos.
+Créez un nouveau script **user_infos**.
 Vous avez peut-être vu le champ *"Parameter List"* sur le formulaire du script.
 Complétez-le avec ``user_id=None``, puis saisissez le code suivant :
 
@@ -544,7 +544,7 @@ Quand vous testez le script, un formulaire est mis à votre disposition.
 Mais l'usage réel est d'appeler directement l'URL avec la valeur en paramètre.
 
 La méthode **getMemberById** permet de trouver un utilisateur suivant son identifiant.
-L'objet utilisateur contient, en plus de la méthode *getProperty*,
+L'objet utilisateur contient, en plus de la méthode ``getProperty``,
 un certain nombre de méthodes permettant de retrouver les groupes auxquels il appartient : ``getGroups()``, ``getGroupIds()``, etc.
 Le tool **portal_groups**, qui fonctionne à l'image du tool **portal_membership**, permet de récupérer l'information sur les groupes.
 
@@ -576,7 +576,7 @@ un contenu depuis un contenant, une vue ou un script depuis un objet, etc.
     print "Groupes de l'utilisateur : ", ", ".join(member.getGroupIds()) or "Aucun"
     return printed
 
-Une référence complète des vues standard est disponible dans la partie développeur ce site.
+Une référence complète des vues standard est disponible dans la partie `http://docs.ecreall.com/developpeur`_ développeur de ce site.
 
 Modifier les propriétés de l'utilisateur
 ----------------------------------------
@@ -613,30 +613,30 @@ Exporter en csv des informations utilisateurs
 ---------------------------------------------
 
 Imaginons que vous souhaitiez simplement exporter dans un fichier la liste des emails des utilisateurs du site.
-Nous allons réaliser pour cela un export CSV.
+Nous allons réaliser pour cela un export CSV. Créez ce script **all-emails.csv**.
 
 .. code-block:: python
 
     from Products.CMFCore.utils import getToolByName
     users = getToolByName(context, 'portal_membership').listMembers()
 
-        response = context.REQUEST.response
-        response.setHeader('Cache-Control', 'no-cache')
-        response.setHeader('Pragma', 'no-cache')
-        response.setHeader(
-          'Content-type', 'application/vnd.ms-excel;charset=windows-1252')
-        response.setHeader(
-          'Content-disposition',
-          'attachment; filename="all-emails.csv"')
+    response = context.REQUEST.response
+    response.setHeader('Cache-Control', 'no-cache')
+    response.setHeader('Pragma', 'no-cache')
+    response.setHeader(
+      'Content-type', 'application/vnd.ms-excel;charset=windows-1252')
+    response.setHeader(
+      'Content-disposition',
+      'attachment; filename="all-emails.csv"')
 
-        print '"Login";"Nom complet";"email"'
-        for user in users:
-            print '"%s";"%s";"%s"' % (
-                   user.getId(),
-                   user.getProperty('fullname').decode('utf-8').encode('windows-1252'),
-                   user.getProperty('email'))
+    print '"Login";"Nom complet";"email"'
+    for user in users:
+        print '"%s";"%s";"%s"' % (
+               user.getId(),
+               user.getProperty('fullname').decode('utf-8').encode('windows-1252'),
+               user.getProperty('email'))
 
-        return printed
+    return printed
 
 .. warning::
 
@@ -648,13 +648,15 @@ L'objet **REQUEST** est un objet qui contient des informations sur la requête d
 Pour en connaître le contenu, vous n'aurez qu'à imprimer ``REQUEST.items()``.
 Dans un script, **REQUEST** est disponible comme attribut de tous les objets, notamment le **context**.
 
-L'objet response est un object qui permet de caractériser la réponse à renvoyer à l'utilisateur.
+L'objet **response** est un object qui permet de caractériser la réponse à renvoyer à l'utilisateur.
 Il permet de définir une redirection, de définir les headers, etc.
-Ici, nous indiquons que le rendu est un fichier csv optimisé pour excel (encodé en windows-1252) et qu'il n'est pas mis en cache.
+Ici, nous indiquons que le rendu est un fichier csv optimisé pour excel (encodé en *windows-1252*) et qu'il n'est pas mis en cache.
 
-Exercice : écrivez un script permettant de retrouver la liste des utilisateurs qui ne se sont jamais connectés ou qui ne se sont pas logués depuis au moins un an,
-avec la date de dernière connexion. Indiquez le nombre total d'utilisateurs dans ce cas.
-(Astuce : *Il y a un an* = *DateTime() - 365*. Si votre site est ouvert depuis moins de temps que ça, vous pouvez changer la contrainte ;))
+Exercice : écrivez un script permettant d'exporter en csv la liste des utilisateurs
+qui ne se sont pas logués depuis au moins un an,
+avec la date de dernière connexion.
+(Astuce : *Il y a un an* = ``DateTime() - 365``.
+Si votre site est ouvert depuis moins de temps que ça, vous pouvez changer la contrainte ;))
 
 
 Récupérer les rôles d'un utilisateur
@@ -682,7 +684,7 @@ Vérifier un privilège de l'utilisateur connecté
 Vous pouvez vérifier si, oui ou non, l'utilisateur connecté a un privilège sur un élément.
 Le script suivant permet de montrer si l'utilisateur **connecté** a le droit d'ajouter, de modifier, de reviewer.
 
-Voici un script *user_privileges* :
+Voici un script **user_privileges** :
 
 .. code-block:: python
 
@@ -692,10 +694,9 @@ Voici un script *user_privileges* :
     print "Vous avez les rôles : ", ", ".join(user.getRolesInContext(context))
     print "Vous avez le droit de :"
     print "Voir : ", mtool.checkPermission('View', context) and "oui" or "non"
-    print "Voir : ", mtool.checkPermission('View', context) and "oui" or "non"
     print "Modifier : ", mtool.checkPermission('Modify portal content', context) and "oui" or "non"
     print "Modérer : ", mtool.checkPermission('Review portal content', context) and "oui" or "non"
-    print "Ajouter du contenu : ", mtool.checkPermission('Review portal content', context) and "oui" or "non"
+    print "Ajouter du contenu : ", mtool.checkPermission('Add portal content', context) and "oui" or "non"
     return printed
 
 Connectez vous avec d'autres utilisateurs et essayez le script un peu partout, en ajoutant */user_privileges* aux adresses des contenus.
@@ -703,28 +704,30 @@ Connectez vous avec d'autres utilisateurs et essayez le script un peu partout, e
 Exercice : réalisez un script permettant, quand on l'applique sur un dossier, d'avoir la liste des utilisateurs ayant au moins un rôle Contributeur, Modérateur ou Editeur,
 avec leurs emails.
 
-Info : la méthode *folder.users_with_local_role(role)* renvoit la liste des utilisateurs ayant ce role défini localement sur le dossier.
+Info : la méthode ``folder.users_with_local_role(role)`` renvoit la liste des utilisateurs ayant ce role défini localement sur le dossier.
 Si vous utilisez cette méthode, pensez au fait que le rôle peut également être hérité du parent.
 
 
 Utiliser le catalogue de Plone
 ==============================
 
-Ce chapitre n'est pas un cours sur le catalogue de Plone. Nous ferons néanmoins quelques rappels : ::
+Ce chapitre n'est pas un cours sur le catalogue de Plone. Nous ferons néanmoins quelques rappels :
 
- - tous les contenus de Plone font l'objet d'un enregistrement dans un catalogue, qui est le tool *portal_catalog*,
- - il est possible de retrouver des contenus de plone via des recherches multi-critères,
- - il est considérablement moins couteux de rechercher et d'exploiter un enregistrement dans le catalogue
-   que de parcourir le site jusqu'à trouver un document et exploiter les données de celui-ci ;
-   tout code destiné à être utilisé régulièrement DOIT privilégier le catalogue sur le parcours du site.
- - la liste des critères de recherche disponibles est dans l'onglet *Index* du **portal_catalog**, et la liste
-   des métadonnées disponibles sur les enregistrements est dans l'onglet **Metadata**.
+- tous les contenus de Plone font l'objet d'un enregistrement dans un catalogue, qui est le tool *portal_catalog*,
+- il est possible de retrouver des contenus de plone via des recherches multi-critères,
+- il est considérablement moins couteux de rechercher et d'exploiter un enregistrement dans le catalogue
+  que de parcourir le site jusqu'à trouver un document et exploiter les données de celui-ci ;
+  tout code destiné à être utilisé régulièrement DOIT privilégier le catalogue sur le parcours du site.
+- la liste des critères de recherche disponibles est dans l'onglet *Index* du **portal_catalog**, et la liste
+  des métadonnées disponibles sur les enregistrements est dans l'onglet **Metadata**.
 
 Nous allons écrire un script qui permet de retrouver la liste des 50 derniers éléments créés par un utilisateur.
 Créez un script qui prend en paramètre **user_id**.
 
 Une première requête catalogue
 ------------------------------
+
+Ecrivez ce premier script **last_documents** avec un paramètre user_id :
 
 .. code-block:: python
 
@@ -735,7 +738,7 @@ Une première requête catalogue
                                           sort_order='reverse', # le tri est inversé (antéchronologique)
                                           sort_limit=50) # on limite à 50 résultats
     for brain in brains:
-        print brain.Title, " ", brain.getURL() # On affiche la métadonnée Title et on calcule l'url du document
+        print brain.Title or brain.getId, " ", brain.getURL() # On affiche la métadonnée Title et on calcule l'url du document
 
     return printed
 
@@ -743,9 +746,9 @@ La méthode searchResults prend les critères en arguments nommés. Nous présen
 On accède aux métadonnées sur l'enregistrement via l'appel à un attribut.
 En plus des attributs-métadonnées, le brain dispose de trois méthodes utiles :
 
-  - ``getURL()`` -> renvoit l'URL absolue du document
-  - ``getPath()`` -> renvoit le chemin d'accès zope
-  - ``getObject()`` -> renvoit l'objet
+- ``getURL()`` -> renvoit l'URL absolue du document
+- ``getPath()`` -> renvoit le chemin d'accès zope
+- ``getObject()`` -> renvoit l'objet
 
 Un aperçu un peu plus complet est disponible ici :  `Querying the catalog <http://plone.org/documentation/manual/developer-manual/indexing-and-searching/querying-the-catalog>`_
 
