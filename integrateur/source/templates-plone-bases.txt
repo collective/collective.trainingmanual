@@ -88,7 +88,7 @@ et il n'est pas aiser de tester ses routines.
 Nous souhaiterions afficher les derniers contenus ajoutés par l'utilisateur. Nous allons faire appel à notre script qui retrouvait la liste des 50 derniers contenus créés par l'utilisateur connecté.
 Nous allons le modifier pour qu'il ne renvoit pas un texte, mais pour qu'il renvoit les enregistrements que nous valoriserons ensuite dans la template.
 
-Créez le script get_user_recent_added
+Créez le script **get_user_recent_added** :
 
 .. code-block:: python
 
@@ -136,7 +136,7 @@ Quelques remarques :
 - Nous avons rajouté une boucle : *tal:repeat="brain context/get_user_recent_added"*
   qui s'écrirait, dans un script python: ``for brain in context.get_user_recent_added():``.
 
-- Comme vous pouvez le voir, brain/Title et brain/getURL équivalent respectivement à ``brain.Title`` et ``brain.getURL()``
+- Comme vous pouvez le voir, ``brain/Title`` et ``brain/getURL`` équivalent respectivement à ``brain.Title`` et ``brain.getURL()``
   (les expressions TAL ont cela d'agréable qu'elles sont sobres en caractères spéciaux).
 
 - Une expression TAL introduite par la directive **string:** permet de renvoyer une chaine de caractères
@@ -177,7 +177,7 @@ Nous avons, dans la template précédente, valorisé une liste de brains. Nous a
 Vous voyez que la récupération d'une propriété utilisateur dans la template est assez verbeuse.
 Nous allons écrire un script qui renvoit un dictionnaire avec les informations qui nous intéressent.
 
-Modifiez le script : user_infos que vous avez créé au chapitre précédent pour qu'il n'affiche pas un texte mais renvoie un dictionnaire.
+Modifiez le script **user_infos**  que vous avez créé au chapitre précédent pour qu'il n'affiche pas un texte mais renvoie un dictionnaire.
 
 .. code-block :: python
 
@@ -208,7 +208,7 @@ Puis modifiez votre template pour qu'elle récupère cette structure et qu'elle 
                         portal_state context/@@plone_portal_state;
                         user_infos context/user_infos">
 
-        <h2>Bienvenue <span tal:content="user_infos/fullname" /> !</h2>
+        <h2>Bienvenue <span tal:replace="user_infos/fullname" /> !</h2>
 
         <p>Vous êtes connectés depuis <span tal:content="user_infos/login_time" />
         <p>Votre email est :
@@ -232,6 +232,9 @@ Vous observez que la template est beaucoup plus lisible.
 Ce que nous avons fait, c'est déporter la préparation des informations à afficher dans du code python,
 et réserver la template pour la disposition des informations.
 
+Appeler une template depuis une autre template
+==============================================
+
 Exercices
 =========
 
@@ -241,8 +244,8 @@ Exercices
 - Vous réaliserez une page destinée à être affichée au niveau d'un dossier, qui affichera la liste des utilisateurs qui ont un rôle sur le dossier,
   et pour chacun d'entre eux le nombre de documents qu'ils ont créé.
 
-- Vous réaliserez une template qui affiche, pour chaque mot clé disponible sur le site, le nombre d'occurences et un lien vers la page des résultats.
-  (Astuces : 1/ le script *collectKeywords('subject', 'Subject* vous permet de récupérer la liste des mots clés, 2/ l'index concerné est l'index *Subject*.).
+- Vous réaliserez une template qui affiche, pour chaque mot clé disponible sur le site, le nombre d'occurences et un lien vers une page de résultat (dont vous devrez également écrire la template).
+  (Astuces : 1/ le script ``context.collectKeywords('subject', 'Subject')`` vous permet de récupérer la liste des mots clés, 2/ l'index concerné est l'index *Subject*.).
   Bonus : la taille de l'affichage du mot clé sera proportionnelle au nombre d'occurences !
 
 Ecrire la template sous la forme d'une vue
@@ -271,7 +274,7 @@ Nous allons créer une vue "welcome". Pour cela, il faut d'abord la déclarer da
 Vous pouvez ensuite simplement récupérer la template (utilisez le lien *click context* du formulaire d'édition de la template),
 et l'enregistrer dans un fichier **welcome.pt**.
 
-Vous reprenez ensuite dans la classe **Welcome** (qui hérite de **BrowserView**) le code des scripts que vous incluez dans des méthodes du même nom.
+Vous reprenez ensuite dans la classe **Welcome** (qui hérite de **BrowserView**) d'un module **views.py** le code des scripts que vous incluez dans des méthodes du même nom.
 La classe **Welcome** contient un attribut **context** (l'équivalent du **context** dans le script ou la template) et un attribut **request**
 (l'équivalent de ``context.REQUEST`` dans le script ou request dans la template).
 
@@ -501,7 +504,7 @@ Dans un module **viewlets.py** nous allons créer cette classe **LinkAllContents
                     """ % ({'url': self.context.absolute_url() + '/all-contents.csv',
                             'portal_url': portal_url})
 
-Les viewlets hériteront de la classe ViewletBase, qui fournit quelques services.
+Les viewlets hériteront de la classe **ViewletBase**, qui fournit quelques services.
 Pour les besoins les plus simples, vous surchargez ensuite la méthode **render**, qui génèrera le HTML en python pur.
 (en principe vous ne mettrez jamais de css en *inline* : vous indiquerez dans une css : ``#link-allcontents-csv{float: right;}``).
 
@@ -519,5 +522,5 @@ Pour des besoins plus complexes, vous utiliserez une template en surchargeant l'
 Exercices
 ---------
 
-- Ajoutez un lien sur les dossiers pour conduire vers un écran que vous avez développé lors d'un exercice sur les templates ou les vues
+- Ajoutez un lien sur les dossiers pour conduire vers un écran que vous avez développé lors d'un exercice sur les templates ou les vues.
 - Affichez sous le titre d'un dossier un bloc d'informations indiquant notamment la liste des personnes qui ont ajouté des documents dans ce dossier.

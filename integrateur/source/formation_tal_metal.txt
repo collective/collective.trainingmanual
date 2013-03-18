@@ -234,10 +234,10 @@ Content et Replace
 
   tal:replace="[structure] Tales"
 
-Le contenu est automatiquement transformé à l'aide de la fonction html_quote.
-Pour ne pas subir cette transformation, il faut utiliser le préfixe structure.
+Le contenu est automatiquement transformé à l'aide de la fonction ``html_quote``.
+**Pour ne pas subir cette transformation, il faut utiliser le préfixe structure**.
 
-Il est possible d'accéder aux informations portées par les itérations en utilisant la variable repeat.
+Il est possible d'accéder aux informations portées par les itérations en utilisant la variable ``repeat``.
 
 
 Condition
