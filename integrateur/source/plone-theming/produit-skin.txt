@@ -1,0 +1,325 @@
+Produit de skin
+===============
+
+Introduction
+------------
+
+La création d'un thème Diazo dans l'éditeur en ligne n'est pas une solution
+très solide, car même si on est en mesure d'exporter le design dans une archive
+(et donc de pouvoir en faire une sauvegarde, ou bien de faire un déploiement
+d'un serveur de développement vers un serveur de production), il est plus sain
+de gérer son thème dans un véritable produit Plone (qui pourra être géré dans 
+Git ou SVN, qui pourra facilement être déployé par buildout, etc.).
+
+D'autre part, cela permet d'aller au-delà de ce que propose Diazo, comme par
+exemple, surcharger des composants de Plone, créer des viewlets, des portlets,
+changer les attributs du profil utilisateur, etc.
+
+Créer un produit pour son thème Diazo
+-------------------------------------
+
+Créer le module
++++++++++++++++
+
+Pour créer un produit de thème vierge, on va utiliser ZopeSkel qui permet
+d'initialiser des modules Python en se basant sur un modèle.
+
+On va utiliser le modèle standard ``plone``.
+
+Aller dans src/, et lancer la commande::
+
+    $ ../bin/zopeskel plone
+
+Donner un nom au module (par exemple: nomprojet.theme).
+Et garder les choix par défaut sauf pour::
+
+    Register Profile (Should this package register a GS Profile) [False]: True
+
+Le module est créé dans ``src/nomprojet.theme``.
+
+Ajouter ce nouveau module dans ``buildout.cfg``::
+
+    develop =
+        ...
+        src/nomprojet.theme
+
+    eggs =
+        ...
+        nomprojet.theme
+
+Et faire tourner le buildout::
+
+    $ bin/buildout -Nv
+
+Ajouter le thème Diazo
+++++++++++++++++++++++
+
+Créer un dossier pour les ressources Diazo::
+
+    $ mkdir src/nomprojet.theme/nomprojet/theme/static
+
+Télécharger le thème créé avec l'éditeur en ligne Diazo et le dé-zipper dans
+ce dossier.
+
+Modifier le ``configure.zcml`` pour déclarer le dossier ``static``::
+
+    <configure
+        ...
+        xmlns:plone="http://namespaces.plone.org/plone"
+        >
+
+        ...
+
+        <plone:static name="nomprojet.theme" directory="static" type="theme" />
+
+        ...
+
+    </configure>
+
+Compléter le profile GenericSetup
++++++++++++++++++++++++++++++++++
+
+Dans ``src/nomprojet.theme/nomprojet/theme/profiles/default/``, il faut:
+
+- Ajouter la dépendance avec ``plone.app.theming`` dans ``metadata.xml``::
+
+    <?xml version="1.0"?>
+    <metadata>
+      <version>1000</version>
+      <dependencies>
+        <dependency>profile-plone.app.theming:default</dependency>
+      </dependencies>
+    </metadata>
+
+- Déclarer le thème, en créant ``theme.xml``::
+
+    <?xml version="1.0"?>
+    <theme>
+      <name>nomprojet.theme</name>
+      <enabled>true</enabled>
+    </theme>
+
+On peut alors lancer Zope, et installer le nouveau produit pour activer le
+thème.
+
+Surcharger la skin de Plone
+---------------------------
+
+Diazo permet de contrôler le rendu global du site.
+
+Mais si on souhaite modifier le rendu d'éléments situés en profondeur qui ne
+sont pas forcément accessibles par un sélecteur CSS précis ou bien une image
+(par exemple, le portrait par défaut des membres, ``defaultUser.png``) qui sont
+fournis par la skin de Plone, il faut surcharger la skin de Plone.
+
+.. note:: On peut le faire depuis la ZMI en allant dans ``./portal_skins`` et en utilisant le bouton ``Customize`` qui place la ressource dans le dossier ``custom``.
+
+Pour les surcharger dans les sources de notre produit de thème, la méthode est
+la suivante:
+
+    Créer un dossier
+    ``src/nomprojet.theme/nomprojet/theme/skins/nomprojet_custom`` et y placer les
+    ressources désirées.
+
+    Déclarer ce dossier dans le configure.zcml::
+
+        <configure
+
+            ...
+
+            xmlns:cmf="http://namespaces.zope.org/cmf"
+            >
+
+          ...
+          
+          <cmf:registerDirectory name="nomprojet_custom"/>
+
+        </configure>
+
+    Et le placer en première position par rapport aux autres layer de skins en créant 
+    ``src/nomprojet.theme/nomprojet/theme/profiles/default/skins.xml``::
+
+        <?xml version="1.0"?>
+        <object name="portal_skins" allow_any="False" cookie_persistence="False" default_skin="nomprojet.theme">
+
+          <object name="nomprojet_custom"
+              meta_type="Filesystem Directory View"
+              directory="nomprojet.theme:skins/nomprojet_custom"/>
+          <skin-path name="nomprojet.theme" based-on="Sunburst Theme">
+            <layer name="nomprojet_custom"
+                insert-after="custom"/>
+          </skin-path>
+
+        </object>
+
+    On peut alors relancer Zope et ré-installer le produit depuis la configuration
+    du site, et les éléments du dossier ``nomprojet_custom`` prendront la main sur
+    la skin de Plone (ou sur celle de tout autre produit installé).
+
+Surcharger des BrowserViews de Plone avec jbot
+----------------------------------------------
+
+De très nombreux composants de l'IHM de Plone sont fournis non pas par une skin
+mais par des BrowserViews.
+
+C'est le cas notamment des viewlets (qu'on peut voir lorsqu'on appelle l'url
+``./@@manage-viewlets``).
+
+.. note:: Pour les surcharger depuis la ZMI, on peut aller dans ``./portal_view_customizations``.
+
+Pour les surcharger dans les sources de notre produit de thème, la méthode la
+plus simple est d'utiliser ``z3c.jbot`` (Just a Bunch of Templates).
+
+Tout d'abord il faut l'ajouter dans ``buildout.cfg``::
+
+    eggs =
+        ...
+        z3c.jbot
+
+Et faire tourner le buildout::
+
+    $ bin/buildout -Nv
+
+Ensuite créer un dossier ``src/nomprojet.theme/nomprojet/theme/static/overrides``.
+
+Déclarer ce dossier comme dossier jbot en:
+
+- modifiant le configure.zcml::
+
+    <configure
+
+        ...
+
+        xmlns:browser="http://namespaces.zope.org/browser"
+        >
+
+        ...
+      
+        <include package="z3c.jbot" file="meta.zcml" />
+        <interface name="nomprojet.theme"
+            interface="nomprojet.theme.interfaces.IThemeSpecific"
+            type="zope.publisher.interfaces.browser.IBrowserSkinType"
+            />
+        <browser:jbot directory="static/overrides" />
+
+    </configure>
+
+- créant ``interfaces.py``::
+
+    from plone.theme.interfaces import IDefaultPloneLayer
+
+    class IThemeSpecific(IDefaultPloneLayer):
+        """Marker interface that defines a Zope 3 browser layer and a plone skin marker.
+        """
+
+- et déclarant la layer dans le profil en créant ``src/nomprojet.theme/nomprojet/theme/profiles/default/browserlayer.xml``::
+
+    <?xml version="1.0"?>
+    <layers>
+
+      <layer name="nomprojet.theme" interface="nomprojet.theme.interfaces.IThemeSpecific"/>
+
+    </layers>
+
+Ensuite il faut placer dans le dossier
+``src/nomprojet.theme/nomprojet/theme/static/overrides`` les templates qu'on
+veut surcharger en les renommant avec leur chemin complet vers l'original.
+
+Par exemple, pour surcharger ``colophon.pt`` de plone.app.layout, sachant que ce
+template se trouve dans ``viewlets``, il faut le nommer
+``plone.app.layout.viewlets.colophon.pt``.
+
+Il faut ensuite relancer Zope et ré-installer le produit depuis la configuration
+du site.
+
+Gérer les registres CSS et JS
+-----------------------------
+
+Pour des raisons de performances, il est toujours préférable de minimiser le
+nombre de JS et de CSS chargés par les pages de son site.
+
+Cela réduit le nombre de requêtes, et cela optimise l'effet de cache.
+
+Pour cela, Plone propose deux registres, ``portal_javascript`` et ``portal_css``,
+qui permettent de:
+
+    - déclarer les ressources qu'on souhaite charger,
+    - les ordonner,
+    - éventuellement, fournir des conditions qui déterminent quand on doit charger la ressources.
+
+À partir de ces informations, Plone va injecter les tags correspondants
+(``<script>``, ``<link>``, etc.) dans le ``<head>`` des pages produites, et si
+Zope ne tourne pas en mode debug, les différents fichiers vont être (autant que
+possible) regroupées et compressés.
+
+Il est donc important que les CSS et JS principaux du produit de thème soient
+gérés par ce biais.
+
+Il faut va donc **les enlever des modèles HTML** (pour ne pas les charger en
+double).
+
+Puis, les déclarer dans ces registres.
+
+Pour cela, il faut créer un fichier
+``src/nomprojet.theme/nomprojet/theme/profiles/default/jsregistry.xml``::
+
+    <?xml version="1.0"?>
+    <object name="portal_javascripts">
+
+        <javascript id="++theme++nomprojet.theme/js/theme.js"
+            cacheable="True"
+            compression="none"
+            cookable="True"
+            enabled="True"
+            expression="request/HTTP_X_THEME_ENABLED | nothing"
+            inline="False"
+            insert-after="++resource++collective.js.leaflet/leaflet.js"
+        />
+
+    </object>
+
+Et un fichier
+``src/nomprojet.theme/nomprojet/theme/profiles/default/cssregistry.xml``::
+
+    <?xml version="1.0"?>
+    <object name="portal_css">
+
+      <stylesheet
+        id="++theme++nomprojet.theme/css/theme.css"
+        applyPrefix="1"
+        media=""/>
+
+      <stylesheet
+        id="++theme++nomprojet.theme/bootstrap/css/bootstrap.css"
+        applyPrefix="1"
+        media=""/>
+
+    </object>
+
+Il faut ensuite relancer Zope, et ré-installer le produit depuis la
+configuration du site.
+
+.. note:: l'expression ``request/HTTP_X_THEME_ENABLED | nothing`` renvoie True uniquement si on utilise Diazo (cele permet de ne charger la ressource que lorsque le thème Diazo est actif et pas quand affiche Plone en direct).
+
+Il faut prendre garde à l'ordre des ressources et aux conditions: les ressources
+sont concaténées les unes après les autres dans l'ordre où elles sont placées
+tant que leurs conditions sont les mêmes.
+
+Si une ressource a une condition différente, cela va fermer le regroupement
+courant et créer un nouveau groupe.
+
+Donc si on veut avoir le moins de ressources à charger à la fin, il faut veiller
+à:
+
+    - mettre le moins de conditions que possible,
+    - si on en met, essayer d'en avoir le moins de différentes que possibles,
+    - et ré-ordonnancer de manière à ce que les conditions identiques soient consécutives.
+
+En ce qui concerne les JS ou CSS qui ne sont pas utilisés globalement mais
+uniquement dans un modèle HTML spécifique, il peut être au contraire pertinent
+de ne pas les mettre dans les registres et de les laisser en dur dans le modèle
+HTML en question.
+
+.. note:: quand on utilise un framework CSS responsive, il est souvent nécessaire de désactiver la CSS ``mobile.css`` de Plone qui risque de produire de mauvais résultats . Pour cela on ajoute ceci à ``cssregistry.xml``::
+
+        <stylesheet id="mobile.css" enabled="False" />

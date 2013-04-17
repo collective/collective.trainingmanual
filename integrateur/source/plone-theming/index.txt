@@ -1,0 +1,15 @@
+.. -*- coding: utf-8 -*-
+
+===========================
+Le theming Plone avec Diazo
+===========================
+
+Contents:
+
+.. toctree::
+   	:maxdepth: 2
+
+   	diazo
+   	produit-skin
+
+

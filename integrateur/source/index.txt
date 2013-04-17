@@ -22,6 +22,8 @@ francophone, notamment :
 * Les travaux, les relectures et les très nombreuses contributions de `Gilles
   Lenfant`, `Thomas Desvenain` et `Michael Launay`
 
+* La documentation sur le theming par Éric Bréhault (`Makina Corpus <http://www.makina-corpus.com>`__)
+
 Cette création est mise à disposition selon le Contrat Paternité-Partage des
 Conditions Initiales à l'Identique 2.0 France disponible en ligne
 http://creativecommons.org/licenses/by-sa/2.0/fr/ ou par courrier postal à
@@ -46,6 +48,7 @@ California 94105, USA.
    external_editor
    munin
    ploneformgen/index
+   plone-theming/index
    scripts-plone-bases
    templates-plone-bases
    formation_tal_metal
