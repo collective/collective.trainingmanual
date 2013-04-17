@@ -485,39 +485,6 @@ Modification du thème à la volée
 
     .. note:: dans cet exemple on utilise ``css:select`` directement dans l'expression XSL car le pré-compilateur Diazo va faire la conversion en XPath.
 
-    Autre exemple pour transformer les portlets Plone dont le markup est::
-
-        <dl>
-            <dt>titre</dt>
-            <dd>un item</dd>
-            <dd>un autre item</dd>
-        </dl>
-
-    en un markup plus simple tel que::
-
-        <div>
-            <h6>titre</h6>
-            <div>
-                un item
-                un autre item
-            </div>
-        </div>
-
-    (notamment parce qu'il est utile d'avoir un wrapper du contenu de la portlet
-    en entier, pour le rendre collapsible par exemple).
-
-    Cette transformation sera assurée par le temlate xsl suivant::
-
-        <xsl:template match="dl[@class[contains(., 'portlet')]]">
-            <div class="portlet">
-                <h6 class="portlet-header">
-                    <xsl:copy-of select="./dt/*" />
-                </h6>
-                <xsl:apply-templates select="./dd" />
-            </div>
-        </xsl:template>
-    
-
 Modification du contenu à la volée
 ----------------------------------
 
@@ -543,6 +510,38 @@ Modification du résultat par ``<xsl />``
     classe CSS Bootstrap pour les boutons, c'est un moyen intéressant de
     satisfaire le markup d'un framework comme Bootstrap sans devoir modifier de
     l'intérieur le markup produit par Plone).
+
+    Autre exemple, pour transformer les portlets Plone dont le markup est::
+
+        <dl>
+            <dt>titre</dt>
+            <dd>un item</dd>
+            <dd>un autre item</dd>
+        </dl>
+
+    en un markup plus simple tel que::
+
+        <div>
+            <h6>titre</h6>
+            <div>
+                un item
+                un autre item
+            </div>
+        </div>
+
+    (notamment parce qu'il est utile d'avoir un wrapper du contenu de la portlet
+    en entier, pour le rendre collapsible par exemple).
+
+    Cette transformation sera assurée par le template xsl suivant::
+
+        <xsl:template match="dl[@class[contains(., 'portlet')]]">
+            <div class="portlet">
+                <h6 class="portlet-header">
+                    <xsl:copy-of select="./dt/*" />
+                </h6>
+                <xsl:apply-templates select="./dd" />
+            </div>
+        </xsl:template>
 
     .. note:: les directives ``<xsl />`` doivent être placées à la racine de la balises ``<rules />`` principale, et elles sont appliquées de façon inconditionnelle.
 
