@@ -1,6 +1,10 @@
 Diazo
 =====
 
+:Author: Éric Bréhault (Makina Corpus)
+:Created: 2013-04-17
+:Version: 1.0
+
 Introduction
 ------------
 
