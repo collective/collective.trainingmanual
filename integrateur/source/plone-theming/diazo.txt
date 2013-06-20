@@ -514,6 +514,15 @@ Modification du résultat par ``<xsl />``
     classe CSS Bootstrap pour les boutons, c'est un moyen intéressant de
     satisfaire le markup d'un framework comme Bootstrap sans devoir modifier de
     l'intérieur le markup produit par Plone).
+    
+    Pour ajouter une classe::
+
+        <xsl:template match="div/@class[contains(., 'summary')]">
+            <xsl:attribute name="class">draggable <xsl:value-of select="."/></xsl:attribute>
+        </xsl:template>
+
+    va ajouter la classe ``draggable`` à tous les div portant la classe
+    ``summary``.
 
     Autre exemple, pour transformer les portlets Plone dont le markup est::
 
