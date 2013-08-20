@@ -209,13 +209,13 @@ Un modèle a été ajouté au modèle standard : `portlets`. Choisissez-le.
 .. figure:: ./collage/modele-portlets.jpg
     :align: center
 
-La colonne fournit maintenant une interface permettant de sélectionner une portlet,
+La colonne fournit maintenant une interface permettant de sélectionner un portlet,
 similaire à celle de la page 'Gérer les portlets'.
 
 .. figure:: ./collage/ajouter-portlet.jpg
     :align: center
 
-Ajoutez une portlet de modération, et enregistrez.
+Ajoutez un portlet de modération, et enregistrez.
 
 .. figure:: ./collage/voir-portlet.jpg
     :align: center
