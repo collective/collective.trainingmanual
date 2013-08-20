@@ -97,7 +97,7 @@ et des réglages de référencement (utiles principalement si votre site est un 
 
 Notamment :
 
-    - le tite du site,
+    - le titre du site,
     - sa description dans les résultats du moteur de recherche
 
 *Exposer les métadonnées Dublin Core* : si cette option est activée, chaque page du site aura des metatags dont le contenu
