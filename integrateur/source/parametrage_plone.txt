@@ -192,7 +192,7 @@ Vous arrivez sur la page de gestion des portlets.
 .. figure:: ./parametrage/manage-portlets.png
     :align: center
 
-Cliquez sur `Ajouter un portlet...` sur la colonne de gauche, et sélectionnez la portlet calendrier.
+Cliquez sur `Ajouter un portlet...` sur la colonne de gauche, et sélectionnez le portlet calendrier.
 
 .. figure:: ./parametrage/option-ajoute-portlet.png
     :align: center
@@ -266,7 +266,7 @@ Paramétrage de la navigation
 .. figure:: ./parametrage/lien-conf-navigation.png
 
 La page `Paramètres de navigation` permet de configurer deux choses :
-les onglets généraux du site et la portlet de navigation.
+les onglets généraux du site et le portlet de navigation.
 
 .. figure:: ./parametrage/conf-navigation.png
     :align: center
@@ -304,7 +304,7 @@ Configuration de la navigation
 .. figure:: ./parametrage/conf-navigation.png
     :align: center
 
-Vous pouvez également choisir ici les types de contenus affichés dans la portlet de navigation.
+Vous pouvez également choisir ici les types de contenus affichés dans le portlet de navigation.
 Il est fréquent de choisir de n'afficher que les dossiers.
 
 Vous pouvez également filtrer les contenus affichés dans l'arborescence
@@ -313,14 +313,14 @@ qu'un utilisateur a le droit de voir apparaissent dans la navigation)
 
 Le **plan du site** utilise également ces paramètres.
 
-Configuration de la portlet de navigation
------------------------------------------
+Configuration du portlet de navigation
+--------------------------------------
 
 **Attention**, ces paramètres ne recouvrent qu'une partie de la configuration
-de la portlet de navigation. Pour la configurer, revenez à la racine et cliquez sur
+du portlet de navigation. Pour la configurer, revenez à la racine et cliquez sur
 `Gérer les portlets` à gauche.
 
-Cliquez maintenant sur le nom de la portlet `Navigation`.
+Cliquez maintenant sur le nom du portlet `Navigation`.
 
 .. figure:: ./parametrage/parametres-portlet-navigation.png
     :align: center
@@ -337,7 +337,7 @@ où vous définissez essentiellement trois choses :
 Par défaut, le niveau d'affichage est 1 et le niveau racine est la racine du site :
 on ne voit donc que les documents contenus dans les dossiers ajoutés à la racine...
 (les choses sont paramétrées par défaut de cette façon de sorte que les dossiers à
-la racine n'apparaissent pas ET dans la portlet de navigation ET dans la barre d'onglets)
+la racine n'apparaissent pas ET dans le portlet de navigation ET dans la barre d'onglets)
 
 Imaginons que nous voulions afficher les dossiers à la racine.
 Entrez 0 pour `niveau d'affichage` et enregistrez.
@@ -349,8 +349,8 @@ Entrez 0 pour `niveau d'affichage` et enregistrez.
 Conclusion
 ----------
 
-Pourquoi deux pages pour configurer la portlet de navigation : dans les paramètres du site
-et dans les paramètres de la portlet ?
+Pourquoi deux pages pour configurer le portlet de navigation : dans les paramètres du site
+et dans les paramètres du portlet ?
 En fait, vous pouvez tout à fait avoir plusieurs portlets de navigation sur votre site,
 configurées différemment. Mais toutes sont concernées par les paramètres définis
 au niveau de la configuration du site...

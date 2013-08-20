@@ -542,7 +542,7 @@ Modification du résultat par ``<xsl />``
             </div>
         </div>
 
-    (notamment parce qu'il est utile d'avoir un wrapper du contenu de la portlet
+    (notamment parce qu'il est utile d'avoir un wrapper du contenu du portlet
     en entier, pour le rendre collapsible par exemple).
 
     Cette transformation sera assurée par le template xsl suivant::
