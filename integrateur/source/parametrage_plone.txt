@@ -548,7 +548,7 @@ et ils ne peuvent accéder au formulaire sans forcer le déverrouillage.
 Paramétrer le filtrage du contenu ajouté en HTML
 ================================================
 
-Les éditeurs WYSIWIG permettent aux contributeurs du site d'éditer le code html
+Les éditeurs WYSIWYG permettent aux contributeurs du site d'éditer le code html
 de pages qui seront ensuite affichées par les navigateurs des visiteurs du site.
 
 Il peut être dangereux ou gênant de permettre à vos utilisateurs de créer des formulaires,
@@ -618,7 +618,7 @@ Le premier bloc indique la liste des attributs qui seront simplement supprimés 
 
 Le second bloc indique les attributs qui seront supprimés
 s'ils sont dans telle ou telle balise en particulier.
-Par exemple, ici on retire les attributs width et weight des tables et des cellules.
+Par exemple, ici on retire les attributs width et height des tables et des cellules.
 
 Filtrage des styles et des classes
 ----------------------------------
