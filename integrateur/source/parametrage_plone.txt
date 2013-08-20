@@ -173,10 +173,10 @@ Permet aux utilisateurs de se connecter en utilisant leur email
 Paramétrage du calendrier
 =========================
 
-Le calendrier de Plone affiche, dans une portlet, un petit calendrier dans lequel
+Le calendrier de Plone affiche, dans un portlet, un petit calendrier dans lequel
 les dates comprenant des événements apparaissent en surbrillance.
 
-Nous allons d'abord ajouter une portlet calendrier sur notre site, en haut à gauche.
+Nous allons d'abord ajouter un portlet calendrier sur notre site, en haut à gauche.
 
 Ajouter un calendrier
 ---------------------
@@ -865,5 +865,5 @@ vue plus haut.
 .. figure:: ./parametrage/portlet-tdc.png
     :align: center
 
-Ajoutez une portlet, en naviguant sur le site, vous verrez que lorsque vous
+Ajoutez un portlet, en naviguant sur le site, vous verrez que lorsque vous
 allez sur une page Fichier, cette portlet apparaît.
