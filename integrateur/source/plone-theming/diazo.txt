@@ -501,7 +501,7 @@ Modification du contenu à la volée
         </replace>
 
 Modification du résultat par ``<xsl />``
----------------------------------------
+----------------------------------------
 
     Une fois toutes les règles appliquées, le rendu final peut encore être
     modifié par des directives ``<xsl />``. Par exemple::
@@ -617,7 +617,7 @@ L'intérêt d'utiliser un framework CSS (comme 960_, Bootstrap_, Foundation_) a
 déjà été largement démontré, et ne fait pas l'objet de ce document.
 
 .. _960: http://960.gs/
-.. _Boostrap: http://twitter.github.io/bootstrap/
+.. _Bootstrap: http://twitter.github.io/bootstrap/
 .. _Foundation: http://foundation.zurb.com/
 
 Plone en tant que back-office
@@ -766,7 +766,8 @@ Lorsqu'on fait fonctionner Zope en mode debug (à priori quand on l'a lancé ave
 ``bin/ploncectl fg``), on peut ajouter des commandes diazo dans l'url:
 
     - ``?diazo.debug=1`` (par exemple ``http://localhost:8080/Plone?diazo.debug=1``) va afficher à l'écran les traces d'éxécution de Diazo (les erreurs, les règles appliquées (en vert), les règles écratées (en rouge))
-    .. image:: images/debug.png
+
+      .. image:: images/debug.png
 
     - ``?diazo.off=1`` (par exemple ``http://localhost:8080/Plone?diazo.off=1``) va désactiver Diazo, de manière par exemple à pouvoir inspecter la page non thémée plus facilement.
 
