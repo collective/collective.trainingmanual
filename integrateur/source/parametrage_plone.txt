@@ -866,4 +866,4 @@ vue plus haut.
     :align: center
 
 Ajoutez un portlet, en naviguant sur le site, vous verrez que lorsque vous
-allez sur une page Fichier, cette portlet apparaît.
+allez sur une page Fichier, cet portlet apparaît.
