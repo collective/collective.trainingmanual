@@ -8,6 +8,10 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Test Setup  Run keywords  Open test browser  Setup Plone site
 Test Teardown  Close all browsers
 
+** Variables **
+
+${SSDIR}  /tmp/images
+
 
 *** Test cases ***
 
@@ -37,13 +41,13 @@ mail configured
     Input text  name=form.smtp_port  25
     Input text  name=form.email_from_name  Webmestre de Plone.fr
     Input text  name=form.email_from_address  webmestre@plone.fr
-    Capture and crop page screenshot  parametrage/envoi-courriel.png  css=#content
-#    Capture viewport screenshot  parametrage/envoi-courriel.png
-#    Capture page screenshot  parametrage/envoi-courriel.png
+    Capture and crop page screenshot  ${SSDIR}/parametrage/envoi-courriel.png  css=#content
+#    Capture viewport screenshot  ${SSDIR}/parametrage/envoi-courriel.png
+#    Capture page screenshot  ${SSDIR}/parametrage/envoi-courriel.png
     Click Button  form.actions.save
 
 
 i go to control panel
     Go to  ${PLONE_URL}/@@overview-controlpanel
-#    Comment  PAUSE
     Capture page screenshot  parametrage/configuration.png
+#    Comment  PAUSE
