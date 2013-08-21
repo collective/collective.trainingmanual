@@ -23,6 +23,8 @@ Objectif
 Nous allons présenter ici les options de paramétrage offertes de base
 à l'administrateur d'un site Plone.
 
+.. contents::
+
 Accéder au menu de configuration
 ================================
 
@@ -494,28 +496,6 @@ Ce qui est particulièrement utile pour les fichiers type tableur ou traitement 
 
 Veuillez vous référer au chapitre :ref:`external_editor` pour de plus amples informations.
 
-Édition en ligne
-----------------
-
-À ne pas confondre avec l'édition externe,
-l'édition en ligne permet de modifier les documents en saissant directement
-vos données en cliquant sur la vue d'affichage, sans passer par un formulaire de modification.
-
-Par exemple, ici nous modifions 'en ligne' la description de la page d'accueil du site.
-
-
-.. figure:: ./parametrage/clique-description.png
-    :align: center
-
-.. figure:: ./parametrage/edite-description.png
-    :align: center
-
-.. figure:: ./parametrage/sauve-description.png
-    :align: center
-
-Attention, cette option ralentit considérablement les performances sur les anciens navigateurs (IE 6...).
-
-Sur les navigateurs les plus récents, elle est par contre insensible.
 
 Vérification de l'intégrité des liens
 -------------------------------------
@@ -867,3 +847,10 @@ vue plus haut.
 
 Ajoutez un portlet, en naviguant sur le site, vous verrez que lorsque vous
 allez sur une page Fichier, ce portlet apparaît.
+
+Gestion des utilisateurs et groupes
+===================================
+
+.. figure:: ./parametrage/lien-conf-utilisateurs-groupes.png
+
+Cette page permet de gérer les utilisateurs et groupes.

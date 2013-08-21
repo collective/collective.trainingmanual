@@ -8,6 +8,7 @@ Library  Remote  ${PLONE_URL}/RobotRemote
 Test Setup  Run keywords  Open test browser  Setup Plone site
 Test Teardown  Close all browsers
 
+
 ** Variables **
 
 ${SSDIR}  /tmp/images
@@ -15,9 +16,11 @@ ${SSDIR}  /tmp/images
 
 *** Test cases ***
 
-Got to control panel
+Go to control panel
     Given a site owner
      When i go to control panel
+     Then i create screenshots 
+
 
 *** Keywords ***
 
@@ -41,7 +44,7 @@ mail configured
     Input text  name=form.smtp_port  25
     Input text  name=form.email_from_name  Webmestre de Plone.fr
     Input text  name=form.email_from_address  webmestre@plone.fr
-    Capture and crop page screenshot  ${SSDIR}/parametrage/envoi-courriel.png  css=#content
+    Capture and crop page screenshot  ${SSDIR}/parametrage/envoi-courriel.png  id=content
 #    Capture viewport screenshot  ${SSDIR}/parametrage/envoi-courriel.png
 #    Capture page screenshot  ${SSDIR}/parametrage/envoi-courriel.png
     Click Button  form.actions.save
@@ -50,4 +53,11 @@ mail configured
 i go to control panel
     Go to  ${PLONE_URL}/@@overview-controlpanel
     Capture page screenshot  ${SSDIR}/parametrage/configuration.png
+
+i create screenshots
+    Comment  PAUSE
     Capture and crop page screenshot  ${SSDIR}/parametrage/lien-conf-utilisateurs-groupes.png  css=a[href $= "@@usergroup-userprefs"]
+    Capture and crop page screenshot  ${SSDIR}/parametrage/lien-conf-edition.png  css=a[href $= "@@editing-controlpanel"]
+    Click Link  css=a[href $= "@@editing-controlpanel"]
+    Capture and crop page screenshot  ${SSDIR}/parametrage/conf-edition.png  id=content
+    Go Back
