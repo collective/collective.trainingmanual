@@ -51,7 +51,6 @@ Thumbs.db
 # Python projects related #
 ###########################
 *.egg-info
-.egg-info.installed.cfg
 *.pt.py
 *.cpt.py
 *.zpt.py
@@ -70,9 +69,9 @@ Thumbs.db
 #############################
 bin
 parts
-src
+/src
 develop-eggs
 
 developpeur/build
 integrateur/build
-docs
+/docs
