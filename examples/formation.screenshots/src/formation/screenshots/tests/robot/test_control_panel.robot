@@ -49,5 +49,5 @@ mail configured
 
 i go to control panel
     Go to  ${PLONE_URL}/@@overview-controlpanel
-    Capture page screenshot  parametrage/configuration.png
-#    Comment  PAUSE
+    Capture page screenshot  ${SSDIR}/parametrage/configuration.png
+    Capture and crop page screenshot  ${SSDIR}/parametrage/lien-conf-utilisateurs-groupes.png  css=a[href $= "@@usergroup-userprefs"]
