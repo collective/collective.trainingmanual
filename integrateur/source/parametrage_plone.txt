@@ -732,20 +732,6 @@ Nous fournirons une documentation spécifique pour les sites en plusieurs langue
 
 .. todo:: lien vers une doc pour des sites multilingues
 
-Paramétrer les collections
-==========================
-
-.. figure:: ./parametrage/lien-conf-collections.png
-
-Cette page permet de sélectionner les critères disponibles pour les collections,
-et de les paramétrer,
-ainsi que les données disponibles à l'affichage des collections.
-
-Cette page correspond à un paramétrage plus avancée du site, nous y reviendrons
-dans un chapitre dédié aux collections.
-
-.. todo:: écrire ce chapitre
-
 
 Paramétrer les types de contenu
 ===============================
