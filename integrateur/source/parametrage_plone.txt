@@ -840,3 +840,33 @@ Gestion des utilisateurs et groupes
 .. figure:: ./parametrage/lien-conf-utilisateurs-groupes.png
 
 Cette page permet de gérer les utilisateurs et groupes.
+
+
+Caching
+=======
+
+Pour gérer les règles de cache.
+
+
+Discussion
+==========
+
+Pour gérer les options liées aux commentaires.
+
+
+Registre de configuration
+=========================
+
+Pour configurer certaines options qui n'ont pas d'interface dédiée.
+
+
+Syndication
+===========
+
+Pour gérer les options liées aux flux RSS.
+
+
+Éditeur de texte riche TinyMCE
+==============================
+
+Pour gérer les options de TinyMCE.
