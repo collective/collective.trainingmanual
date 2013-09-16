@@ -12,9 +12,9 @@ Avant Diazo, la mise en place d'un design spécifique pour un site Plone se
 faisait en dérivant le thème de base de Plone afin d'en modifier certains
 éléments:
 
-    - les images (par exemple le logo, ou le favicon),
-    - les CSS,
-    - les templates (template principal, template de portlets ou de viewlets).
+- les images (par exemple le logo, ou le favicon),
+- les CSS,
+- les templates (template principal, template de portlets ou de viewlets).
 
 Cela impliquait de changer de nombreux fichiers de déclaration, et souvent de
 ré-écrire certains fichiers Python.
@@ -31,10 +31,10 @@ Principe
 
 Le design est fourni sous forme d'une arborescence HTML statique classique:
 
-    - un ou plusieurs fichiers HTML,
-    - des images,
-    - des CSS,
-    - des JS.
+- un ou plusieurs fichiers HTML,
+- des images,
+- des CSS,
+- des JS.
 
 L'application de ce design aux contenus Plone est définie par un fichier de
 règles nommé **rules.xml**.
@@ -70,10 +70,10 @@ On dispose également de 2 inspecteurs qui permettent de voir les pages du thèm
 en HTML statiques et les pages Plone et d'y sélectionner à la souris les
 éléments qu'on veut mettre en correspondance:
 
-    - un clic permet de pointer un élément,
-    - la touche ``Esc`` permet de pointer son père,
-    - la touche ``Enter`` place l'élement dans la sélection courante,
-    - le bouton ``Build rule`` permet de créer une règle à partir des sélections.
+- un clic permet de pointer un élément,
+- la touche ``Esc`` permet de pointer son père,
+- la touche ``Enter`` place l'élement dans la sélection courante,
+- le bouton ``Build rule`` permet de créer une règle à partir des sélections.
 
 Les directives
 --------------
@@ -83,196 +83,162 @@ Le fichier **rules.xml** peut contenir les directives suivantes.
 ``<theme />``
 +++++++++++++
 
-    Cette directive applique une page de thème.
-    Exemple::
+Cette directive applique une page de thème.
+Exemple::
 
-        <theme href="index.html" />
+    <theme href="index.html" />
 
-    On peut rendre y ajouter des conditions afin de choisir quand utiliser telle
-    ou telle page de thème. Exemple::
+On peut rendre y ajouter des conditions afin de choisir quand utiliser telle
+ou telle page de thème. Exemple::
 
-        <theme href="index.html" css:if-content=".section-front-page" />
-        <theme href="detail.html" css:if-not-content=".section-front-page" />
+    <theme href="index.html" css:if-content=".section-front-page" />
+    <theme href="detail.html" css:if-not-content=".section-front-page" />
 
-    Les attributs possibles pour ``<theme/>`` sont:
+Les attributs possibles pour ``<theme/>`` sont:
 
-        * ``css:if-content`` et ``css:if-not-content`` qui permettent de tester un sélecteur CSS sur le contenu Plone,
+* ``css:if-content`` et ``css:if-not-content`` qui permettent de tester un sélecteur CSS sur le contenu Plone,
+* ``if-content`` et ``if-not-content`` qui permettent de tester un sélecteur XPath sur le contenu Plone,
+* ``if`` qui permet de tester une variable Plone (voir plus loin), par exemple::
 
-        * ``if-content`` et ``if-not-content`` qui permettent de tester un sélecteur XPath sur le contenu Plone,
+    <theme href="theme-two-left.html" if="$have_left_portlets"/>
 
-        * ``if`` qui permet de tester une variable Plone (voir plus loin), par exemple::
+* ``if-path`` qui permet de tester des conditions sur la requête courante, exemple::
 
-            <theme href="theme-two-left.html" if="$have_left_portlets"/>
+    <theme href="calendrier.html" if-path="/events"/>
 
-        * ``if-path`` qui permet de tester des conditions sur la requête courante, exemple::
-
-            <theme href="calendrier.html" if-path="/events"/>
-
-    .. note:: pour plus de détails sur les conditions, voir plus bas.
+.. note:: pour plus de détails sur les conditions, voir plus bas.
 
 ``<notheme />``
 +++++++++++++++
 
-    Cette directive désactive le thème diazo. Exemple::
+Cette directive désactive le thème diazo. Exemple::
 
-        <notheme css:if-content=".template-overview-controlpanel" />
+    <notheme css:if-content=".template-overview-controlpanel" />
 
-    Les attributs possibles pour ``<notheme/>`` sont:
+Les attributs possibles pour ``<notheme/>`` sont:
 
-        * ``css:if-content`` et ``css:if-not-content``,
-
-        * ``if-content`` et ``if-not-content``,
-
-        * ``if``,
-
-        * ``if-path``.
+* ``css:if-content`` et ``css:if-not-content``,
+* ``if-content`` et ``if-not-content``,
+* ``if``,
+* ``if-path``.
 
 ``<replace />``
 +++++++++++++++
 
-    Cette directive remplace un élément du thème par le contenu Plone.
-    Exemple::
+Cette directive remplace un élément du thème par le contenu Plone.
+Exemple::
 
-        <replace theme="/html/head/title" content="/html/head/title"/>
+    <replace theme="/html/head/title" content="/html/head/title"/>
 
-    Les attributs possibles pour ``<replace />`` sont:
+Les attributs possibles pour ``<replace />`` sont:
 
-        * ``theme`` ou ``css:theme`` pour désigner l'élément cible dans le thème HTML,
+* ``theme`` ou ``css:theme`` pour désigner l'élément cible dans le thème HTML,
+* ``content`` ou ``css:content`` pour désigner l'élément source dans le contenu Plone,
+* ``theme-children`` ou ``css:theme-children``, qui permet de remplacer non pas l'élément désigné, mais tous les tags qu'il contient,
+* ``content-children`` ou ``css:content-children``, qui permet d'utiliser non pas l'élément désigné, mais tous les tags qu'il contient,
+* ``attributes`` qui permet de remplacer des attributs plutôt que le contenu. Exemple::
 
-        * ``content`` ou ``css:content`` pour désigner l'élément source dans le contenu Plone,
+    <replace theme="/html/body" content="/html/body" attributes="class"/>
 
-        * ``theme-children`` ou ``css:theme-children``, qui permet de remplacer non pas l'élément désigné, mais tous les tags qu'il contient,
-
-        * ``content-children`` ou ``css:content-children``, qui permet d'utiliser non pas l'élément désigné, mais tous les tags qu'il contient,
-
-        * ``attributes`` qui permet de remplacer des attributs plutôt que le contenu. Exemple::
-
-            <replace theme="/html/body" content="/html/body" attributes="class"/>
-
-        * ``css:if-content`` et ``css:if-not-content``,
-
-        * ``if-content`` et ``if-not-content``,
-
-        * ``if``,
-
-        * ``if-path``,
-
-        * ``method`` (voir plus bas).
+* ``css:if-content`` et ``css:if-not-content``,
+* ``if-content`` et ``if-not-content``,
+* ``if``,
+* ``if-path``,
+* ``method`` (voir plus bas).
 
 ``<before />`` et ``<after />``
 +++++++++++++++++++++++++++++++
 
-    Ces deux directives ont un comportement similaire à ``<replace />`` mais
-    plutôt que remplacer l'élément ciblé, elles vont faire une insertion
-    avant ou après la cible (selon le cas).
+Ces deux directives ont un comportement similaire à ``<replace />`` mais
+plutôt que remplacer l'élément ciblé, elles vont faire une insertion
+avant ou après la cible (selon le cas).
 
-    Les attributs possibles sont les mêmes que pour ``<replace />`` sauf ``method``.
+Les attributs possibles sont les mêmes que pour ``<replace />`` sauf ``method``.
 
 ``<append />`` et ``<prepend />``
 +++++++++++++++++++++++++++++++++
 
-    Ces deux directives ont un comportement similaire à ``<replace />`` mais
-    plutôt que remplacer l'élément ciblé, elles vont faire une insertion à
-    l'intérieur de l'élement cible à la fin ou au début (selon le cas).
+Ces deux directives ont un comportement similaire à ``<replace />`` mais
+plutôt que remplacer l'élément ciblé, elles vont faire une insertion à
+l'intérieur de l'élement cible à la fin ou au début (selon le cas).
 
-    Les attributs possibles sont les mêmes que pour ``<replace />`` sauf ``method``.
+Les attributs possibles sont les mêmes que pour ``<replace />`` sauf ``method``.
 
 ``<drop />``
 ++++++++++++
 
-    Cette directive supprime des éléments du thème ou du contenu.
-    Exemples::
+Cette directive supprime des éléments du thème ou du contenu.
+Exemples::
 
-        <drop css:content="#portal-content .documentByLine" />
-        <drop css:theme=".lorem-ipsum" />
+    <drop css:content="#portal-content .documentByLine" />
+    <drop css:theme=".lorem-ipsum" />
 
-    .. note:: une même commande ``<drop />`` ne peut pas supprimer à la fois dans le contenu et dans le thème.
+.. note:: une même commande ``<drop />`` ne peut pas supprimer à la fois dans le contenu et dans le thème.
 
-    Les attributs possibles pour ``<drop />`` sont:
+Les attributs possibles pour ``<drop />`` sont:
 
-        * ``theme`` ou ``css:theme``,
-
-        * ``content`` ou ``css:content``,
-
-        * ``theme-children`` ou ``css:theme-children``,
-
-        * ``content-children`` ou ``css:content-children``,
-
-        * ``attributes``,
-
-        * ``css:if-content`` et ``css:if-not-content``,
-
-        * ``if-content`` et ``if-not-content``,
-
-        * ``if``,
-
-        * ``if-path``.
+* ``theme`` ou ``css:theme``,
+* ``content`` ou ``css:content``,
+* ``theme-children`` ou ``css:theme-children``,
+* ``content-children`` ou ``css:content-children``,
+* ``attributes``,
+* ``css:if-content`` et ``css:if-not-content``,
+* ``if-content`` et ``if-not-content``,
+* ``if``,
+* ``if-path``.
 
 ``<strip />``
 +++++++++++++
 
-    Cette directive supprime des élements sans supprimer leur contenu. Exemple::
+Cette directive supprime des élements sans supprimer leur contenu. Exemple::
 
-        <strip css:content=".portletWrapper" />
+    <strip css:content=".portletWrapper" />
 
-    va supprimer les tags ``div`` de classe ``portletWrapper`` mais les tags
-    ``dl`` des portlets seront préservés.
+va supprimer les tags ``div`` de classe ``portletWrapper`` mais les tags
+``dl`` des portlets seront préservés.
 
-    Les attributs possibles sont les mêmes que pour ``<drop />``.
+Les attributs possibles sont les mêmes que pour ``<drop />``.
 
 ``<merge />``
 +++++++++++++
 
-    Cette directive fusionne pour un attribut donné les valeurs provenant du
-    thème et celles provenant du contenu Plone. Exemple::
+Cette directive fusionne pour un attribut donné les valeurs provenant du
+thème et celles provenant du contenu Plone. Exemple::
 
-        <merge attributes="class" css:theme="body" css:content="body" />
+    <merge attributes="class" css:theme="body" css:content="body" />
 
-    Les attributs possibles sont:
+Les attributs possibles sont:
 
-        * ``attributes``, qui définit les attributs concernés (séparés par des espaces),
-
-        * ``separator``, qui indique le séparateur à utiliser pour fusionner les valeurs (par défaut, c'est un espace),
-
-        * ``theme`` ou ``css:theme``,
-
-        * ``content`` ou ``css:content``,
-
-        * ``css:if-content`` et ``css:if-not-content``,
-
-        * ``if-content`` et ``if-not-content``,
-
-        * ``if``,
-
-        * ``if-path``.
+* ``attributes``, qui définit les attributs concernés (séparés par des espaces),
+* ``separator``, qui indique le séparateur à utiliser pour fusionner les valeurs (par défaut, c'est un espace),
+* ``theme`` ou ``css:theme``,
+* ``content`` ou ``css:content``,
+* ``css:if-content`` et ``css:if-not-content``,
+* ``if-content`` et ``if-not-content``,
+* ``if``,
+* ``if-path``.
 
 ``<copy />``
 ++++++++++++
 
-    Cette directive permet de copier un attribut venant du contenu Plone sur un
-    élément du thème.
+Cette directive permet de copier un attribut venant du contenu Plone sur un
+élément du thème.
 
-    .. note:: À la différence, de ``<replace attributes />``, ``<copy />`` va fonctionner même si l'attribut n'existe pas sur l'élément cible (et s'il existe, il est remplacé).
-    
-    Exemple::
+.. note:: À la différence, de ``<replace attributes />``, ``<copy />`` va fonctionner même si l'attribut n'existe pas sur l'élément cible (et s'il existe, il est remplacé).
 
-        <copy attributes="class" css:theme="body" css:content="body"/>
+Exemple::
 
-    Les attributs possibles sont:
+    <copy attributes="class" css:theme="body" css:content="body"/>
 
-        * ``attributes``, qui définit les attributs concernés (séparés par des espaces),
+Les attributs possibles sont:
 
-        * ``theme`` ou ``css:theme``,
-
-        * ``content`` ou ``css:content``,
-
-        * ``css:if-content`` et ``css:if-not-content``,
-
-        * ``if-content`` et ``if-not-content``,
-
-        * ``if``,
-
-        * ``if-path``.
+* ``attributes``, qui définit les attributs concernés (séparés par des espaces),
+* ``theme`` ou ``css:theme``,
+* ``content`` ou ``css:content``,
+* ``css:if-content`` et ``css:if-not-content``,
+* ``if-content`` et ``if-not-content``,
+* ``if``,
+* ``if-path``.
 
 L'ordre d'éxecution
 -------------------
@@ -282,15 +248,15 @@ il est donc bon de le connaître.
 
 L'ordre est le suivant:
 
-    1. les directives ``<notheme />``,
-    2. les directives ``<theme />``,
-    3. les directives ``<before />`` utilisant ``theme`` (et non pas ``theme-children``),
-    4. les directives ``<drop />`` sont éxécutées ensuite,
-    5. les directives ``<replace />`` utilisant ``theme`` (et non pas ``theme-children``),
-    6. les directives ``<strip />``,
-    7. toutes les directives s'appliquant aux attributs,
-    8. les directives ``<before />``, ``<replace />`` et ``<after />`` utilisant ``theme-children``,
-    9. les directives ``<after />`` utilisant ``theme`` (et non pas ``theme-children``).
+1. les directives ``<notheme />``,
+2. les directives ``<theme />``,
+3. les directives ``<before />`` utilisant ``theme`` (et non pas ``theme-children``),
+4. les directives ``<drop />`` sont éxécutées ensuite,
+5. les directives ``<replace />`` utilisant ``theme`` (et non pas ``theme-children``),
+6. les directives ``<strip />``,
+7. toutes les directives s'appliquant aux attributs,
+8. les directives ``<before />``, ``<replace />`` et ``<after />`` utilisant ``theme-children``,
+9. les directives ``<after />`` utilisant ``theme`` (et non pas ``theme-children``).
 
 .. note:: si on ajoute ``method="raw"`` sur une directive ``<replace />``, on peut utiliser un morceau du contenu Plone même s'il appartient à un élément supprimé par un ``<drop />``.
 
@@ -310,298 +276,298 @@ Les conditions
 Conditions sur le contenu
 +++++++++++++++++++++++++
 
-    ``if-content`` permet d'indiquer une expression XPath, si cette expression
-    trouve une correspondance dans le contenu, la règle sera appliquée.
-    
-    ``css:if-content`` fonctionne de la même manière, mais en utilisant une
-    expression CSS plutôt qu'XPath.
+``if-content`` permet d'indiquer une expression XPath, si cette expression
+trouve une correspondance dans le contenu, la règle sera appliquée.
 
-    Exemple::
+``css:if-content`` fonctionne de la même manière, mais en utilisant une
+expression CSS plutôt qu'XPath.
 
-        <drop css:theme="#publicite" css:if-content=".userrole-authenticated"/>
+Exemple::
 
-    signifie que l'élément `publicite` sera supprimé si la classe
-    ``userrole-authenticated`` est présente (autrement dit si l'utilisateur est
-    connecté).
+    <drop css:theme="#publicite" css:if-content=".userrole-authenticated"/>
 
-    Si on laisse ``if-content`` vide, cela revient à utiliser la même valeur que
-    celle de ``content`` (ou ``css:content``). Exemple::
+signifie que l'élément `publicite` sera supprimé si la classe
+``userrole-authenticated`` est présente (autrement dit si l'utilisateur est
+connecté).
 
-        <after css:theme="#topnews dt" css:content=".portlet-topnews dd"
-            css:if-content=""/>
+Si on laisse ``if-content`` vide, cela revient à utiliser la même valeur que
+celle de ``content`` (ou ``css:content``). Exemple::
 
-    est équivalent à::
+    <after css:theme="#topnews dt" css:content=".portlet-topnews dd"
+        css:if-content=""/>
 
-        <after css:theme="#topnews dt" css:content=".portlet-topnews dd"
-            css:if-content=".portlet-topnews dd"/>
+est équivalent à::
 
-    Si plusieurs règles concernent le même élement du thème mais ont des
-    conditions différentes, cela va être interprêté comme un bloc
-    ``if ... then ... else ...``. Exemple::
+    <after css:theme="#topnews dt" css:content=".portlet-topnews dd"
+        css:if-content=".portlet-topnews dd"/>
 
-        <replace theme-children="/html/body/h1" content="/html/body/h1/text()" if-content="/html/body/h1"/>
-        <replace theme-children="/html/body/h1" content="//h1[@id='first-heading']/text()" if-content="//h1[@id='first-heading']"/>
-        <replace theme-children="/html/body/h1" content="/html/head/title/text()" />
+Si plusieurs règles concernent le même élement du thème mais ont des
+conditions différentes, cela va être interprêté comme un bloc
+``if ... then ... else ...``. Exemple::
 
-    va renseigner le tag ``H1`` du ``body`` de la façon suivante:
+    <replace theme-children="/html/body/h1" content="/html/body/h1/text()" if-content="/html/body/h1"/>
+    <replace theme-children="/html/body/h1" content="//h1[@id='first-heading']/text()" if-content="//h1[@id='first-heading']"/>
+    <replace theme-children="/html/body/h1" content="/html/head/title/text()" />
 
-        - si le contenu dispose d'un tag ``h1`` comme fils immédiat du ``body``, on en prend le texte,
-        - sinon, on prend n'importe quel ``h1`` dont l'id est 'first-heading',
-        - et s'il n'y en a pas non plus, on prend la valeur du ``title``.
+va renseigner le tag ``H1`` du ``body`` de la façon suivante:
+
+- si le contenu dispose d'un tag ``h1`` comme fils immédiat du ``body``, on en prend le texte,
+- sinon, on prend n'importe quel ``h1`` dont l'id est 'first-heading',
+- et s'il n'y en a pas non plus, on prend la valeur du ``title``.
 
 Conditions sur le chemin de la page
 +++++++++++++++++++++++++++++++++++
 
-    L'attribut ``if-path`` permet de conditionner l'application d'une règle en
-    fonction du chemin de la page la page demandée.
+L'attribut ``if-path`` permet de conditionner l'application d'une règle en
+fonction du chemin de la page la page demandée.
 
-    Si la valeur commence par ``/``, on cherche la correspondance à partir du
-    début du chemin. Par exemple::
+Si la valeur commence par ``/``, on cherche la correspondance à partir du
+début du chemin. Par exemple::
 
-        <drop css:theme="#search" if-path="/blog" />
+    <drop css:theme="#search" if-path="/blog" />
 
-    va s'appliquer pour ``/blog``, ``/blog/``, et ``/blog/recent``.
+va s'appliquer pour ``/blog``, ``/blog/``, et ``/blog/recent``.
 
-    Si la valeur se termine par ``/``, on cherche la correspondance à partir de
-    la fin du chemin. Par exemple::
+Si la valeur se termine par ``/``, on cherche la correspondance à partir de
+la fin du chemin. Par exemple::
 
-        <drop css:theme="#search" if-path="recent/" />
+    <drop css:theme="#search" if-path="recent/" />
 
-    va s'appliquer pour ``/blog/recent/``, et ``/actualites/interne/recent``.
+va s'appliquer pour ``/blog/recent/``, et ``/actualites/interne/recent``.
 
-    Pour une correspondance exacte, il faut mettre ``/`` au début et à la fin.
-    Par exemple::
+Pour une correspondance exacte, il faut mettre ``/`` au début et à la fin.
+Par exemple::
 
-        <drop css:theme="#search" if-path="/blog/" />
+    <drop css:theme="#search" if-path="/blog/" />
 
-    va s'appliquer pour ``/blog``, et ``/blog/``, mais pas ``/blog/recent``.
+va s'appliquer pour ``/blog``, et ``/blog/``, mais pas ``/blog/recent``.
 
-    S'il n'y a de ``/`` ni à la fin ni au début, la correspondance se fait sur
-    n'importe quelle partie du chemin. Par exemple::
+S'il n'y a de ``/`` ni à la fin ni au début, la correspondance se fait sur
+n'importe quelle partie du chemin. Par exemple::
 
-        <drop css:theme="#search" if-path="interne/recent" />
+    <drop css:theme="#search" if-path="interne/recent" />
 
-    va s'appliquer pour ``/interne/recent``, ``/actualites/interne/recent``, et
-    ``/actualites/interne/recent/images``.
+va s'appliquer pour ``/interne/recent``, ``/actualites/interne/recent``, et
+``/actualites/interne/recent/images``.
 
-    On peut indiquer plusieurs conditions en les séparant par des espaces::
+On peut indiquer plusieurs conditions en les séparant par des espaces::
 
-        <drop css:theme="#search" if-path="/blog /agenda" />
+    <drop css:theme="#search" if-path="/blog /agenda" />
 
 Conditions sur des variables
 ++++++++++++++++++++++++++++
 
-    Le fichier ``manifest.cfg`` permet de définir des variables dans la section
-    ``[theme:parameters]``. Exemple::
+Le fichier ``manifest.cfg`` permet de définir des variables dans la section
+``[theme:parameters]``. Exemple::
 
-        [theme:parameters]
-        have_left_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.leftcolumn',context)
-        have_right_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.rightcolumn',context)
-        have_both_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.leftcolumn',context) and context.restrictedTraverse('@@plone').have_portlets('plone.rightcolumn',context)
-        lang = python:context.restrictedTraverse("@@plone_portal_state/language")()
+    [theme:parameters]
+    have_left_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.leftcolumn',context)
+    have_right_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.rightcolumn',context)
+    have_both_portlets = python:context.restrictedTraverse('@@plone').have_portlets('plone.leftcolumn',context) and context.restrictedTraverse('@@plone').have_portlets('plone.rightcolumn',context)
+    lang = python:context.restrictedTraverse("@@plone_portal_state/language")()
 
-    .. note:: les modifications du fichier ``manifest.cfg`` ne sont pas prises en compte lorsqu'on utilise l'éditeur en ligne. Il faut les saisir dans l'onglet **Paramètres avancés**.
+.. note:: les modifications du fichier ``manifest.cfg`` ne sont pas prises en compte lorsqu'on utilise l'éditeur en ligne. Il faut les saisir dans l'onglet **Paramètres avancés**.
 
-    L'attribut ``if`` (ou ``if-not``) permet d'utiliser ces variables en les
-    préfixant par un ``$``::
+L'attribut ``if`` (ou ``if-not``) permet d'utiliser ces variables en les
+préfixant par un ``$``::
 
-        <theme href="theme-two-left.html" if="$have_left_portlets"/>
-        <theme href="index-fr.html" if="$lang = 'fr'"/>
+    <theme href="theme-two-left.html" if="$have_left_portlets"/>
+    <theme href="index-fr.html" if="$lang = 'fr'"/>
 
 Groupement et encapsulation de conditions
 +++++++++++++++++++++++++++++++++++++++++
 
-    On peut regrouper des règles dans des balises ``<rules />`` afin de leur
-    appliquer des conditions communes::
+On peut regrouper des règles dans des balises ``<rules />`` afin de leur
+appliquer des conditions communes::
 
-        <rules
-            xmlns="http://namespaces.plone.org/diazo"
-            xmlns:css="http://namespaces.plone.org/diazo/css"
-            xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <rules
+        xmlns="http://namespaces.plone.org/diazo"
+        xmlns:css="http://namespaces.plone.org/diazo/css"
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-            <rules css:if-content=".portlet-alerte">
-                <after css:theme-children="#header" css:content=".portlet-alerte #message"/>
-                <before css:theme-children="#main" css:content=".portlet-alerte #warning-icon"/>
-            </rules>
-
-            ...
-
+        <rules css:if-content=".portlet-alerte">
+            <after css:theme-children="#header" css:content=".portlet-alerte #message"/>
+            <before css:theme-children="#main" css:content=".portlet-alerte #warning-icon"/>
         </rules>
 
-    Et on peut également mettre ces balises ``<rules />`` en cascade::
+        ...
 
-        <rules css:if-content=".section-Members">
-            <rules css:if-content=".portlet-alerte">
-                <after css:theme-children="#header" css:content=".portlet-alerte #message"/>
-            </rules>
-            <rules css:if-content=".portlet-todo">
-                <after css:theme-children="#header" css:content=".portlet-todo #message"/>
-            </rules>
+    </rules>
+
+Et on peut également mettre ces balises ``<rules />`` en cascade::
+
+    <rules css:if-content=".section-Members">
+        <rules css:if-content=".portlet-alerte">
+            <after css:theme-children="#header" css:content=".portlet-alerte #message"/>
         </rules>
+        <rules css:if-content=".portlet-todo">
+            <after css:theme-children="#header" css:content=".portlet-todo #message"/>
+        </rules>
+    </rules>
 
 Conditions sur ``<theme />``
 ++++++++++++++++++++++++++++
 
-    On peut fournir plusieurs directives ``<theme />``::
+On peut fournir plusieurs directives ``<theme />``::
 
-        <theme href="news.html" css:if-content=".section-news"/>
-        <theme href="members.html" css:if-content=".section-Members"/>
-        <theme href="index.html"/>
+    <theme href="news.html" css:if-content=".section-news"/>
+    <theme href="members.html" css:if-content=".section-Members"/>
+    <theme href="index.html"/>
 
-    Les différentes conditions sont testées dans l'ordre où elles sont fournies,
-    et c'est la première qui donne une correspondance qui est retenue.
+Les différentes conditions sont testées dans l'ordre où elles sont fournies,
+et c'est la première qui donne une correspondance qui est retenue.
 
-    En revanche les directives ``<notheme />`` ont toujours la priorité sur les
-    directives ``<theme />`` quel que soit l'ordre.
+En revanche les directives ``<notheme />`` ont toujours la priorité sur les
+directives ``<theme />`` quel que soit l'ordre.
 
-    Toutes les règles sont appliquées quelle que soit la directive ``<theme />``
-    retenue sauf si on utilise l'encapsulation::
+Toutes les règles sont appliquées quelle que soit la directive ``<theme />``
+retenue sauf si on utilise l'encapsulation::
 
-        <rules css:if-content=".section-news">
-            <theme href="news.html"/>
-            <copy css:content="h2.articleheading" css:theme="h1"/>
-        </rules>
+    <rules css:if-content=".section-news">
+        <theme href="news.html"/>
+        <copy css:content="h2.articleheading" css:theme="h1"/>
+    </rules>
 
 Modification du thème à la volée
 --------------------------------
 
-    On peut utiliser une règle pour injecter non pas du contenu mais du HTML
-    statique::
+On peut utiliser une règle pour injecter non pas du contenu mais du HTML
+statique::
 
-        <after theme-children="/html/head" if="$isUserBirthday">
-            <style type="text/css">
-                * { font-family: Comic Sans MS; }
-            </style>
-        </after>
+    <after theme-children="/html/head" if="$isUserBirthday">
+        <style type="text/css">
+            * { font-family: Comic Sans MS; }
+        </style>
+    </after>
 
-    On peut aussi modifier les éléments du thème. Par exemple::
+On peut aussi modifier les éléments du thème. Par exemple::
 
-        <replace css:theme="#details">
-            <dl id="details">
-                <xsl:for-each css:select="table#details > tr">
-                    <dt><xsl:copy-of select="td[1]/text()"/></dt>
-                    <dd><xsl:copy-of select="td[2]/node()"/></dd>
-                </xsl:for-each>
-            </dl>
-        </replace>
+    <replace css:theme="#details">
+        <dl id="details">
+            <xsl:for-each css:select="table#details > tr">
+                <dt><xsl:copy-of select="td[1]/text()"/></dt>
+                <dd><xsl:copy-of select="td[2]/node()"/></dd>
+            </xsl:for-each>
+        </dl>
+    </replace>
 
-    va convertir un tableau en une liste de dt/dd.
+va convertir un tableau en une liste de dt/dd.
 
-    .. note:: dans cet exemple on utilise ``css:select`` directement dans l'expression XSL car le pré-compilateur Diazo va faire la conversion en XPath.
+.. note:: dans cet exemple on utilise ``css:select`` directement dans l'expression XSL car le pré-compilateur Diazo va faire la conversion en XPath.
 
 Modification du contenu à la volée
 ----------------------------------
 
-    On peut modifier le contenu en utilisant la directive ``<replace />``::
+On peut modifier le contenu en utilisant la directive ``<replace />``::
 
-        <replace css:content="div#portal-searchbox input.searchButton">
-            <button type="submit">
-                <img src="images/search.png" alt="Search" />
-            </button>
-        </replace>
+    <replace css:content="div#portal-searchbox input.searchButton">
+        <button type="submit">
+            <img src="images/search.png" alt="Search" />
+        </button>
+    </replace>
 
 Modification du résultat par ``<xsl />``
 ----------------------------------------
 
-    Une fois toutes les règles appliquées, le rendu final peut encore être
-    modifié par des directives ``<xsl />``. Par exemple::
+Une fois toutes les règles appliquées, le rendu final peut encore être
+modifié par des directives ``<xsl />``. Par exemple::
 
-        <xsl:template match="input/@type[.='submit']">
-            <xsl:attribute name="class">btn</xsl:attribute>
-        </xsl:template>
+    <xsl:template match="input/@type[.='submit']">
+        <xsl:attribute name="class">btn</xsl:attribute>
+    </xsl:template>
 
-    va mettre ``class="btn"`` sur les inputs de type submit (``btn`` étant la
-    classe CSS Bootstrap pour les boutons, c'est un moyen intéressant de
-    satisfaire le markup d'un framework comme Bootstrap sans devoir modifier de
-    l'intérieur le markup produit par Plone).
-    
-    Pour ajouter une classe::
+va mettre ``class="btn"`` sur les inputs de type submit (``btn`` étant la
+classe CSS Bootstrap pour les boutons, c'est un moyen intéressant de
+satisfaire le markup d'un framework comme Bootstrap sans devoir modifier de
+l'intérieur le markup produit par Plone).
 
-        <xsl:template match="div/@class[contains(., 'summary')]">
-            <xsl:attribute name="class">draggable <xsl:value-of select="."/></xsl:attribute>
-        </xsl:template>
+Pour ajouter une classe::
 
-    va ajouter la classe ``draggable`` à tous les div portant la classe
-    ``summary``.
+    <xsl:template match="div/@class[contains(., 'summary')]">
+        <xsl:attribute name="class">draggable <xsl:value-of select="."/></xsl:attribute>
+    </xsl:template>
 
-    Autre exemple, pour transformer les portlets Plone dont le markup est::
+va ajouter la classe ``draggable`` à tous les div portant la classe
+``summary``.
 
-        <dl>
-            <dt>titre</dt>
-            <dd>un item</dd>
-            <dd>un autre item</dd>
-        </dl>
+Autre exemple, pour transformer les portlets Plone dont le markup est::
 
-    en un markup plus simple tel que::
+    <dl>
+        <dt>titre</dt>
+        <dd>un item</dd>
+        <dd>un autre item</dd>
+    </dl>
 
+en un markup plus simple tel que::
+
+    <div>
+        <h6>titre</h6>
         <div>
-            <h6>titre</h6>
-            <div>
-                un item
-                un autre item
-            </div>
+            un item
+            un autre item
         </div>
+    </div>
 
-    (notamment parce qu'il est utile d'avoir un wrapper du contenu du portlet
-    en entier, pour le rendre collapsible par exemple).
+(notamment parce qu'il est utile d'avoir un wrapper du contenu du portlet
+en entier, pour le rendre collapsible par exemple).
 
-    Cette transformation sera assurée par le template xsl suivant::
+Cette transformation sera assurée par le template xsl suivant::
 
-        <xsl:template match="dl[@class[contains(., 'portlet')]]">
-            <div class="portlet">
-                <h6 class="portlet-header">
-                    <xsl:copy-of select="./dt/*" />
-                </h6>
-                <xsl:apply-templates select="./dd" />
-            </div>
-        </xsl:template>
+    <xsl:template match="dl[@class[contains(., 'portlet')]]">
+        <div class="portlet">
+            <h6 class="portlet-header">
+                <xsl:copy-of select="./dt/*" />
+            </h6>
+            <xsl:apply-templates select="./dd" />
+        </div>
+    </xsl:template>
 
-    .. note:: les directives ``<xsl />`` doivent être placées à la racine de la balises ``<rules />`` principale, et elles sont appliquées de façon inconditionnelle.
+.. note:: les directives ``<xsl />`` doivent être placées à la racine de la balises ``<rules />`` principale, et elles sont appliquées de façon inconditionnelle.
 
 Factorisation
 -------------
 
-    On peut ré-utiliser des règles dans différents thèmes Diazo en utilisant la
-    balise ``<xi:include />``. Exemple::
+On peut ré-utiliser des règles dans différents thèmes Diazo en utilisant la
+balise ``<xi:include />``. Exemple::
 
-        <xi:include href="standard-rules.xml" />
+    <xi:include href="standard-rules.xml" />
 
 Insertion de contenu externe
 ----------------------------
 
-    Normalement le contenu est fourni par la page Plone correspondant à l'URL
-    demandée.
+Normalement le contenu est fourni par la page Plone correspondant à l'URL
+demandée.
 
-    Mais en utilisant l'attribut ``href``, on peut demander à une règle
-    d'utiliser une autre page::
+Mais en utilisant l'attribut ``href``, on peut demander à une règle
+d'utiliser une autre page::
 
-        <append css:theme="#right-column" css:content="#content" href="/Plone/Members" />
+    <append css:theme="#right-column" css:content="#content" href="/Plone/Members" />
 
-    On peut même aller chercher une page servie par un autre serveur si on
-    active le mode réseau dans les **Paramètres avancés** de Diazo::
+On peut même aller chercher une page servie par un autre serveur si on
+active le mode réseau dans les **Paramètres avancés** de Diazo::
 
-        <append css:theme="#right-column" css:content="#current" href="http://www.plone.org/" />
+    <append css:theme="#right-column" css:content="#current" href="http://www.plone.org/" />
 
-    .. note:: cela rend le site courant dépendant d'un service extérieur, c'est donc relativement risqué, car si ce serveur externe n'est pas disponible, le thème est cassé.
+.. note:: cela rend le site courant dépendant d'un service extérieur, c'est donc relativement risqué, car si ce serveur externe n'est pas disponible, le thème est cassé.
 
-    On peut utiliser des méthodes d'insertion plus robustes si on dispose d'un
-    frontal web proposant SSI ou ESI::
+On peut utiliser des méthodes d'insertion plus robustes si on dispose d'un
+frontal web proposant SSI ou ESI::
 
-        <after css:theme-children="#left-column" css:content="#portlet"
-            href="/extra.html" method="ssi"/>
+    <after css:theme-children="#left-column" css:content="#portlet"
+        href="/extra.html" method="ssi"/>
 
-        <after css:theme-content="#left-column" css:content="#portlet"
-            href="/extra.html" method="esi"/>
+    <after css:theme-content="#left-column" css:content="#portlet"
+        href="/extra.html" method="esi"/>
 
 Insertion d'un fichier HTML du thème
 ++++++++++++++++++++++++++++++++++++
 
-    Avec cette même approche, on peut inclure un fichier HTML statique du thème
-    en utilisant son chemin propre::
+Avec cette même approche, on peut inclure un fichier HTML statique du thème
+en utilisant son chemin propre::
 
-        <append css:theme="#right-column"
-                css:content="body"
-                href="/Plone/++theme++montheme/footer.html" />
+    <append css:theme="#right-column"
+            css:content="body"
+            href="/Plone/++theme++montheme/footer.html" />
 
 Bonnes pratiques et techniques standards
 ----------------------------------------
@@ -765,11 +731,11 @@ Debugging
 Lorsqu'on fait fonctionner Zope en mode debug (à priori quand on l'a lancé avec
 ``bin/ploncectl fg``), on peut ajouter des commandes diazo dans l'url:
 
-    - ``?diazo.debug=1`` (par exemple ``http://localhost:8080/Plone?diazo.debug=1``) va afficher à l'écran les traces d'éxécution de Diazo (les erreurs, les règles appliquées (en vert), les règles écratées (en rouge))
+- ``?diazo.debug=1`` (par exemple ``http://localhost:8080/Plone?diazo.debug=1``) va afficher à l'écran les traces d'éxécution de Diazo (les erreurs, les règles appliquées (en vert), les règles écratées (en rouge))
 
-      .. image:: images/debug.png
+.. image:: images/debug.png
 
-    - ``?diazo.off=1`` (par exemple ``http://localhost:8080/Plone?diazo.off=1``) va désactiver Diazo, de manière par exemple à pouvoir inspecter la page non thémée plus facilement.
+- ``?diazo.off=1`` (par exemple ``http://localhost:8080/Plone?diazo.off=1``) va désactiver Diazo, de manière par exemple à pouvoir inspecter la page non thémée plus facilement.
 
 Accès spécial non-thémé
 +++++++++++++++++++++++
