@@ -193,6 +193,6 @@ FAQ
 **Q :** J'ai ajouté une entrée d'index ou un nouveau terme dans le glossaire et
 ce n'est pas suivi d'effet lorsque je compile la doc.
 
-**R :** L'index de sphinx est parfois paumée et la gestion des dépendances est
+**R :** L'index de sphinx est parfois paumé et la gestion des dépendances est
 parfois perfectible. Il faut donc tout réinitialiser avec la commande ``make
 clean``.
