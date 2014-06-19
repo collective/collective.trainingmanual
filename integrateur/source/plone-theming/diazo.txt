@@ -725,6 +725,12 @@ Pour une modification::
         <xsl:attribute name="src"><xsl:value-of select="." />/@@/images/image/thumb</xsl:attribute>
     </xsl:template> 
 
+Autre exemple, supprimer une classe CSS (sans supprimer les autres)::
+
+    <xsl:template match="form/@class[contains(., 'enableFormTabbing')]">
+        <xsl:attribute name="class"><xsl:value-of select="concat(substring-before(., 'enableFormTabbing'), substring-after(., 'enableFormTabbing'))"/></xsl:attribute>
+    </xsl:template>
+
 Debugging
 +++++++++
 
