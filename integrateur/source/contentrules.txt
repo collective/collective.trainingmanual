@@ -88,7 +88,7 @@ Créer une condition
 
 La règle a deux conditions : il doit s'agir d'une actualité, et la transition doit être une soumission à la publication.
 
-Dans la partie `Si toutes les conditions suivantes sont remplies`, sélectionnez `Content type` (Type de contenu), et `Ajouter`
+Dans la partie `Si toutes les conditions suivantes sont remplies`, sélectionnez `Type de contenu`, et `Ajouter`
 
 Choisissez le type de contenu `Actualité`, puis enregistrez. La condition a été ajoutée.
 
@@ -98,17 +98,17 @@ Choisissez le type de contenu `Actualité`, puis enregistrez. La condition a ét
 .. figure:: ./contentrules_images/condition-ajoutee.jpg
     :align: center
 
-De même, ajoutez la condition sur la transition : sélectionnez `Ajouter une transition` > `Workflow transition` puis `Ajouter`.
-Choisissez `Submit for publication` puis enregistrez.
+De même, ajoutez la condition sur la transition : sélectionnez `Ajouter une condition` > `Transition de workflow` puis `Ajouter`.
+Choisissez `Soumettre à la publication [submit]` puis enregistrez.
 
 Créer une action
 ================
 
-On veut que le modérateur reçoive un mail. Pour `Effectue les actions suivantes`, sélectionnez `Ajouter une action` > `Send email`, puis `Ajouter`.
+On veut que le modérateur reçoive un mail. Pour `Effectue les actions suivantes`, sélectionnez `Ajouter une action` > `Envoyer courriel`, puis `Ajouter`.
 
 Vous arrivez sur la page de paramétrage de l'email. Vous définissez ici le sujet, le texte, les destinataires, etc, en utilisant un certain nombre de variables fournies de base par Plone.
 
-Indiquez le sujet de l'email : `L'actu ${title} est en attente de votre validation`. L'emplacement ${title} sera remplacé par le titre du document au moment de l'envoi.
+Indiquez le sujet de l'email : `L'actualité ${title} est en attente de validation`. L'emplacement ${title} sera remplacé par le titre du document au moment de l'envoi.
 
 Comme source du courriel, ne mettez rien : ainsi, la source sera l'adresse du portail.
 
@@ -121,12 +121,9 @@ Entrez enfin un message comme sur cette copie d'écran :
 
 Enregistrez ; votre action a été ajoutée.
 
-.. figure:: ./contentrules_images/editer-action-courriel.jpg
-    :align: center
-
 Imaginons que les contributeurs de l'intranet craignent que leur demande ne soit pas prise en compte. Nous allons ajouter un message leur indiquant que les modérateurs ont reçu un mail.
 
-Faites `Ajouter une action` > `Notify user`, puis `Ajouter`.
+Faites `Ajouter une action` > `Notifier l'utilisateur`, puis `Ajouter`.
 
 Indiquez comme message : `Les modérateurs ont été notifiés par mail de votre demande.`, conservez `info` comme type de message, puis enregistrez.
 
@@ -205,18 +202,18 @@ Exemple 3 : Déplacer les événements dans un même dossier, où qu'ils soient 
 
 Imaginons que nous voulions regrouper tous les événements du site dans un seul dossier, sans contraindre l'utilisateur à être à un endroit particulier du site lorsqu'il ajoute un tel élément.
 
-Ajoutez une nouvelle règle, que vous appelerez `Un événement a été ajouté`, avec le déclencheur `Object added to this container`.
+Ajoutez une nouvelle règle, que vous appelerez `Un événement a été ajouté`, avec le déclencheur `Objet ajouté au dossier`.
 
 Associez-lui la condition : `Type de contenu` : `Événement`.
 
-Ajoutez ensuite l'action `Move to folder`, et choisissez le dossier `Événements`.
+Ajoutez ensuite l'action `Déplacer vers dossier`, et choisissez le dossier `Événements`.
 
 .. figure:: ./contentrules_images/ajouter-action-move.jpg
     :align: center
 
-Au niveau du dossier `Internet`, activez cette règle, et rendez-la applicable à tous les dossiers.
+Dans `Affectations`, cliquez sur le bouton `Appliquer la règle sur l'ensemble du site`.
 
-Dans ce même dossier, ajoutez un événement. Allez ensuite dans le dossier `Événements`, vous verrez qu'il y a été déplacé. Revenez dans le dossier `Internet` : il n'y est plus.
+Dans le dossier `Internet`, ajoutez un événement. Allez ensuite dans le dossier `Événements`, vous verrez qu'il y a été déplacé. Revenez dans le dossier `Internet` : il n'y est plus.
 
 Export Generic Setup
 ====================
